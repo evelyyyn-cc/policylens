@@ -1,0 +1,755 @@
+// Variables
+
+$primary-color: #1e3a8a;
+$secondary-color: #3b82f6;
+$accent-color: #f59e0b;
+$light-bg: #f1f5f9;
+$dark-text: #1e293b;
+$medium-text: #4b5563;
+$light-text: #64748b;
+$white: #ffffff;
+$shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+$transition: all 0.3s ease;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin section-padding {
+  padding: 4rem 2rem;
+}
+
+// Reset and Base Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html, body {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+section {
+  min-height: 100vh;
+  width: 100%;
+  @include flex-column;
+  justify-content: center;
+}
+
+// Button Styles
+.cta-button {
+  background-color: $primary-color;
+  color: $white;
+  padding: 0.75rem 2rem;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: $transition;
+  display: inline-block;
+  
+  &:hover {
+    background-color: darken($primary-color, 5%);
+    transform: translateY(-2px);
+  }
+}
+
+// Header Styles
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: $white;
+  padding: 1rem 2rem;
+  z-index: 1000;
+  box-shadow: $shadow;
+  
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      color: $primary-color;
+      font-size: 1.5rem;
+      
+      span {
+        color: $accent-color;
+      }
+
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      
+      a {
+        color: $primary-color;
+        font-weight: 500;
+        position: relative;
+        padding-bottom: 5px;
+        
+        &.active, &:hover {
+          &::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: $secondary-color;
+            bottom: 0;
+            left: 0;
+          }
+        }
+      }
+    }
+    
+    .language-selector {
+      position: relative;
+      font-size: 0.9rem;
+      z-index: 1001;
+      
+      .selected-language {
+        background-color: $light-bg;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        
+        &:hover {
+          background-color: darken($light-bg, 5%);
+        }
+      }
+      
+      .language-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: $white;
+        border-radius: 8px;
+        margin-top: 0.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 160px;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(-10px);
+        pointer-events: none;
+        transition: all 0.3s ease;
+        
+        li {
+          padding: 0.75rem 1rem;
+          cursor: pointer;
+          list-style: none;
+          transition: $transition;
+          
+          &:hover {
+            background-color: $light-bg;
+          }
+          
+          &.active {
+            background-color: $secondary-color;
+            color: $white;
+          }
+        }
+      }
+      
+      &:hover .language-dropdown,
+      &:focus-within .language-dropdown {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: all;
+      }
+    }
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      
+      span {
+        width: 25px;
+        height: 3px;
+        background-color: $primary-color;
+        transition: $transition;
+      }
+      
+      &.active {
+        span {
+          &:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+          }
+          
+          &:nth-child(2) {
+            opacity: 0;
+          }
+          
+          &:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Hero Section
+#hero {
+  background-color: $white;
+  text-align: center;
+  padding-top: 100px;
+  @include section-padding;
+  
+  .hero-content {
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      
+      .blue {
+        color: $primary-color;
+      }
+      
+      .light-blue {
+        color: $secondary-color;
+      }
+    }
+    
+    p {
+      max-width: 600px;
+      margin: 0 auto;
+      color: $medium-text;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+    
+    .scroll-indicator {
+      margin-top: 3rem;
+      animation: bounce 2s infinite;
+      
+      p {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+// Featured Policy Section
+#featured-policy {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/images/politician.svg');
+  background-size: cover;
+  background-position: center;
+  color: $white;
+  text-align: center;
+  @include flex-column;
+  justify-content: center;
+  
+  .featured-content {
+    max-width: 800px;
+    margin: 0 auto;
+    
+    h2 {
+      font-size: 2.25rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    p {
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    
+    .dots-container {
+      margin-top: 3rem;
+      @include flex-center;
+      gap: 0.5rem;
+      
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: rgba($white, 0.3);
+        cursor: pointer;
+        transition: $transition;
+        
+        &.active {
+          background-color: $white;
+        }
+      }
+    }
+  }
+}
+
+// Stats Section
+#stats {
+  background-color: $secondary-color;
+  color: $white;
+  min-height: 60vh;
+  
+  .stats-container {
+    display: flex;
+    width: 100%;
+    min-height: 60vh;
+    
+    .stats-text {
+      flex: 1;
+      padding: 2rem;
+      @include flex-column;
+      justify-content: center;
+      
+      p {
+        font-size: 2rem;
+        line-height: 1.6;
+      }
+    }
+    
+    .stats-numbers {
+      flex: 1;
+      background-color: $light-bg;
+      color: $primary-color;
+      padding: 2rem;
+      @include flex-column;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      
+      .stat-item {
+        text-align: center;
+        
+        .stat-number {
+          font-size: 3rem;
+          font-weight: bold;
+          margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+          color: $light-text;
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+}
+
+// What We Do Section
+#what-we-do {
+  background-color: $white;
+  text-align: center;
+  @include section-padding;
+  
+  .section-title {
+    color: $primary-color;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .what-we-do-text {
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
+    line-height: 1.6;
+    color: $medium-text;
+    
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+  }
+  
+  .services {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    
+    .service-card {
+      background-color: $light-bg;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 250px;
+      height: 250px;
+      @include flex-column;
+      align-items: center;
+      justify-content: center;
+      transition: $transition;
+      
+      &:hover {
+        transform: translateY(-10px);
+        box-shadow: $shadow;
+      }
+      
+      .service-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: $primary-color;
+      }
+      
+      .service-title {
+        font-weight: 600;
+        color: $primary-color;
+        text-align: center;
+      }
+    }
+  }
+}
+
+// Why It Matters Section
+#why-matters {
+  display: flex;
+  min-height: 80vh;
+  
+  .video-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      @include flex-center;
+      padding: 2rem;
+      color: $white;
+      
+      .video-title {
+        position: absolute;
+        top: 25%;
+        left: 10%;
+        max-width: 60%;
+        
+        h3 {
+          margin-bottom: 0.5rem;
+          font-size: 1.5rem;
+        }
+        
+        p {
+          font-size: 0.9rem;
+          margin: 0.5rem 0;
+        }
+        
+        h4 {
+          font-size: 1.2rem;
+        }
+      }
+      
+      .video-play-container {
+        position: absolute;
+        right: 15%;
+        bottom: 20%;
+        @include flex-center;
+        
+        .video-play {
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          border: 2px solid $white;
+          @include flex-center;
+          flex-direction: column;
+          
+          p {
+            font-size: 0.9rem;
+            margin-bottom: -5px;
+          }
+          
+          .timer {
+            font-size: 2.5rem;
+            font-weight: bold;
+            
+            span {
+              font-size: 1rem;
+              display: block;
+              text-align: center;
+              margin-top: -10px;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  .why-matters-content {
+    flex: 1;
+    background-color: $secondary-color;
+    color: $white;
+    padding: 3rem;
+    @include flex-column;
+    justify-content: center;
+    
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    p {
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      max-width: 500px;
+      line-height: 1.6;
+    }
+  }
+}
+
+// Who We Are Section
+#who-we-are {
+  @include section-padding;
+  
+  .container {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    
+    .who-content {
+      flex: 1;
+      
+      .section-title {
+        color: $primary-color;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      p {
+        margin-bottom: 1.5rem;
+        color: $medium-text;
+        line-height: 1.6;
+      }
+    }
+    
+    .who-image {
+      flex: 1;
+      
+      img {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: $shadow;
+      }
+    }
+  }
+}
+
+// Footer
+footer {
+  background-color: #333;
+  color: $white;
+  padding: 2rem;
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      
+      span {
+        color: $accent-color;
+      }
+      
+    }
+    
+    .quick-links {
+      @include flex-column;
+      gap: 1rem;
+      
+      h3 {
+        margin-bottom: 0.5rem;
+      }
+      
+      a {
+        color: darken($white, 20%);
+        transition: $transition;
+        
+        &:hover {
+          color: $white;
+        }
+      }
+    }
+  }
+}
+
+// Animation Classes
+.transition-element {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  
+  &.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+  
+  &.animated {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Header Scroll Effects
+header {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  
+  &.scrolled {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background-color: rgba($white, 0.95);
+  }
+  
+  &.header-hidden {
+    transform: translateY(-100%);
+  }
+}
+
+// Media Queries
+@media (max-width: 992px) {
+  #why-matters {
+    flex-direction: column;
+    
+    .video-container, .why-matters-content {
+      min-height: 60vh;
+    }
+  }
+  
+  #who-we-are .container {
+    flex-direction: column-reverse;
+  }
+}
+
+@media (max-width: 768px) {
+  header nav {
+    .nav-links {
+      position: fixed;
+      top: 70px;
+      left: -100%;
+      flex-direction: column;
+      background-color: $white;
+      width: 100%;
+      height: calc(100vh - 70px);
+      padding: 2rem;
+      transition: $transition;
+      gap: 1.5rem;
+      
+      &.active {
+        left: 0;
+      }
+    }
+    
+    .hamburger {
+      display: flex;
+    }
+  }
+  
+  #hero .hero-content h1 {
+    font-size: 2rem;
+  }
+  
+  #stats .stats-container {
+    flex-direction: column;
+  }
+  
+  #why-matters .video-container .video-overlay {
+    .video-title {
+      top: 10%;
+      left: 5%;
+      max-width: 90%;
+    }
+    
+    .video-play-container {
+      right: 5%;
+      bottom: 10%;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  header nav {
+    .language-selector {
+      display: none;
+    }
+  }
+  
+  #hero .hero-content h1 {
+    font-size: 1.8rem;
+  }
+  
+  #featured-policy .featured-content h2 {
+    font-size: 1.8rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem !important;
+  }
+  
+  #why-matters .video-container .video-overlay {
+    .video-title {
+      h3 {
+        font-size: 1.2rem;
+      }
+    }
+    
+    .video-play-container .video-play {
+      width: 100px;
+      height: 100px;
+      
+      .timer {
+        font-size: 2rem;
+      }
+    }
+  }
+  
+  .services .service-card {
+    width: 100%;
+  }
+}
