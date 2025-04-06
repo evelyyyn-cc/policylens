@@ -1,0 +1,43 @@
+# Operating System files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Log files
+*.log
+
+# Dependency directories
+node_modules/
+vendor/
+
+# Build and distribution folders
+dist/
+build/
+
+# Compiled files
+*.class
+*.o
+*.out
+
+# Editor and IDE settings
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Temporary and backup files
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Python-specific files
+*.pyc
+*.pyo
+__pycache__/
+env/
+venv/
+.venv/
+
+# Ruby-specific files
+.bundle/
