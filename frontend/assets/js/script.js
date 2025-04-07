@@ -1,4 +1,4 @@
-});// Wait for DOM to be fully loaded
+// Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile Navigation Toggle
     const hamburger = document.getElementById('hamburger');
@@ -8,7 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
         hamburger.addEventListener('click', function() {
             hamburger.classList.toggle('active');
             navLinks.classList.toggle('active');
-            // Add CSS class for scroll animation effects
+        });
+    }
+    
+    // Add CSS class for scroll animation effects
     const addScrollAnimations = () => {
         const elements = document.querySelectorAll('.animate-on-scroll');
         
@@ -31,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     addScrollAnimations();
-    }
     
     // Featured Policy Slider
     const dots = document.querySelectorAll('.dot');
@@ -182,15 +184,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Language selector dropdown
+    // Language selector dropdown with click toggle
     const languageSelector = document.querySelector('.language-selector');
     if (languageSelector) {
         const selectedLanguage = languageSelector.querySelector('.selected-language span');
         const languageOptions = languageSelector.querySelectorAll('.language-dropdown li');
         
+        // Toggle dropdown on click
+        languageSelector.querySelector('.selected-language').addEventListener('click', function(e) {
+            e.stopPropagation();
+            languageSelector.classList.toggle('active');
+        });
+        
+        // Close dropdown when clicking elsewhere
+        document.addEventListener('click', function(e) {
+            if (!languageSelector.contains(e.target)) {
+                languageSelector.classList.remove('active');
+            }
+        });
+        
         // Handle language selection
         languageOptions.forEach(option => {
-            option.addEventListener('click', function() {
+            option.addEventListener('click', function(e) {
+                e.stopPropagation();
+                
                 // Update selected language text
                 selectedLanguage.textContent = this.textContent;
                 
@@ -207,13 +224,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Example of how you might change the language (placeholder logic)
                 document.documentElement.lang = langCode;
                 
-                // Close dropdown (optional - the CSS handles this automatically on mouseleave)
-                // For mobile, you might want this explicit close
-                document.addEventListener('click', function closeDropdown(e) {
-                    if (!languageSelector.contains(e.target)) {
-                        document.removeEventListener('click', closeDropdown);
-                    }
-                });
+                // Close dropdown
+                languageSelector.classList.remove('active');
             });
         });
     }
