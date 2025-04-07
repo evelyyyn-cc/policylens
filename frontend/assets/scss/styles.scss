@@ -158,9 +158,11 @@ header {
         width: 160px;
         overflow: hidden;
         opacity: 0;
+        visibility: hidden;
         transform: translateY(-10px);
         pointer-events: none;
         transition: all 0.3s ease;
+        padding: 0;;
         
         li {
           padding: 0.75rem 1rem;
@@ -180,10 +182,21 @@ header {
       }
       
       &:hover .language-dropdown,
-      &:focus-within .language-dropdown {
+      &:focus-within .language-dropdown,
+      &.active .language-dropdown {
         opacity: 1;
+        visibility: visible;
         transform: translateY(0);
         pointer-events: all;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        height: 15px;
+        width: 100%;
+        bottom: -15px;
+        left: 0;
       }
     }
     
@@ -273,7 +286,7 @@ header {
 
 // Featured Policy Section
 #featured-policy {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/images/politician.svg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/frontend/assets/images/politician.svg');
   background-size: cover;
   background-position: center;
   color: $white;

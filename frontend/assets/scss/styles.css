@@ -116,9 +116,11 @@ header nav .language-selector .language-dropdown {
   width: 160px;
   overflow: hidden;
   opacity: 0;
+  visibility: hidden;
   transform: translateY(-10px);
   pointer-events: none;
   transition: all 0.3s ease;
+  padding: 0;
 }
 header nav .language-selector .language-dropdown li {
   padding: 0.75rem 1rem;
@@ -133,10 +135,19 @@ header nav .language-selector .language-dropdown li.active {
   background-color: #3b82f6;
   color: #ffffff;
 }
-header nav .language-selector:hover .language-dropdown, header nav .language-selector:focus-within .language-dropdown {
+header nav .language-selector:hover .language-dropdown, header nav .language-selector:focus-within .language-dropdown, header nav .language-selector.active .language-dropdown {
   opacity: 1;
+  visibility: visible;
   transform: translateY(0);
   pointer-events: all;
+}
+header nav .language-selector:after {
+  content: "";
+  position: absolute;
+  height: 15px;
+  width: 100%;
+  bottom: -15px;
+  left: 0;
 }
 header nav .hamburger {
   display: none;
@@ -203,7 +214,7 @@ header nav .hamburger.active span:nth-child(3) {
   }
 }
 #featured-policy {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("/assets/images/politician.svg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("/frontend/assets/images/politician.svg");
   background-size: cover;
   background-position: center;
   color: #ffffff;
