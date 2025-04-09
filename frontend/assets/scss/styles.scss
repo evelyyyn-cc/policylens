@@ -693,15 +693,39 @@ header {
       padding: 2rem;
       transition: $transition;
       gap: 1.5rem;
-      
+      overflow-y: auto; // Allow scrolling if many menu items
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      z-index: 999;
       &.active {
         left: 0;
+      }
+      a {
+        font-size: 1.1rem; // Larger font for better touch targets
+        padding: 0.5rem 0; // Increased touch area
+        width: 100%; // Full width for easier tapping
+        display: block;
       }
     }
     
     .hamburger {
       display: flex;
+      z-index: 1000;
     }
+  }
+
+  body.menu-open {
+    overflow: hidden;
+  }
+  
+  header {
+    &.header-hidden {
+      transform: translateY(0); // Disable auto-hide on mobile
+    }
+  }
+
+  section {
+    min-height: auto; // Don't force full viewport height on mobile
+    padding: 3rem 1rem; // More reasonable padding
   }
   
   #hero .hero-content h1 {
