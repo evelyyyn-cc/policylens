@@ -461,6 +461,7 @@ header nav .hamburger.active span:nth-child(3) {
 }
 #who-we-are .container .who-content {
   flex: 1;
+  max-width: 50%;
 }
 #who-we-are .container .who-content .section-title {
   color: #1e3a8a;
@@ -474,11 +475,14 @@ header nav .hamburger.active span:nth-child(3) {
 }
 #who-we-are .container .who-image {
   flex: 1;
+  max-width: 50%;
 }
 #who-we-are .container .who-image img {
   width: 100%;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 footer {

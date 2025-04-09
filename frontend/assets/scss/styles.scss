@@ -24,7 +24,7 @@ $transition: all 0.3s ease;
 }
 
 @mixin section-padding {
-  padding: 4rem 2rem;
+  padding: 3rem 2rem;
 }
 
 // Reset and Base Styles
@@ -551,6 +551,8 @@ header {
 // Who We Are Section
 #who-we-are {
   @include section-padding;
+  padding-bottom: 2rem;
+  min-height: 30vh;
   
   .container {
     display: flex;
@@ -559,6 +561,7 @@ header {
     
     .who-content {
       flex: 1;
+      max-width: 50%;
       
       .section-title {
         color: $primary-color;
@@ -575,11 +578,13 @@ header {
     
     .who-image {
       flex: 1;
+      max-width: 50%;
       
       img {
         width: 100%;
         border-radius: 10px;
         box-shadow: $shadow;
+        object-fit: cover;
       }
     }
   }
@@ -725,7 +730,7 @@ header {
 
   section {
     min-height: auto; // Don't force full viewport height on mobile
-    padding: 3rem 1rem; // More reasonable padding
+    padding: 2.5rem 1rem; // More reasonable padding
   }
   
   #hero .hero-content h1 {
