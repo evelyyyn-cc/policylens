@@ -1,3 +1,9 @@
+const isMobileDevice = () => {
+    return (window.innerWidth <= 768) || 
+           (window.navigator.userAgent.match(/Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i));
+  };
+
+
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile Navigation Toggle
