@@ -570,12 +570,32 @@ header.header-hidden {
     padding: 2rem;
     transition: all 0.3s ease;
     gap: 1.5rem;
+    overflow-y: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    z-index: 999;
   }
   header nav .nav-links.active {
     left: 0;
   }
+  header nav .nav-links a {
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    width: 100%;
+    display: block;
+  }
   header nav .hamburger {
     display: flex;
+    z-index: 1000;
+  }
+  body.menu-open {
+    overflow: hidden;
+  }
+  header.header-hidden {
+    transform: translateY(0);
+  }
+  section {
+    min-height: auto;
+    padding: 3rem 1rem;
   }
   #hero .hero-content h1 {
     font-size: 2rem;
@@ -595,7 +615,17 @@ header.header-hidden {
 }
 @media (max-width: 576px) {
   header nav .language-selector {
-    display: none;
+    display: block;
+    position: static;
+    margin-top: 1rem;
+  }
+  header nav .language-selector .selected-language {
+    justify-content: center;
+  }
+  header nav .language-selector .language-dropdown {
+    width: 100%;
+    position: relative;
+    text-align: center;
   }
   #hero .hero-content h1 {
     font-size: 1.8rem;
