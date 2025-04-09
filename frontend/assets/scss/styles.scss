@@ -753,7 +753,19 @@ header {
 @media (max-width: 576px) {
   header nav {
     .language-selector {
-      display: none;
+      display: block;
+      position:static;
+      margin-top: 1rem;
+
+      .selected-language{
+        justify-content: center;
+      }
+
+      .language-dropdown{
+        width:100%;
+        position:relative;
+        text-align:center;
+      }
     }
   }
   
