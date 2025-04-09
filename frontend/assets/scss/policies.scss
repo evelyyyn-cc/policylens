@@ -84,12 +84,8 @@
   
   .policies-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
-    
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr;
-    }
   }
   
   .policy-card {
@@ -161,6 +157,21 @@
       font-size: 2rem;
     }
   }
+  
+  #policies-grid .policies-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  #policies-grid .policies-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  #policies-grid .policy-card {
+    min-height: 300px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -171,5 +182,29 @@
   
   .policy-card {
     min-height: 350px;
+  }
+  
+  #policies-grid .policy-card .policy-content {
+    h3 {
+      font-size: 1.3rem;
+    }
+    
+    p {
+      margin-bottom: 1rem;
+    }
+    
+    .read-more-btn {
+      padding: 0.4rem 1rem;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+@media (hover: none) {
+  #policies-grid .policy-card {
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
   }
 }
