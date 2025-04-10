@@ -245,7 +245,7 @@ header nav .hamburger.active span:nth-child(3) {
   }
 }
 #featured-policy {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("/frontend/assets/images/politician.svg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("../images/politician.svg");
   background-size: cover;
   background-position: center;
   color: #ffffff;
