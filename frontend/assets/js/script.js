@@ -4,6 +4,59 @@ const isMobileDevice = () => {
   };
 
 
+  document.addEventListener('DOMContentLoaded', function() {
+    const videoThumbnail = document.getElementById('videoThumbnail');
+    const youtubeIframe = document.getElementById('youtubeIframe');
+    
+    if (videoThumbnail && youtubeIframe) {
+        // When thumbnail is clicked, show iframe and start video
+        videoThumbnail.addEventListener('click', function() {
+            // Get the iframe
+            const iframe = youtubeIframe.querySelector('iframe');
+            
+            // Set the actual src from data-src to start loading the video
+            iframe.src = iframe.getAttribute('data-src');
+            
+            // Hide thumbnail and show iframe
+            videoThumbnail.style.display = 'none';
+            youtubeIframe.style.display = 'block';
+            
+            // Optional: Hide some overlay elements when video plays
+            const videoTitle = document.querySelector('.video-title');
+            if (videoTitle) {
+                videoTitle.style.opacity = '0.3'; // Fade out the title when video plays
+            }
+        });
+    }
+    
+    // Function to handle responsive video sizing
+    const handleVideoResize = () => {
+        const videoContainer = document.querySelector('.video-container');
+        if (videoContainer) {
+            // Adjust height based on width to maintain aspect ratio if needed
+            const containerWidth = videoContainer.offsetWidth;
+            const aspectRatio = 16 / 9;
+            
+            // Set a minimum height on smaller screens
+            if (window.innerWidth <= 576) {
+                videoContainer.style.minHeight = '250px';
+            } else if (window.innerWidth <= 768) {
+                videoContainer.style.minHeight = '300px';
+            } else if (window.innerWidth <= 992) {
+                videoContainer.style.minHeight = '350px';
+            } else {
+                videoContainer.style.minHeight = '400px';
+            }
+        }
+    };
+    
+    // Run on page load
+    handleVideoResize();
+    
+    // Run on window resize
+    window.addEventListener('resize', handleVideoResize);
+});  
+
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile Navigation Toggle
@@ -254,6 +307,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 languageSelector.classList.remove('active');
             });
         });
+        
     }
     
     // Counter animation for stats section

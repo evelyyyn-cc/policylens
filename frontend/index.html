@@ -121,23 +121,28 @@
     <!-- Why It Matters Section -->
     <section id="why-matters">
         <div class="video-container">
-            <img src="/api/placeholder/600/600" alt="Video Thumbnail">
-            <div class="video-overlay">
-                <div class="video-title">
-                    <h3>OPEN GOVERNMENT:</h3>
-                    <h3>WHY TRANSPARENCY MATTERS</h3>
-                    <h3>FOR PUBLIC POLICY ANALYSIS</h3>
-                    <p>as told by</p>
-                    <h4>MATT JENSEN</h4>
-                    <p>MANAGING DIRECTOR, OPEN SOURCE POLICY CENTER</p>
-                </div>
-                <div class="video-play-container">
-                    <div class="video-play">
-                        <p>in</p>
-                        <div class="timer">60<span>sec</span></div>
+            <div class="youtube-video-wrapper">
+                <!-- YouTube thumbnail with play button overlay -->
+                <div class="video-thumbnail" id="videoThumbnail">
+                    <img src="https://img.youtube.com/vi/94MH1V5_dtQ/maxresdefault.jpg" alt="Video Thumbnail">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
                     </div>
                 </div>
+                <!-- YouTube iframe (hidden initially) -->
+                <div class="youtube-iframe" id="youtubeIframe" style="display: none;">
+                    <iframe 
+                        width="100%" 
+                        height="100%" 
+                        src="about:blank" 
+                        data-src="https://www.youtube.com/embed/94MH1V5_dtQ?autoplay=1" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
             </div>
+
         </div>
         <div class="why-matters-content">
             <h2 class="section-title">Why it Matters?</h2>

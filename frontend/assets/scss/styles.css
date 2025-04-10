@@ -393,12 +393,61 @@ header nav .hamburger.active span:nth-child(3) {
   flex: 1;
   position: relative;
   overflow: hidden;
+  min-height: 400px;
 }
-#why-matters .video-container img {
+#why-matters .video-container .youtube-video-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16/9;
+  background-color: #000;
+}
+#why-matters .video-container .video-thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+#why-matters .video-container .video-thumbnail img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+}
+#why-matters .video-container .video-thumbnail .play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.8rem;
+  transition: all 0.3s ease;
+  border: 2px solid white;
+}
+#why-matters .video-container .video-thumbnail .play-button:hover {
+  background-color: rgba(255, 0, 0, 0.8);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+#why-matters .video-container .youtube-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#why-matters .video-container .youtube-iframe iframe {
+  width: 100%;
+  height: 100%;
 }
 #why-matters .video-container .video-overlay {
   position: absolute;
@@ -412,6 +461,7 @@ header nav .hamburger.active span:nth-child(3) {
   align-items: center;
   padding: 2rem;
   color: #ffffff;
+  pointer-events: none; /* Allow clicks to pass through to the video */
 }
 #why-matters .video-container .video-overlay .video-title {
   position: absolute;
@@ -431,36 +481,7 @@ header nav .hamburger.active span:nth-child(3) {
   font-size: 1.2rem;
 }
 #why-matters .video-container .video-overlay .video-play-container {
-  position: absolute;
-  right: 15%;
-  bottom: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#why-matters .video-container .video-overlay .video-play-container .video-play {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 2px solid #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-#why-matters .video-container .video-overlay .video-play-container .video-play p {
-  font-size: 0.9rem;
-  margin-bottom: -5px;
-}
-#why-matters .video-container .video-overlay .video-play-container .video-play .timer {
-  font-size: 2.5rem;
-  font-weight: bold;
-}
-#why-matters .video-container .video-overlay .video-play-container .video-play .timer span {
-  font-size: 1rem;
-  display: block;
-  text-align: center;
-  margin-top: -10px;
+  display: none; /* Hide the old timer container */
 }
 #why-matters .why-matters-content {
   flex: 1;
@@ -482,6 +503,49 @@ header nav .hamburger.active span:nth-child(3) {
   line-height: 1.6;
 }
 
+@media (max-width: 992px) {
+  #why-matters .video-container .play-button {
+    width: 70px;
+    height: 70px;
+    font-size: 1.6rem;
+  }
+}
+@media (max-width: 768px) {
+  #why-matters .video-container {
+    min-height: 300px;
+  }
+  #why-matters .video-container .play-button {
+    width: 60px;
+    height: 60px;
+    font-size: 1.4rem;
+  }
+  #why-matters .video-container .video-overlay .video-title h3 {
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 576px) {
+  #why-matters .video-container {
+    min-height: 250px;
+  }
+  #why-matters .video-container .play-button {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+  #why-matters .video-container .video-overlay .video-title {
+    top: 10%;
+  }
+  #why-matters .video-container .video-overlay .video-title h3 {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  #why-matters .video-container .video-overlay .video-title p {
+    font-size: 0.8rem;
+  }
+  #why-matters .video-container .video-overlay .video-title h4 {
+    font-size: 0.9rem;
+  }
+}
 #who-we-are {
   padding: 3rem 2rem;
   padding-bottom: 2rem;
