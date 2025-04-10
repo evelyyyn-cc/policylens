@@ -71,6 +71,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     gap: 15px;
+    min-width: min-content;
     
     .nav-button {
       flex: 1;
@@ -86,6 +87,9 @@ body {
       font-family: Arial, sans-serif;
       font-size: 14px;
       transition: background-color 0.3s ease;
+      white-space: nowrap; // Prevent text wrapping
+      min-width: 120px; // Minimum width
+
       
       &:hover {
         background-color: #182563;
@@ -129,9 +133,16 @@ body {
 @media (max-width: 768px) {
   .nav-buttons {
     flex-direction: column;
+    padding-bottom: 5px;
     
     .nav-button {
       width: 100%;
+      min-width: 110px;
+      font-size: 13px;
+
+      i {
+        font-size: 14px;
+      }
     }
   }
 
@@ -144,6 +155,21 @@ body {
     
     .policy-description {
       font-size: 15px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .nav-container {
+    padding: 10px;
+  }
+  
+  .nav-buttons {
+    gap: 10px;
+    
+    .nav-button {
+      padding: 10px 12px;
+      min-width: 100px;
     }
   }
 }

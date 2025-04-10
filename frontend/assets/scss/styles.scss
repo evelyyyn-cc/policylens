@@ -135,7 +135,7 @@ header {
       
       .selected-language {
         background-color: $light-bg;
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 0.8rem;
         border-radius: 20px;
         cursor: pointer;
         display: flex;
@@ -144,6 +144,9 @@ header {
         
         &:hover {
           background-color: darken($light-bg, 5%);
+        }
+        span {
+          font-weight: 500;
         }
       }
       
@@ -155,7 +158,8 @@ header {
         border-radius: 8px;
         margin-top: 0.5rem;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        width: 160px;
+        width: auto;
+        min-width:60px;
         overflow: hidden;
         opacity: 0;
         visibility: hidden;
@@ -166,6 +170,7 @@ header {
         
         li {
           padding: 0.75rem 1rem;
+          text-align: center;
           cursor: pointer;
           list-style: none;
           transition: $transition;
