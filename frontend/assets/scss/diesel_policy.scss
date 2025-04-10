@@ -48,45 +48,88 @@ ul {
 }
 
 // Header/Navigation
-.nav-container {
-  width: 100%;
-  padding: 15px;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #e9ecef;
+// .nav-container {
+//   width: 100%;
+//   padding: 15px;
+//   background-color: #f8f9fa;
+//   border-bottom: 1px solid #e9ecef;
   
-  .nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-    gap: 15px;
+//   .nav-buttons {
+//     display: flex;
+//     justify-content: space-between;
+//     max-width: 1200px;
+//     margin: 0 auto;
+//     gap: 15px;
     
-    .nav-button {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 12px 15px;
-      background-color: #0f1941;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      transition: background-color 0.3s ease;
+//     .nav-button {
+//       flex: 1;
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       gap: 10px;
+//       padding: 12px 15px;
+//       background-color: #0f1941;
+//       color: white;
+//       text-decoration: none;
+//       border-radius: 5px;
+//       font-family: Arial, sans-serif;
+//       font-size: 14px;
+//       transition: background-color 0.3s ease;
       
-      &:hover {
-        background-color: #182563;
-      }
+//       &:hover {
+//         background-color: #182563;
+//       }
       
-      i {
-        font-size: 16px;
-      }
+//       i {
+//         font-size: 16px;
+//       }
+//     }
+//   }
+// }
+
+.breadcrumb-container {
+  background-color: $light-bg;
+  padding: 0.75rem 0;
+  margin-top: 70px;
+}
+
+.breadcrumb {
+  font-size: 0.9rem;
+  color: $medium-text;
+  
+  a {
+    color: $primary-color;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
     }
+  }
+  
+  span {
+    color: $medium-text;
   }
 }
 
+.breadcrumb-light {
+  font-size: 0.9rem;
+  color: rgba($white, 0.8);
+  margin-bottom: 1rem;
+  
+  a {
+    color: rgba($white, 0.8);
+    text-decoration: none;
+    
+    &:hover {
+      color: $white;
+      text-decoration: underline;
+    }
+  }
+  
+  span {
+    color: $white;
+  }
+}
 
 // Hero Section
 .hero {
@@ -99,21 +142,7 @@ ul {
   flex-direction: column;
   position: relative;
 
-  .breadcrumb {
-    padding: 1rem 4rem;
-    background-color: rgba(0, 0, 0, 0.3);
-    font-size: 0.9rem;
-
-    a {
-      color: $white;
-      opacity: 0.8;
-
-      &:hover {
-        opacity: 1;
-      }
-    }
-  }
-
+// Policy Page Styles
   .hero-content {
     flex: 1;
     display: flex;
