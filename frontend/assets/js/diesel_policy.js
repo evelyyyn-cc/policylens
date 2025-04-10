@@ -205,7 +205,7 @@ function initializeCharts() {
         // Create chart
         const consumptionChart = new Chart(ctx, {
             type: 'line',
-            data: yearlyData,
+            data: cumulativeData,
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
@@ -220,13 +220,13 @@ function initializeCharts() {
                         position: 'left',
                         title: {
                             display: true,
-                            text: 'Billion Liters',
+                            text: 'Growth (%)',
                             font: {
                                 family: 'Inter',
                                 size: 12
                             }
                         },
-                        min: 7,
+                        min: 0,
                         grid: {
                             color: 'rgba(0, 0, 0, 0.05)'
                         }
@@ -236,13 +236,13 @@ function initializeCharts() {
                         position: 'right',
                         title: {
                             display: true,
-                            text: 'Growth Index',
+                            text: 'Growth (%)',
                             font: {
                                 family: 'Inter',
                                 size: 12
                             }
                         },
-                        min: 100,
+                        min: 0,
                         grid: {
                             display: false
                         }
