@@ -783,39 +783,42 @@ ul {
   padding: 0 1rem;
 }
 
-.nav-container {
-  width: 100%;
-  padding: 15px;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #e9ecef;
+.breadcrumb-container {
+  background-color: #f1f5f9;
+  padding: 0.75rem 0;
+  margin-top: 70px;
 }
-.nav-container .nav-buttons {
-  display: flex;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-  gap: 15px;
+
+.breadcrumb {
+  font-size: 0.9rem;
+  color: #4b5563;
 }
-.nav-container .nav-buttons .nav-button {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 12px 15px;
-  background-color: #0f1941;
-  color: white;
+.breadcrumb a {
+  color: #0066cc;
   text-decoration: none;
-  border-radius: 5px;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
 }
-.nav-container .nav-buttons .nav-button:hover {
-  background-color: #182563;
+.breadcrumb a:hover {
+  text-decoration: underline;
 }
-.nav-container .nav-buttons .nav-button i {
-  font-size: 16px;
+.breadcrumb span {
+  color: #4b5563;
+}
+
+.breadcrumb-light {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1rem;
+}
+.breadcrumb-light a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+}
+.breadcrumb-light a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+.breadcrumb-light span {
+  color: #ffffff;
 }
 
 .hero {
@@ -827,18 +830,6 @@ ul {
   display: flex;
   flex-direction: column;
   position: relative;
-}
-.hero .breadcrumb {
-  padding: 1rem 4rem;
-  background-color: rgba(0, 0, 0, 0.3);
-  font-size: 0.9rem;
-}
-.hero .breadcrumb a {
-  color: #ffffff;
-  opacity: 0.8;
-}
-.hero .breadcrumb a:hover {
-  opacity: 1;
 }
 .hero .hero-content {
   flex: 1;
