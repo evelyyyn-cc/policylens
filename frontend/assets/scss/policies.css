@@ -175,7 +175,7 @@ header nav .hamburger.active span:nth-child(3) {
   background-color: #ffffff;
   text-align: center;
   padding-top: 100px;
-  padding: 4rem 2rem;
+  padding: 3rem 2rem;
 }
 #hero .hero-content h1 {
   font-size: 2.5rem;
@@ -303,7 +303,7 @@ header nav .hamburger.active span:nth-child(3) {
 #what-we-do {
   background-color: #ffffff;
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 3rem 2rem;
 }
 #what-we-do .section-title {
   color: #1e3a8a;
@@ -452,7 +452,9 @@ header nav .hamburger.active span:nth-child(3) {
 }
 
 #who-we-are {
-  padding: 4rem 2rem;
+  padding: 3rem 2rem;
+  padding-bottom: 2rem;
+  min-height: 30vh;
 }
 #who-we-are .container {
   display: flex;
@@ -599,7 +601,7 @@ header.header-hidden {
   }
   section {
     min-height: auto;
-    padding: 3rem 1rem;
+    padding: 2.5rem 1rem;
   }
   #hero .hero-content h1 {
     font-size: 2rem;

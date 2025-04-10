@@ -175,7 +175,7 @@ header nav .hamburger.active span:nth-child(3) {
   background-color: #ffffff;
   text-align: center;
   padding-top: 100px;
-  padding: 4rem 2rem;
+  padding: 3rem 2rem;
 }
 #hero .hero-content h1 {
   font-size: 2.5rem;
@@ -303,7 +303,7 @@ header nav .hamburger.active span:nth-child(3) {
 #what-we-do {
   background-color: #ffffff;
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 3rem 2rem;
 }
 #what-we-do .section-title {
   color: #1e3a8a;
@@ -452,7 +452,9 @@ header nav .hamburger.active span:nth-child(3) {
 }
 
 #who-we-are {
-  padding: 4rem 2rem;
+  padding: 3rem 2rem;
+  padding-bottom: 2rem;
+  min-height: 30vh;
 }
 #who-we-are .container {
   display: flex;
@@ -599,7 +601,7 @@ header.header-hidden {
   }
   section {
     min-height: auto;
-    padding: 3rem 1rem;
+    padding: 2.5rem 1rem;
   }
   #hero .hero-content h1 {
     font-size: 2rem;
@@ -716,6 +718,8 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   gap: 15px;
+  min-width: -moz-min-content;
+  min-width: min-content;
 }
 .nav-container .nav-buttons .nav-button {
   flex: 1;
@@ -731,6 +735,8 @@ body {
   font-family: Arial, sans-serif;
   font-size: 14px;
   transition: background-color 0.3s ease;
+  white-space: nowrap;
+  min-width: 120px;
 }
 .nav-container .nav-buttons .nav-button:hover {
   background-color: #182563;
@@ -767,9 +773,15 @@ body {
 @media (max-width: 768px) {
   .nav-buttons {
     flex-direction: column;
+    padding-bottom: 5px;
   }
   .nav-buttons .nav-button {
     width: 100%;
+    min-width: 110px;
+    font-size: 13px;
+  }
+  .nav-buttons .nav-button i {
+    font-size: 14px;
   }
   .policy-info-container {
     margin: 30px auto;
@@ -779,5 +791,17 @@ body {
   }
   .policy-info-container .policy-description {
     font-size: 15px;
+  }
+}
+@media (max-width: 576px) {
+  .nav-container {
+    padding: 10px;
+  }
+  .nav-buttons {
+    gap: 10px;
+  }
+  .nav-buttons .nav-button {
+    padding: 10px 12px;
+    min-width: 100px;
   }
 }/*# sourceMappingURL=diesel_policy_overview.css.map */
