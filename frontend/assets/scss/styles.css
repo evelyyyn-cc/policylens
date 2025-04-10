@@ -54,6 +54,24 @@ header {
   z-index: 1000;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+@media (max-width: 768px) {
+  header {
+    padding: 0.5rem 1rem;
+  }
+  header nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+  }
+  header .logo {
+    font-size: 1.2rem;
+  }
+  header .hamburger span {
+    width: 22px;
+    height: 2px;
+  }
+}
 header nav {
   display: flex;
   justify-content: space-between;
@@ -92,6 +110,14 @@ header nav .language-selector {
   position: relative;
   font-size: 0.9rem;
   z-index: 1001;
+}
+@media (max-width: 768px) {
+  header nav .language-selector {
+    padding-top: 10rem;
+    position: absolute;
+    top: 50%;
+    right: 50px;
+  }
 }
 header nav .language-selector .selected-language {
   background-color: #f1f5f9;
