@@ -1,0 +1,683 @@
+// Variables
+@import 'styles';
+
+$primary-color: #0066cc;
+$primary-hover: #0055aa;
+$secondary-color: #1a3f66;
+$text-color: #333;
+$text-light: #666;
+$text-lighter: #ccc;
+$background-color: #f8f9fa;
+$white: white;
+$shadow-light: 0 2px 5px rgba(0, 0, 0, 0.1);
+$shadow-medium: 0 2px 10px rgba(0, 0, 0, 0.05);
+$border-radius: 8px;
+$border-radius-small: 4px;
+$transition-speed: 0.2s;
+
+// Font settings
+$font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// MyPolicyLens specific colors
+$brand-color: #e09900;
+$brand-text: #333333;
+$navbar-bg: #ffffff;
+$navbar-border: #e0e0e0;
+
+section {
+  min-height: 0;
+}
+
+// Diesel chart specific colors
+$diesel-colors: (
+  diesel: #4fc3f7,
+  petrol: #3f5c7d,
+  hybrid: #8ec3e6,
+  other1: #cde5f7,
+  other2: #8ec3e6,
+  other3: #e0f3ff
+);
+
+// Fuel price chart colors
+$fuel-colors: (
+  diesel: #6c757d,
+  diesel-east: #0d47a1,
+  ron95: #4fc3f7,
+  ron97: #5c6bc0,
+  singapore: #3f5c7d,
+  malaysia: #4fc3f7,
+  sarawak: #4fc3f7,
+  indonesia: #4c6681,
+  thailand: #4c6681
+);
+
+$chart-colors: (
+  blue: #4285F4,
+  blue-light: #4fc3f7,
+  blue-dark: #0d47a1,
+  green: #0F9D58,
+  red: #DB4437,
+  yellow: #F4B400,
+  grey: #687B7F
+);
+
+$breakpoint-tablet: 768px;
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: $font-family-base;
+}
+
+body {
+  background-color: $background-color;
+  color: $text-color;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-weight: $font-weight-normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin button-style {
+  padding: 6px 12px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: $border-radius-small;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all $transition-speed;
+  font-weight: $font-weight-medium;
+  
+  &:hover {
+    background-color: darken(#f0f0f0, 5%);
+  }
+  
+  &.primary {
+    background-color: $primary-color;
+    color: $white;
+    
+    &:hover {
+      background-color: $primary-hover;
+    }
+  }
+}
+
+/* Container for consistent margins */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  
+  &.navbar-container {
+    padding: 0 20px;
+  }
+}
+
+/* Top navigation bar styles */
+.top-navbar {
+  background-color: $navbar-bg;
+  border-top: 3px solid $primary-color;
+  border-bottom: 1px solid $navbar-border;
+  padding: 10px 0;
+  
+  .navbar-container {
+    @include flex-between;
+  }
+  
+  .logo {
+    font-size: 1.3rem;
+    font-weight: $font-weight-bold;
+    color: $brand-text;
+    letter-spacing: -0.02em;
+    
+    .logo-my {
+      color: $brand-color;
+    }
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    
+    a {
+      text-decoration: none;
+      color: $text-color;
+      font-size: 0.85rem;
+      font-weight: $font-weight-medium;
+      letter-spacing: 0.5px;
+      transition: color $transition-speed;
+      
+      &:hover {
+        color: $primary-color;
+      }
+      
+      &.active {
+        color: $primary-color;
+      }
+    }
+  }
+  
+  .user-dropdown {
+    .user-btn {
+      background: none;
+      border: 1px solid #e0e0e0;
+      padding: 6px 12px;
+      border-radius: $border-radius-small;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: $text-color;
+      cursor: pointer;
+      font-weight: $font-weight-normal;
+      
+      &:hover {
+        background-color: #f8f9fa;
+      }
+      
+      svg {
+        margin-top: 2px;
+      }
+    }
+  }
+}
+
+.breadcrumb-container {
+  background-color: $light-bg;
+  padding: 0.75rem 0;
+  margin-top: 70px;
+}
+
+.breadcrumb {
+  font-size: 0.9rem;
+  color: $medium-text;
+  
+  a {
+    color: $primary-color;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  
+  span {
+    color: $medium-text;
+  }
+}
+
+.breadcrumb-light {
+  font-size: 0.9rem;
+  color: rgba($white, 0.8);
+  margin-bottom: 1rem;
+  
+  a {
+    color: rgba($white, 0.8);
+    text-decoration: none;
+    
+    &:hover {
+      color: $white;
+      text-decoration: underline;
+    }
+  }
+  
+  span {
+    color: $white;
+  }
+}
+
+/* Hero section - updated style */
+.hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80');
+  background-size: cover;
+  background-position: center;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 20%, rgba(0, 0, 0, 0.2) 90%);
+    z-index: 1;
+  }
+  
+  
+  h1 {
+    color: $white;
+    font-size: 2.2rem;
+    z-index: 2;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: $font-weight-bold;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Main tab navigation */
+.main-tabs {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #dee2e6;
+  padding: 0;
+  margin: 20px auto 30px;
+  position: relative;
+  max-width: 400px;
+  
+  .tab-link {
+    padding: 15px 20px;
+    text-decoration: none;
+    color: $text-light;
+    font-weight: $font-weight-medium;
+    position: relative;
+    transition: color 0.3s;
+    text-align: center;
+    flex: 1;
+    
+    &:hover {
+      color: $primary-color;
+    }
+    
+    &.active {
+      color: $primary-color;
+    }
+  }
+  
+  .tab-indicator {
+    position: absolute;
+    bottom: -1px;
+    height: 3px;
+    width: 50%;
+    background-color: $primary-color;
+    transition: transform 0.3s;
+    left: 0;
+    
+    &.right {
+      transform: translateX(100%);
+    }
+  }
+}
+
+/* Tab Content */
+.tab-content {
+  display: none;
+  
+  &.active {
+    display: block;
+  }
+}
+
+.dashboard-section {
+  background-color: $white;
+  border-radius: $border-radius;
+  box-shadow: $shadow-medium;
+  margin-bottom: 30px;
+  overflow: hidden;
+  
+  .section-header {
+    background-color: $secondary-color;
+    color: $white;
+    padding: 15px 20px;
+    font-weight: $font-weight-medium;
+    @include flex-between;
+    
+    &.diesel-header {
+      background-color: #001e64; // Darker blue for diesel section
+    }
+    
+    .title {
+      font-size: 1rem;
+      letter-spacing: 0.01em;
+    }
+    
+    .external-link-icon {
+      cursor: pointer;
+      
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+  
+  .section-content {
+    padding: 20px;
+  }
+  
+  .section-subheader {
+    font-size: 1.1rem;
+    color: $text-color;
+    margin: 30px 0 5px 0;
+    font-weight: $font-weight-semibold;
+  }
+  
+  .section-description {
+    font-size: 0.85rem;
+    color: $text-light;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+}
+
+/* Chart styles */
+.chart-container {
+  position: relative;
+  margin: 10px 0 30px 0;
+  height: 300px;
+  
+  &.border-container {
+    border: 1px solid #e0e0e0;
+    border-radius: $border-radius;
+    padding: 15px;
+    margin-bottom: 40px;
+  }
+  
+  .chart-title {
+    text-align: center;
+    font-size: 1rem;
+    color: $text-color;
+    margin-bottom: 10px;
+    font-weight: $font-weight-medium;
+  }
+}
+
+.time-filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  
+  .time-filter {
+    padding: 6px 12px;
+    background-color: #f0f0f0;
+    border-radius: $border-radius-small;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all $transition-speed;
+    font-weight: $font-weight-medium;
+    
+    &:hover {
+      background-color: darken(#f0f0f0, 5%);
+    }
+    
+    &.active {
+      background-color: $primary-color;
+      color: $white;
+    }
+  }
+}
+
+.filter-options {
+  @include flex-between;
+  margin-bottom: 20px;
+}
+
+.legend, .diesel-legend, .legend-container {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 15px 0;
+  justify-content: center;
+  
+  &-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    color: $text-light;
+  }
+  
+  &-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+  }
+}
+
+/* Diesel Price Dataset specific styles */
+.filter-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  
+  @media (max-width: $breakpoint-tablet) {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.filter-dropdown {
+  flex: 1;
+  
+  label {
+    display: block;
+    font-size: 0.8rem;
+    color: $text-light;
+    margin-bottom: 5px;
+    font-weight: $font-weight-medium;
+  }
+  
+  .dropdown-select {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: $white;
+    border: 1px solid #dee2e6;
+    border-radius: $border-radius-small;
+    cursor: pointer;
+    
+    &:hover {
+      border-color: darken(#dee2e6, 10%);
+    }
+  }
+}
+
+.chart-type-toggle {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+  margin-bottom: 10px;
+  
+  .toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    background-color: $white;
+    border: 1px solid #dee2e6;
+    border-radius: $border-radius-small;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-weight: $font-weight-medium;
+    
+    svg {
+      stroke: $text-light;
+    }
+    
+    &.active {
+      background-color: $primary-color;
+      color: $white;
+      border-color: $primary-color;
+      
+      svg {
+        stroke: $white;
+      }
+    }
+  }
+}
+
+/* Bar chart specific styling */
+.bar-chart-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Action buttons */
+.chart-actions {
+  display: flex;
+  gap: 10px;
+  
+  .action-btn {
+    @include button-style;
+  }
+}
+
+/* Chart status styles */
+.chart-status {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+  
+  .status-badge {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+    border-radius: $border-radius-small;
+    background-color: #f0f0f0;
+    font-weight: $font-weight-medium;
+    
+    &.success {
+      background-color: #e6f4ea;
+      color: #137333;
+    }
+  }
+}
+
+/* Data citation */
+.data-citation {
+  font-size: 0.75rem;
+  color: $text-light;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  line-height: 1.4;
+  
+  strong {
+    font-weight: $font-weight-semibold;
+  }
+  
+  a {
+    color: $primary-color;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: $white;
+  padding: 2rem;
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      
+      span {
+        color: $accent-color;
+      }
+      
+    }
+    
+    .quick-links {
+      @include flex-column;
+      gap: 1rem;
+      
+      h3 {
+        margin-bottom: 0.5rem;
+      }
+      
+      a {
+        color: darken($white, 20%);
+        transition: $transition;
+        
+        &:hover {
+          color: $white;
+        }
+      }
+    }
+  }
+}
+/* Responsive adjustments */
+@media (max-width: $breakpoint-tablet) {
+  .top-navbar {
+    .nav-links {
+      display: none;
+    }
+  }
+  
+  .chart-container {
+    height: 250px;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+/* Chart.js customizations */
+canvas {
+  font-family: $font-family-base !important;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}

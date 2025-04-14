@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPolicyLens - Data Dashboard</title>
+    <!-- Import Inter font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="/static/assets/scss/datasets_page.css">
+    <style>
+        /* Additional styles for dropdowns */
+        .dropdown-menu {
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .dropdown-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background-color 0.2s;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .language-dropdown-menu {
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            min-width: 150px;
+        }
+        
+        .language-option {
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background-color 0.2s;
+        }
+        
+        .language-option:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top navigation bar -->
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <!-- <img src="/api/placeholder/32/32" alt="PolicyLens Logo"> -->
+                <span>MY</span>PolicyLens
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="/index/">HOME</a>
+                <a href="/policies/" class="active">POLICY</a>
+                <a href="#">FAQ</a>
+                <a href="#">AI CHATBOT</a>
+            </div>
+            <div class="language-selector">
+                <div class="selected-language">
+                    <span>Bahasa Malaysia</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="language-dropdown">
+                    <li data-lang="bm" class="active">Bahasa Malaysia</li>
+                    <li data-lang="en">English</li>
+                    <li data-lang="zh">中文</li>
+                    <li data-lang="ta">தமிழ்</li>
+                </ul>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-container">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="/index/">Home</a> > <a href="/policies/">Policies</a> > <a href="/diesel_policy/">The Diesel Dilemma</a> > <span>Data Dashboard</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero/Banner section -->
+    <div class="hero">
+        <h1>Data Dashboard</h1>
+    </div>
+
+    <!-- Main content area -->
+    <div class="container">
+        <!-- Tab navigation - Horizontal tabs below hero -->
+        <div class="main-tabs">
+            <a href="#" class="tab-link active" data-tab="diesel-price-tab">Diesel Price</a>
+            <a href="#" class="tab-link" data-tab="diesel-vehicles-tab">Registered Diesel Vehicles</a>
+            <div class="tab-indicator"></div>
+        </div>
+
+        <!-- Diesel Price Dataset Tab -->
+        <div class="tab-content active" id="diesel-price-tab">
+            <section class="dashboard-section">
+                <div class="section-header diesel-header">
+                    <span class="title">Diesel Price Dataset</span>
+                    <div class="external-link-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="filter-row">
+                        <div class="filter-dropdown">
+                            <label>Year</label>
+                            <div class="dropdown-select">
+                                <span>All Years</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="filter-dropdown">
+                            <label>Fuel Type</label>
+                            <div class="dropdown-select">
+                                <span>All Types</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="diesel-legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #6c757d;"></div>
+                            <span>Diesel</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #0d47a1;"></div>
+                            <span>Diesel East</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #4fc3f7;"></div>
+                            <span>RON95</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #5c6bc0;"></div>
+                            <span>RON97</span>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-type-toggle">
+                        <button class="toggle-btn active" data-chart="line">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 3v18h18"></path>
+                                <path d="M18 8l-7 6-4-3-4 3"></path>
+                            </svg>
+                            Line
+                        </button>
+                        <button class="toggle-btn" data-chart="bar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="12" width="6" height="8"></rect>
+                                <rect x="9" y="8" width="6" height="12"></rect>
+                                <rect x="15" y="4" width="6" height="16"></rect>
+                            </svg>
+                            Bar
+                        </button>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="dieselPriceChart"></canvas>
+                    </div>
+                    
+                    <h3 class="section-subheader">Regional Price Comparison</h3>
+                    <p class="section-description">Compare diesel prices across different regions after the subsidy reform</p>
+                    
+                    <div class="chart-container">
+                        <canvas id="regionalComparisonChart"></canvas>
+                    </div>
+                    
+                    <div class="data-citation">
+                        <strong>Data Source:</strong> Ministry of Finance Malaysia, Official Price Announcements, 2019-2024<br>
+                        <strong>URL:</strong> <a href="https://www.mof.gov.my/portal/en/news/press-release" target="_blank">https://www.mof.gov.my/portal/en/news/press-release</a><br>
+                        <strong>Methodology:</strong> Monthly diesel prices were collected from official announcements. Pre-subsidy prices estimated based on international market rates.
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Registered Diesel Vehicles Tab -->
+        <div class="tab-content" id="diesel-vehicles-tab">
+            <section class="dashboard-section">
+                <div class="section-header diesel-header">
+                    <span class="title">Register Diesel Vehicles Dataset</span>
+                    <div class="external-link-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="filter-row">
+                        <div class="filter-dropdown">
+                            <label>Year</label>
+                            <div class="dropdown-select">
+                                <span>All Years</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="filter-dropdown">
+                            <label>Region</label>
+                            <div class="dropdown-select">
+                                <span>All Regions</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-type-toggle">
+                        <button class="toggle-btn active" data-chart="bar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="12" width="6" height="8"></rect>
+                                <rect x="9" y="8" width="6" height="12"></rect>
+                                <rect x="15" y="4" width="6" height="16"></rect>
+                            </svg>
+                            Bar
+                        </button>
+                        <button class="toggle-btn" data-chart="line">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 3v18h18"></path>
+                                <path d="M18 8l-7 6-4-3-4 3"></path>
+                            </svg>
+                            Line
+                        </button>
+                    </div>
+
+                    <div class="chart-container border-container">
+                        <h3 class="chart-title">Diesel Vehicle Types Distribution (2024)</h3>
+                        <canvas id="vehicleTypesChart"></canvas>
+                    </div>
+                    
+                    <div class="legend-container">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #4fc3f7;"></div>
+                            <span>Total Registered Diesel Vehicles</span>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="totalRegisteredVehiclesChart"></canvas>
+                    </div>
+                    
+                    <div class="data-citation">
+                        <strong>Data Source:</strong> Road Transport Department Malaysia (JPJ), Annual Vehicle Registration Statistics, 2019-2024<br>
+                        <strong>URL:</strong> <a href="https://www.jpj.gov.my/en/statistics" target="_blank">https://www.jpj.gov.my/en/statistics</a><br>
+                        <strong>Methodology:</strong> Diesel vehicle registration records aggregated by type, state, and year. Updated quarterly.
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <span>MY</span>PolicyLens
+            </div>
+            <div class="quick-links">
+                <h3>Quick Links</h3>
+                <a href="/index/#who-we-are">About us</a>
+                <a href="#">FAQ</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/assets/js/datasets_page.js"></script>
+</body>
+</html>
