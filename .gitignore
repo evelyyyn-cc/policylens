@@ -41,3 +41,6 @@ venv/
 
 # Ruby-specific files
 .bundle/
+
+# database files
+Backend/policylens/db.sqlite3
