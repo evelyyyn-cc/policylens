@@ -61,17 +61,126 @@ function formatDateLabels(dateArray) {
 }
 
 // Transform API data to chart.js format
-function transformApiDataToChartFormat(apiData, fuelType) {
+// function transformApiDataToChartFormat(apiData, fuelType,selectedYear) {
+//     // Determine which data property to use based on the fuelType
+//     let fuelTypeKey = fuelType.toLowerCase().replace(' ', '_');
+//     console.log('Fuel Type Key:', fuelTypeKey);
+//     if(fuelTypeKey === 'diesel_euro5') {
+//         fuelTypeKey = 'diesel_eastern';}
+//     const dataValues = apiData[fuelTypeKey] || [];
+    
+//     // Generate the color based on fuel type
+//     let borderColor, backgroundColor;
+    
+//     switch(fuelType) {
+//         case 'RON95':
+//             borderColor = '#4fc3f7';
+//             backgroundColor = 'rgba(79, 195, 247, 0.3)';
+//             break;
+//         case 'RON97':
+//             borderColor = '#5c6bc0';
+//             backgroundColor = 'rgba(92, 107, 192, 0.1)';
+//             break;
+//         case 'Diesel':
+//             borderColor = '#6c757d';
+//             backgroundColor = 'rgba(108, 117, 125, 0.1)';
+//             break;
+//         case 'Diesel Euro5':
+//             borderColor = '#0d47a1';
+//             backgroundColor = 'rgba(13, 71, 161, 0.1)';
+//             break;
+//         default:
+//             borderColor = '#4fc3f7';
+//             backgroundColor = 'rgba(79, 195, 247, 0.3)';
+//     }
+    
+//     // Create a dataset with the fuel prices
+//     const transformedData = {
+//         labels: formatDateLabels(apiData.date),
+//         datasets: [
+//             {
+//                 label: fuelType,
+//                 data: dataValues,
+//                 borderColor: borderColor,
+//                 backgroundColor: backgroundColor,
+//                 borderWidth: 2,
+//                 fill: true,
+//                 tension: 0.1
+//             }
+//         ]
+//     };
+    
+//     return transformedData;
+// }
+function transformApiDataToChartFormat(apiData, fuelType, selectedYear) {
     // Determine which data property to use based on the fuelType
     let fuelTypeKey = fuelType.toLowerCase().replace(' ', '_');
     console.log('Fuel Type Key:', fuelTypeKey);
     if(fuelTypeKey === 'diesel_euro5') {
-        fuelTypeKey = 'diesel_eastern';}
+        fuelTypeKey = 'diesel_eastern';
+    }
+    
+    // Get the raw data values
     const dataValues = apiData[fuelTypeKey] || [];
+    const dates = apiData.date || [];
+    
+    // Create a map to store month-year combinations and their values
+    const monthlyData = {};
+    const monthlyCount = {};
+    
+    // Process data to get monthly or quarterly averages
+    for (let i = 0; i < dates.length; i++) {
+        const date = new Date(dates[i]);
+        let key;
+        
+        if (selectedYear === 'All Years') {
+            // For "All Years", group by quarter: YYYY-Q#
+            const quarter = Math.floor(date.getMonth() / 3) + 1;
+            key = `${date.getFullYear()}-Q${quarter}`;
+        } else {
+            // For specific year, group by month: YYYY-MM
+            key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+        }
+        
+        // Skip if no value
+        if (dataValues[i] === undefined || dataValues[i] === null) continue;
+        
+        // Add to sum
+        if (!monthlyData[key]) {
+            monthlyData[key] = dataValues[i];
+            monthlyCount[key] = 1;
+        } else {
+            monthlyData[key] += dataValues[i];
+            monthlyCount[key]++;
+        }
+    }
+    
+    // Sort the keys
+    const keys = Object.keys(monthlyData).sort();
+    
+    // Calculate averages and prepare formatted data
+    const averagedValues = keys.map(key => {
+        // Round to 2 decimal places for price data
+        return Math.round((monthlyData[key] / monthlyCount[key]) * 100) / 100;
+    });
+    
+    const formattedDates = keys.map(key => {
+        if (selectedYear === 'All Years') {
+            // Parse quarter format (YYYY-Q#)
+            const [year, quarter] = key.split('-');
+            const quarterNum = parseInt(quarter.substring(1));
+            // Calculate middle month of quarter (e.g., Q1 = Feb, Q2 = May, etc.)
+            const month = (quarterNum - 1) * 3 + 1;
+            return new Date(parseInt(year), month, 15);
+        } else {
+            // Parse month format (YYYY-MM)
+            const [year, month] = key.split('-');
+            return new Date(parseInt(year), parseInt(month) - 1, 15);
+        }
+    });
     
     // Generate the color based on fuel type
     let borderColor, backgroundColor;
-    
     switch(fuelType) {
         case 'RON95':
             borderColor = '#4fc3f7';
@@ -94,13 +203,27 @@ function transformApiDataToChartFormat(apiData, fuelType) {
             backgroundColor = 'rgba(79, 195, 247, 0.3)';
     }
     
-    // Create a dataset with the fuel prices
+    // Format the dates for display on the chart
+    const formattedLabels = formattedDates.map(date => {
+        if (selectedYear === 'All Years') {
+            // For quarterly data, show Q1, Q2, etc. format
+            const quarter = Math.floor(date.getMonth() / 3) + 1;
+            return `Q${quarter} ${date.getFullYear()}`;
+        } else {
+            // For monthly data, show MMM YYYY format
+            const month = date.toLocaleString('default', { month: 'short' });
+            const year = date.getFullYear();
+            return `${month} ${year}`;
+        }
+    });
+    
+    // Create a dataset with the averaged fuel prices
     const transformedData = {
-        labels: formatDateLabels(apiData.date),
+        labels: formattedLabels,
         datasets: [
             {
-                label: fuelType,
-                data: dataValues,
+                label: `${fuelType} (${selectedYear === 'All Years' ? 'Quarterly' : 'Monthly'} Average)`,
+                data: averagedValues,
                 borderColor: borderColor,
                 backgroundColor: backgroundColor,
                 borderWidth: 2,
@@ -112,7 +235,6 @@ function transformApiDataToChartFormat(apiData, fuelType) {
     
     return transformedData;
 }
-
 // Dummy data for all charts (will be updated with API data where available)
 const chartData = {
     // Diesel Vehicle Types Distribution (2024)
@@ -244,7 +366,23 @@ const chartOptions = {
             x: {
                 grid: {
                     display: false
+                },
+                afterFit: function(scale) {
+                    // Add extra space at both ends
+                    scale.paddingLeft = 20;
+                    scale.paddingRight = 20;
+                },
+
+                ticks: {
+                    padding: 10,
+                    autoSkip: false,
                 }
+            }
+        },
+        layout: {
+            padding: {
+                left: 10,
+                right: 10
             }
         },
         plugins: {
@@ -292,7 +430,24 @@ const chartOptions = {
             x: {
                 grid: {
                     color: 'rgba(200, 200, 200, 0.2)'
+                },
+                ticks: {
+                    maxRotation: 45,
+                    minRotation: 45,
+                    autoSkip: true,
+                    maxTicksLimit: 12, // Limit number of ticks to avoid overcrowding
+                    afterFit: function(scale) {
+                        // Add extra space at both ends
+                        scale.paddingLeft = 50;
+                        scale.paddingRight = 50;
+                    }
                 }
+            }
+        },
+        layout: {   
+            padding: {
+                left: 10,
+                right: 10
             }
         },
         plugins: {
@@ -314,7 +469,7 @@ const chartOptions = {
                 },
                 min: 1.5,
                 grid: {
-                    drawBorder: false,
+                    
                     color: 'rgba(200, 200, 200, 0.2)'
                 }
             },
@@ -326,10 +481,26 @@ const chartOptions = {
                     maxRotation: 45,
                     minRotation: 45,
                     autoSkip: true,
-                    maxTicksLimit: 12 // Limit number of ticks to avoid overcrowding
+                    padding: 10,
+                     // Limit number of ticks to avoid overcrowding
+                },
+                afterFit: function(scale) {
+                    // Add extra space at both ends
+                    scale.paddingLeft = 20;
+                    scale.paddingRight = 20;
                 }
+
             }
         },
+        layout: {
+            padding: {
+                left: 30,
+                right: 30,
+                top: 10,
+                bottom: 10
+            }
+        },
+
         plugins: {
             legend: {
                 display: true, // Show legend for API data
@@ -362,9 +533,28 @@ const chartOptions = {
             x: {
                 grid: {
                     display: false
+                },
+                ticks: {
+                    maxRotation: 45,
+                    minRotation: 45,
+                    autoSkip: true,
+                    maxTicksLimit: 12 // Limit number of ticks to avoid overcrowding
+                },
+                afterFit: function(scale) {
+                    // Add extra space at both ends
+                    scale.paddingLeft = 20;
+                    scale.paddingRight = 20;
                 }
+
             }
         },
+        layout: {
+            padding: {
+                left: 10,
+                right: 10
+            }
+        },
+
         plugins: {
             legend: {
                 display: false
@@ -386,6 +576,7 @@ function initializeDieselVehiclesCharts() {
             data: chartData.vehicleTypesData,
             options: chartOptions.vehicleTypesOptions
         });
+        
     }
 
     // Total Registered Vehicles Chart
@@ -409,13 +600,20 @@ async function initializeDieselPriceCharts() {
         const dieselPriceCtx = document.getElementById('dieselPriceChart')?.getContext('2d');
         if (dieselPriceCtx) {
             if (ron95Data) {
-                const transformedData = transformApiDataToChartFormat(ron95Data, 'RON95');
-                
+                const transformedData = transformApiDataToChartFormat(ron95Data, 'RON95', 'All Years');
+            
                 charts.dieselPriceChart = new Chart(dieselPriceCtx, {
                     type: 'line',
                     data: transformedData,
                     options: chartOptions.dieselPriceOptions
                 });
+                //update the scale and x labels to fit the new data
+                charts.dieselPriceChart.options.scales.x.ticks.autoSkip = false;
+                charts.dieselPriceChart.options.scales.x.ticks.maxTicksLimit = 100; // Set a high limit to show all labels
+                charts.dieselPriceChart.options.scales.y.max = Math.max(...transformedData.datasets[0].data) + 0.5;
+                charts.dieselPriceChart.options.scales.y.min = Math.min(...transformedData.datasets[0].data) - 0.5;
+                
+                charts.dieselPriceChart.update();
                 
                 console.log('Chart initialized with API data');
             } else {
@@ -462,9 +660,55 @@ async function initializeDieselPriceCharts() {
 }
 
 // Update chart with filtered data
+// async function updateChartWithFilter(year, fuelType) {
+//     try {
+//         if (charts.dieselPriceChart) {
+//             // Convert fuelType to API parameter format
+//             let apiType = fuelType.toLowerCase().replace(' ', '_');
+            
+//             // Determine date range based on year
+//             let startDate, endDate;
+//             if (year !== 'All Years') {
+//                 startDate = `${year}-01-01`;
+//                 endDate = `${parseInt(year) + 1}-01-01`;
+//             } else {
+//                 startDate = '2019-01-01';
+//                 endDate = '2025-12-31';
+//             }
+            
+//             // Fetch data for the selected fuel type and year
+//             const fuelData = await fetchFuelPrices(apiType, startDate, endDate);
+            
+//             if (fuelData) {
+//                 // Transform the API data to chart format
+//                 const updatedData = transformApiDataToChartFormat(fuelData, fuelType,year);
+                
+//                 // Replace the chart data entirely with the new data
+//                 charts.dieselPriceChart.data = updatedData;
+
+//                 //show all x axis labels
+//                 charts.dieselPriceChart.options.scales.x.ticks.autoSkip = false;
+//                 charts.dieselPriceChart.options.scales.x.ticks.maxTicksLimit = 100; // Set a high limit to show all labels
+//                 // scale the y axis to fit the new data
+//                 charts.dieselPriceChart.options.scales.y.max = Math.max(...updatedData.datasets[0].data) + 0.5;
+//                 charts.dieselPriceChart.options.scales.y.min = Math.min(...updatedData.datasets[0].data) - 0.5;
+//                 charts.dieselPriceChart.options.scales.x.ticks.maxRotation = 0; // Reset rotation to avoid overlap
+//                 charts.dieselPriceChart.update();
+                
+//                 console.log(`Chart updated with ${fuelType} data for ${year !== 'All Years' ? year : 'all years'}`);
+//             }
+//         }
+//     } catch (error) {
+//         console.error('Error updating chart with filters:', error);
+//     }
+// }
+// Modify the updateChartWithFilter function to properly handle line charts
 async function updateChartWithFilter(year, fuelType) {
     try {
         if (charts.dieselPriceChart) {
+            // Store the current chart type before updating
+            const currentChartType = charts.dieselPriceChart.config.type;
+            
             // Convert fuelType to API parameter format
             let apiType = fuelType.toLowerCase().replace(' ', '_');
             
@@ -483,10 +727,48 @@ async function updateChartWithFilter(year, fuelType) {
             
             if (fuelData) {
                 // Transform the API data to chart format
-                const updatedData = transformApiDataToChartFormat(fuelData, fuelType);
-                
+                const updatedData = transformApiDataToChartFormat(fuelData, fuelType, year);
+                console.log('Updated Data:', updatedData);
                 // Replace the chart data entirely with the new data
                 charts.dieselPriceChart.data = updatedData;
+                
+                // Ensure line chart properties are maintained if it's a line chart
+                if (currentChartType === 'line') {
+                    // Make sure the chart type is still 'line'
+                    charts.dieselPriceChart.config.type = 'line';
+                    
+                    // Ensure proper line styling
+                    charts.dieselPriceChart.data.datasets.forEach(dataset => {
+                        dataset.pointRadius = 3;
+                        dataset.borderWidth = 2;
+                        dataset.fill = true;
+                        dataset.tension = 0.1;
+                    });
+                }
+
+                // Update the scales for proper display
+                charts.dieselPriceChart.options.scales.x.ticks.autoSkip = false;
+                charts.dieselPriceChart.options.scales.x.ticks.maxTicksLimit = 100; // Set a high limit to show all labels
+                
+                // Scale the y axis to fit the new data with proper padding
+                const dataValues = updatedData.datasets[0].data;
+                const maxValue = Math.max(...dataValues);
+                const minValue = Math.min(...dataValues);
+                const dataRange = maxValue - minValue;
+                const padding = Math.max(dataRange * 0.1, 0.2); // At least 0.2 or 10% of range
+                
+                charts.dieselPriceChart.options.scales.y.max = maxValue + padding;
+                charts.dieselPriceChart.options.scales.y.min = Math.max(0, minValue - padding);
+                
+                // Fix x-axis label rotation based on label count
+                if (updatedData.labels.length > 12) {
+                    charts.dieselPriceChart.options.scales.x.ticks.maxRotation = 45;
+                    charts.dieselPriceChart.options.scales.x.ticks.minRotation = 45;
+                } else {
+                    charts.dieselPriceChart.options.scales.x.ticks.maxRotation = 0;
+                }
+                
+                // Update the chart with all changes
                 charts.dieselPriceChart.update();
                 
                 console.log(`Chart updated with ${fuelType} data for ${year !== 'All Years' ? year : 'all years'}`);
@@ -778,7 +1060,7 @@ async function updateVehicleCharts(year, region) {
         if (charts.vehicleTypesChart && charts.totalRegisteredVehiclesChart) {
             // Convert year and region to API parameter format
             const apiYear = year !== 'All Years' ? year : 'all';
-            const apiRegion = region !== 'All Regions' ? region.toLowerCase().replace(' ', '_') : 'all';
+            const apiRegion = region !== 'All Regions' ? region : 'all';
             
             // Fetch data for the selected year and region
             const vehicleData = await fetchVehicleData(apiYear, apiRegion);
@@ -797,20 +1079,41 @@ async function updateVehicleCharts(year, region) {
                     }
                 }
                 
+                
+                
+                // Update the vehicle types chart
                 // Update the vehicle types chart
                 charts.vehicleTypesChart.data = chartDataToUse.vehicleTypesData;
-                //rescale the chart to fit the new data
-                charts.vehicleTypesChart.options.scales.y.max = Math.max(...chartDataToUse.vehicleTypesData.datasets[0].data) + 50000;
-                charts.vehicleTypesChart.options.scales.y.min = 0;
+                if(charts.vehicleTypesChart.config.type === 'line'){
+                    //keep the chart type as line
+                    charts.vehicleTypesChart.config.type = 'line';
+                    // Ensure proper line styling
+                    charts.vehicleTypesChart.data.datasets.forEach(dataset => {
+                        dataset.backgroundColor = 'rgba(79, 195, 247, 0.2)';
+                        dataset.borderColor = '#4fc3f7';
+                        dataset.borderWidth = 2;
+                    });
+
+                }
+                // Calculate appropriate padding based on data range
+                const vehicleMaxValue = Math.max(...chartDataToUse.vehicleTypesData.datasets[0].data);
+                const vehiclePadding = vehicleMaxValue * 0.1; // 10% padding
+                charts.vehicleTypesChart.options.scales.y.max = vehicleMaxValue + vehiclePadding;
+                charts.vehicleTypesChart.options.scales.y.min = 0; // Keep min at 0 for count data
                 charts.vehicleTypesChart.update();
                 
                 // Update the total registered vehicles chart
                 charts.totalRegisteredVehiclesChart.data = chartDataToUse.totalRegisteredVehiclesData;
                 console.log('Total Registered Vehicles Data:', chartDataToUse.totalRegisteredVehiclesData);
-                //rescale the chart to fit the new data
-                charts.totalRegisteredVehiclesChart.options.scales.y.max = Math.max(...chartDataToUse.totalRegisteredVehiclesData.datasets[0].data) + 50000;
-                charts.totalRegisteredVehiclesChart.options.scales.y.min = Math.min(...chartDataToUse.totalRegisteredVehiclesData.datasets[0].data) - 50000;
-
+                // Calculate appropriate padding based on data range
+                const regVehiclesData = chartDataToUse.totalRegisteredVehiclesData.datasets[0].data;
+                const regMaxValue = Math.max(...regVehiclesData);
+                const regMinValue = Math.min(...regVehiclesData);
+                const regDataRange = regMaxValue - regMinValue;
+                const regPadding = Math.max(regDataRange * 0.1, 100); // At least 100 or 10% of range
+                
+                charts.totalRegisteredVehiclesChart.options.scales.y.max = regMaxValue + regPadding;
+                charts.totalRegisteredVehiclesChart.options.scales.y.min = Math.max(0, regMinValue - regPadding); // Don't go below 0
                 charts.totalRegisteredVehiclesChart.update();
                 
                 console.log(`Vehicle charts updated for year: ${year}, region: ${region}`);
@@ -1051,29 +1354,220 @@ async function initializeDieselVehiclesCharts() {
     }
 }
 // Chart type toggle functionality
+// function setupChartTypeToggle() {
+//     const dieselPriceToggleButtons = document.querySelectorAll('#diesel-price-tab .toggle-btn');
+//     const dieselVehiclesToggleButtons = document.querySelectorAll('#diesel-vehicles-tab .toggle-btn');
+    
+//     // Set up toggle for diesel price chart
+//     dieselPriceToggleButtons.forEach(button => {
+//         button.addEventListener('click', function() {
+//             // Remove active class from all toggle buttons in this tab
+//             dieselPriceToggleButtons.forEach(btn => btn.classList.remove('active'));
+            
+//             // Add active class to clicked button
+//             this.classList.add('active');
+            
+//             // Get chart type
+//             const chartType = this.getAttribute('data-chart');
+            
+//             // Update diesel price chart type
+//             if (charts.dieselPriceChart) {
+//                 charts.dieselPriceChart.config.type = chartType;
+//                 charts.dieselPriceChart.update();
+//             }
+//         });
+//     });
+    
+//     // Set up toggle for diesel vehicles chart
+//     dieselVehiclesToggleButtons.forEach(button => {
+//         button.addEventListener('click', function() {
+//             // Remove active class from all toggle buttons in this tab
+//             dieselVehiclesToggleButtons.forEach(btn => btn.classList.remove('active'));
+            
+//             // Add active class to clicked button
+//             this.classList.add('active');
+            
+//             // Get chart type
+//             const chartType = this.getAttribute('data-chart');
+            
+//             // Update vehicle types chart type (only for bar/line toggle)
+//             if (charts.vehicleTypesChart) {
+//                 // Save the original data
+//                 const originalData = charts.vehicleTypesChart.data;
+                
+//                 if (chartType === 'line') {
+//                     // For line chart, create aggregate data based on original categories
+//                     const aggregateData = {
+//                         labels: originalData.labels,
+//                         datasets: [{
+//                             label: 'Number of Registered Vehicles',
+//                             data: originalData.datasets[0].data,
+//                             borderColor: '#4fc3f7',
+//                             backgroundColor: 'rgba(79, 195, 247, 0.2)',
+//                             borderWidth: 2,
+//                             fill: false,
+//                             tension: 0.1
+//                         }]
+//                     };
+                    
+//                     charts.vehicleTypesChart.config.type = 'line';
+//                     charts.vehicleTypesChart.data = aggregateData;
+//                 } else {
+//                     // For bar chart, restore the original data with multiple colors
+//                     charts.vehicleTypesChart.config.type = 'bar';
+//                     charts.vehicleTypesChart.data = originalData;
+//                 }
+                
+//                 charts.vehicleTypesChart.update();
+//             }
+//         });
+//     });
+// }
+// Chart type toggle functionality
 function setupChartTypeToggle() {
     const dieselPriceToggleButtons = document.querySelectorAll('#diesel-price-tab .toggle-btn');
     const dieselVehiclesToggleButtons = document.querySelectorAll('#diesel-vehicles-tab .toggle-btn');
     
     // Set up toggle for diesel price chart
-    dieselPriceToggleButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Remove active class from all toggle buttons in this tab
-            dieselPriceToggleButtons.forEach(btn => btn.classList.remove('active'));
+    // dieselPriceToggleButtons.forEach(button => {
+    //     button.addEventListener('click', function() {
+    //         // Remove active class from all toggle buttons in this tab
+    //         dieselPriceToggleButtons.forEach(btn => btn.classList.remove('active'));
             
-            // Add active class to clicked button
-            this.classList.add('active');
+    //         // Add active class to clicked button
+    //         this.classList.add('active');
             
-            // Get chart type
-            const chartType = this.getAttribute('data-chart');
+    //         // Get chart type
+    //         const chartType = this.getAttribute('data-chart');
             
-            // Update diesel price chart type
-            if (charts.dieselPriceChart) {
-                charts.dieselPriceChart.config.type = chartType;
-                charts.dieselPriceChart.update();
-            }
+    //         // Update diesel price chart type
+    //         if (charts.dieselPriceChart) {
+    //             charts.dieselPriceChart.config.type = chartType;
+    //             //rescale the y axis to fit the new data with proper padding
+    //             const dataValues = charts.dieselPriceChart.data.datasets[0].data;
+    //             const maxValue = Math.max(...dataValues);
+    //             const minValue = Math.min(...dataValues);
+    //             const dataRange = maxValue - minValue;
+    //             const padding = Math.max(dataRange * 0.1, 0.2); // At least 0.2 or 10% of range
+
+    //             charts.dieselPriceChart.options.scales.y.max = maxValue + padding;
+    //             charts.dieselPriceChart.options.scales.y.min = Math.max(0, minValue - padding); // Don't go below 0
+    //             console.log("hello")
+    //             charts.dieselPriceChart.update();
+    //         }
+    //     });
+    // });
+        dieselPriceToggleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all toggle buttons in this tab
+                dieselPriceToggleButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Get chart type
+                const chartType = this.getAttribute('data-chart');
+                
+                // Update diesel price chart type
+                if (charts.dieselPriceChart) {
+                    // Destroy and recreate chart to ensure proper rendering with new type
+                    const canvas = charts.dieselPriceChart.canvas;
+                    const chartData = charts.dieselPriceChart.data;
+                    const chartOptions = JSON.parse(JSON.stringify(charts.dieselPriceChart.options));
+                    
+                    // Destroy the original chart
+                    charts.dieselPriceChart.destroy();
+                    
+                    if (chartType === 'bar') {
+                        // For bar chart, completely override x-axis configuration
+                        chartOptions.scales.x = {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45,
+                                padding: 10
+                            },
+                            // Critical fix: Override the min and max to expand axis range
+                            min: -0.5,  // Start before the first data point
+                            max: chartData.labels.length - 0.5,  // End after the last data point
+                            offset: true,  // Ensures category alignment
+                            afterFit: function(scale) {
+                                scale.paddingLeft = 30;
+                                scale.paddingRight = 30;
+                            }
+                        };
+                        
+                        // Adjust bar specific options
+                        chartOptions.categoryPercentage = 0.8;  // Controls width of bars
+                        chartOptions.barPercentage = 0.9;       // Controls width of bars
+                        
+                        // Increase overall layout padding
+                        chartOptions.layout = {
+                            padding: {
+                                left: 25,
+                                right: 25,
+                                top: 10,
+                                bottom: 10
+                            }
+                        };
+                    } else {
+                        // For line charts, use standard settings
+                        chartOptions.scales.x = {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45,
+                                padding: 10
+                            },
+                            afterFit: function(scale) {
+                                scale.paddingLeft = 20;
+                                scale.paddingRight = 20;
+                            }
+                        };
+                        
+                        chartOptions.layout = {
+                            padding: {
+                                left: 10,
+                                right: 10,
+                                top: 10,
+                                bottom: 10
+                            }
+                        };
+                    }
+                    
+                    // Rescale the y axis to fit the data with proper padding
+                    const dataValues = chartData.datasets[0].data;
+                    const maxValue = Math.max(...dataValues);
+                    const minValue = Math.min(...dataValues);
+                    const dataRange = maxValue - minValue;
+                    const padding = Math.max(dataRange * 0.1, 0.2);
+                    
+                    chartOptions.scales.y.max = maxValue + padding;
+                    chartOptions.scales.y.min = Math.max(0, minValue - padding);
+                    
+                    // Create a new chart with the updated options
+                    charts.dieselPriceChart = new Chart(canvas, {
+                        type: chartType,
+                        data: chartData,
+                        options: chartOptions
+                    });
+                }
+            });
         });
-    });
+    
+    // Original colors for vehicle types chart (store this outside to maintain state)
+    const vehicleTypeColors = [
+        'rgba(79, 195, 247, 0.8)',   // Diesel - light blue
+        'rgba(63, 81, 181, 0.8)',    // Electric - indigo
+        'rgba(46, 125, 50, 0.8)',    // Green Diesel - green
+        'rgba(21, 101, 192, 0.8)',   // Hybrid Diesel - blue
+        'rgba(0, 150, 136, 0.8)',    // Hybrid Petrol - teal
+        'rgba(255, 152, 0, 0.8)'     // Petrol - orange
+    ];
     
     // Set up toggle for diesel vehicles chart
     dieselVehiclesToggleButtons.forEach(button => {
@@ -1089,8 +1583,8 @@ function setupChartTypeToggle() {
             
             // Update vehicle types chart type (only for bar/line toggle)
             if (charts.vehicleTypesChart) {
-                // Save the original data
-                const originalData = charts.vehicleTypesChart.data;
+                // Save the original data structure
+                const originalData = JSON.parse(JSON.stringify(charts.vehicleTypesChart.data));
                 
                 if (chartType === 'line') {
                     // For line chart, create aggregate data based on original categories
@@ -1106,14 +1600,48 @@ function setupChartTypeToggle() {
                             tension: 0.1
                         }]
                     };
+                    console.log('Aggregate Data:', aggregateData);
                     
                     charts.vehicleTypesChart.config.type = 'line';
                     charts.vehicleTypesChart.data = aggregateData;
+                    
+                    // Store the original bar colors in the chart instance for later
+                    if (!charts.vehicleTypesChart._originalBarColors) {
+                        charts.vehicleTypesChart._originalBarColors = 
+                            originalData.datasets[0].backgroundColor;
+                    }
+                    if(!charts.vehicleTypesChart._originalBorderColors) {
+                        charts.vehicleTypesChart._originalBorderColors = 
+                            originalData.datasets[0].borderColor;
+                    }
                 } else {
                     // For bar chart, restore the original data with multiple colors
                     charts.vehicleTypesChart.config.type = 'bar';
+                    
+                    // Restore the original backgroundColor if we have it stored
+                    if (charts.vehicleTypesChart._originalBarColors) {
+                        originalData.datasets[0].backgroundColor = charts.vehicleTypesChart._originalBarColors;
+                    } else {
+                        // Fallback to our predefined colors if no original colors are stored
+                        originalData.datasets[0].backgroundColor = vehicleTypeColors;
+                    }
+                    // Restore the original borderColor if we have it stored
+                    if (charts.vehicleTypesChart._originalBorderColors) {
+                        originalData.datasets[0].borderColor = charts.vehicleTypesChart._originalBorderColors;
+                    } else {
+                        // Fallback to our predefined colors if no original colors are stored
+                        originalData.datasets[0].borderColor = vehicleTypeColors;
+                    }
+                    
                     charts.vehicleTypesChart.data = originalData;
                 }
+                
+                // Rescale based on data
+                const maxValue = Math.max(...charts.vehicleTypesChart.data.datasets[0].data);
+                const padding = maxValue * 0.1; // 10% padding
+                
+                charts.vehicleTypesChart.options.scales.y.max = maxValue + padding;
+                charts.vehicleTypesChart.options.scales.y.min = 0;
                 
                 charts.vehicleTypesChart.update();
             }
