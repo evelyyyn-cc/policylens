@@ -45,3 +45,5 @@ venv/
 
 # database files
 Backend/policylens/db.sqlite3
+Backend/policylens/api/management/commands/cars_data.csv
+Backend/policylens/api/management/commands/fuelprice_level.csv
