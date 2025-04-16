@@ -10,49 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <link rel="stylesheet" href="assets/scss/datasets_page.css">
-    <style>
-        /* Additional styles for dropdowns */
-        .dropdown-menu {
-            background-color: #fff;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        
-        .dropdown-item {
-            padding: 8px 12px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: background-color 0.2s;
-        }
-        
-        .dropdown-item:hover {
-            background-color: #f8f9fa;
-        }
-        
-        .language-dropdown-menu {
-            background-color: #fff;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            min-width: 150px;
-        }
-        
-        .language-option {
-            padding: 8px 16px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: background-color 0.2s;
-        }
-        
-        .language-option:hover {
-            background-color: #f8f9fa;
-        }
-    </style>
 </head>
 <body>
     <!-- Top navigation bar -->
@@ -115,7 +72,7 @@
         <div class="tab-content active" id="diesel-price-tab">
             <section class="dashboard-section">
                 <div class="section-header diesel-header">
-                    <span class="title">Diesel Price Dataset</span>
+                    <span class="title">Fuel Price Dataset</span>
                     <div class="external-link-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
@@ -195,9 +152,9 @@
                     </div>
                     
                     <div class="data-citation">
-                        <strong>Data Source:</strong> Ministry of Finance Malaysia, Official Price Announcements, 2019-2024<br>
-                        <strong>URL:</strong> <a href="https://www.mof.gov.my/portal/en/news/press-release" target="_blank">https://www.mof.gov.my/portal/en/news/press-release</a><br>
-                        <strong>Methodology:</strong> Monthly diesel prices were collected from official announcements. Pre-subsidy prices estimated based on international market rates.
+                        <strong>Data Source:</strong> data.gov.my, 2017-2025<br>
+                        <strong>URL:</strong> <a href="https://data.gov.my/data-catalogue/fuelprice" target="_blank">https://data.gov.my/data-catalogue/fuelprice</a><br>
+                        <strong>Methodology:</strong> Weekly fuel prices were collected from official goverment data centers.
                     </div>
                 </div>
             </section>
@@ -207,7 +164,7 @@
         <div class="tab-content" id="diesel-vehicles-tab">
             <section class="dashboard-section">
                 <div class="section-header diesel-header">
-                    <span class="title">Register Diesel Vehicles Dataset</span>
+                    <span class="title">Registered Vehicles Dataset</span>
                     <div class="external-link-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
@@ -257,14 +214,14 @@
                     </div>
 
                     <div class="chart-container border-container">
-                        <h3 class="chart-title">Diesel Vehicle Types Distribution (2024)</h3>
+                        <h3 class="chart-title">Vehicle Types Distribution (2024)</h3>
                         <canvas id="vehicleTypesChart"></canvas>
                     </div>
                     
                     <div class="legend-container">
                         <div class="legend-item">
                             <div class="legend-color" style="background-color: #4fc3f7;"></div>
-                            <span>Total Registered Diesel Vehicles</span>
+                            <span>Total Registered Vehicles</span>
                         </div>
                     </div>
                     
@@ -273,9 +230,9 @@
                     </div>
                     
                     <div class="data-citation">
-                        <strong>Data Source:</strong> Road Transport Department Malaysia (JPJ), Annual Vehicle Registration Statistics, 2019-2024<br>
-                        <strong>URL:</strong> <a href="https://www.jpj.gov.my/en/statistics" target="_blank">https://www.jpj.gov.my/en/statistics</a><br>
-                        <strong>Methodology:</strong> Diesel vehicle registration records aggregated by type, state, and year. Updated quarterly.
+                        <strong>Data Source:</strong> data.gov.my, 2000-2025<br>
+                        <strong>URL:</strong> <a href="https://data.gov.my/data-catalogue/registration_transactions_car" target="_blank">https://data.gov.my/data-catalogue/registration_transactions_car</a><br>
+                        <strong>Methodology:</strong> Vehicle registration records aggregated by type, state, and year. Updated monthly.
                     </div>
                 </div>
             </section>
