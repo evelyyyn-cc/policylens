@@ -184,7 +184,7 @@ ul {
     background-color: $primary-blue;
     color: $white;
     padding: 0.8rem 1rem;
-    border-radius: 4px;
+    border-radius: 8px;
     font-weight: 500;
     transition: all 0.3s ease;
 
@@ -221,7 +221,7 @@ ul {
 // Policy Information Section
 .policy-info {
   background-color: $white;
-  padding: 3rem 0;
+  padding: 2rem 0;
   margin-top: 2rem;
 
   .section-title {
@@ -237,7 +237,15 @@ ul {
     color: $text-color;
     max-width: 90%;
   }
+
+  // Disclaimer
+  .disclaimer {
+    color: orange;
+    padding-top: 1rem;
+  }
 }
+
+
 
 // Challenge Section
 .challenge-section {
