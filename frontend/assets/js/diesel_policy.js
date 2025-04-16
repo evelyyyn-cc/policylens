@@ -126,14 +126,14 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       // More Details link functionality
-      const moreDetailsLink = document.querySelector('.more-link');
-      if (moreDetailsLink) {
-        moreDetailsLink.addEventListener('click', function(e) {
-          e.preventDefault();
-          // This could show a modal, expand a section, or navigate to a details page
-          alert('Additional eligibility details would be shown here.');
-        });
-      }
+    //   const moreDetailsLink = document.querySelector('.more-link');
+    //   if (moreDetailsLink) {
+    //     moreDetailsLink.addEventListener('click', function(e) {
+    //       e.preventDefault();
+    //       // This could show a modal, expand a section, or navigate to a details page
+    //       alert('Additional eligibility details would be shown here.');
+    //     });
+    //   }
 });
 
 function initializeCharts() {

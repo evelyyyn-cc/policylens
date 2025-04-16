@@ -867,7 +867,7 @@ ul {
   background-color: #1a3a72;
   color: #ffffff;
   padding: 0.8rem 1rem;
-  border-radius: 4px;
+  border-radius: 8px;
   font-weight: 500;
   transition: all 0.3s ease;
 }
@@ -899,7 +899,7 @@ ul {
 
 .policy-info {
   background-color: #ffffff;
-  padding: 3rem 0;
+  padding: 2rem 0;
   margin-top: 2rem;
 }
 .policy-info .section-title {
@@ -913,6 +913,10 @@ ul {
   line-height: 1.7;
   color: #333333;
   max-width: 90%;
+}
+.policy-info .disclaimer {
+  color: orange;
+  padding-top: 1rem;
 }
 
 .challenge-section {
