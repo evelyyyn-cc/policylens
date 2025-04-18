@@ -1,3 +1,17 @@
+
+/*
+ * Price Calculator JS for Diesel Subsidy Reform Impact Calculator
+ * 
+ * This script handles the functionality of Price Impact Calculator.
+ * It calculates how policy changes affect personal finances based on user inputs
+ * for transportation, groceries, utilities, and restaurants & accommodation expenses.
+ * The calculator shows monthly and yearly financial impacts with percentage increases.
+ * 
+ * Last updated: April 18, 2025
+ * 
+ * Author: Chen Wanning
+ */
+
 document.addEventListener('DOMContentLoaded', function() {
     // Get all sliders and their corresponding value displays
     const transportSlider = document.getElementById('transportSlider');
@@ -9,8 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const otherSlider = document.getElementById('otherSlider');
     const otherValue = document.getElementById('otherValue');
     const calculateBtn = document.getElementById('calculateBtn');
-    const dieselCheck = document.getElementById('diesel');
-    const publicTransportCheck = document.getElementById('publicTransport');
+    const locationSelect = document.getElementById('locationSelect');
 
     // Update the value displays when sliders change
     transportSlider.addEventListener('input', function() {
@@ -47,19 +60,22 @@ document.addEventListener('DOMContentLoaded', function() {
         const food = parseFloat(foodSlider.value);
         const housing = parseFloat(housingSlider.value);
         const other = parseFloat(otherSlider.value);
+        const location = locationSelect.value;
         
-        // Impact rates (could be adjusted based on real data)
-        let transportRate = 0.05; // 5% default
-        if (dieselCheck && dieselCheck.checked) {
-            transportRate = 0.11; // 11% for diesel vehicles
+        // Impact rates determined based on dataset of dec 2024
+        const transportRate = 0.05; 
+        const foodRate = 0.02; 
+        const housingRate = 0.01; 
+        const otherRate = 0.009; 
+
+        // Adjust rates based on location
+        if (location === "Sabah" || location === "Sarawak") {
+            transportRate = 0.045; // Slightly lower transport impact in East Malaysia
+            foodRate = 0.018;
+        } else if (location === "Kuala Lumpur") {
+            transportRate = 0.052;
+            otherRate = 0.01; // Higher restaurant costs in urban areas
         }
-        if (publicTransportCheck && publicTransportCheck.checked) {
-            transportRate = transportRate * 0.7; // Reduced impact for public transport users
-        }
-        
-        const foodRate = 0.02; // 2%
-        const housingRate = 0.01; // 1%
-        const otherRate = 0.009; // 0.9%
         
         // Calculate impacts
         const transportImpact = transport * transportRate;
