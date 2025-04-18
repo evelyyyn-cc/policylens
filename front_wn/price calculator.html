@@ -1,18 +1,14 @@
+<!--
+  Price Impact Calculator
 
-/*
- * Price Calculator HTML for Diesel Subsidy Reform Impact Calculator
- * 
- * This script is a front html page related to Price Impact Calculator.
- * It displays how policy changes would affect personal finances based on user inputs
- * for transportation, groceries, utilities, and restaurants & accommodation expenses.
- * The calculator shows monthly and yearly financial impacts with percentage increases.
- * Giving money saving Tips
- * 
- * Last updated: April 18, 2025
- * 
- * Author: Chen Wanning
- */
+  This file created with interactive calculator visualizing policy impact on personal finances through
+  adjustable expense sliders for transportation, groceries, utilities, and 
+  resaurant sectors.
+  
+  Last updated: April 18, 2025
+  Author: Chen Wanning 
 
+-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +20,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="price calculator.css">
 </head>
 <body class="bg-gray-50">
     <div class="container mx-auto px-4 py-8">
@@ -46,10 +42,34 @@
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
                         <h3 class="text-lg font-medium text-gray-800 mb-4">Your Monthly Expenses</h3>
                         
+                        <!-- Location -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">📍 Choose Your Location</label>
+                            <select id="locationSelect" class="w-full bg-white border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+                                <option>Johor</option>
+                                <option>Kedah</option>
+                                <option>Kelantan</option>
+                                <option>Melaka</option>
+                                <option>Negeri Sembilan</option>
+                                <option>Pahang</option>
+                                <option>Perak</option>
+                                <option>Perlis</option>
+                                <option>Pulau Pinang</option>
+                                <option>Sabah</option>
+                                <option>Sarawak</option>
+                                <option>Selangor</option>
+                                <option>Terengganu</option>
+                                <option>W.P. Kuala Lumpur</option>
+                                <option>W.P. Labuan</option>
+                                <option>W.P. Putrajaya</option>
+                            </select>
+                        </div>
+
                         <!-- Transportation -->
                         <div class="mb-6">
                             <div class="flex justify-between mb-1">
-                                <label class="text-sm font-medium text-gray-700">Transportation</label>
+                                <label class="text-sm font-medium text-gray-700">Transport</label>
                                 <span class="text-sm font-medium text-blue-700" id="transportValue">RM 500</span>
                             </div>
                             <div class="flex items-center space-x-3">
@@ -66,7 +86,7 @@
                         <!-- Food -->
                         <div class="mb-6">
                             <div class="flex justify-between mb-1">
-                                <label class="text-sm font-medium text-gray-700">Groceries</label>
+                                <label class="text-sm font-medium text-gray-700">Food & Beverages</label>
                                 <span class="text-sm font-medium text-blue-700" id="foodValue">RM 800</span>
                             </div>
                             <div class="flex items-center space-x-3">
@@ -79,7 +99,7 @@
                         <!-- Housing -->
                         <div class="mb-6">
                             <div class="flex justify-between mb-1">
-                                <label class="text-sm font-medium text-gray-700">Utilities</label>
+                                <label class="text-sm font-medium text-gray-700">House, Water, Electricity, Gas & Other fuels</label>
                                 <span class="text-sm font-medium text-blue-700" id="housingValue">RM 1200</span>
                             </div>
                             <div class="flex items-center space-x-3">
@@ -92,7 +112,7 @@
                         <!-- Other Expenses -->
                         <div class="mb-6">
                             <div class="flex justify-between mb-1">
-                                <label class="text-sm font-medium text-gray-700">Restaurants & Accommodation</label>
+                                <label class="text-sm font-medium text-gray-700">Restaurants & Accommodation Services</label>
                                 <span class="text-sm font-medium text-blue-700" id="otherValue">RM 500</span>
                             </div>
                             <div class="flex items-center space-x-3">
@@ -102,19 +122,7 @@
                             </div>
                         </div>
                         
-                        <!-- Location -->
-                        <div class="mb-6">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Your Location</label>
-                            <select id="locationSelect" class="w-full bg-white border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option>Kuala Lumpur</option>
-                                <option>Selangor</option>
-                                <option>Penang</option>
-                                <option>Johor</option>
-                                <option>Sabah</option>
-                                <option>Sarawak</option>
-                                <option>Other States</option>
-                            </select>
-                        </div>
+
                         
                         <button id="calculateBtn" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-medium py-2 px-4 rounded-md transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                             Calculate Impact
@@ -175,7 +183,7 @@
                             <div class="flex justify-between items-center">
                                 <div class="flex items-center">
                                     <i class="fas fa-car-side text-blue-700 mr-2"></i>
-                                    <span class="text-sm">Transportation</span>
+                                    <span class="text-sm">Transport</span>
                                 </div>
                                 <div class="flex flex-col items-end">
                                     <span class="text-sm font-medium text-red-600" id="transportImpact">+ RM 55.00</span>
@@ -185,7 +193,7 @@
                             <div class="flex justify-between items-center">
                                 <div class="flex items-center">
                                     <i class="fas fa-utensils text-blue-700 mr-2"></i>
-                                    <span class="text-sm">Groceries</span>
+                                    <span class="text-sm">Food & Beverages</span>
                                 </div>
                                 <div class="flex flex-col items-end">
                                     <span class="text-sm font-medium text-red-600" id="foodImpact">+ RM 16.00</span>
@@ -195,7 +203,7 @@
                             <div class="flex justify-between items-center">
                                 <div class="flex items-center">
                                     <i class="fas fa-home text-blue-700 mr-2"></i>
-                                    <span class="text-sm">Utilities</span>
+                                    <span class="text-sm">House, Water, Electricity, Gas & Other fuels</span>
                                 </div>
                                 <div class="flex flex-col items-end">
                                     <span class="text-sm font-medium text-red-600" id="housingImpact">+ RM 12.00</span>
@@ -205,7 +213,7 @@
                             <div class="flex justify-between items-center">
                                 <div class="flex items-center">
                                     <i class="fas fa-shopping-bag text-blue-700 mr-2"></i>
-                                    <span class="text-sm">Other Expenses</span>
+                                    <span class="text-sm">Restaurants & Accommodation Services</span>
                                 </div>
                                 <div class="flex flex-col items-end">
                                     <span class="text-sm font-medium text-red-600" id="otherImpact">+ RM 4.50</span>
@@ -238,6 +246,6 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="asset/js/price calculator.js"></script>
+    <script src="price calculator.js"></script>
 </body>
 </html>
