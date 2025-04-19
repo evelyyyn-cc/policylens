@@ -14,6 +14,11 @@ async function fetchFuelPrices(fuelType, startDate, endDate) {
             }
         }
         
+        // convert UI name to API equivalent name
+        if(fuelType === 'diesel_east') {
+            fuelType = 'diesel_euro5';
+        }
+
         // Fetch from the API
         const response = await fetch(`http://localhost:8000/api/fuel-prices/?fuel_type=${fuelType}&start_date=${startDate}&end_date=${endDate}`);
         
@@ -116,7 +121,7 @@ function transformApiDataToChartFormat(apiData, fuelType, selectedYear) {
     // Determine which data property to use based on the fuelType
     let fuelTypeKey = fuelType.toLowerCase().replace(' ', '_');
     console.log('Fuel Type Key:', fuelTypeKey);
-    if(fuelTypeKey === 'diesel_euro5') {
+    if(fuelTypeKey === 'diesel_east') {
         fuelTypeKey = 'diesel_eastern';
     }
     
@@ -194,7 +199,7 @@ function transformApiDataToChartFormat(apiData, fuelType, selectedYear) {
             borderColor = '#6c757d';
             backgroundColor = 'rgba(108, 117, 125, 0.1)';
             break;
-        case 'Diesel Euro5':
+        case 'Diesel East':
             borderColor = '#0d47a1';
             backgroundColor = 'rgba(13, 71, 161, 0.1)';
             break;
@@ -288,7 +293,7 @@ const chartData = {
                 tension: 0.1
             },
             {
-                label: 'Diesel Euro5',
+                label: 'Diesel East',
                 data: [2.4, 2.3, 2.3, 2.2, 2.2, 2.2, 2.2, 2.2, 2.2, 2.2, 2.1, 3.3, 3.3],
                 borderColor: '#0d47a1',
                 backgroundColor: 'rgba(13, 71, 161, 0.1)',
@@ -782,7 +787,7 @@ async function updateChartWithFilter(year, fuelType) {
 // Filter dropdown options
 const filterOptions = {
     years: ['All Years', '2021', '2022', '2023', '2024', '2025'],
-    fuelTypes: ['RON95', 'RON97', 'Diesel', 'Diesel Euro5'], // Removed "All Types"
+    fuelTypes: ['RON95', 'RON97', 'Diesel', 'Diesel East'], // Removed "All Types"
     regions: [
         'All Regions',
         'Rakan Niaga',
