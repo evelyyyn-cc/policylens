@@ -64,6 +64,9 @@ class FuelPriceFilterView(APIView):
 
         if fuel_type not in ["ron95", "ron97", "diesel", "diesel_euro5"]:
             return Response({"error": "Invalid fuel type"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if fuel_type == "diesel_euro5":
+            fuel_type = "diesel_eastern"
 
         if not start_date or not end_date:
             return Response({"error": "Start and end dates are required"}, status=status.HTTP_400_BAD_REQUEST)
