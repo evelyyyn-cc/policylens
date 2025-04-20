@@ -152,3 +152,49 @@ class Car(models.Model):
             return fuel_price.diesel
         else:
             return None
+
+
+class CPIData(models.Model):
+    """Model to store Consumer Price Index (CPI) data by state and division"""
+
+    # Auto-incrementing primary key
+    id = models.AutoField(primary_key=True)
+
+    # Date in YYYY-MM format
+    date = models.CharField(
+        max_length=7,
+        db_index=True,  # Add database index for faster querying by date
+        help_text="Format: YYYY-MM"
+    )
+
+    # State name
+    state = models.CharField(
+        max_length=100,
+        db_index=True  # Add index for faster filtering by state
+    )
+
+    # Division/category name
+    division = models.CharField(
+        max_length=100,
+        db_index=True  # Add index for faster filtering by division
+    )
+
+    # CPI index value
+    index = models.FloatField(
+        # null=True,
+        validators=[
+            MinValueValidator(0)  # Ensure index is non-negative
+        ]
+    )
+
+    class Meta:
+        ordering = ['-date']  # Default ordering: most recent first
+        unique_together = ['date', 'state', 'division']  # Prevent duplicate records
+        db_table = 'cpi_data'  # Custom database table name
+        verbose_name = 'CPI Data'  # Human-readable name
+        verbose_name_plural = 'CPI Data'  # Plural name
+
+    def __str__(self):
+        """String representation of the CPI data record"""
+        return f"{self.date} - {self.state} - {self.division} - {self.index}"
+
