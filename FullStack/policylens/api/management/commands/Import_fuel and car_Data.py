@@ -17,14 +17,14 @@ class Command(BaseCommand):
     """
     Command to import fuel and car data
     """
-    help = 'Import fuel and car data'
+    help = 'Import CPI data from CSV to database'
 
     def handle(self, *args, **kwargs):
         current_dir = os.path.dirname(os.path.abspath(__file__))
 
         # Import fuel price data
         try:
-            df_fuel = pd.read_csv(os.path.join(current_dir, 'fuelprice_level.csv'))
+            df_fuel = pd.read_csv(os.path.join(current_dir, 'cpi_2d_state.csv'))
             for _, row in df_fuel.iterrows():
                 FuelPrice.objects.create(
                     date=datetime.strptime(row['date'], '%Y/%m/%d').date(),
