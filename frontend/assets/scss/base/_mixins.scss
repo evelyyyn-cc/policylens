@@ -1,0 +1,81 @@
+// Mixins
+
+// Flexbox mixins
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  @mixin flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  @mixin flex-column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  // Section padding
+  @mixin section-padding {
+    padding: 3rem 2rem;
+  }
+  
+  // Button styles
+  @mixin button-style {
+    padding: 6px 12px;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+    font-weight: 500;
+    
+    &:hover {
+      background-color: darken(#f0f0f0, 5%);
+    }
+    
+    &.primary {
+      background-color: $primary-color;
+      color: $white;
+      
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+    }
+  }
+  
+  // Media query mixins
+  @mixin mobile {
+    @media (max-width: $breakpoint-md) {
+      @content;
+    }
+  }
+  
+  @mixin tablet {
+    @media (min-width: $breakpoint-md) and (max-width: $breakpoint-lg) {
+      @content;
+    }
+  }
+  
+  @mixin desktop {
+    @media (min-width: $breakpoint-lg) {
+      @content;
+    }
+  }
+  
+  // Device-specific mixins
+  @mixin iphone {
+    @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+      @content;
+    }
+  }
+  
+  @mixin android {
+    @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+      @content;
+    }
+  }
