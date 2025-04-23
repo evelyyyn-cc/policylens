@@ -861,6 +861,7 @@ header.header-hidden {
   flex-grow: 1;
   line-height: 1.6;
   margin-bottom: 1.5rem;
+  text-align: justify;
 }
 #policies-grid .policy-card .policy-content .read-more-btn {
   align-self: flex-start;
