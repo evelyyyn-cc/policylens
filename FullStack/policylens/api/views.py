@@ -231,7 +231,7 @@ class CPIReportAPI(APIView):
         'Overall CPI'
     ]
 
-    def post(self, request):
+    def get(self, request):
         """
         Handle POST request with parameters:
         - year: integer (e.g., 2023)
@@ -250,8 +250,8 @@ class CPIReportAPI(APIView):
     ]
          """
         # Extract parameters from request body
-        year = request.data.get('year')
-        state = request.data.get('state')
+        year = request.GET.get('year')
+        state = request.GET.get('state')
         print("testing",year, state)
 
         # Validate required parameters
