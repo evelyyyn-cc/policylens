@@ -915,6 +915,38 @@ body {
   letter-spacing: -0.02em;
 }
 
+.dashboard-links {
+  background-color: white;
+  padding: 1.5rem 0;
+}
+.dashboard-links .container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.dashboard-links .dashboard-link {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #1a3a72;
+  color: white;
+  padding: 1rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.dashboard-links .dashboard-link:hover {
+  background-color: #234f9c;
+  transform: translateY(-3px);
+}
+.dashboard-links .dashboard-link .icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+}
+
 /* Main tab navigation */
 .main-tabs {
   display: flex;
