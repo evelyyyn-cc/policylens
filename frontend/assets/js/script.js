@@ -2,9 +2,123 @@ const isMobileDevice = () => {
     return (window.innerWidth <= 768) || 
            (window.navigator.userAgent.match(/Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i));
   };
+// Function to load common header
+function loadHeader() {
+    const headerPlaceholder = document.getElementById("header-placeholder");
+    
+    if (headerPlaceholder) {
+      fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+          headerPlaceholder.innerHTML = data;
+          
+          // Set active class on current page
+          const currentPage = window.location.pathname.split("/").pop() || 'index.html';
+          document.querySelectorAll('#navLinks a').forEach(link => {
+            if (link.getAttribute('href') === currentPage) {
+              link.classList.add('active');
+            }
+          });
+          
+          // Initialize header elements after loading
+          initializeHeaderElements();
+        });
+    }
+  }
+  
+  // Initialize header-specific elements
+  function initializeHeaderElements() {
+    // Mobile Navigation Toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+      });
+      
+      const navItems = navLinks.querySelectorAll('a');
+      navItems.forEach(item => {
+        item.addEventListener('click', function() {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('active');
+          document.body.classList.remove('menu-open');
+        });
+      });
+      
+      document.addEventListener('click', function(e) {
+        if (navLinks.classList.contains('active') && 
+            !navLinks.contains(e.target) && 
+            !hamburger.contains(e.target)) {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('active');
+          document.body.classList.remove('menu-open');
+        }
+      });
+    }
+    
+    // Language selector dropdown
+    const languageSelector = document.querySelector('.language-selector');
+    if (languageSelector) {
+      const selectedLanguage = languageSelector.querySelector('.selected-language span');
+      const languageOptions = languageSelector.querySelectorAll('.language-dropdown li');
+      
+      // Toggle dropdown on click
+      languageSelector.querySelector('.selected-language').addEventListener('click', function(e) {
+        e.stopPropagation();
+        languageSelector.classList.toggle('active');
+      });
+      
+      // Close dropdown when clicking elsewhere
+      document.addEventListener('click', function(e) {
+        if (!languageSelector.contains(e.target)) {
+          languageSelector.classList.remove('active');
+        }
+      });
+      
+      // Handle language selection
+      languageOptions.forEach(option => {
+        option.addEventListener('click', function(e) {
+          e.stopPropagation();
+          
+          // Update selected language text
+          selectedLanguage.textContent = this.textContent;
+          
+          // Update active class
+          languageOptions.forEach(opt => opt.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Get language code
+          const langCode = this.getAttribute('data-lang');
+          
+          // This would be where you implement actual language switching
+          console.log(`Switching to language: ${langCode}`);
+          
+          // Close dropdown
+          languageSelector.classList.remove('active');
+        });
+      });
+    }
+  }
+
+function loadFooter() {
+    const footerPlaceholder = document.getElementById("footer-placeholder");
+    
+    if (footerPlaceholder) {
+      fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+          footerPlaceholder.innerHTML = data;
+        });
+    }
+  }
 
 
   document.addEventListener('DOMContentLoaded', function() {
+    loadHeader();
+    loadFooter();
     const videoThumbnail = document.getElementById('videoThumbnail');
     const youtubeIframe = document.getElementById('youtubeIframe');
     
