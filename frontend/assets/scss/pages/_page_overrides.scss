@@ -1,3 +1,21 @@
+.datasets-page, .cpi-impact-page {
+    body {
+        background-color: $background-color;
+        color: $text-color;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        font-weight: $font-weight-normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    section{
+        min-height: 0;
+    }
+
+} 
+
+
 .diesel-policy-page {
     body {
         line-height: 1.6;
@@ -7,23 +25,5 @@
       
     section{
         min-height:0;
-    }
-}
-
-.datasets-page {
-    body {
-        line-height: 1.6;
-        color: $text-color-data;
-        background-color: $background-color;
-        min-height: 100vh;
-        @include flex-column;
-        font-weight: $font-weight-normal;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-
-    }
-
-    section {
-        min-height: 0;
     }
 }
