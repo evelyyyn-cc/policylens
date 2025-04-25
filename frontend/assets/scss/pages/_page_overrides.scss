@@ -1,0 +1,29 @@
+.diesel-policy-page {
+    body {
+        line-height: 1.6;
+        color: $text-color;
+        background-color: $light-gray;
+      }
+      
+    section{
+        min-height:0;
+    }
+}
+
+.datasets-page {
+    body {
+        line-height: 1.6;
+        color: $text-color-data;
+        background-color: $background-color;
+        min-height: 100vh;
+        @include flex-column;
+        font-weight: $font-weight-normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+    }
+
+    section {
+        min-height: 0;
+    }
+}
