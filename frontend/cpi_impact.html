@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="assets/scss/cpi_impact.css">
+    <title>CPI Impact</title>
+</head>
+<body>
+    <!-- Top navigation bar -->
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <!-- <img src="/api/placeholder/32/32" alt="PolicyLens Logo"> -->
+                <span>MY</span>PolicyLens
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="/index/">HOME</a>
+                <a href="/policies/" class="active">POLICY</a>
+                <a href="#">FAQ</a>
+                <a href="#">AI CHATBOT</a>
+            </div>
+            <div class="language-selector">
+                <div class="selected-language">
+                    <span>Bahasa Malaysia</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="language-dropdown">
+                    <li data-lang="bm" class="active">Bahasa Malaysia</li>
+                    <li data-lang="en">English</li>
+                    <li data-lang="zh">中文</li>
+                    <li data-lang="ta">தமிழ்</li>
+                </ul>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="breadcrumb-container">
+        <div class="container">
+            <div class="breadcrumb">
+                <!-- <a href="/index/">Home</a> > 
+                <a href="/policies/">Policies</a> > 
+                <a href="/diesel_policy/">The Diesel Dilemma</a> > 
+                <span>CPI Impact</span> -->
+                
+                <a href="index.html">Home</a> > 
+                <a href="policies.html">Policies</a> > 
+                <a href="diesel_policy.html">The Diesel Dilemma</a> > 
+                <span>CPI Impact</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero/Banner section -->
+    <div class="hero" style="background-image: url('assets/images/cpi_impact.svg');">
+        <h1>Consumer Price Impact</h1>
+    </div>
+
+    <!-- Dashboard Links Section -->
+    <section class="dashboard-links">
+        <div class="container">
+          <a href="/diesel_policy/" class="dashboard-link">
+              <i class="fas fa-chart-line dashboard-icon"></i>
+              Diesel Dilemma
+          </a>
+          <a href="#" class="dashboard-link">
+              <i class="fas fa-tags price-icon"></i>
+              CPI Data Dashboard
+          </a>
+          <a href="#" class="dashboard-link">
+            <i class="fas fa-industry manufacturing-icon"></i>
+            Manufacturing Impact
+        </a>
+        </div>
+    </section>
+
+    <!-- Sector Information Section -->
+    <section class="policy-info">
+        <div class="container">
+            <h2 class="section-title">What is Consumer Price Index (CPI)?</h2>
+            <p class="section-text">
+                The Consumer Price Index (CPI) is a measure that examines the average change over time in the prices 
+                paid by urban consumers for a basket of goods and services. It's one of the most widely used indicators 
+                of inflation. Basically, CPI tells you how much prices are rising or falling for things that regular people buy like food, 
+                rent, gas, clothes, healthcare, etc.
+            </p>
+        </div>
+    </section>
+
+    <div class="container"> 
+        <!-- Tab navigation - Horizontal tabs below hero -->
+        <div class="main-tabs">
+            <a href="#" class="tab-link active" data-tab="price-calc-tab">Personal Price Impact Calculator</a>
+            <a href="#" class="tab-link" data-tab="regional-impact-tab">Regional Price Impact</a>
+            <a href="#" class="tab-link" data-tab="regional-map-tab">Regional Price Impact Map</a>
+            <div class="tab-indicator"></div>
+        </div>
+
+        <!-- Personal Price Impact Calculator Tab -->
+        <div class="tab-content active" id="price-calc-tab">
+            Calculator
+
+        </div>
+
+        <!-- Regional Price Impact Tab -->
+        <div class="tab-content" id="regional-impact-tab">
+            Bar
+
+        </div>
+
+        <!-- Regional Price Impact Map -->
+        <div class="tab-content" id="regional-map-tab">
+            Map
+
+        </div>
+        
+
+    </div>
+
+    
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <span>MY</span>PolicyLens
+            </div>
+            <div class="quick-links">
+                <h3>Quick Links</h3>
+                <a href="/index/#who-we-are">About us</a>
+                <a href="#">FAQ</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- <script src="/static/assets/js/datasets_page.js"></script>
+    <script src="/static/assets/js/script.js"></script> -->
+
+    <script src="assets/js/cpi_impact.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
