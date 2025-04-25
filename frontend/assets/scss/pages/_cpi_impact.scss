@@ -1,0 +1,8 @@
+.hero-cpi-impact {
+    @include banners($image-url:'assets/images/cpi_impact.svg',$overlay-color: rgba(0, 0, 0, 0.6));
+}
+
+// .dashboard-links {
+//     @include dashboard-linkage;
+// }
+
