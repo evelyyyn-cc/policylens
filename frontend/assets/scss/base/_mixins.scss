@@ -78,6 +78,38 @@
   }
 }
 
+// @mixin dashboard-linkage {
+//   background-color: $white;
+//   padding: 1.5rem 0;
+
+//   .container {
+//     display:flex;
+//     justify-content: space-between;
+//     gap:1rem;
+//     @include responsive-md{
+//       flex-direction: column;
+//     }
+//   }
+//   .dashboard-link{
+//     @include button-style(
+//       $bg-color:$primary-blue,
+//       $padding-y: 0.8rem,
+//       $padding-x: 1rem,
+//       $hover-bg-modifier:'lighten',
+//       $hover-bg-amount:10%,
+//       $hover-transform-y:-3px  
+//     );
+//     flex:1;
+//     display:flex;
+//     gap:0.5rem;
+//     .icon {
+//       width: 24px;
+//       height: 24px;
+//       display:inline-block;
+//     }
+//   }
+// }
+
 @mixin section-title-styles($align: center) {
   font-size: 1.8rem;
   font-weight: $font-weight-semibold;
@@ -118,6 +150,8 @@
   padding: $padding;
 }
 
+
+
 // Subsection title styling
 @mixin subsection-title($size: 1.4rem, $color: $primary-blue, $margin-bottom: 1.5rem) {
   font-size: $size;
@@ -136,10 +170,46 @@
   background-position: center;
 }
 
+//banners for impact pages
+@mixin banners ($image-url:null,$overlay-color: rgba(0, 0, 0, 0.7)){
+  @include bg-image-with-overlay($image-url, $overlay-color);
+  height: 180px;
+  // display: flex;
+  flex-direction: column;
+  @include flex-center;
+  // justify-content: center;
+  // align-items: center;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 20%, rgba(0, 0, 0, 0.2) 90%);
+    z-index: 1;
+  }
+
+  h1 {
+    color: $white;
+    font-size: 2.2rem;
+    z-index: 2;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: $font-weight-bold;
+    letter-spacing: -0.02em;
+  }
+}
+
 // Responsive container for charts
-@mixin chart-container($height: 300px) {
-  margin: 1.5rem 0;
-  border: 1px solid $border-color;
+@mixin chart-container($height: 300px, $margin-bottom:1.5rem,$margin:1.5rem 0) {
+  margin: $margin;
+  margin-bottom: $margin-bottom;
+  border: 1px solid $border-color; 
   border-radius: 8px;
   overflow: hidden;
   padding: 1rem;
@@ -190,9 +260,9 @@
   }
 }
 
-@mixin flex-layout($direction: row, $justify: space-between, $align: center, $gap: 1rem) {
-  display: flex;
-  flex-direction: $direction;
+@mixin flex-layout($display:flex, $justify: flex-start, $align: center, $gap: 1.5rem) {
+  display: $display;
+  // flex-direction: $direction;
   justify-content: $justify;
   align-items: $align;
   gap: $gap;
