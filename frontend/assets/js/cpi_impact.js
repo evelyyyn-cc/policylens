@@ -152,22 +152,22 @@ function calculateImpact() {
             otherRate = cpi_impact_data.Terengganu.restaurant_accommodation_Rate;
             break;
         case "W.P. Kuala Lumpur":            // W.P. Kuala Lumpur in dataset
-        transportRate = cpi_impact_data.W_P_Kuala_Lumpur.transport_Rate;
-        foodRate = cpi_impact_data.W_P_Kuala_Lumpur.food_Rate;
-        housingRate = cpi_impact_data.W_P_Kuala_Lumpur.housing_Rate;
-        otherRate = cpi_impact_data.W_P_Kuala_Lumpur.restaurant_accommodation_Rate;
+            transportRate = cpi_impact_data.W_P_Kuala_Lumpur.transport_Rate;
+            foodRate = cpi_impact_data.W_P_Kuala_Lumpur.food_Rate;
+            housingRate = cpi_impact_data.W_P_Kuala_Lumpur.housing_Rate;
+            otherRate = cpi_impact_data.W_P_Kuala_Lumpur.restaurant_accommodation_Rate;
             break;
         case "W.P. Labuan":                  // W.P. Labuan in dataset
-        transportRate = cpi_impact_data.W_P_Labuan.transport_Rate;
-        foodRate = cpi_impact_data.W_P_Labuan.food_Rate;
-        housingRate = cpi_impact_data.W_P_Labuan.housing_Rate;
-        otherRate = cpi_impact_data.W_P_Labuan.restaurant_accommodation_Rate;
+            transportRate = cpi_impact_data.W_P_Labuan.transport_Rate;
+            foodRate = cpi_impact_data.W_P_Labuan.food_Rate;
+            housingRate = cpi_impact_data.W_P_Labuan.housing_Rate;
+            otherRate = cpi_impact_data.W_P_Labuan.restaurant_accommodation_Rate;
             break;
         case "W.P. Putrajaya":               // W.P. Putrajaya in dataset
-        transportRate = cpi_impact_data.W_P_Putrajaya.transport_Rate;
-        foodRate = cpi_impact_data.W_P_Putrajaya.food_Rate;
-        housingRate = cpi_impact_data.W_P_Putrajaya.housing_Rate;
-        otherRate = cpi_impact_data.W_P_Putrajaya.restaurant_accommodation_Rate;
+            transportRate = cpi_impact_data.W_P_Putrajaya.transport_Rate;
+            foodRate = cpi_impact_data.W_P_Putrajaya.food_Rate;
+            housingRate = cpi_impact_data.W_P_Putrajaya.housing_Rate;
+            otherRate = cpi_impact_data.W_P_Putrajaya.restaurant_accommodation_Rate;
             break;
         default:
             // Default rates if location not found
