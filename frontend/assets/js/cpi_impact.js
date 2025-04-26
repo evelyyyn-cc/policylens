@@ -74,100 +74,100 @@ function calculateImpact() {
     // Set rates based on location using data from the provided dataset calculatePercentage(,)
     switch(location) {
         case "Johor":
-            transportRate = calculatePercentage(123.1,122.1); // 0.819001%
-            foodRate = calculatePercentage(164.9,161.0); // 2.42236%
-            housingRate = calculatePercentage(130.8,130.4); // 0.306748%
-            otherRate = calculatePercentage(153.7,151.7); // 1.318392%
+            transportRate = cpi_impact_data.Johor.transport_Rate;
+            foodRate = cpi_impact_data.Johor.food_Rate;
+            housingRate = cpi_impact_data.Johor.housing_Rate;
+            otherRate = cpi_impact_data.Johor.restaurant_accommodation_Rate;
             break;
         case "Kedah":
-            transportRate = calculatePercentage(116.3,115.5);  // 0.692641%
-            foodRate = calculatePercentage(141.8,140.7);       // 0.781805%
-            housingRate = calculatePercentage(132.7,132.5);    // 0.150943%
-            otherRate = calculatePercentage(148.2,143.6);      // 3.203343%
+            transportRate = cpi_impact_data.Kedah.transport_Rate;
+            foodRate = cpi_impact_data.Kedah.food_Rate;
+            housingRate = cpi_impact_data.Kedah.housing_Rate;
+            otherRate = cpi_impact_data.Kedah.restaurant_accommodation_Rate;
             break;
         case "Kelantan":
-            transportRate = calculatePercentage(117.3,117.2);  // 0.085324%
-            foodRate = calculatePercentage(146.5,146.4);       // 0.068306%
-            housingRate = calculatePercentage(120.3,120.0);        // 0.25%
-            otherRate = calculatePercentage(131.9,130.8);      // 0.840979%
+            transportRate = cpi_impact_data.Kelantan.transport_Rate;
+            foodRate = cpi_impact_data.Kelantan.food_Rate;
+            housingRate = cpi_impact_data.Kelantan.housing_Rate;
+            otherRate = cpi_impact_data.Kelantan.restaurant_accommodation_Rate;
             break;
         case "Melaka":
-            transportRate = calculatePercentage(113.0,111.7);  // 1.163832%
-            foodRate = calculatePercentage(156.0,152.9);       // 2.027469%
-            housingRate = calculatePercentage(132.5,131.4);    // 0.837139%
-            otherRate = calculatePercentage(140.1,138.4);      // 1.228324%
+            transportRate = cpi_impact_data.Melaka.transport_Rate;
+            foodRate = cpi_impact_data.Melaka.food_Rate;
+            housingRate = cpi_impact_data.Melaka.housing_Rate;
+            otherRate = cpi_impact_data.Melaka.restaurant_accommodation_Rate;
             break;
         case "Negeri Sembilan":
-            transportRate = calculatePercentage(119.2,118.8);    // 0.3367%
-            foodRate = calculatePercentage(153.6,150.0);            // 2.4%
-            housingRate = calculatePercentage(127.8,126.0);    // 1.428571%
-            otherRate = calculatePercentage(139.6,136.7);      // 2.121434%
+            transportRate = cpi_impact_data.Negeri_Sembilan.transport_Rate;
+            foodRate = cpi_impact_data.Negeri_Sembilan.food_Rate;
+            housingRate = cpi_impact_data.Negeri_Sembilan.housing_Rate;
+            otherRate = cpi_impact_data.Negeri_Sembilan.restaurant_accommodation_Rate;
             break;
         case "Pahang":
-            transportRate = calculatePercentage(118.6,117.4);  // 1.022147%
-            foodRate = calculatePercentage(154.4,152.3);       // 1.378858%
-            housingRate = calculatePercentage(129.4,129.1);    // 0.232378%
-            otherRate = calculatePercentage(140.2,137.9);      // 1.667875%
+            transportRate = cpi_impact_data.Pahang.transport_Rate;
+            foodRate = cpi_impact_data.Pahang.food_Rate;
+            housingRate = cpi_impact_data.Pahang.housing_Rate;
+            otherRate = cpi_impact_data.Pahang.restaurant_accommodation_Rate;
             break;
         case "Perak":
-            transportRate = calculatePercentage(118.6,117.7);  // 0.764656%
-            foodRate = calculatePercentage(146.6,144.7);       // 1.313062%
-            housingRate = calculatePercentage(121.0,120.3);    // 0.581879%
-            otherRate = calculatePercentage(147.9,146.7);      // 0.817996%
+            transportRate = cpi_impact_data.Perak.transport_Rate;
+            foodRate = cpi_impact_data.Perak.food_Rate;
+            housingRate = cpi_impact_data.Perak.housing_Rate;
+            otherRate = cpi_impact_data.Perak.restaurant_accommodation_Rate;
             break;
         case "Perlis":
-            transportRate = calculatePercentage(114.6,113.6);  // 0.880282%
-            foodRate = calculatePercentage(139.0,137.4);       // 1.164483%
-            housingRate = calculatePercentage(119.8,119.9);   // -0.083403%
-            otherRate = calculatePercentage(148.0,148.7);     // -0.470746%
+            transportRate = cpi_impact_data.Perlis.transport_Rate;
+            foodRate = cpi_impact_data.Perlis.food_Rate;
+            housingRate = cpi_impact_data.Perlis.housing_Rate;
+            otherRate = cpi_impact_data.Perlis.restaurant_accommodation_Rate;
             break;
         case "Pulau Pinang":
-            transportRate = calculatePercentage(120.0,119.8);  // 0.166945%
-            foodRate = calculatePercentage(163.4,161.1);       // 1.427685%
-            housingRate = calculatePercentage(137.0,136.4);    // 0.439883%
-            otherRate = calculatePercentage(157.2,154.6);      // 1.681759%
+            transportRate = cpi_impact_data.Pulau_Pinang.transport_Rate;
+            foodRate = cpi_impact_data.Pulau_Pinang.food_Rate;
+            housingRate = cpi_impact_data.Pulau_Pinang.housing_Rate;
+            otherRate = cpi_impact_data.Pulau_Pinang.restaurant_accommodation_Rate;
             break;
         case "Sabah":
-            transportRate = calculatePercentage(114.4,114.1);  // 0.262927%
-            foodRate = calculatePercentage(138.9,137.3);       // 1.165331%
-            housingRate = calculatePercentage(113.6,113.5);    // 0.088106%
-            otherRate = calculatePercentage(163.0,157.3);      // 3.623649%
+            transportRate = cpi_impact_data.Sabah.transport_Rate;
+            foodRate = cpi_impact_data.Sabah.food_Rate;
+            housingRate = cpi_impact_data.Sabah.housing_Rate;
+            otherRate = cpi_impact_data.Sabah.restaurant_accommodation_Rate;
             break;
         case "Sarawak":
-            transportRate = calculatePercentage(124.5,123.9);  // 0.484262%
-            foodRate = calculatePercentage(149.0,147.8);       // 0.811908%
-            housingRate = calculatePercentage(119.2,118.8);      // 0.3367%
-            otherRate = calculatePercentage(148.7,145.8);      // 1.989026%
+            transportRate = cpi_impact_data.Sarawak.transport_Rate;
+            foodRate = cpi_impact_data.Sarawak.food_Rate;
+            housingRate = cpi_impact_data.Sarawak.housing_Rate;
+            otherRate = cpi_impact_data.Sarawak.restaurant_accommodation_Rate;
             break;
         case "Selangor":
-            transportRate = calculatePercentage(127.2,127.4); // -0.156986%
-            foodRate = calculatePercentage(171.0,167.7);         // 1.9678%
-            housingRate = calculatePercentage(135.4,134.5);    // 0.669145%
-            otherRate = calculatePercentage(164.1,163.1);      // 0.613121%
+            transportRate = cpi_impact_data.Selangor.transport_Rate;
+            foodRate = cpi_impact_data.Selangor.food_Rate;
+            housingRate = cpi_impact_data.Selangor.housing_Rate;
+            otherRate = cpi_impact_data.Selangor.restaurant_accommodation_Rate;
             break;
         case "Terengganu":
-            transportRate = calculatePercentage(118.8,118.3);  // 0.422654%
-            foodRate = calculatePercentage(146.9,143.8);       // 2.155772%
-            housingRate = calculatePercentage(118.2,117.9);    // 0.254453%
-            otherRate = calculatePercentage(136.5,134.3);      // 1.638124%
+            transportRate = cpi_impact_data.Terengganu.transport_Rate;
+            foodRate = cpi_impact_data.Terengganu.food_Rate;
+            housingRate = cpi_impact_data.Terengganu.housing_Rate;
+            otherRate = cpi_impact_data.Terengganu.restaurant_accommodation_Rate;
             break;
         case "W.P. Kuala Lumpur":            // W.P. Kuala Lumpur in dataset
-            transportRate = calculatePercentage(124.0,122.5);   // 1.22449%
-            foodRate = calculatePercentage(157.2,153.4);       // 2.477184%
-            housingRate = calculatePercentage(137.3,136.3);    // 0.733676%
-            otherRate = calculatePercentage(154.7,151.4);      // 2.179657%
+        transportRate = cpi_impact_data.W_P_Kuala_Lumpur.transport_Rate;
+        foodRate = cpi_impact_data.W_P_Kuala_Lumpur.food_Rate;
+        housingRate = cpi_impact_data.W_P_Kuala_Lumpur.housing_Rate;
+        otherRate = cpi_impact_data.W_P_Kuala_Lumpur.restaurant_accommodation_Rate;
             break;
         case "W.P. Labuan":                  // W.P. Labuan in dataset
-            transportRate = calculatePercentage(115.7,115.6);  // 0.086505%
-            foodRate = calculatePercentage(136.8,135.1);       // 1.258327%
-            housingRate = calculatePercentage(123.3,122.9);    // 0.325468%
-            otherRate = calculatePercentage(147.8,145.8);      // 1.371742%
+        transportRate = cpi_impact_data.W_P_Labuan.transport_Rate;
+        foodRate = cpi_impact_data.W_P_Labuan.food_Rate;
+        housingRate = cpi_impact_data.W_P_Labuan.housing_Rate;
+        otherRate = cpi_impact_data.W_P_Labuan.restaurant_accommodation_Rate;
             break;
         case "W.P. Putrajaya":               // W.P. Putrajaya in dataset
-            transportRate = calculatePercentage(135.0,136.0); // -0.735294%
-            foodRate = calculatePercentage(176.0,172.5);       // 2.028986%
-            housingRate = calculatePercentage(138.1,138.1);             // 0%
-            otherRate = calculatePercentage(174.3,178.1);     // -2.133633%
+        transportRate = cpi_impact_data.W_P_Putrajaya.transport_Rate;
+        foodRate = cpi_impact_data.W_P_Putrajaya.food_Rate;
+        housingRate = cpi_impact_data.W_P_Putrajaya.housing_Rate;
+        otherRate = cpi_impact_data.W_P_Putrajaya.restaurant_accommodation_Rate;
             break;
         default:
             // Default rates if location not found
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
         tabIndicator.style.width = `${rect.width}px`;
         tabIndicator.style.left = `${rect.left - parentRect.left}px`;
     }
-
+    
     // Personal Price Impact Calculator
     // Get all sliders and their corresponding value displays
     const transportSlider = document.getElementById('transportSlider');
@@ -276,3 +276,119 @@ document.addEventListener('DOMContentLoaded', function() {
     // setupDropdowns();
     // setupUserDropdown();
 });
+
+// CPI Impact Page Data
+const cpi_impact_data = {
+    Johor: {
+        transport_Rate: calculatePercentage(123.1,122.1),                // 0.819001%
+        food_Rate: calculatePercentage(164.9,161.0),                     // 2.42236%
+        housing_Rate: calculatePercentage(130.8,130.4),                  // 0.306748%
+        restaurant_accommodation_Rate: calculatePercentage(153.7,151.7), // 1.318392%
+        overall_Rate: calculatePercentage(137.0,136.0)
+    },
+    Kedah: {
+        transport_Rate: calculatePercentage(116.3,115.5),                // 0.692641%
+        food_Rate: calculatePercentage(141.8,140.7),                     // 0.781805%
+        housing_Rate: calculatePercentage(132.7,132.5),                  // 0.150943%
+        restaurant_accommodation_Rate: calculatePercentage(148.2,143.6), // 3.203343%
+        overall_Rate: calculatePercentage(127.4,127.3)
+    },
+    Kelantan: {
+        transport_Rate: calculatePercentage(117.3,117.2),                // 0.085324%
+        food_Rate: calculatePercentage(146.5,146.4),                     // 0.068306%
+        housing_Rate: calculatePercentage(120.3,120.0),                  // 0.25%
+        restaurant_accommodation_Rate: calculatePercentage(131.9,130.8), // 0.840979%
+        overall_Rate: calculatePercentage(129.3,129.4)
+    },
+    Melaka: {
+        transport_Rate: calculatePercentage(113.0,111.7),                // 1.163832%
+        food_Rate: calculatePercentage(156.0,152.9),                     // 2.027469%
+        housing_Rate: calculatePercentage(132.5,131.4),                  // 0.837139%
+        restaurant_accommodation_Rate: calculatePercentage(140.1,138.4), // 1.228324%
+        overall_Rate: calculatePercentage(129.7,128.7)
+    },
+    Negeri_Sembilan: {
+        transport_Rate: calculatePercentage(119.2,118.8),                // 0.3367%
+        food_Rate: calculatePercentage(153.6,150.0),                     // 2.4%
+        housing_Rate: calculatePercentage(127.8,126.0),                  // 1.428571%
+        restaurant_accommodation_Rate: calculatePercentage(139.6,136.7), // 2.121434%
+        overall_Rate: calculatePercentage(131.8,130.8)
+    },
+    Pahang: {
+        transport_Rate: calculatePercentage(118.6,117.4),                // 1.022147%
+        food_Rate: calculatePercentage(154.4,152.3),                     // 1.378858%
+        housing_Rate: calculatePercentage(129.4,129.1),                  // 0.232378%
+        restaurant_accommodation_Rate: calculatePercentage(140.2,137.9), // 1.667875%
+        overall_Rate: calculatePercentage(131.6,131.1)
+    },
+    Perak: {
+        transport_Rate: calculatePercentage(118.6,117.7),                // 0.764656%
+        food_Rate: calculatePercentage(146.6,144.7),                     // 1.313062%
+        housing_Rate: calculatePercentage(121.0,120.3),                  // 0.581879%
+        restaurant_accommodation_Rate: calculatePercentage(147.9,146.7), // 0.817996%
+        overall_Rate: calculatePercentage(128.3,127.7)
+    },
+    Perlis: {
+        transport_Rate: calculatePercentage(114.6,113.6),                // 0.880282%
+        food_Rate: calculatePercentage(139.0,137.4),                     // 1.164483%
+        housing_Rate: calculatePercentage(119.8,119.9),                  // -0.083403%
+        restaurant_accommodation_Rate: calculatePercentage(148.0,148.7), // -0.470746%
+        overall_Rate: calculatePercentage(125.1,124.9)
+    },
+    Pulau_Pinang: {
+        transport_Rate: calculatePercentage(120.0,119.8),                // 0.166945%
+        food_Rate: calculatePercentage(163.4,161.1),                     // 1.427685%
+        housing_Rate: calculatePercentage(137.0,136.4),                  // 0.439883%
+        restaurant_accommodation_Rate: calculatePercentage(157.2,154.6), // 1.681759%
+        overall_Rate: calculatePercentage(136.3,135.9)
+    },
+    Sabah: {
+        transport_Rate: calculatePercentage(114.4,114.1),                // 0.262927%
+        food_Rate: calculatePercentage(138.9,137.3),                     // 1.165331%
+        housing_Rate: calculatePercentage(113.6,113.5),                  // 0.088106%
+        restaurant_accommodation_Rate: calculatePercentage(163.0,157.3), // 3.623649%
+        overall_Rate: calculatePercentage(122.5,122.2)
+    },
+    Sarawak: {
+        transport_Rate: calculatePercentage(124.5,123.9),                // 0.484262%
+        food_Rate: calculatePercentage(149.0,147.8),                     // 0.811908%
+        housing_Rate: calculatePercentage(119.2,118.8),                  // 0.3367%
+        restaurant_accommodation_Rate: calculatePercentage(148.7,145.8), // 1.989026%
+        overall_Rate: calculatePercentage(127.9,127.6)
+    },
+    Selangor: {
+        transport_Rate: calculatePercentage(127.2,127.4),                // -0.156986%
+        food_Rate: calculatePercentage(171.0,167.7),                     // 1.9678%
+        housing_Rate: calculatePercentage(135.4,134.5),                  // 0.669145%
+        restaurant_accommodation_Rate: calculatePercentage(164.1,163.1), // 0.613121%
+        overall_Rate: calculatePercentage(139.5,139)
+    },
+    Terengganu: {
+        transport_Rate: calculatePercentage(118.8,118.3),                // 0.422654%
+        food_Rate: calculatePercentage(146.9,143.8),                     // 2.155772%
+        housing_Rate: calculatePercentage(118.2,117.9),                  // 0.254453%
+        restaurant_accommodation_Rate: calculatePercentage(136.5,134.3), // 1.638124%
+        overall_Rate: calculatePercentage(128.0,127.2)
+    },
+    W_P_Kuala_Lumpur: { // W.P. Kuala Lumpur in dataset
+        transport_Rate: calculatePercentage(124.0,122.5),                // 1.22449%
+        food_Rate: calculatePercentage(157.2,153.4),                     // 2.477184%
+        housing_Rate: calculatePercentage(137.3,136.3),                  // 0.733676%
+        restaurant_accommodation_Rate: calculatePercentage(154.7,151.4), // 2.179657%
+        overall_Rate: calculatePercentage(133.6,132.5)
+    },
+    W_P_Labuan: { // W.P. Labuan in dataset
+        transport_Rate: calculatePercentage(115.7,115.6),                // 0.086505%
+        food_Rate: calculatePercentage(136.8,135.1),                     // 1.258327%
+        housing_Rate: calculatePercentage(123.3,122.9),                  // 0.325468%
+        restaurant_accommodation_Rate: calculatePercentage(147.8,145.8), // 1.371742%
+        overall_Rate: calculatePercentage(123.2,123.2)
+    },
+    W_P_Putrajaya: { // W.P. Putrajaya in dataset
+        transport_Rate: calculatePercentage(135.0,136.0),                // -0.735294%
+        food_Rate: calculatePercentage(176.0,172.5),                     // 2.028986%
+        housing_Rate: calculatePercentage(138.1,138.1),                  // 0%
+        restaurant_accommodation_Rate: calculatePercentage(174.3,178.1), // -2.133633%
+        overall_Rate: calculatePercentage(140.5,140.3)
+    }
+};
