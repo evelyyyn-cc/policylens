@@ -106,8 +106,203 @@
         </div>
 
         <!-- Personal Price Impact Calculator Tab -->
-        <div class="tab-content active" id="price-calc-tab">
-            Calculator
+        <div class="tab-content active" id="price-calc-tab">  
+            <div class="page-header">
+                <h1 class="page-title">Diesel Subsidy Reform Impact</h1>
+                <p class="page-subtitle">Understand how the policy changes affect your personal finances</p>
+            </div>
+
+            <div id="price-calculator">
+                <div class="calculator-section">
+                    <h2 class="section-title">Personal Price Impact Calculator</h2>
+                    <p class="section-description">
+                        See how the diesel subsidy reform impacts your wallet. Just adjust the sliders to reflect your monthly spending, and get a personalized estimate in seconds.
+                    </p>
+                    <p class="disclaimer">
+                        <i class="fas fa-info-circle"></i> Disclaimer: Calculation Performed Using Data From December 2024 and May 2024.
+                    </p>
+    
+                    <div class="calculator-grid">
+                        <div class="card calculator-form">
+                            <h3 class="card-title">Your Monthly Expenses</h3>
+    
+                            <div class="form-group">
+                                <label class="form-label" for="locationSelect">📍 Choose Your Location</label>
+                                <select id="locationSelect" class="form-select">
+                                    <option>Johor</option>
+                                    <option>Kedah</option>
+                                    <option>Kelantan</option>
+                                    <option>Melaka</option>
+                                    <option>Negeri Sembilan</option>
+                                    <option>Pahang</option>
+                                    <option>Perak</option>
+                                    <option>Perlis</option>
+                                    <option>Pulau Pinang</option>
+                                    <option>Sabah</option>
+                                    <option>Sarawak</option>
+                                    <option>Selangor</option>
+                                    <option>Terengganu</option>
+                                    <option>W.P. Kuala Lumpur</option>
+                                    <option>W.P. Labuan</option>
+                                    <option>W.P. Putrajaya</option>
+                                </select>
+                            </div>
+    
+                            <div class="form-group">
+                                <div class="slider-label-container">
+                                    <label class="form-label">Transport</label>
+                                    <span class="slider-value" id="transportValue">RM 500</span>
+                                </div>
+                                <div class="slider-container">
+                                    <i class="fas fa-car-side slider-icon"></i>
+                                    <input type="range" min="0" max="2000" value="500" class="slider" id="transportSlider">
+                                    <i class="fas fa-truck slider-icon"></i>
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <div class="slider-label-container">
+                                    <label class="form-label">Food & Beverages</label>
+                                    <span class="slider-value" id="foodValue">RM 800</span>
+                                </div>
+                                <div class="slider-container">
+                                    <i class="fas fa-apple-alt slider-icon"></i>
+                                    <input type="range" min="0" max="3000" value="800" class="slider" id="foodSlider">
+                                    <i class="fas fa-utensils slider-icon"></i>
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <div class="slider-label-container">
+                                    <label class="form-label">Housing, Water, Electricity, Gas & Other fuels</label>
+                                    <span class="slider-value" id="housingValue">RM 1200</span>
+                                </div>
+                                <div class="slider-container">
+                                    <i class="fas fa-home slider-icon"></i>
+                                    <input type="range" min="0" max="5000" value="1200" class="slider" id="housingSlider">
+                                    <i class="fas fa-building slider-icon"></i>
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <div class="slider-label-container">
+                                    <label class="form-label">Restaurants & Accommodation Services</label>
+                                    <span class="slider-value" id="otherValue">RM 500</span>
+                                </div>
+                                <div class="slider-container">
+                                    <i class="fas fa-shopping-bag slider-icon"></i>
+                                    <input type="range" min="0" max="3000" value="500" class="slider" id="otherSlider">
+                                    <i class="fas fa-gifts slider-icon"></i>
+                                </div>
+                            </div>
+    
+                            <button id="calculateBtn" class="button button-primary">
+                                Calculate Impact
+                            </button>
+                        </div>
+    
+                        <div class="card results-section">
+                            <h3 class="card-title">Estimated Impact</h3>
+    
+                            <div class="impact-comparison impact-monthly">
+                                <h4 class="comparison-title">Monthly Comparison</h4>
+                                <div class="comparison-grid">
+                                    <div class="comparison-box">
+                                        <p class="comparison-label">Before Policy:</p>
+                                        <p class="comparison-value comparison-value--before" id="monthlyBefore">RM 3,000.00</p>
+                                    </div>
+                                    <div class="comparison-box">
+                                        <p class="comparison-label">After Policy:</p>
+                                        <p class="comparison-value comparison-value--after" id="monthlyAfter">RM 3,087.50</p>
+                                    </div>
+                                </div>
+                                <div class="comparison-summary">
+                                    <p class="comparison-summary-label">Additional monthly cost:</p>
+                                    <p class="comparison-summary-value comparison-summary-value--monthly" id="monthlyDifference">+ RM 87.50</p>
+                                    <p class="comparison-summary-percentage" id="monthlyPercentage">(3.2% increase)</p>
+                                </div>
+                            </div>
+    
+                            <div class="impact-comparison impact-yearly">
+                                 <h4 class="comparison-title">Yearly Comparison</h4>
+                                <div class="comparison-grid">
+                                    <div class="comparison-box">
+                                        <p class="comparison-label">Before Policy:</p>
+                                        <p class="comparison-value comparison-value--before" id="yearlyBefore">RM 36,000.00</p>
+                                    </div>
+                                    <div class="comparison-box">
+                                        <p class="comparison-label">After Policy:</p>
+                                        <p class="comparison-value comparison-value--after" id="yearlyAfter">RM 37,050.00</p>
+                                    </div>
+                                </div>
+                                <div class="comparison-summary">
+                                    <p class="comparison-summary-label">Additional yearly cost:</p>
+                                    <p class="comparison-summary-value comparison-summary-value--yearly" id="yearlyDifference">+ RM 1,050.00</p>
+                                    <p class="comparison-summary-percentage" id="yearlyPercentage">(3.2% increase)</p>
+                                </div>
+                            </div>
+    
+                            <h4 class="breakdown-title">Impact Breakdown</h4>
+                            <div class="breakdown-list">
+                                <div class="breakdown-item">
+                                    <div class="breakdown-item__label">
+                                        <i class="fas fa-car-side breakdown-icon"></i>
+                                        <span>Transport</span>
+                                    </div>
+                                    <div class="breakdown-item__value">
+                                        <span class="impact-value" id="transportImpact">+ RM 55.00</span>
+                                        <span class="impact-percentage" id="transportPercentage">(11.0% increase)</span>
+                                    </div>
+                                </div>
+                                 <div class="breakdown-item">
+                                    <div class="breakdown-item__label">
+                                        <i class="fas fa-utensils breakdown-icon"></i>
+                                        <span>Food & Beverages</span>
+                                    </div>
+                                    <div class="breakdown-item__value">
+                                        <span class="impact-value" id="foodImpact">+ RM 16.00</span>
+                                        <span class="impact-percentage" id="foodPercentage">(2.0% increase)</span>
+                                    </div>
+                                </div>
+                                 <div class="breakdown-item">
+                                    <div class="breakdown-item__label">
+                                        <i class="fas fa-home breakdown-icon"></i>
+                                        <span>House, Water, Electricity, Gas & Other fuels</span>
+                                    </div>
+                                    <div class="breakdown-item__value">
+                                        <span class="impact-value" id="housingImpact">+ RM 12.00</span>
+                                        <span class="impact-percentage" id="housingPercentage">(1.0% increase)</span>
+                                    </div>
+                                </div>
+                                <div class="breakdown-item">
+                                    <div class="breakdown-item__label">
+                                        <i class="fas fa-shopping-bag breakdown-icon"></i>
+                                        <span>Restaurants & Accommodation Services</span>
+                                    </div>
+                                    <div class="breakdown-item__value">
+                                        <span class="impact-value" id="otherImpact">+ RM 4.50</span>
+                                        <span class="impact-percentage" id="otherPercentage">(0.9% increase)</span>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="recommendations">
+                                <h4 class="recommendations-title">
+                                    <i class="fas fa-lightbulb recommendations-icon"></i>
+                                    Money-Saving Tips
+                                </h4>
+                                <ul class="recommendations-list">
+                                    <li>Consider carpooling or public transport to reduce transportation costs</li>
+                                    <li>Buy groceries in bulk and during promotional periods</li>
+                                    <li>Use energy-efficient appliances to reduce utility bills</li>
+                                    <li>Look for government assistance programs available for eligible households</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <!-- Regional Price Impact Tab -->
