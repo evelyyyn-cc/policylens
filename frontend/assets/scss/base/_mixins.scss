@@ -1,0 +1,327 @@
+// Extended mixins to reduce repetition
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin section-padding {
+  padding: 3rem 2rem;
+  
+  @media (max-width: $breakpoint-md) {
+    padding: 2.5rem 1rem;
+  }
+}
+
+@mixin responsive-font($desktop, $tablet: null, $mobile: null) {
+  font-size: $desktop;
+  
+  @if $tablet {
+    @media (max-width: $breakpoint-lg) {
+      font-size: $tablet;
+    }
+  }
+  
+  @if $mobile {
+    @media (max-width: $breakpoint-sm) {
+      font-size: $mobile;
+    }
+  }
+}
+
+@mixin hover-elevation {
+  transition: $transition;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $shadow-md;
+  }
+}
+
+@mixin button-style(
+  $bg-color: $primary-color,
+  $text-color: $white,
+  $padding-y: 0.75rem, 
+  $padding-x: 1.5rem, 
+  $border-radius: 5px,
+  $hover-bg-modifier: darken,
+  $hover-bg-amount: 5%,
+  $hover-transform-y: -2px
+) {
+  background-color: $bg-color;
+  color: $text-color;
+  padding: $padding-y $padding-x;
+  border-radius: $border-radius;
+  font-weight: 500;
+  transition: $transition;
+  display: inline-block;
+  text-decoration: none;
+  
+  &:hover {
+    @if $hover-bg-modifier == 'lighten' {
+      background-color: lighten($bg-color, $hover-bg-amount);
+    } @else {
+      background-color: darken($bg-color, $hover-bg-amount);
+    }
+    transform: translateY($hover-transform-y);
+  }
+}
+
+// @mixin dashboard-linkage {
+//   background-color: $white;
+//   padding: 1.5rem 0;
+
+//   .container {
+//     display:flex;
+//     justify-content: space-between;
+//     gap:1rem;
+//     @include responsive-md{
+//       flex-direction: column;
+//     }
+//   }
+//   .dashboard-link{
+//     @include button-style(
+//       $bg-color:$primary-blue,
+//       $padding-y: 0.8rem,
+//       $padding-x: 1rem,
+//       $hover-bg-modifier:'lighten',
+//       $hover-bg-amount:10%,
+//       $hover-transform-y:-3px  
+//     );
+//     flex:1;
+//     display:flex;
+//     gap:0.5rem;
+//     .icon {
+//       width: 24px;
+//       height: 24px;
+//       display:inline-block;
+//     }
+//   }
+// }
+
+@mixin section-title-styles($align: center) {
+  font-size: 1.8rem;
+  font-weight: $font-weight-semibold;
+  color: $dark-gray;
+  text-align: $align;
+  margin-bottom: 0.5rem;
+  
+  @include responsive-md {
+    font-size: 1.6rem;
+  }
+}
+
+@mixin section-subtitle-styles($align: center) {
+  font-size: 1.2rem;
+  color: lighten($text-color, 20%);
+  text-align: $align;
+  margin-bottom: 1rem;
+  font-weight: normal;
+  
+  @include responsive-md {
+    font-size: 1.1rem;
+  }
+}
+
+// Section divider with consistent styling
+@mixin section-divider($width: 60px, $height: 3px, $color: $primary-blue) {
+  width: $width;
+  height: $height;
+  background-color: $color;
+  margin: 0 auto 2rem;
+  border: none;
+}
+
+@mixin card-style($bg: $white, $padding: 1.5rem, $radius: 8px, $shadow: $shadow-md) {
+  background-color: $bg;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  padding: $padding;
+}
+
+
+
+// Subsection title styling
+@mixin subsection-title($size: 1.4rem, $color: $primary-blue, $margin-bottom: 1.5rem) {
+  font-size: $size;
+  font-weight: $font-weight-semibold;
+  color: $color;
+  margin-bottom: $margin-bottom;
+  
+  @include responsive-md {
+    font-size: calc(#{$size} - 0.1rem);
+  }
+}
+
+@mixin bg-image-with-overlay($image-url, $overlay-color: rgba(0, 0, 0, 0.7)) {
+  background-image: linear-gradient($overlay-color, $overlay-color), url($image-url);
+  background-size: cover;
+  background-position: center;
+}
+
+//banners for impact pages
+@mixin banners ($image-url:null,$overlay-color: rgba(0, 0, 0, 0.7)){
+  @include bg-image-with-overlay($image-url, $overlay-color);
+  height: 180px;
+  // display: flex;
+  flex-direction: column;
+  @include flex-center;
+  // justify-content: center;
+  // align-items: center;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 20%, rgba(0, 0, 0, 0.2) 90%);
+    z-index: 1;
+  }
+
+  h1 {
+    color: $white;
+    font-size: 2.2rem;
+    z-index: 2;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: $font-weight-bold;
+    letter-spacing: -0.02em;
+  }
+}
+
+// Responsive container for charts
+@mixin chart-container($height: 300px, $margin-bottom:1.5rem,$margin:1.5rem 0) {
+  margin: $margin;
+  margin-bottom: $margin-bottom;
+  border: 1px solid $border-color; 
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 1rem;
+  background-color: $white;
+  height: $height;
+  
+  @include responsive-md {
+    height: 250px;
+  }
+}
+
+// Icon styling for consistent icons
+@mixin icon-circle($size: 50px, $bg-color: $primary-blue, $icon-color: $white) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  background-color: $bg-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $icon-color;
+}
+
+@mixin highlighted-text($bg-color: lighten($primary-blue, 65%), $border-color: $primary-blue, $padding: 1rem) {
+  padding: $padding;
+  background-color: $bg-color;
+  border-left: 4px solid $border-color;
+  margin: 1.5rem 0;
+}
+
+// Source citation styling
+@mixin sources-styling($font-size: 0.85rem, $color: lighten($text-color, 30%)) {
+  margin-top: 2rem;
+  font-size: $font-size;
+  color: $color;
+  
+  .source {
+    margin-bottom: 0.7rem;
+    
+    a {
+      color: $primary-blue;
+      word-break: break-all;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+@mixin flex-layout($display:flex, $justify: flex-start, $align: center, $gap: 1.5rem) {
+  display: $display;
+  // flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  gap: $gap;
+  
+  @include responsive-md {
+    flex-direction: column;
+  }
+}
+
+// Grid layout for responsive grids
+@mixin grid-layout($columns: 2, $gap: 1.5rem) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+  
+  @include responsive-md {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Timeline item styling
+@mixin timeline-item($marker-color: #e0e0e0, $marker-size: 20px) {
+  position: relative;
+  margin-bottom: 2rem;
+  
+  .timeline-marker {
+    position: absolute;
+    left: -30px;
+    width: $marker-size;
+    height: $marker-size;
+    border-radius: 50%;
+    background-color: $marker-color;
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px $marker-color;
+    z-index: 1;
+  }
+}
+
+//response styling
+@mixin responsive-lg {
+  @media (max-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin responsive-md {
+  @media (max-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin responsive-sm {
+  @media (max-width: $breakpoint-sm) {
+    @content;
+  }
+}
+
+@mixin touch-device {
+  @media (hover: none) {
+    @content;
+  }
+}

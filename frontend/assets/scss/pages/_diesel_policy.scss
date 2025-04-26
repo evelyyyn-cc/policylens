@@ -1,0 +1,820 @@
+// Hero Section
+.hero-diesel {
+    height: 450px;
+    @include bg-image-with-overlay('diesel-station-bg.jpg');
+    color: $white;
+    @include flex-column;
+    position: relative;
+  
+    .hero-diesel-content {
+      flex: 1;
+      @include flex-center;
+      flex-direction: column;
+      // justify-content: center;
+      // align-items: center;
+      text-align: center;
+  
+      .hero-diesel-title {
+        @include responsive-font(2.5rem, 2.25rem, 2rem);
+        font-weight: $font-weight-bold;
+        margin-bottom: 0.5rem;
+      }
+  
+      .hero-diesel-subtitle {
+        @include responsive-font(2rem, 1.75rem, 1.5rem);
+        font-weight: normal;
+      }
+    }
+  }
+  
+  // Dashboard Links Section
+  // .dashboard-links {
+  //   @include dashboard-linkage
+  //   // background-color: $white;
+  //   // padding: 1.5rem 0;
+  
+  //   // .container {
+  //   //    display:flex;
+  //   //    justify-content: space-between;
+  //   //   gap: 1rem;
+
+  //   //   @include responsive-md{
+  //   //     flex-direction: column;
+  //   //   }
+  
+  //   //   // @media screen and (max-width: $breakpoint-md) {
+  //   //   //   flex-direction: column;
+  //   //   // }
+  //   // }
+  
+  //   // .dashboard-link {
+  //   //   @include dashboard-linkage
+  //   //   // @include button-style(
+  //   //   //   $bg-color: $primary-blue,
+  //   //   //   $padding-y: 0.8rem,
+  //   //   //   $padding-x: 1rem,
+  //   //   //   $hover-bg-modifier: 'lighten',
+  //   //   //   $hover-bg-amount: 10%,
+  //   //   //   $hover-transform-y: -3px
+  //   //   // );
+  //   //   // flex: 1;
+  //   //   // display:flex;
+  //   //   // gap: 0.5rem;
+      
+  //   //   // .icon {
+  //   //   //   width: 24px;
+  //   //   //   height: 24px;
+  //   //   //   display: inline-block;
+  //   //   // }
+  //   // }
+  // }
+  
+  // Icon placeholders
+  .dashboard-icon {
+    background: url('icon-dashboard.svg') no-repeat center center;
+  }
+  
+  .household-icon {
+    background: url('icon-household.svg') no-repeat center center;
+  }
+  
+  .price-icon {
+    background: url('icon-price.svg') no-repeat center center;
+  }
+  
+  .manufacturing-icon {
+    background: url('icon-manufacturing.svg') no-repeat center center;
+  }
+  
+  // Policy Information Section
+  .policy-info {
+    background-color: $white;
+    padding: 2rem 0;
+    margin-top: 2rem;
+  
+    .section-title {
+      @include responsive-font(2rem, 1.75rem, 1.5rem);
+      font-weight: $font-weight-semibold;
+      color: $dark-gray;
+      margin-bottom: 1.5rem;
+    }
+  
+    .section-text {
+      @include responsive-font(1rem, 0.935rem, 0.875rem);
+      line-height: 1.7;
+      color: $text-color;
+      max-width: 90%;
+
+      @include responsive-md{
+        max-width: 100%;
+      }
+      
+      // @media screen and (max-width: $breakpoint-md) {
+      //   max-width: 100%;
+      // }
+    }
+  
+    // Disclaimer
+    .disclaimer {
+      color: $disclaimer-color;
+      padding-top: 1rem;
+    }
+  }
+  
+  // Challenge Section
+  .challenge-section {
+    background-color: $white;
+    padding: 3rem 0;
+    margin-top: 2rem;
+  
+    .section-title {
+      @include section-title-styles;
+    }
+  
+    .section-subtitle {
+      @include section-subtitle-styles;
+    }
+  
+    .section-divider {
+      @include section-divider;
+    }
+  
+    .challenge-content {
+      @include flex-layout(flex, null, null, 3rem);
+      margin-top: 2rem;
+  
+      .challenge-info, .border-leakage {
+        flex: 1;
+      }
+    }
+  
+    .subsection-title {
+      @include subsection-title(1.3rem);
+    }
+  
+    p {
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+  
+    .cost-comparison {
+      @include flex-layout(flex, flex-start, center, 1.5rem);
+      margin: 1.5rem 0;
+  
+      .cost-year {
+        @include flex-column;
+  
+        .year {
+          font-size: 0.9rem;
+          color: lighten($text-color, 20%);
+        }
+  
+        .cost {
+          font-size: 1.6rem;
+          font-weight: $font-weight-semibold;
+          color: $dark-gray;
+        }
+      }
+  
+      .arrow {
+        font-size: 1.8rem;
+        color: $primary-blue;
+        font-weight: $font-weight-bold;
+
+        @include responsive-md {
+          transform:rotate(90deg);
+          margin:0.5rem 0;
+        }
+        
+        // @media screen and (max-width: $breakpoint-md) {
+        //   transform: rotate(90deg);
+        //   margin: 0.5rem 0;
+        // }
+      }
+    }
+  
+    .highlight-point {
+      @include flex-layout(flex, null, center, 0.5rem);
+      margin-bottom: 1.5rem;
+      color: $highlight-orange;
+      font-weight: $font-weight-medium;
+      
+      .highlight-icon {
+        font-size: 1.2rem;
+      }
+    }
+  
+    .chart-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+  
+      .chart-tab {
+        padding: 0.5rem 1rem;
+        border-radius: $border-radius-small;
+        border: none;
+        background-color: $light-gray;
+        font-weight: $font-weight-medium;
+        cursor: pointer;
+        transition: $transition;
+  
+        &.active {
+          background-color: $chart-blue;
+          color: $white;
+        }
+  
+        &:hover:not(.active) {
+          background-color: $medium-gray;
+        }
+      }
+    }
+  
+    .chart-container{
+      @include chart-container($margin:null)
+    } 
+    
+    .price-chart-container {
+      @include chart-container($margin-bottom:null)
+    }
+  
+    .leakage-image {
+      margin-bottom: 1.5rem;
+      border-radius: $border-radius;
+      overflow: hidden;
+      box-shadow: $shadow-md;
+      
+      img {
+        width: 100%;
+        display: block;
+      }
+    }
+  
+    .price-comparison {
+      @include flex-layout(flex, space-between, null, 1rem);
+      margin-bottom: 1.5rem;
+  
+      .country {
+        flex: 1;
+        @include flex-column;
+        align-items: center;
+        padding: 1rem;
+        background-color: $light-gray;
+        border-radius: 6px;
+        text-align: center;
+  
+        .country-name {
+          font-weight: $font-weight-medium;
+          margin-bottom: 0.5rem;
+        }
+  
+        .price {
+          font-size: 1.3rem;
+          font-weight: $font-weight-semibold;
+          color: $primary-blue;
+        }
+  
+        .per-unit {
+          font-size: 0.85rem;
+          color: lighten($text-color, 20%);
+        }
+      }
+    }
+  
+    .conclusion-text {
+      @include highlighted-text;
+      font-weight: $font-weight-semibold;
+    }
+  
+    .sources {
+      @include sources-styling;
+    }
+  }
+  
+  // Targeted Approach Section
+  .targeted-approach {
+    background-color: $white;
+    @include section-padding;
+    margin-top: 2rem;
+  
+    .section-title {
+      @include section-title-styles;
+    }
+  
+    .section-subtitle {
+      @include section-subtitle-styles;
+    }
+  
+    .section-divider {
+      @include section-divider;
+    }
+    
+    .support-details, .process-status {
+      @include flex-layout(flex,null,null,1.5rem);
+      margin-bottom: 2rem;
+    }
+    
+    .info-card {
+      flex: 1;
+      @include card-style;
+      
+      .card-title {
+        font-size: 1.3rem;
+        font-weight: $font-weight-semibold;
+        color: $dark-gray;
+        margin-bottom: 1.5rem;
+      }
+    }
+    
+    // Beneficiary Groups
+    .donut-chart-container {
+      position: relative;
+      height: 250px;
+      margin-bottom: 1rem;
+    }
+    
+    .beneficiary-stats {
+      @include grid-layout(2, 1rem);
+      
+      .stat-box {
+        background-color: $light-gray;
+        padding: 1rem;
+        border-radius: 6px;
+        
+        .stat-title {
+          font-size: 0.9rem;
+          color: lighten($text-color, 10%);
+          margin-bottom: 0.5rem;
+        }
+        
+        .stat-value {
+          font-size: 1.3rem;
+          font-weight: $font-weight-semibold;
+          color: $primary-blue;
+        }
+      }
+    }
+    
+    // Eligibility Criteria
+    .criteria-grid {
+      @include grid-layout(2, 1.5rem);
+      margin-bottom: 1rem;
+      
+      .criteria-item {
+        @include flex-column;
+        align-items: center;
+        text-align: center;
+        
+        .criteria-icon {
+          @include icon-circle(70px, #6baeeb);
+          margin-bottom: 1rem;
+          font-size: 1.8rem;
+          position: relative;
+          
+          i {
+            font-size: 1.8rem;
+          }
+        }
+        
+        .criteria-text {
+          font-size: 0.9rem;
+          line-height: 1.4;
+        }
+      }
+    }
+    
+    .malaysian-icon, .income-icon, .vehicle-icon, .age-icon {
+      background-color: #5B9BD5;
+    }
+    
+    .more-details {
+      text-align: center;
+      margin-top: 1rem;
+      
+      .more-link {
+        color: $primary-blue;
+        font-size: 0.9rem;
+        @include flex-layout(inline-flex, null, center, 0.3rem);
+        //display: inline-flex;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+        
+        i {
+          color: $primary-blue;
+        }
+      }
+    }
+    
+    // Application Process
+    .process-steps {
+      .process-step {
+        padding: 1rem 0;
+        border-bottom: 1px solid $border-color;
+        
+        &:last-child {
+          border-bottom: none;
+        }
+        
+        .step-title {
+          font-size: 1.05rem;
+          font-weight: $font-weight-semibold;
+          color: $primary-blue;
+          margin-bottom: 0.5rem;
+        }
+        
+        .step-description {
+          font-size: 0.95rem;
+          color: $text-color;
+          
+          a {
+            color: $primary-blue;
+            
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+    
+    // Implementation Status
+    .status-counters {
+      @include flex-layout(flex,null,null,1rem);
+      margin-bottom: 1.5rem;
+      
+      .counter-box {
+        flex: 1;
+        padding: 1.5rem;
+        border-radius: 6px;
+        @include flex-column;
+        align-items: center;
+        
+        .counter-title {
+          font-size: 1rem;
+          margin-bottom: 0.8rem;
+          text-align: center;
+        }
+        
+        .counter-value {
+          font-size: 2rem;
+          font-weight: $font-weight-bold;
+        }
+      }
+      
+      .eligible-counter {
+        background-color: #e1f1fd;
+        color: darken(#e1f1fd, 60%);
+      }
+      
+      .approved-counter {
+        background-color: #90caf9;
+        color: darken(#90caf9, 60%);
+      }
+    }
+    
+    // Source citations
+    .sources {
+      @include sources-styling(0.8rem);
+    }
+  }
+  
+  // Financial Perspective Section
+  .financial-perspective {
+    background-color: $white;
+    @include section-padding;
+    margin-top: 2rem;
+    
+    .section-title {
+      @include section-title-styles;
+    }
+    
+    .section-subtitle {
+      @include section-subtitle-styles;
+    }
+    
+    .section-divider {
+      @include section-divider;
+    }
+    
+    .annual-savings, .budget-reallocation, .regional-differences {
+      margin-bottom: 3rem;
+    }
+    
+    .subsection-title {
+      @include subsection-title;
+    }
+    
+    /* Annual Savings Styles */
+    .savings-card {
+      background-color: $primary-blue;
+      color: $white;
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      box-shadow: $shadow-md;
+      
+      .savings-title {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        font-weight: 500;
+      }
+      
+      .savings-amount {
+        font-size: 2.5rem;
+        font-weight: $font-weight-bold;
+        margin-bottom: 0.5rem;
+        
+        @media screen and (max-width: $breakpoint-md) {
+          font-size: 2rem;
+        }
+      }
+      
+      .savings-usd {
+        font-size: 1rem;
+        opacity: 0.8;
+      }
+    }
+    
+    /* Budget Reallocation Styles */
+    .reallocation-comparison {
+      @include flex-layout(flex,null,null,1.5rem);
+      margin-top: 1.5rem;
+    }
+    
+    .reallocation-column {
+      flex: 1;
+      background-color: $light-gray;
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+    
+    .reallocation-impact {
+      background-color: #e1f1fd;
+    }
+    
+    .column-title {
+      font-size: 1.2rem;
+      font-weight: $font-weight-semibold;
+      margin-bottom: 1rem;
+      color: $dark-gray;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid $primary-blue;
+    }
+    
+    .reallocation-list {
+      list-style: none;
+      padding: 0;
+      
+      li {
+        margin-bottom: 1rem;
+        @include flex-layout(flex, null, center, 0.8rem);
+      }
+    }
+    
+    .icon {
+      font-size: 1.5rem;
+    }
+    
+    /* Regional Price Differences Styles */
+    .regional-price-comparison {
+      @include flex-layout(flex, center, null, 2rem);
+      margin: 1.5rem 0;
+      
+      @media screen and (max-width: $breakpoint-lg) {
+        align-items: center;
+      }
+    }
+    
+    .region-card {
+      width: 250px;
+      text-align: center;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: $shadow-sm;
+      
+      @media screen and (max-width: $breakpoint-lg) {
+        width: 100%;
+        max-width: 300px;
+      }
+      
+      &:first-child {
+        background-color: $light-gray;
+      }
+      
+      &:last-child {
+        background-color: #e1f1fd;
+      }
+      
+      .region-name {
+        font-size: 1.1rem;
+        font-weight: $font-weight-semibold;
+        margin-bottom: 1rem;
+        color: $dark-gray;
+      }
+      
+      .price-amount {
+        font-size: 2rem;
+        font-weight: $font-weight-bold;
+        color: $primary-blue;
+      }
+      
+      .price-unit {
+        font-size: 0.9rem;
+        margin-bottom: 0.8rem;
+        color: $text-light;
+      }
+      
+      .price-note {
+        font-size: 0.85rem;
+        color: $text-light;
+        font-style: italic;
+      }
+    }
+    
+    /* Source Citations */
+    .sources {
+      @include sources-styling;
+    }
+  }
+  
+  // Future Outlook Section
+  .future-outlook {
+    background-color: $white;
+    @include section-padding;
+    margin-top: 2rem;
+    
+    .section-title {
+      @include section-title-styles;
+    }
+    
+    .section-subtitle {
+      @include section-subtitle-styles;
+    }
+    
+    .section-divider {
+      @include section-divider;
+    }
+    
+    .outlook-content {
+      @include flex-layout(flex, null,null, 2rem);
+      margin-bottom: 2rem;
+    }
+    
+    .roadmap-column, .benefits-column {
+      flex: 1;
+    }
+    
+    .subsection-title {
+      @include subsection-title;
+    }
+    
+    /* Timeline Styles */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+      
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 10px;
+        width: 2px;
+        background-color: $medium-gray;
+      }
+    }
+    
+    .timeline-item {
+      @include timeline-item($medium-gray);
+      
+      &.completed .timeline-marker {
+        background-color: #4caf50;
+        box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3);
+      }
+      
+      &.current .timeline-marker {
+        background-color: $chart-blue;
+        box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.3);
+      }
+    }
+    
+    .timeline-content {
+      padding: 0 0 0 15px;
+    }
+    
+    .timeline-title {
+      font-size: 1.1rem;
+      font-weight: $font-weight-semibold;
+      color: $dark-gray;
+      margin-bottom: 0.3rem;
+
+      @include responsive-md{
+        font-size: 1rem;
+      }
+      
+      // @media screen and (max-width: $breakpoint-md) {
+      //   font-size: 1rem;
+      // }
+    }
+    
+    .timeline-description {
+      font-size: 1rem;
+      font-weight: 500;
+      color: $primary-blue;
+      margin-bottom: 0.3rem;
+    }
+    
+    .timeline-detail {
+      font-size: 0.9rem;
+      color: $text-light;
+    }
+    
+    /* Benefits Styles */
+    .benefits-list {
+      @include flex-column;
+      gap: 1.2rem;
+    }
+    
+    .benefit-item {
+      @include flex-layout(flex,null,null, 1rem);
+    }
+    
+    .benefit-icon {
+      @include icon-circle(50px, #e1f5fe, $primary-blue);
+      flex-shrink: 0;
+      
+      @include responsive-md {
+        @include icon-circle(40px, #e1f5fe, $primary-blue);
+        
+        i {
+          font-size: 1.2rem;
+        }
+      }
+      
+      i {
+        font-size: 1.5rem;
+      }
+    }
+    
+    .fiscal-icon {
+      background-color: #e8f5e9;
+    }
+    
+    .social-icon {
+      background-color: #e3f2fd;
+    }
+    
+    .infrastructure-icon {
+      background-color: #e8eaf6;
+    }
+    
+    .environmental-icon {
+      background-color: #f1f8e9;
+    }
+    
+    .economic-icon {
+      background-color: #fff3e0;
+    }
+    
+    .benefit-content {
+      flex: 1;
+    }
+    
+    .benefit-title {
+      font-size: 1.1rem;
+      font-weight: $font-weight-semibold;
+      color: $dark-gray;
+      margin-bottom: 0.3rem;
+      
+      @include responsive-md {
+        font-size: 1rem;
+      }
+    }
+    
+    .benefit-description {
+      font-size: 0.95rem;
+      color: $text-light;
+      line-height: 1.4;
+    }
+    
+    /* Summary Styles */
+    .outlook-summary {
+      background-color: $light-gray;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+    
+    .summary-text {
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    
+    .sources {
+      @include sources-styling;
+    }
+  }
+  
+  // Responsive styles moved to each component
