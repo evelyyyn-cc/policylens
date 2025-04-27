@@ -1035,83 +1035,83 @@ function applyFilters() {
 }
 
 // User menu dropdown
-function setupUserDropdown() {
-    const userButton = document.querySelector('.user-btn');
+// function setupUserDropdown() {
+//     const userButton = document.querySelector('.user-btn');
     
-    if (userButton) {
-        userButton.addEventListener('click', function(e) {
-            e.stopPropagation();
+//     if (userButton) {
+//         userButton.addEventListener('click', function(e) {
+//             e.stopPropagation();
             
-            // Close any existing dropdown first
-            const existingMenu = document.querySelector('.language-dropdown-menu');
-            if (existingMenu) {
-                existingMenu.remove();
-                return;
-            }
+//             // Close any existing dropdown first
+//             const existingMenu = document.querySelector('.language-dropdown-menu');
+//             if (existingMenu) {
+//                 existingMenu.remove();
+//                 return;
+//             }
             
-            // Create dropdown menu for languages
-            const dropdownMenu = document.createElement('div');
-            dropdownMenu.classList.add('language-dropdown-menu');
+//             // Create dropdown menu for languages
+//             const dropdownMenu = document.createElement('div');
+//             dropdownMenu.classList.add('language-dropdown-menu');
             
-            // Styling
-            dropdownMenu.style.position = 'absolute';
-            dropdownMenu.style.top = (this.offsetTop + this.offsetHeight) + 'px';
-            dropdownMenu.style.right = '20px';
-            dropdownMenu.style.backgroundColor = '#fff';
-            dropdownMenu.style.border = '1px solid #dee2e6';
-            dropdownMenu.style.borderRadius = '4px';
-            dropdownMenu.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-            dropdownMenu.style.zIndex = '1000';
+//             // Styling
+//             dropdownMenu.style.position = 'absolute';
+//             dropdownMenu.style.top = (this.offsetTop + this.offsetHeight) + 'px';
+//             dropdownMenu.style.right = '20px';
+//             dropdownMenu.style.backgroundColor = '#fff';
+//             dropdownMenu.style.border = '1px solid #dee2e6';
+//             dropdownMenu.style.borderRadius = '4px';
+//             dropdownMenu.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+//             dropdownMenu.style.zIndex = '1000';
             
-            // Add language options
-            const languages = ['English', 'Bahasa Malaysia', 'Chinese', 'Tamil'];
+//             // Add language options
+//             const languages = ['English', 'Bahasa Malaysia', 'Chinese', 'Tamil'];
             
-            languages.forEach(language => {
-                const option = document.createElement('div');
-                option.classList.add('language-option');
-                option.textContent = language;
+//             languages.forEach(language => {
+//                 const option = document.createElement('div');
+//                 option.classList.add('language-option');
+//                 option.textContent = language;
                 
-                // Styling
-                option.style.padding = '8px 16px';
-                option.style.cursor = 'pointer';
-                option.style.fontSize = '0.85rem';
+//                 // Styling
+//                 option.style.padding = '8px 16px';
+//                 option.style.cursor = 'pointer';
+//                 option.style.fontSize = '0.85rem';
                 
-                // Hover effect
-                option.addEventListener('mouseover', function() {
-                    this.style.backgroundColor = '#f8f9fa';
-                });
+//                 // Hover effect
+//                 option.addEventListener('mouseover', function() {
+//                     this.style.backgroundColor = '#f8f9fa';
+//                 });
                 
-                option.addEventListener('mouseout', function() {
-                    this.style.backgroundColor = 'transparent';
-                });
+//                 option.addEventListener('mouseout', function() {
+//                     this.style.backgroundColor = 'transparent';
+//                 });
                 
-                // Click event
-                option.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const userBtnText = userButton.querySelector('span');
-                    userBtnText.textContent = language;
-                    dropdownMenu.remove();
-                });
+//                 // Click event
+//                 option.addEventListener('click', function(e) {
+//                     e.stopPropagation();
+//                     const userBtnText = userButton.querySelector('span');
+//                     userBtnText.textContent = language;
+//                     dropdownMenu.remove();
+//                 });
                 
-                dropdownMenu.appendChild(option);
-            });
+//                 dropdownMenu.appendChild(option);
+//             });
             
-            // Add to document
-            document.querySelector('.user-dropdown').appendChild(dropdownMenu);
+//             // Add to document
+//             document.querySelector('.user-dropdown').appendChild(dropdownMenu);
             
-            // Close when clicking outside
-            document.addEventListener('click', function closeMenu(e) {
-                if (!e.target.closest('.language-dropdown-menu') && !e.target.closest('.user-btn')) {
-                    const menu = document.querySelector('.language-dropdown-menu');
-                    if (menu) {
-                        menu.remove();
-                    }
-                    document.removeEventListener('click', closeMenu);
-                }
-            });
-        });
-    }
-}
+//             // Close when clicking outside
+//             document.addEventListener('click', function closeMenu(e) {
+//                 if (!e.target.closest('.language-dropdown-menu') && !e.target.closest('.user-btn')) {
+//                     const menu = document.querySelector('.language-dropdown-menu');
+//                     if (menu) {
+//                         menu.remove();
+//                     }
+//                     document.removeEventListener('click', closeMenu);
+//                 }
+//             });
+//         });
+//     }
+// }
 
 // Set up main tab navigation
 function setupMainTabs() {
@@ -1849,5 +1849,5 @@ document.addEventListener('DOMContentLoaded', function() {
     setupMainTabs();
     setupChartTypeToggle();
     setupDropdowns();
-    setupUserDropdown();
+    // setupUserDropdown();
 });

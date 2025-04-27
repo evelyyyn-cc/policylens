@@ -30,6 +30,12 @@ function setupMainTabs() {
             const targetTab = document.getElementById(tabId);
             if (targetTab) {
                 targetTab.classList.add('active');
+
+                // Initialize category tabs when regional-impact-tab is activated
+                if (tabId === 'regional-impact-tab') {
+                    initializeCategoryTabIndicator();
+                }
+                
             }
              
             
@@ -219,20 +225,396 @@ function calculateImpact() {
     document.getElementById('yearlyPercentage').textContent = `(${percentageIncrease.toFixed(1)}% increase from your total yearly expenses)`;
 }
 
+function setupCategoryTabs() {
+    const categoryTabLinks = document.querySelectorAll('.category-tabs .category-tab-link');
+    const categoryTabContents = document.querySelectorAll('.category-tab-content');
+    const categoryTabIndicator = document.querySelector('.category-tab-indicator');
+    
+    // Immediately position the indicator for the active tab on page load
+    const activeTab = document.querySelector('.category-tabs .category-tab-link.active');
+    if (activeTab && categoryTabIndicator) {
+        setTimeout(() => {
+            const rect = activeTab.getBoundingClientRect();
+            const parentRect = activeTab.parentElement.getBoundingClientRect();
+            categoryTabIndicator.style.width = `${rect.width}px`;
+            categoryTabIndicator.style.left = `${rect.left - parentRect.left}px`;
+        }, 50); // Small delay to ensure DOM is ready
+    }
+    
+    categoryTabLinks.forEach((link) => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remove active class from all links
+            categoryTabLinks.forEach(tab => tab.classList.remove('active'));
+            
+            // Add active class to clicked link
+            this.classList.add('active');
+            
+            // Move the indicator
+            const rect = this.getBoundingClientRect();
+            const parentRect = this.parentElement.getBoundingClientRect();
+            categoryTabIndicator.style.width = `${rect.width}px`;
+            categoryTabIndicator.style.left = `${rect.left - parentRect.left}px`;
+            
+            // Hide all tab contents
+            categoryTabContents.forEach(content => content.classList.remove('active'));
+            
+            // Show the selected tab content
+            const tabId = this.getAttribute('data-tab');
+            const targetTab = document.getElementById(tabId);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+            
+            // Refresh charts if needed to fix rendering issues
+            setTimeout(() => {
+                Object.values(charts).forEach(chart => {
+                    if (chart && typeof chart.resize === 'function') {
+                        chart.resize();
+                    }
+                });
+            }, 100);
+
+            // Close any open dropdowns when switching tabs
+            if (typeof closeAllDropdowns === 'function') {
+                closeAllDropdowns();
+            }
+        });
+    });
+}
+
+// Create a new function to initialize the category tab indicator
+function initializeCategoryTabIndicator() {
+    // Allow a small delay for the tab to be properly rendered
+    setTimeout(() => {
+        const activeCategoryTab = document.querySelector('.category-tabs .category-tab-link.active');
+        const categoryTabIndicator = document.querySelector('.category-tab-indicator');
+        if (activeCategoryTab && categoryTabIndicator) {
+            const rect = activeCategoryTab.getBoundingClientRect();
+            const parentRect = activeCategoryTab.parentElement.getBoundingClientRect();
+            categoryTabIndicator.style.width = `${rect.width}px`;
+            categoryTabIndicator.style.left = `${rect.left - parentRect.left}px`;
+        }
+    }, 50); // A short delay to ensure the tab is fully rendered
+}
+
+// Close all open dropdowns
+function closeAllDropdowns() {
+    const openDropdownMenus = document.querySelectorAll('.dropdown-menu');
+    openDropdownMenus.forEach(menu => {
+        menu.remove();
+    });
+}
+
+// Create dropdown functionality
+function setupDropdowns() {
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.dropdown-select') && !event.target.closest('.dropdown-menu')) {
+            closeAllDropdowns();
+        }
+    });
+
+    // Get the specific dropdown for regional impact
+    const regionalDropdown = document.querySelector('#regional-impact .dropdown-select'); // More specific selector
+
+    if (regionalDropdown) { // Check if the dropdown exists
+        regionalDropdown.addEventListener('click', function(event) {
+            event.stopPropagation();
+
+            // Close any open dropdown menus first
+            closeAllDropdowns();
+
+            const dropdownContainer = this.closest('.filter-dropdown');
+            const label = dropdownContainer.querySelector('label').textContent;
+            let options = [];
+
+            // Determine which options to show based on the label
+            options = filterOptions.regions; // Assuming filterOptions is defined elsewhere with regions
+
+            // Create the dropdown menu
+            const dropdownMenu = document.createElement('div');
+            dropdownMenu.classList.add('dropdown-menu');
+
+            // Add styles to position the dropdown menu (consider moving to CSS)
+            dropdownMenu.style.position = 'absolute';
+            dropdownMenu.style.top = (this.offsetTop + this.offsetHeight) + 'px';
+            dropdownMenu.style.left = this.offsetLeft + 'px';
+            dropdownMenu.style.width = this.offsetWidth + 'px';
+            dropdownMenu.style.backgroundColor = '#fff';
+            dropdownMenu.style.border = '1px solid #dee2e6';
+            dropdownMenu.style.borderRadius = '4px';
+            dropdownMenu.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            dropdownMenu.style.zIndex = '1000';
+            dropdownMenu.style.maxHeight = '200px';
+            dropdownMenu.style.overflowY = 'auto';
+
+            // Add option items
+            options.forEach(option => {
+                const optionItem = document.createElement('div');
+                optionItem.classList.add('dropdown-item');
+                optionItem.textContent = option;
+
+                // Style the option item (consider moving to CSS)
+                optionItem.style.padding = '8px 12px';
+                optionItem.style.cursor = 'pointer';
+                optionItem.style.fontSize = '0.95rem';
+
+                // Hover effect (consider moving to CSS)
+                optionItem.addEventListener('mouseover', function() {
+                    this.style.backgroundColor = '#f8f9fa';
+                });
+
+                optionItem.addEventListener('mouseout', function() {
+                    this.style.backgroundColor = 'transparent';
+                });
+
+                // Select option
+                optionItem.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const dropdownValueSpan = regionalDropdown.querySelector('span');
+                    dropdownValueSpan.textContent = option;
+
+                    // Apply filter to charts and table
+                    applyFilters(); // Call applyFilters when an option is selected
+
+                    // Close the dropdown
+                    dropdownMenu.remove();
+                });
+
+                dropdownMenu.appendChild(optionItem);
+            });
+
+            // Append the dropdown menu to the container
+            dropdownContainer.style.position = 'relative'; // Ensure container is positioned
+            dropdownContainer.appendChild(dropdownMenu);
+        });
+    } else {
+        console.warn("Regional impact dropdown not found."); // Add a warning if selector fails
+    }
+}
+
+// Initialize Categories bar chart
+function initializeCategoryCharts() {
+    const ctxCategories = document.getElementById('categoriesChart').getContext('2d');
+    // Initial data (e.g., for Johor)
+    const initialLocation = 'Johor';
+    const initialData = cpi_impact_data[initialLocation];
+    const initialChartData = [
+        (initialData.food_Rate * 100).toFixed(3),
+        (initialData.restaurant_accommodation_Rate * 100).toFixed(3),
+        (initialData.housing_Rate * 100).toFixed(3),
+        (initialData.transport_Rate * 100).toFixed(3)
+    ];
+
+    charts.categoriesChart = new Chart(ctxCategories, { // Store instance in charts object
+        type: 'bar',
+        data: {
+            labels: ['Food & Beverages', 'Restaurant & Accommodation Services', 'Housing, Water, Electricity, Gas & Others', 'Transport'],
+            datasets: [{
+                label: 'CPI Difference (%)', // Updated label
+                data: initialChartData, // Use initial data
+                backgroundColor: [
+                    '#4285F4', // blue
+                    '#DB4437', // red
+                    '#0F9D58', // green
+                    '#F4B400', // yellow
+                ],
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: `CPI Difference by Category for ${initialLocation} (%)`, // Dynamic title
+                    font: {
+                        size: 16
+                    }
+                },
+                tooltip: {
+                     callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += context.parsed.y + '%';
+                            }
+                            return label;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        // Include a percent sign in the ticks
+                        callback: function(value, index, ticks) {
+                            return value + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Helper function to get impact level class based on percentage
+function getImpactLevelClass(percentage) {
+    if (percentage < 0.5) return 'impact-low';
+    if (percentage < 1.5) return 'impact-medium';
+    return 'impact-high';
+}
+
+// Helper function to set impact meter style
+function setImpactMeterStyle(element, impactClass) {
+    element.className = 'impact-fill'; // Reset classes
+    element.classList.add(impactClass);
+    // Adjust width based on class (optional, can refine logic)
+    // if (impactClass === 'impact-low') element.style.width = '30%';
+    // else if (impactClass === 'impact-medium') element.style.width = '60%';
+    // else element.style.width = '85%';
+}
+
+// Updates category bar chart and Table
+function applyFilters() {
+    const selectedLocationElement = document.querySelector('#regional-impact .dropdown-select span');
+    if (!selectedLocationElement) {
+        console.error("Could not find selected location element.");
+        return;
+    }
+    const selectedLocation = selectedLocationElement.textContent.trim();
+
+    // Sanitize location name for object key access (replace spaces, dots with underscores)
+    const locationKey = selectedLocation.replace(/[\s.]+/g, '_');
+
+
+    const locationData = cpi_impact_data[locationKey];
+
+    if (!locationData) {
+        console.error(`Data for location "${selectedLocation}" (key: "${locationKey}") not found.`);
+        return; // Exit if data for the selected location isn't found
+    }
+
+    // --- Update Chart ---
+    if (charts.categoriesChart) {
+        const newData = [
+            (locationData.food_Rate * 100),
+            (locationData.restaurant_accommodation_Rate * 100),
+            (locationData.housing_Rate * 100),
+            (locationData.transport_Rate * 100)
+        ];
+
+        // Update chart data directly
+        charts.categoriesChart.data.datasets[0].data = newData;
+
+        // Update chart title
+        charts.categoriesChart.options.plugins.title.text = `CPI Difference by Category for ${selectedLocation} (%)`;
+
+        // Update the chart
+        charts.categoriesChart.update();
+    } else {
+        console.error("Category chart instance not found.");
+    }
+
+    // *** IMPORTANT: Check if locationData exists FIRST ***
+    if (!locationData) {
+        console.error(`Data for location key "${locationKey}" not found.`);
+        // Optionally clear the table or show a message
+        // Clear previous data to avoid confusion
+        document.getElementById('food-cpi-diff').textContent = '-';
+        setImpactMeterStyle(document.getElementById('food-impact-meter'), '');
+        document.getElementById('restaurant-cpi-diff').textContent = '-';
+        setImpactMeterStyle(document.getElementById('restaurant-impact-meter'), '');
+        document.getElementById('housing-cpi-diff').textContent = '-';
+        setImpactMeterStyle(document.getElementById('housing-impact-meter'), '');
+        document.getElementById('transport-cpi-diff').textContent = '-';
+        setImpactMeterStyle(document.getElementById('transport-impact-meter'), '');
+        // Clear or update chart title if needed
+        if (charts.categoriesChart) {
+             charts.categoriesChart.options.plugins.title.text = `Data not available for ${selectedLocation}`;
+             charts.categoriesChart.data.datasets[0].data = [0, 0, 0, 0]; // Clear chart data
+             charts.categoriesChart.update();
+        }
+        return; // Exit if data for the selected location isn't found
+    }
+
+     console.log("Location Data Found:", locationData); // Debug log
+
+    // --- Update Table ---
+    const foodCpiDiff = document.getElementById('food-cpi-diff');
+    const foodImpactMeter = document.getElementById('food-impact-meter');
+    const restaurantCpiDiff = document.getElementById('restaurant-cpi-diff');
+    const restaurantImpactMeter = document.getElementById('restaurant-impact-meter');
+    const housingCpiDiff = document.getElementById('housing-cpi-diff');
+    const housingImpactMeter = document.getElementById('housing-impact-meter');
+    const transportCpiDiff = document.getElementById('transport-cpi-diff');
+    const transportImpactMeter = document.getElementById('transport-impact-meter');
+
+    // Check if elements exist before updating
+    if (foodCpiDiff && foodImpactMeter) {
+        const foodPercent = (locationData.food_Rate * 100);
+        foodCpiDiff.textContent = `${foodPercent.toFixed(3)}%`;
+        const foodImpactClass = getImpactLevelClass(foodPercent);
+        setImpactMeterStyle(foodImpactMeter, foodImpactClass);
+         console.log(`Updated Food: ${foodPercent.toFixed(3)}%`, foodImpactClass); // Debug log
+    } else {
+         console.error("Food row elements not found");
+    }
+
+     if (restaurantCpiDiff && restaurantImpactMeter) {
+        const restaurantPercent = (locationData.restaurant_accommodation_Rate * 100);
+        restaurantCpiDiff.textContent = `${restaurantPercent.toFixed(3)}%`;
+        const restaurantImpactClass = getImpactLevelClass(restaurantPercent);
+         setImpactMeterStyle(restaurantImpactMeter, restaurantImpactClass);
+         console.log(`Updated Restaurant: ${restaurantPercent.toFixed(3)}%`, restaurantImpactClass); // Debug log
+    } else {
+         console.error("Restaurant row elements not found");
+    }
+
+     if (housingCpiDiff && housingImpactMeter) {
+        const housingPercent = (locationData.housing_Rate * 100);
+        housingCpiDiff.textContent = `${housingPercent.toFixed(3)}%`;
+        const housingImpactClass = getImpactLevelClass(housingPercent);
+        setImpactMeterStyle(housingImpactMeter, housingImpactClass);
+         console.log(`Updated Housing: ${housingPercent.toFixed(3)}%`, housingImpactClass); // Debug log
+    } else {
+         console.error("Housing row elements not found");
+    }
+
+    if (transportCpiDiff && transportImpactMeter) {
+        const transportPercent = (locationData.transport_Rate * 100);
+        transportCpiDiff.textContent = `${transportPercent.toFixed(3)}%`;
+        const transportImpactClass = getImpactLevelClass(transportPercent);
+        setImpactMeterStyle(transportImpactMeter, transportImpactClass);
+         console.log(`Updated Transport: ${transportPercent.toFixed(3)}%`, transportImpactClass); // Debug log
+    } else {
+         console.error("Transport row elements not found");
+    }
+}
+
 // Initialize everything when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     
     // Set up interactive elements
     setupMainTabs();
     
-    // Smooth Transition with left + width
-    const activeTab = document.querySelector('.main-tabs .tab-link.active');
-    const tabIndicator = document.querySelector('.tab-indicator');
-    if (activeTab && tabIndicator) {
-        const rect = activeTab.getBoundingClientRect();
-        const parentRect = activeTab.parentElement.getBoundingClientRect();
-        tabIndicator.style.width = `${rect.width}px`;
-        tabIndicator.style.left = `${rect.left - parentRect.left}px`;
+    // Smooth Transition with left + width for main tabs
+    const activeMainTab = document.querySelector('.main-tabs .tab-link.active');
+    const mainTabIndicator = document.querySelector('.main-tabs .tab-indicator');
+    if (activeMainTab && mainTabIndicator) {
+        // Use setTimeout to ensure layout is complete
+         setTimeout(() => {
+            const rect = activeMainTab.getBoundingClientRect();
+            const parentRect = activeMainTab.parentElement.getBoundingClientRect();
+            mainTabIndicator.style.width = `${rect.width}px`;
+            mainTabIndicator.style.left = `${rect.left - parentRect.left}px`;
+         }, 50);
     }
     
     // Personal Price Impact Calculator
@@ -262,7 +644,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     otherSlider.addEventListener('input', function() {
-        otherValue.textContent = `RM ${this.value}`;
+        otherValue.textContent = `RM ${this.value}`; // Fixed: was using thiscategory-tab-indicator.value
     });
 
     // Calculate button functionality
@@ -271,10 +653,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize with default values
     calculateImpact();
 
+    // setup Regional CPI Categories
+    setupCategoryTabs()
 
     // setupChartTypeToggle();
-    // setupDropdowns();
-    // setupUserDropdown();
+    setupDropdowns();
+
+    // Initializecategory bar chart
+    initializeCategoryCharts();
+
+    // Apply filters initially based on the default selected location in the regional dropdown
+    // Ensure the DOM is fully ready before trying to read the dropdown value
+    setTimeout(() => {
+        applyFilters();
+    }, 100); // Delay slightly to ensure chart and dropdown are ready
+
 });
 
 // CPI Impact Page Data
@@ -392,3 +785,27 @@ const cpi_impact_data = {
         overall_Rate: calculatePercentage(140.5,140.3)
     }
 };
+
+const filterOptions = {
+    regions: [
+        "Johor",
+        "Kedah",
+        "Kelantan",
+        "Melaka",
+        "Negeri Sembilan",
+        "Pahang",
+        "Perak",
+        "Perlis",
+        "Pulau Pinang",
+        "Sabah",
+        "Sarawak",
+        "Selangor",
+        "Terengganu",
+        "W.P. Kuala Lumpur",
+        "W.P. Labuan",
+        "W.P. Putrajaya"
+    ]
+}
+
+// Global object to store chart instances
+const charts = {};
