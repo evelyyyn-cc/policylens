@@ -91,7 +91,7 @@ header {
   background-color: #ffffff;
   padding: 1rem 2rem;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 header.scrolled {
@@ -125,7 +125,7 @@ header nav {
 header nav .logo {
   display: flex;
   align-items: center;
-  font-weight: 500;
+  font-weight: 700;
   color: #1e3a8a;
   font-size: 1.5rem;
 }
@@ -313,7 +313,7 @@ header nav .hamburger.active span:nth-child(3) {
   color: #4b5563;
 }
 .breadcrumb a {
-  color: #1e3a8a;
+  color: #0066cc;
   text-decoration: none;
 }
 .breadcrumb a:hover {
@@ -348,8 +348,7 @@ footer {
 footer .container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+  align-items: flex-start;
 }
 footer .container .footer-logo {
   display: flex;
@@ -383,7 +382,7 @@ footer .container .quick-links a:hover {
 .dashboard-links .container {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 @media (max-width: 768px) {
   .dashboard-links .container {
@@ -401,7 +400,12 @@ footer .container .quick-links a:hover {
   text-decoration: none;
   flex: 1;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 500;
   gap: 0.5rem;
+  transition: all 0.3s ease;
 }
 .dashboard-links .dashboard-link:hover {
   background-color: #234f9c;
@@ -452,7 +456,7 @@ footer .container .quick-links a:hover {
   transform: translateX(100%);
 }
 
-.datasets-page body, .cpi-impact-page body {
+body.datasets-page, body.cpi-impact-page {
   background-color: #f8f9fa;
   color: #333333;
   min-height: 100vh;
@@ -462,16 +466,16 @@ footer .container .quick-links a:hover {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.datasets-page section, .cpi-impact-page section {
+body.datasets-page section, body.cpi-impact-page section {
   min-height: 0;
 }
 
-.diesel-policy-page body {
+body.diesel-policy-page {
   line-height: 1.6;
   color: #333333;
   background-color: #f5f5f5;
 }
-.diesel-policy-page section {
+body.diesel-policy-page section {
   min-height: 0;
 }
 
@@ -643,17 +647,17 @@ body.menu-open {
   justify-content: center;
 }
 #stats .stats-container .stats-text p {
-  font-size: 1rem;
+  font-size: 2rem;
   line-height: 1.6;
 }
 @media (max-width: 992px) {
   #stats .stats-container .stats-text p {
-    font-size: 0.935rem;
+    font-size: 1.75rem;
   }
 }
 @media (max-width: 576px) {
   #stats .stats-container .stats-text p {
-    font-size: 0.875rem;
+    font-size: 1.5rem;
   }
 }
 #stats .stats-container .stats-numbers {
@@ -997,18 +1001,18 @@ body.menu-open {
 }
 #why-matters .why-matters-content p {
   margin-bottom: 1.5rem;
-  font-size: 1rem;
+  font-size: 2rem;
   max-width: 500px;
   line-height: 1.6;
 }
 @media (max-width: 992px) {
   #why-matters .why-matters-content p {
-    font-size: 0.935rem;
+    font-size: 1.75rem;
   }
 }
 @media (max-width: 576px) {
   #why-matters .why-matters-content p {
-    font-size: 0.875rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -1193,6 +1197,7 @@ body.menu-open {
   flex-grow: 1;
   line-height: 1.6;
   margin-bottom: 1.5rem;
+  text-align: justify;
 }
 @media (max-width: 992px) {
   #policies-grid .policy-card .policy-content p {
@@ -1652,7 +1657,7 @@ body.menu-open {
   background-color: #e0e8f8;
   border-left: 4px solid #1a3a72;
   margin: 1.5rem 0;
-  font-weight: 600;
+  font-weight: 500;
 }
 .challenge-section .sources {
   margin-top: 2rem;
@@ -1902,17 +1907,12 @@ body.menu-open {
 
 .financial-perspective {
   background-color: #ffffff;
-  padding: 3rem 2rem;
+  padding: 3rem 0;
   margin-top: 2rem;
   /* Annual Savings Styles */
   /* Budget Reallocation Styles */
   /* Regional Price Differences Styles */
   /* Source Citations */
-}
-@media (max-width: 768px) {
-  .financial-perspective {
-    padding: 2.5rem 1rem;
-  }
 }
 .financial-perspective .section-title {
   font-size: 1.8rem;
@@ -1944,6 +1944,7 @@ body.menu-open {
   background-color: #1a3a72;
   margin: 0 auto 2rem;
   border: none;
+  background-color: #1a3a72;
 }
 .financial-perspective .annual-savings, .financial-perspective .budget-reallocation, .financial-perspective .regional-differences {
   margin-bottom: 3rem;
@@ -2106,16 +2107,11 @@ body.menu-open {
 
 .future-outlook {
   background-color: #ffffff;
-  padding: 3rem 2rem;
+  padding: 3rem 0;
   margin-top: 2rem;
   /* Timeline Styles */
   /* Benefits Styles */
   /* Summary Styles */
-}
-@media (max-width: 768px) {
-  .future-outlook {
-    padding: 2.5rem 1rem;
-  }
 }
 .future-outlook .section-title {
   font-size: 1.8rem;
