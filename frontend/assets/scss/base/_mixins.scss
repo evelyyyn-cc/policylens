@@ -242,7 +242,7 @@
 
 // Source citation styling
 @mixin sources-styling($font-size: 0.85rem, $color: lighten($text-color, 30%)) {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   font-size: $font-size;
   color: $color;
   

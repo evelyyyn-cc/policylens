@@ -1660,7 +1660,7 @@ body.menu-open {
   font-weight: 500;
 }
 .challenge-section .sources {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   font-size: 0.85rem;
   color: gray;
 }
@@ -1890,7 +1890,7 @@ body.menu-open {
   color: #043053;
 }
 .targeted-approach .sources {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   font-size: 0.8rem;
   color: gray;
 }
@@ -2003,6 +2003,7 @@ body.menu-open {
   background-color: #f5f5f5;
   border-radius: 8px;
   padding: 1.5rem;
+  text-align: justify;
 }
 .financial-perspective .reallocation-impact {
   background-color: #e1f1fd;
@@ -2090,7 +2091,7 @@ body.menu-open {
   font-style: italic;
 }
 .financial-perspective .sources {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   font-size: 0.85rem;
   color: gray;
 }
@@ -2316,7 +2317,7 @@ body.menu-open {
   margin-bottom: 1.5rem;
 }
 .future-outlook .sources {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   font-size: 0.85rem;
   color: gray;
 }
