@@ -54,10 +54,11 @@
   $text-color: $white,
   $padding-y: 0.75rem, 
   $padding-x: 1.5rem, 
-  $border-radius: 5px,
+  $border-radius: 10px,
   $hover-bg-modifier: darken,
   $hover-bg-amount: 5%,
-  $hover-transform-y: -2px
+  $hover-transform-y: -2px,
+  $font-size: 1rem
 ) {
   background-color: $bg-color;
   color: $text-color;
@@ -67,6 +68,7 @@
   transition: $transition;
   display: inline-block;
   text-decoration: none;
+  font-size: $font-size;
   
   &:hover {
     @if $hover-bg-modifier == 'lighten' {

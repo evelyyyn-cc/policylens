@@ -24,8 +24,7 @@ a {
 }
 
 section {
-  min-height: 100vh;
-  width: 100%;
+  min-height: 0;
   @include flex-column;
   justify-content: center;
   

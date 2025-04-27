@@ -8,11 +8,6 @@ body.datasets-page, body.cpi-impact-page {
     font-weight: $font-weight-normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
-    section{
-        min-height: 0;
-    }
-
 } 
 
 
@@ -25,3 +20,12 @@ body.diesel-policy-page {
         min-height:0;
     }
 }
+
+body.index-page {
+    section{
+        min-height: 100vh;
+        width: 100%;
+    }
+}
+
+

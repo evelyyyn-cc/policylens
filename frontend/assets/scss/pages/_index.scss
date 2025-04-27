@@ -11,7 +11,7 @@ body.menu-open {
     
     .hero-content {
       h1 {
-        @include responsive-font(2.5rem, 2.25rem, 2rem);
+        @include responsive-font(3rem, 2.25rem, 2rem);
         margin-top: 1.8rem;
         
         .blue {
@@ -28,12 +28,13 @@ body.menu-open {
         margin: 0 auto;
         color: $medium-text;
         margin-bottom: 2rem;
-        font-size: 1.1rem;
+        font-size: 1.3rem;
       }
       .cta-button{
         @include button-style(
             $padding-y: 0.75rem,
-            $padding-x: 2rem
+            $padding-x: 2rem,
+            $font-size: 1.3rem
         )
       }
       
@@ -58,26 +59,33 @@ body.menu-open {
     justify-content: center;
     
     .featured-content {
-      max-width: 800px;
+      max-width: 1100px;
       margin: 0 auto;
       
       h2 {
-        @include responsive-font(2rem, 1.75rem, 1.5rem);
+        @include responsive-font(2.5rem, 1.75rem, 1.5rem);
         margin-bottom: 1.5rem;
       }
       
       p {
-        @include responsive-font(1rem, 0.935rem, 0.875rem);
+        @include responsive-font(1.2rem, 0.935rem, 0.875rem);
         margin-bottom: 2rem;
-        //font-size: 1.1rem;
+        // font-size: 1.1rem;
         line-height: 1.6;
       }
 
       .cta-button{
         @include button-style(
-            $padding-y: 0.75rem,
-            $padding-x: 2rem
-        )
+          $bg-color: $primary-color,
+          $text-color: $white,
+          $padding-y: 0.75rem,
+          $padding-x: 2rem,
+          $border-radius: 10px,
+          $hover-bg-modifier: darken,
+          $hover-bg-amount: 5%,
+          $hover-transform-y: -2px,
+          $font-size: 1rem
+        );
       }
       
       .dots-container {
@@ -165,9 +173,12 @@ body.menu-open {
     background-color: $white;
     text-align: center;
     @include section-padding;
+
+    .section-title {
+      @include responsive-font(2.5rem, 1.75rem, 1.5rem);
+    }
     
     .what-we-do-text {
-      
       max-width: 800px;
       margin: 0 auto 3rem auto;
       line-height: 1.6;
@@ -175,7 +186,7 @@ body.menu-open {
       
       p {
         margin-bottom: 1rem;
-        @include responsive-font(1rem, 0.935rem, 0.875rem);
+        @include responsive-font(1.2rem, 0.935rem, 0.875rem);
       }
     }
     
@@ -407,16 +418,17 @@ body.menu-open {
       justify-content: center;
       
       .section-title {
-        @include responsive-font(2rem, 1.75rem, 1.5rem);
+        @include responsive-font(2.5rem, 1.75rem, 1.5rem);
         margin-bottom: 2rem;
         color: $white;
       }
       
       p {
         margin-bottom: 1.5rem;
-        @include responsive-font(2rem, 1.75rem, 1.5rem);
+        @include responsive-font(1.2rem, 1.75rem, 1.5rem);
         max-width: 500px;
         line-height: 1.6;
+        text-align: justify;
       }
     }
   }
@@ -430,14 +442,14 @@ body.menu-open {
     .container {
       display: flex;
       align-items: center;
-      gap: 3rem;
+      gap: 5rem;
       
       @media (max-width: $breakpoint-lg) {
         flex-direction: column-reverse;
       }
       
       .who-content {
-        @include responsive-font(2rem, 1.75rem, 1.5rem);
+        @include responsive-font(2.5rem, 1.75rem, 1.5rem);
         flex: 1;
         max-width: 50%;
         
@@ -446,10 +458,11 @@ body.menu-open {
         }
         
         p {
-          @include responsive-font(1rem, 0.935rem, 0.875rem);
+          @include responsive-font(1.2rem, 0.935rem, 0.875rem);
           margin-bottom: 1.5rem;
           color: $medium-text;
           line-height: 1.6;
+          text-align: justify;
         }
       }
       
