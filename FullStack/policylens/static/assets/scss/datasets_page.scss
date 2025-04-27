@@ -4,7 +4,6 @@
 $primary-color: #0066cc;
 $primary-hover: #0055aa;
 $secondary-color: #1a3f66;
-$primary-blue: #1a3a72;
 $text-color: #333;
 $text-light: #666;
 $text-lighter: #ccc;
@@ -282,44 +281,6 @@ body {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     font-weight: $font-weight-bold;
     letter-spacing: -0.02em;
-  }
-}
-
-// Dashboard Links Section
-.dashboard-links {
-  background-color: $white;
-  padding: 1.5rem 0;
-
-  .container {
-    display: flex;
-    justify-content: space-between;
-    gap: 1.5rem;
-  }
-
-  .dashboard-link {
-    flex: 1;
-    // max-width: 20rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    background-color: $primary-blue;
-    color: $white;
-    padding: 1rem 1rem;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-
-    &:hover {
-      background-color: lighten($primary-blue, 10%);
-      transform: translateY(-3px);
-    }
-
-    .icon {
-      width: 24px;
-      height: 24px;
-      display: inline-block;
-    }
   }
 }
 
