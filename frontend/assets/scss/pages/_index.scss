@@ -126,7 +126,7 @@ body.menu-open {
         justify-content: center;
         
         p {
-          @include responsive-font(1rem, 0.935rem, 0.875rem);
+          @include responsive-font(2rem, 1.75rem, 1.5rem);
           line-height: 1.6;
         }
       }
@@ -414,7 +414,7 @@ body.menu-open {
       
       p {
         margin-bottom: 1.5rem;
-        @include responsive-font(1rem, 0.935rem, 0.875rem);
+        @include responsive-font(2rem, 1.75rem, 1.5rem);
         max-width: 500px;
         line-height: 1.6;
       }
