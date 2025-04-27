@@ -97,7 +97,7 @@
         </div>
     </section>
 
-    <div class="container"> 
+    <section class="cpi-impact-section"> 
         <!-- Tab navigation - Horizontal tabs below hero -->
         <div class="main-tabs">
             <a href="#" class="tab-link active" data-tab="price-calc-tab">Personal Price Impact Calculator</a>
@@ -109,8 +109,8 @@
         <!-- Personal Price Impact Calculator Tab -->
         <div class="tab-content active" id="price-calc-tab">  
             <div class="page-header">
-                <h1 class="page-title">Diesel Subsidy Reform Impact</h1>
-                <p class="page-subtitle">Understand how the policy changes affect your personal finances</p>
+                <h1 class="page-title">Personal Expenditure</h1>
+                <p class="page-subtitle">Understand how the policy changes affect your personal expenditure</p>
             </div>
 
             <div id="price-calculator">
@@ -308,7 +308,100 @@
 
         <!-- Regional Price Impact Tab -->
         <div class="tab-content" id="regional-impact-tab">
-            Bar
+            <!-- Category Breakdown Section -->
+            <div class="page-header">
+                <h1 class="page-title">Regional Impact</h1>
+                <p class="page-subtitle">Understand how the policy changes affect different sectors</p>
+            </div>
+            
+            <div class="category-tabs">
+                <a href="#" class="category-tab-link active" data-tab="tab1">Major Categories</a>
+                <!-- <a href="#" class="category-tab-link" data-tab="tab2">Food & Beverages</a>
+                <a href="#" class="category-tab-link" data-tab="tab3">Transportation Costs</a> -->
+                <div class="category-tab-indicator"></div>
+            </div>
+            
+            <div id="tab1" class="category-tab-content active">
+                <div id="regional-impact">
+                    <div class="regional-categories">
+                        <h2 class="section-title">Impact by CPI Categories</h2>
+                        <p class="section-description">
+                            The diesel subsidy removal had varying impacts across different categories of the Consumer Price Index.
+                            Below is the breakdown of how different sectors were affected:
+                        </p>
+
+                        <div class="filter-dropdown">
+                            <label>📍 Select State</label>
+                            <div class="dropdown-select">
+                                <span>Johor</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="categoriesChart"></canvas>
+                        </div>
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th class="table-category">Category</th>
+                                    <th class="table-cpi-diff">CPI Difference (%)</th>
+                                    <th class="table-impact-lvl">Impact Level</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="food-row">
+                                    <td>Food & Beverages</td>
+                                    <td id="food-cpi-diff">2.422%</td>
+                                    <td>
+                                        <div class="impact-meter">
+                                            <div class="impact-fill impact-high" id="food-impact-meter"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="restaurant-row">
+                                    <td>Restaurant & Accommodation Services</td>
+                                    <td id="restaurant-cpi-diff">1.318%</td>
+                                    <td>
+                                        <div class="impact-meter">
+                                            <div class="impact-fill impact-medium" id="restaurant-impact-meter"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="housing-row">
+                                    <td>Housing, Water, Electricity, Gas & Other Fuels</td>
+                                    <td id="housing-cpi-diff">0.307%</td>
+                                    <td>
+                                        <div class="impact-meter">
+                                            <div class="impact-fill impact-low" id="housing-impact-meter"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="transport-row">
+                                    <td>Transport</td>
+                                    <td id="transport-cpi-diff">0.819%</td>
+                                    <td>
+                                        <div class="impact-meter">
+                                            <div class="impact-fill impact-medium" id="transport-impact-meter"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- <div id="tab2" class="category-tab-content">
+            </div>
+            
+            <div id="tab3" class="category-tab-content">
+            </div> -->
 
         </div>
 
@@ -319,7 +412,7 @@
         </div>
         
 
-    </div>
+    </section>
 
     
     <!-- Footer -->
