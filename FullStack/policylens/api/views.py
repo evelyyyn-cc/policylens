@@ -20,6 +20,12 @@ from django.db.models.functions import ExtractYear, ExtractMonth
 from django.shortcuts import render
 
 
+# def header(request):
+#     return render(request, "header.html")
+
+# def footer(request):
+#     return render(request, "footer.html")
+
 def index(request):
     return render(request, 'index.html')
 
@@ -34,6 +40,12 @@ def datasets_page(request):
 
 def policies(request):
     return render(request, "policies.html")
+
+def cpi_impact(request):
+    return render(request, "cpi_impact.html")
+
+# def cpi_dataset(request):
+#     return render(request, "cpi_dataset.html")
 
 
 class FuelPriceSerializer(serializers.ModelSerializer):

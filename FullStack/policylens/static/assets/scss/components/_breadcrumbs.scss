@@ -1,0 +1,43 @@
+.breadcrumb-container {
+  background-color: $light-bg;
+  padding: 0.75rem 0;
+  margin-top: 70px;
+}
+
+.breadcrumb {
+  font-size: 0.9rem;
+  color: $medium-text;
+  
+  a {
+    color: $primary-color-diesel;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  
+  span {
+    color: $medium-text;
+  }
+}
+
+.breadcrumb-light {
+  font-size: 0.9rem;
+  color: rgba($white, 0.8);
+  margin-bottom: 1rem;
+  
+  a {
+    color: rgba($white, 0.8);
+    text-decoration: none;
+    
+    &:hover {
+      color: $white;
+      text-decoration: underline;
+    }
+  }
+  
+  span {
+    color: $white;
+  }
+}

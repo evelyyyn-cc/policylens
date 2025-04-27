@@ -18,11 +18,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
-from api.views import FuelPriceFilterView, CarFuelStatsView, index, diesel_policy, datasets_page, policies, CPIReportAPI
+from api.views import FuelPriceFilterView, CarFuelStatsView, index, diesel_policy, datasets_page, policies, CPIReportAPI, cpi_impact
 
 urlpatterns = [
     # path('', TemplateView.as_view(template_name='datasets_page.html')),
     # path('admin/', admin.site.urls),
+    # path("header/", header),
+    # path("footer/", footer),
     path("index/", index),
     path("diesel_policy/", diesel_policy),
     path("datasets_page/", datasets_page),
@@ -30,4 +32,5 @@ urlpatterns = [
     path("api/fuel-prices/", FuelPriceFilterView.as_view(), name="fuel-prices"),
     path("api/car-fuel-states/", CarFuelStatsView.as_view(), name="car-fuel-states"),
     path("api/cpidata/", CPIReportAPI.as_view(), name="cpidata"),
+    path("cpi_impact/", cpi_impact),
 ]

@@ -7,7 +7,7 @@ function loadHeader() {
     const headerPlaceholder = document.getElementById("header-placeholder");
     
     if (headerPlaceholder) {
-      fetch('header.html')
+      fetch('/templates/header.html')
         .then(response => response.text())
         .then(data => {
           headerPlaceholder.innerHTML = data;
@@ -105,9 +105,10 @@ function loadHeader() {
 
 function loadFooter() {
     const footerPlaceholder = document.getElementById("footer-placeholder");
-    
+    console.log("test")
     if (footerPlaceholder) {
-      fetch('footer.html')
+        
+      fetch('/templates/footer.html')
         .then(response => response.text())
         .then(data => {
           footerPlaceholder.innerHTML = data;

@@ -172,12 +172,11 @@ ul {
   .container {
     display: flex;
     justify-content: space-between;
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
   .dashboard-link {
     flex: 1;
-    // max-width: 20rem;
     display: flex;
     align-items: center;
     justify-content: center;

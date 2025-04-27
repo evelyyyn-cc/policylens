@@ -6,13 +6,11 @@
     <title>MYPolicyLens - The Diesel Dilemma</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="/static/assets/scss/main.css">
+    <link rel="stylesheet" href="assets/scss/diesel_policy.css">
 </head>
-<body class="diesel-policy-page">
+<body>
     <!-- Header -->
-    <!-- <div id="header-placeholder"></div> -->
-    {% include "header.html" %}
-    
+    <div id="header-placeholder"></div>
         <!--<nav class="container">
             <a class="logo" href="index.html">
                 <span>MY</span>PolicyLens
@@ -48,31 +46,31 @@
   <div class="breadcrumb-container">
     <div class="container">
         <div class="breadcrumb">
-              <a href="/index/">Home</a> > <a href="/policies/">Policies</a> > <span>The Diesel Dilemma</span>
+              <a href="index.html">Home</a> > <a href="policies.html">Policies</a> > <span>The Diesel Dilemma</span>
         </div>
     </div>
   </div>
 
     <!-- Hero Section with Background Image -->
-    <section class="hero-diesel" style="background-image: url('/static/assets/images/sample2.svg');">
-        <div class="hero-diesel-content">
-            <h1 class="hero-diesel-title">The Diesel Dilemma</h1>
-            <h2 class="hero-diesel-subtitle">Malaysia's 2024 Subsidy Transformation</h2>
+    <section class="hero" style="background-image: url('assets/images/sample2.svg');">
+        <div class="hero-content">
+            <h1 class="hero-title">The Diesel Dilemma</h1>
+            <h2 class="hero-subtitle">Malaysia's 2024 Subsidy Transformation</h2>
         </div>
     </section>
 
     <!-- Dashboard Links Section -->
       <section class="dashboard-links">
         <div class="container">
-            <a href="/datasets_page/" class="dashboard-link">
+            <a href="datasets_page.html" class="dashboard-link">
                 <i class="fas fa-chart-line dashboard-icon"></i>
                 Fuel Data Dashboard
             </a>
-            <!-- <a href="#" class="dashboard-link">
+            <a href="#" class="dashboard-link">
                 <i class="fas fa-home household-icon"></i>
                 Household Impact
-            </a> -->
-            <a href="/cpi_impact/" class="dashboard-link">
+            </a>
+            <a href="cpi_impact.html" class="dashboard-link">
                 <i class="fas fa-tags price-icon"></i>
                 Consumer Price Impact
             </a>
@@ -148,7 +146,7 @@
                 <div class="border-leakage">
                     <h3 class="subsection-title">Cross-Border Leakage</h3>
                     <div class="leakage-image">
-                        <img src="/static/assets/images/luxury-car.png" alt="Luxury car representing fuel subsidy leakage">
+                        <img src="assets\images\luxury-car.png" alt="Luxury car representing fuel subsidy leakage">
                     </div>
 
                     <div class="price-comparison">
@@ -533,8 +531,7 @@
     </div>
   </section>
     <!-- Footer -->
-    <!-- <div id="footer-placeholder"></div> -->
-    {% include "footer.html" %}
+    <div id="footer-placeholder"></div>
     <!--<footer>
         <div class="container">
             <div class="footer-logo">
@@ -549,7 +546,7 @@
     </footer> -->
     <!-- Include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="/static/assets/js/diesel_policy.js"></script>
-    <script src="/static/assets/js/script.js"></script>
+    <script src="assets/js/diesel_policy.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
