@@ -282,7 +282,7 @@
   
     .conclusion-text {
       @include highlighted-text;
-      font-weight: $font-weight-semibold;
+      font-weight: $font-weight-medium;
     }
   
     .sources {
@@ -482,7 +482,7 @@
   // Financial Perspective Section
   .financial-perspective {
     background-color: $white;
-    @include section-padding;
+    padding : 3rem 0;
     margin-top: 2rem;
     
     .section-title {
@@ -495,6 +495,7 @@
     
     .section-divider {
       @include section-divider;
+      background-color: #1a3a72;
     }
     
     .annual-savings, .budget-reallocation, .regional-differences {
@@ -642,7 +643,7 @@
   // Future Outlook Section
   .future-outlook {
     background-color: $white;
-    @include section-padding;
+    padding: 3rem 0;
     margin-top: 2rem;
     
     .section-title {
