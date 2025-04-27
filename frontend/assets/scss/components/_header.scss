@@ -7,7 +7,7 @@ header {
     background-color: $white;
     padding: 1rem 2rem;
     z-index: 1000;
-    box-shadow: $shadow-sm;
+    box-shadow: $shadow-md;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     
     &.scrolled {
@@ -38,7 +38,7 @@ header {
       .logo {
         display: flex;
         align-items: center;
-        font-weight: $font-weight-medium;
+        font-weight: $font-weight-bold;
         color: $primary-color;
         @include responsive-font(1.5rem, 1.2rem);
         span {
