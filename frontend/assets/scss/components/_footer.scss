@@ -5,8 +5,11 @@ footer {
   padding: 2rem;
   
   .container {
-    @include flex-between;
-    flex-wrap: wrap;
+    // @include flex-between;
+    // flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     
     .footer-logo {
       display: flex;
