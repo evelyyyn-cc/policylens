@@ -61,8 +61,51 @@
             <div class="tab-indicator"></div>
         </div>
 
-        <div class="tab-content" id="cpi-line-tab">
-            line chart
+        <div class="tab-content active" id="cpi-line-tab">
+            <section class="cpi-dashboard-section">
+                <div class="section-header diesel-header">
+                    <span class="title">CPI Dataset Chart</span>
+                </div>
+
+                <div class="cpi-filter-row">
+                    <div class="filter-dropdown">
+                        <label>Year</label>
+                        <div class="dropdown-select">
+                            <span>2024</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="filter-dropdown">
+                        <label>Region</label>
+                        <div class="dropdown-select">
+                            <span>Johor</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-content">
+                    <div class="mcoicop-chart-title">
+                        CPI Dataset by State & Division
+                    </div>
+
+                    <div class="cpi-chart-container">
+                        <canvas class="cpi-chart" id="cpiChart"></canvas>
+                    </div>
+
+                    <div class="data-citation">
+                        <strong>Data Source:</strong> data.gov.my, 2010-2025<br>
+                        <strong>URL:</strong> <a href="https://data.gov.my/data-catalogue/cpi_state" target="_blank">https://data.gov.my/data-catalogue/cpi_state</a><br>
+                        <strong>Methodology:</strong> Montly CPI values were collected from official goverment data centers.
+                    </div>
+
+                </div>
+
+            </section>
 
         </div>
 
@@ -71,8 +114,42 @@
 
         </div>
 
-        <div class="tab-content active" id="mcoicop-tab">
-            pie chart
+        <div class="tab-content" id="mcoicop-tab">
+            <section class="cpi-dashboard-section">
+                <div class="section-header diesel-header">
+                    <span class="title">MCOICOP Chart</span>
+                </div>
+
+                <div class="section-content">
+                    <div class="mcoicop-chart-title">
+                        Distribution of 5-Digit MCOICOP Subclasses
+                    </div>
+
+                    <div class="donut-chart-container">
+                        <canvas class="donut-chart" id="mcoicopChart"></canvas>
+                    </div>
+                    
+                    <div class="impact-analysis-section">
+                        <h3>Key Insights:</h3>
+                        <p>The sections in the chart represents the MCOICOP divisions (2 digit) and the values for each section 
+                            represents the number of subclasses (5 digit) for each of the divisions (2 digit). The CPI is calculated 
+                            using the CPI value of each of the subclasses (5 digit).</p>
+                        <ul>
+                            <li>Food & Beverages has the highest weight in the CPI calculation at 27.49%, reflecting its importance in household budgets.</li>
+                            <li>Transport accounts for 10.90% of the CPI basket, which explains why the diesel subsidy reform has a significant but no overwelming impact on the overall CPI.</li>
+                            <li>Housing & Utilities accounts for 4.74%, representing another household expense.</li>
+                        </ul>
+                    </div>
+
+                    <div class="data-citation">
+                        <strong>Data Source:</strong> data.gov.my, 2018<br>
+                        <strong>URL:</strong> <a href="https://open.dosm.gov.my/data-catalogue/mcoicop" target="_blank">https://open.dosm.gov.my/data-catalogue/mcoicop</a><br>
+                        <strong>Methodology:</strong> This data provides a complete lookup for 2, 3, 4, and 5-digit codes under Malaysia's COICOP (Classification of Individual Consumption According to Purpose).
+                    </div>
+
+                </div>
+
+            </section>
 
         </div>
         

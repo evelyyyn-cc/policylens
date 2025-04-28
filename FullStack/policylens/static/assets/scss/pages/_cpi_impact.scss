@@ -47,11 +47,11 @@
       font-size: 1.2rem; 
       
       &:hover {
-        color: $primary-color;
+        color: $primary-color-diesel;
       }
       
       &.active {
-        color: $primary-color;
+        color: $primary-color-diesel;
       }
     }
     
@@ -60,7 +60,7 @@
       bottom: -1px;
       height: 3px;
       width: 33.33%;
-      background-color: $primary-color;
+      background-color: $primary-color-diesel;
       transition: left 0.3s ease, width 0.3s ease;
       left: 0;
       width: 0;
