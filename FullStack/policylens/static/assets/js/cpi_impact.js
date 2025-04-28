@@ -1191,5 +1191,4 @@ function getColorFromImpact(impact) {
 }
 
 // Global object to store chart instances
-
 const charts = {};

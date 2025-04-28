@@ -66,57 +66,6 @@ function formatDateLabels(dateArray) {
 }
 
 // Transform API data to chart.js format
-// function transformApiDataToChartFormat(apiData, fuelType,selectedYear) {
-//     // Determine which data property to use based on the fuelType
-//     let fuelTypeKey = fuelType.toLowerCase().replace(' ', '_');
-//     console.log('Fuel Type Key:', fuelTypeKey);
-//     if(fuelTypeKey === 'diesel_euro5') {
-//         fuelTypeKey = 'diesel_eastern';}
-//     const dataValues = apiData[fuelTypeKey] || [];
-    
-//     // Generate the color based on fuel type
-//     let borderColor, backgroundColor;
-    
-//     switch(fuelType) {
-//         case 'RON95':
-//             borderColor = '#4fc3f7';
-//             backgroundColor = 'rgba(79, 195, 247, 0.3)';
-//             break;
-//         case 'RON97':
-//             borderColor = '#5c6bc0';
-//             backgroundColor = 'rgba(92, 107, 192, 0.1)';
-//             break;
-//         case 'Diesel':
-//             borderColor = '#6c757d';
-//             backgroundColor = 'rgba(108, 117, 125, 0.1)';
-//             break;
-//         case 'Diesel Euro5':
-//             borderColor = '#0d47a1';
-//             backgroundColor = 'rgba(13, 71, 161, 0.1)';
-//             break;
-//         default:
-//             borderColor = '#4fc3f7';
-//             backgroundColor = 'rgba(79, 195, 247, 0.3)';
-//     }
-    
-//     // Create a dataset with the fuel prices
-//     const transformedData = {
-//         labels: formatDateLabels(apiData.date),
-//         datasets: [
-//             {
-//                 label: fuelType,
-//                 data: dataValues,
-//                 borderColor: borderColor,
-//                 backgroundColor: backgroundColor,
-//                 borderWidth: 2,
-//                 fill: true,
-//                 tension: 0.1
-//             }
-//         ]
-//     };
-    
-//     return transformedData;
-// }
 function transformApiDataToChartFormat(apiData, fuelType, selectedYear) {
     // Determine which data property to use based on the fuelType
     let fuelTypeKey = fuelType.toLowerCase().replace(' ', '_');
@@ -951,7 +900,7 @@ function setupDropdowns() {
             dropdownMenu.classList.add('dropdown-menu');
             
             // Add styles to position the dropdown menu
-           // dropdownMenu.style.position = 'absolute';
+            dropdownMenu.style.position = 'absolute';
             dropdownMenu.style.top = (this.offsetTop + this.offsetHeight) + 'px';
             dropdownMenu.style.left = this.offsetLeft + 'px';
             dropdownMenu.style.width = this.offsetWidth + 'px';

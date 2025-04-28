@@ -120,7 +120,7 @@
     
     .tab-link-fuel {
       // padding: 15px 15px;
-      padding: 1rem 1rem ;
+      padding: 1rem 1rem 0.5rem 1rem;
       text-decoration: none;
       color: $text-light-data;
       font-weight: $font-weight-medium;
@@ -128,7 +128,7 @@
       transition: color 0.3s;
       text-align: center;
       flex: 1;
-      font-size: 1.1rem; 
+      font-size: 1.2rem; 
       
       &:hover {
         color: $primary-color-data;
