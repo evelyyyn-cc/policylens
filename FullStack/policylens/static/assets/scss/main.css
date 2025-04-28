@@ -3328,13 +3328,14 @@ canvas {
 }
 .cpi-impact-section .regional-map-container .map-intro .map-filters .filter-group label {
   display: block;
-  font-size: 0.875rem;
+  font-size: 1.2rem;
   font-weight: 500;
   color: #374151;
   margin-bottom: 0.2rem;
 }
 .cpi-impact-section .regional-map-container .map-intro .map-filters .filter-group .form-select {
   width: 100%;
+  font-size: 1rem;
   background-color: #fff;
   border: 1px solid #D1D5DB;
   border-radius: 0.375rem;
