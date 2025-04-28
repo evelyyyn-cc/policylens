@@ -2393,10 +2393,10 @@ body.menu-open {
   padding: 0;
   margin: 20px auto 30px;
   position: relative;
-  max-width: 400px;
+  max-width: 500px;
 }
 .main-tabs-fuel .tab-link-fuel {
-  padding: 15px 15px;
+  padding: 1rem 1rem;
   text-decoration: none;
   color: #666;
   font-weight: 500;
