@@ -1,0 +1,4 @@
+.hero-cpi-dataset {
+    @include banners($image-url:'/static/assets/images/cpi_datasets.svg',$overlay-color: rgba(0, 0, 0, 0.3));
+    height: 20rem;
+}

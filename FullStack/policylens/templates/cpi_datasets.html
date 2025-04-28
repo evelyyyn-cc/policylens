@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="/static/assets/scss/main.css">
+    <title>CPI Datasets</title>
+</head>
+<body class="cpi-datasets-page">
+    {% include "header.html" %}
+
+    <div class="breadcrumb-container">
+        <div class="container">
+            <div class="breadcrumb">
+                <!-- <a href="/index/">Home</a> > 
+                <a href="/policies/">Policies</a> > 
+                <a href="/diesel_policy/">The Diesel Dilemma</a> > 
+                <span>CPI Impact</span> -->
+                
+                <a href="/index/">Home</a> > 
+                <a href="/policies/">Policies</a> > 
+                <a href="/diesel_policy/">The Diesel Dilemma</a> > 
+                <a href="/cpi_impact/">CPI Impact</a> >
+                <span>CPI Data Dashboard</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero/Banner section -->
+    <div class="hero-cpi-dataset">
+        <h1>CPI Data Dashboard</h1>
+    </div>
+
+    <!-- Dashboard Links Section -->
+    <section class="dashboard-links">
+        <div class="container">
+          <a href="/datasets_page/" class="dashboard-link">
+              <i class="fas fa-chart-line dashboard-icon"></i>
+              Fuel Data Dashboard
+          </a>
+          <a href="/cpi_impact/" class="dashboard-link">
+              <i class="fas fa-tags price-icon"></i>
+              Consumer Price Impact
+          </a>
+          <a href="#" class="dashboard-link">
+            <i class="fas fa-industry manufacturing-icon"></i>
+            Manufacturing Data Dashboard
+        </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    {% include "footer.html" %}
+
+    <script src="/static/assets/js/cpi_datasets.js"></script>
+    <script src="/static/assets/js/script.js"></script>
+</body>
+</html>

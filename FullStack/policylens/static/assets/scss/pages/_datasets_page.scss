@@ -1,5 +1,6 @@
 .hero-dataset {
-  @include banners($image-url:'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80',$overlay-color: rgba(0, 0, 0, 0.6));
+  @include banners($image-url:'/static/assets/images/fuel_data_page.svg',$overlay-color: rgba(0, 0, 0, 0.6));
+  height: 20rem;
     // background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80');
     // background-size: cover;
     // background-position: center;
@@ -35,6 +36,35 @@
     //   letter-spacing: -0.02em;
     // }
   }
+  // Hero Section
+// .hero-fuel {
+//   height: 450px;
+//   @include banners($image-url:'/static/assets/images/fuel_data_page.svg',$overlay-color: rgba(0, 0, 0, 0.6));
+//   color: $white;
+//   @include flex-column;
+//   position: relative;
+
+//   .hero-fuel-content {
+//     flex: 1;
+//     @include flex-center;
+//     flex-direction: column;
+//     // justify-content: center;
+//     // align-items: center;
+//     text-align: center;
+
+//     .hero-fuel-title {
+//       @include responsive-font(2.5rem, 2.25rem, 2rem);
+//       font-weight: $font-weight-bold;
+//       margin-bottom: 0.5rem;
+//     }
+
+//     .hero-fuel-subtitle {
+//       @include responsive-font(1.75rem, 1.5rem, 1.25rem);
+//       font-weight: normal;
+//     }
+//   }
+// }
+
   // Dashboard Links Section
   // .dashboard-links {
   //   @include dashboard-linkage;
