@@ -1353,7 +1353,7 @@ body.menu-open {
 }
 
 .hero-diesel {
-  height: 450px;
+  height: 20rem;
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("diesel-station-bg.jpg");
   background-size: cover;
   background-position: center;
@@ -1386,17 +1386,17 @@ body.menu-open {
   }
 }
 .hero-diesel .hero-diesel-content .hero-diesel-subtitle {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: normal;
 }
 @media (max-width: 992px) {
   .hero-diesel .hero-diesel-content .hero-diesel-subtitle {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 }
 @media (max-width: 576px) {
   .hero-diesel .hero-diesel-content .hero-diesel-subtitle {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 }
 
@@ -2353,7 +2353,7 @@ body.menu-open {
 }
 
 .hero-dataset {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("/static/assets/images/fuel_data_page.svg");
   background-size: cover;
   background-position: center;
   height: 180px;
@@ -2364,6 +2364,7 @@ body.menu-open {
   position: relative;
   overflow: hidden;
   text-align: center;
+  height: 20rem;
 }
 .hero-dataset::after {
   content: "";
@@ -2668,7 +2669,7 @@ canvas {
 }
 
 .hero-cpi-impact {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("assets/images/cpi_impact.svg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/static/assets/images/cpi_impact.svg");
   background-size: cover;
   background-position: center;
   height: 180px;
@@ -2679,6 +2680,7 @@ canvas {
   position: relative;
   overflow: hidden;
   text-align: center;
+  height: 20rem;
 }
 .hero-cpi-impact::after {
   content: "";
@@ -3259,6 +3261,40 @@ canvas {
   position: relative;
   height: 350px;
   margin: 20px 0;
+}
+
+.hero-cpi-dataset {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/static/assets/images/cpi_datasets.svg");
+  background-size: cover;
+  background-position: center;
+  height: 180px;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  height: 20rem;
+}
+.hero-cpi-dataset::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, transparent 20%, rgba(0, 0, 0, 0.2) 90%);
+  z-index: 1;
+}
+.hero-cpi-dataset h1 {
+  color: #ffffff;
+  font-size: 2.2rem;
+  z-index: 2;
+  position: relative;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 /*

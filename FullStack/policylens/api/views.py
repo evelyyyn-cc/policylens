@@ -44,8 +44,8 @@ def policies(request):
 def cpi_impact(request):
     return render(request, "cpi_impact.html")
 
-# def cpi_dataset(request):
-#     return render(request, "cpi_dataset.html")
+def cpi_dataset(request):
+    return render(request, "cpi_datasets.html")
 
 
 class FuelPriceSerializer(serializers.ModelSerializer):

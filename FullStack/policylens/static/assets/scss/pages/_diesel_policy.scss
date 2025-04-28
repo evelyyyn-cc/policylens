@@ -1,6 +1,7 @@
 // Hero Section
 .hero-diesel {
-    height: 450px;
+    // height: 350px;
+    height: 20rem;
     @include bg-image-with-overlay('diesel-station-bg.jpg');
     color: $white;
     @include flex-column;
@@ -21,7 +22,7 @@
       }
   
       .hero-diesel-subtitle {
-        @include responsive-font(2rem, 1.75rem, 1.5rem);
+        @include responsive-font(1.75rem, 1.5rem, 1.25rem);
         font-weight: normal;
       }
     }
