@@ -668,6 +668,17 @@ document.addEventListener('DOMContentLoaded', function() {
         applyFilters();
     }, 100); // Delay slightly to ensure chart and dropdown are ready
 
+    const mapTabLink = document.querySelector('.main-tabs .tab-link[data-tab="regional-map-tab"]');
+
+    if (mapTabLink) {
+        mapTabLink.addEventListener('click', function() {
+            // Short delay to ensure the tab content is visible
+            setTimeout(checkAndInitializeMap, 100);
+        });
+    }
+
+    setTimeout(checkAndInitializeMap, 500);
+
 });
 
 // CPI Impact Page Data
@@ -807,5 +818,378 @@ const filterOptions = {
     ]
 }
 
+// Imapct By Categories
+const categories = Object.keys(cpi_impact_data.Johor);
+
+const cpiImpactByCategory = categories.reduce((byCat, category) => {
+    byCat[category] = Object.fromEntries(
+      Object.entries(cpi_impact_data).map(([state, metrics]) => [
+        state,
+        metrics[category] * 100
+      ])
+    );
+    return byCat;
+  }, {});
+
+function updateCategoryDetail(category, rateValue) {
+    const valueElement = document.getElementById(`${category}ImpactValue`);
+    const barElement = document.getElementById(`${category}ImpactBar`);
+    const containerElement = valueElement.closest('.impact-category-item');
+    
+    if (valueElement && barElement) {
+        const percentage = (rateValue * 100).toFixed(2);
+        valueElement.textContent = `${percentage}%`;
+        
+        // Calculate bar width (max out at 100% for values over 3%)
+        const barWidth = Math.min(percentage * 25, 100);
+        barElement.style.width = `${barWidth}%`;
+        
+        // Set color based on impact level
+        barElement.className = 'impact-bar ' + getImpactClass(percentage);
+
+        const containerElement = valueElement.closest('.impact-category-item');
+        if (containerElement) {
+            containerElement.classList.add ('highlighted-category');
+        }
+    }
+}
+
+// Get impact class based on percentage value
+function getImpactClass(percentage) {
+    const value = parseFloat(percentage);
+    if (value < 0) return 'impact-negative';
+    if (value < 0.5) return 'impact-low';
+    if (value < 2.0) return 'impact-medium';
+    return 'impact-high';
+}
+
+function updateMapColors() {
+    if (!geoJsonLayer) return;
+    
+    // Update each feature's style based on new category
+    geoJsonLayer.eachLayer(function(layer) {
+        layer.setStyle(getFeatureStyle(layer.feature));
+    });
+    
+    // Update legend text
+    updateLegendForCategory();
+    
+    // If a region is selected, update its details
+    if (selectedRegion) {
+        updateRegionDetails(selectedRegion.feature);
+    }
+}
+
+function updateLegendForCategory() {
+    // Customize legend titles based on the selected category
+    const categoryTitles = {
+        'overall_Rate': 'Overall Price Impact',
+        'transport_Rate': 'Transportation',
+        'food_Rate': 'Food & Beverages',
+        'housing_Rate': 'Housing & Utilities',
+        'restaurant_accommodation_Rate': 'Restaurants & Accommodation'
+    };
+    
+    const legendTitle = document.querySelector('.map-legend h6');
+    if (legendTitle) {
+        legendTitle.textContent = categoryTitles[currentCategory] || 'Impact Level';
+    }
+}
+
+function checkAndInitializeMap() {
+    // Check if the map tab is active
+    const mapTab = document.getElementById('regional-map-tab');
+    
+    if (mapTab && mapTab.classList.contains('active') && !malaysiaMap) {
+        // Initialize map if not already initialized
+        initializeMap();
+    }
+}
+
+function attachFeatureEvents(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: selectRegion
+    });
+}
+
+function highlightFeature(e) {
+    const layer = e.target;
+    
+    // Don't highlight if this is the selected region
+    if (selectedRegion === layer) return;
+    
+    layer.setStyle({
+        weight: 2,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.8
+    });
+    
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+}
+
+// Reset highlight on mouseout
+function resetHighlight(e) {
+    const layer = e.target;
+    
+    // Don't reset if this is the selected region
+    if (selectedRegion === layer) return;
+    
+    geoJsonLayer.resetStyle(layer);
+}
+
+// Handle region selection on click
+function selectRegion(e) {
+    const layer = e.target;
+    const feature = layer.feature;
+    
+    // Reset previous selection if exists
+    if (selectedRegion) {
+        geoJsonLayer.resetStyle(selectedRegion);
+    }
+    
+    // Set new selection
+    selectedRegion = layer;
+    
+    // Highlight selected region
+    layer.setStyle({
+        weight: 3,
+        color: '#222',
+        dashArray: '',
+        fillOpacity: 0.9
+    });
+    
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+    
+    // Update details panel with selected region data
+    updateRegionDetails(feature);
+}
+
+//Update the details panel with data from the selected region
+function updateRegionDetails(feature) {
+    const properties = feature.properties;
+    const cpiData = properties.cpi_data;
+    
+    if (!cpiData) {
+        console.warn('No CPI data for selected region');
+        return;
+    }
+    
+    // Update region name
+    const regionNameElement = document.getElementById('selectedRegionName');
+    if (regionNameElement) {
+        regionNameElement.textContent = properties.name;
+    }
+    
+    // Update overall impact value
+    const overallImpactElement = document.getElementById('overallImpactValue');
+    if (overallImpactElement) {
+        const overallValue = (cpiData.overall_Rate * 100).toFixed(2);
+        overallImpactElement.textContent = `${overallValue}%`;
+        
+        // Set class based on impact level
+        overallImpactElement.className = 'summary-value ' + getImpactClass(overallValue);
+    }
+    
+    // Update category values and bars
+    updateCategoryDetail('transport', cpiData.transport_Rate);
+    updateCategoryDetail('food', cpiData.food_Rate);
+    updateCategoryDetail('housing', cpiData.housing_Rate);
+    updateCategoryDetail('restaurant', cpiData.restaurant_accommodation_Rate);
+    
+    // Update regional factors based on selected region
+    updateRegionalFactors(properties.name);
+}// Add to the end of cpi_impact.js file
+
+// Malaysia map-related functions
+let malaysiaMap; // Global map variable
+let geoJsonLayer; // Global layer variable to allow updates
+let currentCategory = 'overall_Rate'; // Default selected category
+let selectedRegion = null; // Track the currently selected region
+
+// Map Initialization
+function initializeMap() {
+    // Check if map element exists
+    const mapElement = document.getElementById('malaysiaMap');
+    if (!mapElement) return;
+    
+    // Initialize the map centered on Malaysia
+    malaysiaMap = L.map('malaysiaMap', {
+        center: [4.2105, 109.6284], // Center coordinates for Malaysia
+        zoom: 5,
+        minZoom: 5,
+        maxZoom: 9,
+        zoomControl: true,
+        attributionControl: true
+    });
+    
+    // Add OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(malaysiaMap);
+    
+    
+    // Load and display Malaysia GeoJSON
+    loadMalaysiaGeoJson();
+
+    //addLegendToMap();
+    
+    // Set up event listener for category select dropdown
+    const impactCategorySelect = document.getElementById('impactCategorySelect');
+    if (impactCategorySelect) {
+        impactCategorySelect.addEventListener('change', function() {
+            currentCategory = this.value;
+            updateMapColors();
+        });
+    }
+    //legend.addTo(malaysiaMap); //changed here
+}
+
+// Fetch and load Malaysia GeoJSON
+async function loadMalaysiaGeoJson() {
+    try {
+        // Fetch GeoJSON data from the provided GitHub gist
+        //const response = await fetch('https://gist.githubusercontent.com/heiswayi/81a169ab39dcf749c31a/raw/4da7998b09fcbc77b9e282d3878601bd45b542f1/malaysia.geojson');
+        const response = await fetch('/static/my.json');
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch GeoJSON: ${response.status}`);
+        }
+        
+        const geojsonData = await response.json();
+        
+        // Process GeoJSON to map feature properties to our CPI dataset
+        processGeoJson(geojsonData);
+        
+        // Add the GeoJSON layer to the map
+        addGeoJsonToMap(geojsonData);
+        
+    } catch (error) {
+        console.error('Error loading Malaysia GeoJSON:', error);
+        // Show user-friendly error message
+        const mapElement = document.getElementById('malaysiaMap');
+        if (mapElement) {
+            mapElement.innerHTML = '<div class="map-error">Failed to load map data. Please try again later.</div>';
+        }
+    }
+}
+
+// Process GeoJSON to add CPI impact data
+function processGeoJson(geojsonData) {
+    // Map state names in GeoJSON to our CPI impact dataset keys
+    const stateNameMapping = {
+        'Johor': 'Johor',
+        'Kedah': 'Kedah',
+        'Kelantan': 'Kelantan',
+        'Melaka': 'Melaka',
+        'Negeri Sembilan': 'Negeri_Sembilan',
+        'Pahang': 'Pahang',
+        'Perak': 'Perak',
+        'Perlis': 'Perlis',
+        'Pulau Pinang': 'Pulau_Pinang',
+        'Sabah': 'Sabah',
+        'Sarawak': 'Sarawak',
+        'Selangor': 'Selangor',
+        'Terengganu': 'Terengganu',
+        'Kuala Lumpur': 'W_P_Kuala_Lumpur',
+        'Labuan': 'W_P_Labuan',
+        'Putrajaya': 'W_P_Putrajaya',
+        'W.P. Kuala Lumpur': 'W_P_Kuala_Lumpur',
+        'W.P. Labuan': 'W_P_Labuan',
+        'W.P. Putrajaya': 'W_P_Putrajaya'
+    };
+
+    // Add CPI impact data to each feature
+    geojsonData.features.forEach(feature => {
+        const stateName = feature.properties.name;
+        const mappedName = stateNameMapping[stateName];
+        
+        if (mappedName && cpi_impact_data[mappedName]) {
+            // Add CPI data to the feature properties
+            feature.properties.cpi_data = cpi_impact_data[mappedName];
+            // Add original property name to simplify lookup later
+            feature.properties.data_key = mappedName;
+        } else {
+            console.warn(`No CPI data found for state: ${stateName}`);
+            // Add empty data to prevent errors
+            feature.properties.cpi_data = {
+                overall_Rate: 0,
+                transport_Rate: 0,
+                food_Rate: 0,
+                housing_Rate: 0,
+                restaurant_accommodation_Rate: 0
+            };
+        }
+    });
+}
+
+// Add the GeoJSON layer to the map with styling
+function addGeoJsonToMap(geojsonData) {
+    // Remove existing layer if present
+    if (geoJsonLayer) {
+        malaysiaMap.removeLayer(geoJsonLayer);
+    }
+    
+    // Add new layer with styles
+    geoJsonLayer = L.geoJson(geojsonData, {
+        style: getFeatureStyle,
+        onEachFeature: attachFeatureEvents
+    }).addTo(malaysiaMap);
+    
+    // Fit map bounds to GeoJSON layer
+    malaysiaMap.fitBounds(geoJsonLayer.getBounds());
+}
+
+// Get style for each feature based on CPI impact
+function getFeatureStyle(feature) {
+    const impactValue = getImpactValue(feature, currentCategory);
+    const color = getColorFromImpact(impactValue);
+    
+    return {
+        fillColor: color,
+        weight: 1,
+        opacity: 1,
+        color: '#fff',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+// Get impact value for a feature based on current category
+function getImpactValue(feature, category) {
+    if (!feature.properties.cpi_data) return 0;
+    
+    // Get the value and convert it to percentage
+    const value = feature.properties.cpi_data[category] || 0;
+    return value * 100; // Convert to percentage
+}
+
+// Get color based on impact value
+function getColorFromImpact(impact) {
+    if (impact <= -2.0) return '#053061'; // Dark blue for highly negative
+    if (impact <= -1.5) return '#2166ac'; 
+    if (impact <= -1.0) return '#4393c3';
+    if (impact <= -0.5) return '#92c5de';
+    if (impact <= 0.0) return '#d1e5f0';
+    //if (impact <= 0) return '#6baed6'; // Negative or zero (blue shade)
+    
+    // Color scale from light yellow to dark red
+    if (impact < 0.1) return '#ffffcc';
+    if (impact < 0.25) return '#ffeda0';
+    if (impact < 0.5) return '#fed976';
+    if (impact < 0.75) return '#feb24c';
+    if (impact < 1.0) return '#fd8d3c';
+    if (impact < 1.5) return '#fc4e2a';
+    if (impact < 2.0) return '#e31a1c';
+    return '#b10026'; // 3.5+ (dark red)
+}
+
 // Global object to store chart instances
+
 const charts = {};

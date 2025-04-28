@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <link rel="stylesheet" href="/static/assets/scss/main.css">
     <title>CPI Impact</title>
@@ -407,7 +409,130 @@
 
         <!-- Regional Price Impact Map -->
         <div class="tab-content" id="regional-map-tab">
-            Map
+            <div class="regional-map-container">
+                <div class="map-intro">
+                    <h3 class="section-title">Regional Price Impact Map</h3>
+                    <p class="section-description">This interactive map shows how the diesel subsidy policy affects different regions in Malaysia. Click on a region to see detailed information about price changes in that area.</p>
+                    
+                    <div class="map-filters">
+                        <div class="filter-group">
+                            <label for="impactCategorySelect">Impact Category:</label>
+                            <select id="impactCategorySelect" class="form-select">
+                                <option value="overall_Rate" selected>Overall Price Impact</option>
+                                <option value="transport_Rate">Transportation</option>
+                                <option value="food_Rate">Food & Beverages</option>
+                                <option value="housing_Rate">Housing & Utilities</option>
+                                <option value="restaurant_accommodation_Rate">Restaurants & Accommodation</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="map-visualization-container">
+                    <div class="map-wrapper">
+                        <!-- Map will be rendered here by Leaflet -->
+                        <div id="malaysiaMap"></div>
+                        
+                        <!-- Map Legend -->
+                        <div class="map-legend">
+                            <h6>Impact Level</h6>
+                            <div class="legend-gradient">
+                                <span>Lower Impact</span>
+                                <div class="gradient-bar"></div>
+                                <span>Higher Impact</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="region-details">
+                        <div class="region-header">
+                            <h4 id="selectedRegionName">Select a region</h4>
+                        </div>
+                        
+                        <div class="region-impact-summary">
+                            <div class="impact-summary-item">
+                                <span class="summary-label">Overall Price Impact:</span>
+                                <span id="overallImpactValue" class="summary-value impact-medium">-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="impact-category-breakdown">
+                            <h5>Impact by Category</h5>
+                            
+                            <div class="impact-category-item">
+                                <div class="category-info">
+                                    <span class="category-name">Transportation</span>
+                                    <span id="transportImpactValue" class="category-value">-</span>
+                                </div>
+                                <div class="impact-bar-container">
+                                    <div id="transportImpactBar" class="impact-bar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="impact-category-item">
+                                <div class="category-info">
+                                    <span class="category-name">Food & Beverages</span>
+                                    <span id="foodImpactValue" class="category-value">-</span>
+                                </div>
+                                <div class="impact-bar-container">
+                                    <div id="foodImpactBar" class="impact-bar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="impact-category-item">
+                                <div class="category-info">
+                                    <span class="category-name">Housing & Utilities</span>
+                                    <span id="housingImpactValue" class="category-value">-</span>
+                                </div>
+                                <div class="impact-bar-container">
+                                    <div id="housingImpactBar" class="impact-bar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="impact-category-item">
+                                <div class="category-info">
+                                    <span class="category-name">Restaurants & Accommodation</span>
+                                    <span id="restaurantImpactValue" class="category-value">-</span>
+                                </div>
+                                <div class="impact-bar-container">
+                                    <div id="restaurantImpactBar" class="impact-bar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- <div class="regional-factors">
+                            <h5>Regional Factors</h5>
+                            <div id="regionalFactors">
+                                <p class="no-selection-message">Select a region on the map to view region-specific factors</p>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                
+                <div class="impact-analysis">
+                    <div class="impact-analysis-section">
+                        <h3>Reasons for regional differences</h3>
+                        <p>East Malaysia (Sabah, Sarawak) and the East Coast states (Kelantan, Terengganu, Pahang) are most affected by the diesel price policy adjustment. The main reasons include:</p>
+                        <ul>
+                            <li>The logistics distance is long and the transportation cost accounts for a high proportion</li>
+                            <li>A high proportion of agricultural and fishing activities are dependent on diesel</li>
+                            <li>Limited alternative transportation options and high private car usage</li>
+                            <li>There are few consumer goods produced locally, and they rely on foreign supplies</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="impact-analysis-section">
+                        <h3>Targeted policy response</h3>
+                        <p>The government has introduced a series of targeted measures for high-impact areas:</p>
+                        <ul>
+                            <li>Special logistics subsidy scheme for East Malaysia to reduce transportation costs of essential goods</li>
+                            <li>Special fuel subsidies for fishermen and farmers in remote areas</li>
+                            <li>Investment plans to strengthen food production capacity in East Coast and East Malaysia</li>
+                            <li>Long-term planning to expand public transport network coverage</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
         </div>
         
