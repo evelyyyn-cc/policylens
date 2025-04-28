@@ -309,7 +309,7 @@
         <!-- Regional Price Impact Tab -->
         <div class="tab-content" id="regional-impact-tab">
             <!-- Category Breakdown Section -->
-            <div class="page-header">
+            <div class="page-header">   
                 <h1 class="page-title">Regional Impact</h1>
                 <p class="page-subtitle">Understand how the policy changes affect different sectors</p>
             </div>
@@ -407,8 +407,150 @@
 
         <!-- Regional Price Impact Map -->
         <div class="tab-content" id="regional-map-tab">
-            Map
-
+            <div class="regional-map-container">
+                <div class="map-intro">
+                    <h3 class="section-title">Regional Price Impact Map</h3>
+                    <p class="section-description">This interactive map shows how the diesel subsidy policy affects different regions in Malaysia. Click on a region to see detailed information about price changes in that area.</p>
+                    
+                    <div class="map-filters">
+                        <div class="filter-group">
+                            <label for="impactCategorySelect">Impact Category:</label>
+                            <select id="impactCategorySelect" class="form-select">
+                                <option selected>Overall Price Impact</option>
+                                <option>Transportation</option>
+                                <option>Food & Groceries</option>
+                                <option>Utilities</option>
+                                <option>Housing</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="map-visualization-container">
+                    <div class="map-wrapper">
+                        <!-- Map will be rendered here by Leaflet -->
+                        <div id="malaysiaMap"></div>
+                        
+                        <!-- Map Legend -->
+                        <div class="map-legend">
+                            <div class="legend-title">Impact Level</div>
+                            <div class="legend-gradient">
+                                <span>Low</span>
+                                <div class="gradient-bar"></div>
+                                <span>High</span>
+                            </div>
+                            <div class="legend-items">
+                                <div class="legend-item">
+                                    <span class="legend-color" style="background-color: #ffebee;"></span>
+                                    <span class="legend-label">0 - 0.5%</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-color" style="background-color: #ffcdd2;"></span>
+                                    <span class="legend-label">0.5 - 1%</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-color" style="background-color: #ff8a80;"></span>
+                                    <span class="legend-label">1 - 1.5%</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-color" style="background-color: #ef5350;"></span>
+                                    <span class="legend-label">1.5 - 2%</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-color" style="background-color: #e53935;"></span>
+                                    <span class="legend-label">2 - 2.5%</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-color" style="background-color: #b71c1c;"></span>
+                                    <span class="legend-label">Above 2.5%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="region-details">
+                        <div class="region-header">
+                            <h4 id="selectedRegionName">East Malaysia</h4>
+                        </div>
+                        
+                        <div class="region-impact-summary">
+                            <div class="impact-summary-item">
+                                <span class="summary-label">Overall Price Impact:</span>
+                                <span class="summary-value impact-high">9.8%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="impact-category-breakdown">
+                            <h5>Impact by Category</h5>
+                            
+                            <div class="impact-category-item">
+                                <div class="category-info">
+                                    <span class="category-name">Transportation</span>
+                                    <span class="category-value">13.5%</span>
+                                </div>
+                                <div class="impact-bar-container">
+                                    <div class="impact-bar" style="width: 85%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="impact-category-item">
+                                <div class="category-info">
+                                    <span class="category-name">Food & Groceries</span>
+                                    <span class="category-value">8.7%</span>
+                                </div>
+                                <div class="impact-bar-container">
+                                    <div class="impact-bar" style="width: 65%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="impact-category-item">
+                                <div class="category-info">
+                                    <span class="category-name">Utilities</span>
+                                    <span class="category-value">5.8%</span>
+                                </div>
+                                <div class="impact-bar-container">
+                                    <div class="impact-bar" style="width: 40%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="regional-factors">
+                            <h5>Regional Factors</h5>
+                            <ul class="factors-list">
+                                <li>Geographic isolation increases transportation costs</li>
+                                <li>Heavy reliance on imported goods from Peninsular Malaysia</li>
+                                <li>Limited local production of essential items</li>
+                                <li>Higher costs for inter-city travel affecting mobility</li>
+                                <li>Rural communities experiencing significant price increases</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="impact-analysis">
+                    <div class="impact-analysis-section">
+                        <h3>Reasons for regional differences</h3>
+                        <p>East Malaysia (Sabah, Sarawak) and the East Coast states (Kelantan, Terengganu, Pahang) are most affected by the diesel price policy adjustment. The main reasons include:</p>
+                        <ul>
+                            <li>The logistics distance is long and the transportation cost accounts for a high proportion</li>
+                            <li>A high proportion of agricultural and fishing activities are dependent on diesel</li>
+                            <li>Limited alternative transportation options and high private car usage</li>
+                            <li>There are few consumer goods produced locally, and they rely on foreign supplies</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="impact-analysis-section">
+                        <h3>Targeted policy response</h3>
+                        <p>The government has introduced a series of targeted measures for high-impact areas:</p>
+                        <ul>
+                            <li>Special logistics subsidy scheme for East Malaysia to reduce transportation costs of essential goods</li>
+                            <li>Special fuel subsidies for fishermen and farmers in remote areas</li>
+                            <li>Investment plans to strengthen food production capacity in East Coast and East Malaysia</li>
+                            <li>Long-term planning to expand public transport network coverage</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
         
 
