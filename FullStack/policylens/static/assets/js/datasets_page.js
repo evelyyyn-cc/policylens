@@ -1115,9 +1115,9 @@ function applyFilters() {
 
 // Set up main tab navigation
 function setupMainTabs() {
-    const tabLinks = document.querySelectorAll('.main-tabs .tab-link');
+    const tabLinks = document.querySelectorAll('.main-tabs-fuel .tab-link-fuel');
     const tabContents = document.querySelectorAll('.tab-content');
-    const tabIndicator = document.querySelector('.tab-indicator');
+    const tabIndicator = document.querySelector('.tab-indicator-fuel');
     
     tabLinks.forEach((link, index) => {
         link.addEventListener('click', function(e) {

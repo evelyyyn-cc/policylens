@@ -2386,6 +2386,45 @@ body.menu-open {
   letter-spacing: -0.02em;
 }
 
+.main-tabs-fuel {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #dee2e6;
+  padding: 0;
+  margin: 20px auto 30px;
+  position: relative;
+  max-width: 400px;
+}
+.main-tabs-fuel .tab-link-fuel {
+  padding: 15px 15px;
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s;
+  text-align: center;
+  flex: 1;
+  font-size: 1.1rem;
+}
+.main-tabs-fuel .tab-link-fuel:hover {
+  color: #0066cc;
+}
+.main-tabs-fuel .tab-link-fuel.active {
+  color: #0066cc;
+}
+.main-tabs-fuel .tab-indicator-fuel {
+  position: absolute;
+  bottom: -1px;
+  height: 3px;
+  width: 50%;
+  background-color: #0066cc;
+  transition: transform 0.3s;
+  left: 0;
+}
+.main-tabs-fuel .tab-indicator-fuel.right {
+  transform: translateX(100%);
+}
+
 /* Tab Content */
 .tab-content {
   display: none;
