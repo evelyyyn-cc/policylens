@@ -1032,7 +1032,7 @@
         }
     
         .impact-analysis-section {
-          background-color: $white;
+          background-color: lighten($primary-blue, 65%);;
           border-radius: $border-radius;
           box-shadow: $shadow;
           padding: $spacing-4;

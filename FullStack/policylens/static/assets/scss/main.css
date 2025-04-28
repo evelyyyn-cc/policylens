@@ -859,7 +859,8 @@ body.menu-open {
 #why-matters .video-container .video-thumbnail img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 #why-matters .video-container .video-thumbnail .play-button {
   position: absolute;
@@ -1103,7 +1104,8 @@ body.menu-open {
   width: 100%;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 #page-title {
@@ -2880,7 +2882,9 @@ canvas {
   border: 1px solid #D1D5DB;
   border-radius: 0.375rem;
   padding: 0.4rem 0.6rem;
-  appearance: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
   background-position: right 0.5rem center;
   background-repeat: no-repeat;
@@ -2911,7 +2915,8 @@ canvas {
 }
 .cpi-impact-section .calculator-form .slider {
   -webkit-appearance: none;
-  appearance: none;
+  -moz-appearance: none;
+       appearance: none;
   margin: 10px 0;
   width: 100%;
   height: 8px;
@@ -3334,7 +3339,9 @@ canvas {
   border: 1px solid #D1D5DB;
   border-radius: 0.375rem;
   padding: 0.4rem 0.6rem;
-  appearance: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
   background-position: right 0.5rem center;
   background-repeat: no-repeat;
@@ -3552,7 +3559,7 @@ canvas {
   }
 }
 .cpi-impact-section .regional-map-container .impact-analysis .impact-analysis-section {
-  background-color: #ffffff;
+  background-color: #e0e8f8;
   border-radius: 0.375rem;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   padding: 0.8rem;
