@@ -27,48 +27,7 @@
       }
     }
   }
-  
-  // Dashboard Links Section
-  // .dashboard-links {
-  //   @include dashboard-linkage
-  //   // background-color: $white;
-  //   // padding: 1.5rem 0;
-  
-  //   // .container {
-  //   //    display:flex;
-  //   //    justify-content: space-between;
-  //   //   gap: 1rem;
 
-  //   //   @include responsive-md{
-  //   //     flex-direction: column;
-  //   //   }
-  
-  //   //   // @media screen and (max-width: $breakpoint-md) {
-  //   //   //   flex-direction: column;
-  //   //   // }
-  //   // }
-  
-  //   // .dashboard-link {
-  //   //   @include dashboard-linkage
-  //   //   // @include button-style(
-  //   //   //   $bg-color: $primary-blue,
-  //   //   //   $padding-y: 0.8rem,
-  //   //   //   $padding-x: 1rem,
-  //   //   //   $hover-bg-modifier: 'lighten',
-  //   //   //   $hover-bg-amount: 10%,
-  //   //   //   $hover-transform-y: -3px
-  //   //   // );
-  //   //   // flex: 1;
-  //   //   // display:flex;
-  //   //   // gap: 0.5rem;
-      
-  //   //   // .icon {
-  //   //   //   width: 24px;
-  //   //   //   height: 24px;
-  //   //   //   display: inline-block;
-  //   //   // }
-  //   // }
-  // }
   
   // Icon placeholders
   .dashboard-icon {
@@ -109,10 +68,6 @@
       @include responsive-md{
         max-width: 100%;
       }
-      
-      // @media screen and (max-width: $breakpoint-md) {
-      //   max-width: 100%;
-      // }
     }
   
     // Disclaimer
