@@ -1,0 +1,251 @@
+<!--
+  Price Impact Calculator
+
+  This file created with interactive calculator visualizing policy impact on personal finances through
+  adjustable expense sliders for transportation, groceries, utilities, and 
+  resaurant sectors.
+  
+  Last updated: April 18, 2025
+  Author: Chen Wanning 
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Price Impact Calculator</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="price calculator.css">
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Diesel Subsidy Reform Impact</h1>
+            <p class="text-gray-600">Understand how the policy changes affect your personal finances</p>
+        </header>
+
+        <!-- Price Calculator Tab -->
+        <div id="price-calculator" class="tab-content">
+            <div class="mb-8">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Personal Price Impact Calculator</h2>
+                <p class="text-gray-700 mb-6">
+                    See how the diesel subsidy reform impacts your wallet. Just adjust the sliders to reflect your monthly spending, and get a personalized estimate in seconds.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Calculator Form -->
+                    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+                        <h3 class="text-lg font-medium text-gray-800 mb-4">Your Monthly Expenses</h3>
+                        
+                        <!-- Location -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">📍 Choose Your Location</label>
+                            <select id="locationSelect" class="w-full bg-white border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+                                <option>Johor</option>
+                                <option>Kedah</option>
+                                <option>Kelantan</option>
+                                <option>Melaka</option>
+                                <option>Negeri Sembilan</option>
+                                <option>Pahang</option>
+                                <option>Perak</option>
+                                <option>Perlis</option>
+                                <option>Pulau Pinang</option>
+                                <option>Sabah</option>
+                                <option>Sarawak</option>
+                                <option>Selangor</option>
+                                <option>Terengganu</option>
+                                <option>W.P. Kuala Lumpur</option>
+                                <option>W.P. Labuan</option>
+                                <option>W.P. Putrajaya</option>
+                            </select>
+                        </div>
+
+                        <!-- Transportation -->
+                        <div class="mb-6">
+                            <div class="flex justify-between mb-1">
+                                <label class="text-sm font-medium text-gray-700">Transport</label>
+                                <span class="text-sm font-medium text-blue-700" id="transportValue">RM 500</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-car-side text-gray-400"></i>
+                                <input type="range" min="0" max="2000" value="500" class="w-full h-2 rounded-lg appearance-none cursor-pointer bg-gray-200" id="transportSlider">
+                                <i class="fas fa-truck text-gray-400"></i>
+                            </div>
+                            <div class="mt-2 space-y-1">
+                               
+                                
+                            </div>
+                        </div>
+                        
+                        <!-- Food -->
+                        <div class="mb-6">
+                            <div class="flex justify-between mb-1">
+                                <label class="text-sm font-medium text-gray-700">Food & Beverages</label>
+                                <span class="text-sm font-medium text-blue-700" id="foodValue">RM 800</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-apple-alt text-gray-400"></i>
+                                <input type="range" min="0" max="3000" value="800" class="w-full h-2 rounded-lg appearance-none cursor-pointer bg-gray-200" id="foodSlider">
+                                <i class="fas fa-utensils text-gray-400"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Housing -->
+                        <div class="mb-6">
+                            <div class="flex justify-between mb-1">
+                                <label class="text-sm font-medium text-gray-700">House, Water, Electricity, Gas & Other fuels</label>
+                                <span class="text-sm font-medium text-blue-700" id="housingValue">RM 1200</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-home text-gray-400"></i>
+                                <input type="range" min="0" max="5000" value="1200" class="w-full h-2 rounded-lg appearance-none cursor-pointer bg-gray-200" id="housingSlider">
+                                <i class="fas fa-building text-gray-400"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Other Expenses -->
+                        <div class="mb-6">
+                            <div class="flex justify-between mb-1">
+                                <label class="text-sm font-medium text-gray-700">Restaurants & Accommodation Services</label>
+                                <span class="text-sm font-medium text-blue-700" id="otherValue">RM 500</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-shopping-bag text-gray-400"></i>
+                                <input type="range" min="0" max="3000" value="500" class="w-full h-2 rounded-lg appearance-none cursor-pointer bg-gray-200" id="otherSlider">
+                                <i class="fas fa-gifts text-gray-400"></i>
+                            </div>
+                        </div>
+                        
+
+                        
+                        <button id="calculateBtn" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-medium py-2 px-4 rounded-md transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                            Calculate Impact
+                        </button>
+                    </div>
+                    
+                    <!-- Results -->
+                    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+                        <h3 class="text-lg font-medium text-gray-800 mb-3">Estimated Impact</h3>
+                        
+                        <!-- Monthly Impact - RESIZED -->
+                        <div class="bg-blue-50 rounded-lg p-3 mb-4">
+                            <h4 class="text-sm font-medium text-gray-700 mb-2">Monthly Comparison</h4>
+                            <div class="grid grid-cols-2 gap-3 mb-2">
+                                <!-- Before Policy -->
+                                <div class="bg-white border border-gray-200 rounded-lg p-2 text-center">
+                                    <p class="text-xs text-gray-600 mb-0">Before Policy:</p>
+                                    <p class="text-lg font-bold text-gray-800" id="monthlyBefore">RM 3,000.00</p>
+                                </div>
+                                <!-- After Policy -->
+                                <div class="bg-white border border-gray-200 rounded-lg p-2 text-center">
+                                    <p class="text-xs text-gray-600 mb-0">After Policy:</p>
+                                    <p class="text-lg font-bold text-red-700" id="monthlyAfter">RM 3,087.50</p>
+                                </div>
+                            </div>
+                            <div class="text-center pt-1 border-t border-blue-100">
+                                <p class="text-xs text-gray-600 mb-0">Additional monthly cost:</p>
+                                <p class="text-xl font-bold text-blue-700" id="monthlyDifference">+ RM 87.50</p>
+                                <p class="text-xs text-gray-500" id="monthlyPercentage">(3.2% increase)</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Yearly Impact - RESIZED -->
+                        <div class="bg-indigo-50 rounded-lg p-3 mb-4">
+                            <h4 class="text-sm font-medium text-gray-700 mb-2">Yearly Comparison</h4>
+                            <div class="grid grid-cols-2 gap-3 mb-2">
+                                <!-- Before Policy -->
+                                <div class="bg-white border border-gray-200 rounded-lg p-2 text-center">
+                                    <p class="text-xs text-gray-600 mb-0">Before Policy:</p>
+                                    <p class="text-lg font-bold text-gray-800" id="yearlyBefore">RM 36,000.00</p>
+                                </div>
+                                <!-- After Policy -->
+                                <div class="bg-white border border-gray-200 rounded-lg p-2 text-center">
+                                    <p class="text-xs text-gray-600 mb-0">After Policy:</p>
+                                    <p class="text-lg font-bold text-red-700" id="yearlyAfter">RM 37,050.00</p>
+                                </div>
+                            </div>
+                            <div class="text-center pt-1 border-t border-indigo-100">
+                                <p class="text-xs text-gray-600 mb-0">Additional yearly cost:</p>
+                                <p class="text-xl font-bold text-indigo-700" id="yearlyDifference">+ RM 1,050.00</p>
+                                <p class="text-xs text-gray-500" id="yearlyPercentage">(3.2% increase)</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Breakdown -->
+                        <h4 class="text-md font-medium text-gray-700 mb-3">Impact Breakdown</h4>
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <i class="fas fa-car-side text-blue-700 mr-2"></i>
+                                    <span class="text-sm">Transport</span>
+                                </div>
+                                <div class="flex flex-col items-end">
+                                    <span class="text-sm font-medium text-red-600" id="transportImpact">+ RM 55.00</span>
+                                    <span class="text-xs text-gray-500" id="transportPercentage">(11.0% increase)</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <i class="fas fa-utensils text-blue-700 mr-2"></i>
+                                    <span class="text-sm">Food & Beverages</span>
+                                </div>
+                                <div class="flex flex-col items-end">
+                                    <span class="text-sm font-medium text-red-600" id="foodImpact">+ RM 16.00</span>
+                                    <span class="text-xs text-gray-500" id="foodPercentage">(2.0% increase)</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <i class="fas fa-home text-blue-700 mr-2"></i>
+                                    <span class="text-sm">House, Water, Electricity, Gas & Other fuels</span>
+                                </div>
+                                <div class="flex flex-col items-end">
+                                    <span class="text-sm font-medium text-red-600" id="housingImpact">+ RM 12.00</span>
+                                    <span class="text-xs text-gray-500" id="housingPercentage">(1.0% increase)</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <i class="fas fa-shopping-bag text-blue-700 mr-2"></i>
+                                    <span class="text-sm">Restaurants & Accommodation Services</span>
+                                </div>
+                                <div class="flex flex-col items-end">
+                                    <span class="text-sm font-medium text-red-600" id="otherImpact">+ RM 4.50</span>
+                                    <span class="text-xs text-gray-500" id="otherPercentage">(0.9% increase)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Recommendations -->
+                        <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                            <h4 class="font-medium text-yellow-800 mb-2">
+                                <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                                Money-Saving Tips
+                            </h4>
+                            <ul class="list-disc ml-5 text-gray-700 space-y-1 text-sm">
+                                <li>Consider carpooling or public transport to reduce transportation costs</li>
+                                <li>Buy groceries in bulk and during promotional periods</li>
+                                <li>Use energy-efficient appliances to reduce utility bills</li>
+                                <li>Look for government assistance programs available for eligible households</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="mt-12 text-center text-gray-500 text-sm">
+            <p>© 2025 Diesel Subsidy Reform Impact Calculator. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="price calculator.js"></script>
+</body>
+</html>

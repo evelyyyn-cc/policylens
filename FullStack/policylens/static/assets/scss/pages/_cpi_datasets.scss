@@ -1,0 +1,243 @@
+.hero-cpi-dataset {
+    @include banners($image-url:'/static/assets/images/cpi_datasets.svg',$overlay-color: rgba(0, 0, 0, 0.3));
+    height: 20rem;
+}
+
+.cpi-datasets-section{
+    .main-tabs{
+        margin-top: 0.5rem;
+    }
+
+    .cpi-dashboard-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-bottom: 1px solid #dee2e6;
+      padding: 0;
+      margin: 20px auto 30px; // Center section
+      position: relative;
+      width: 77%;
+      max-width: 1200px; // Max width for larger screens
+      
+      background-color: $white;
+      border-radius: $border-radius;
+      box-shadow: $shadow-md;
+      margin-bottom: 30px;
+      overflow: hidden;
+      
+      .section-header {
+        background-color: $secondary-color-data;
+        color: $white;
+        padding: 15px 20px;
+        font-weight: $font-weight-medium;
+        @include flex-between;
+        
+        &.diesel-header {
+          background-color: #001e64; // Darker blue for diesel section
+        }
+        
+        .title {
+          font-size: 1rem;
+          letter-spacing: 0.01em;
+        }
+        
+        .external-link-icon {
+          cursor: pointer;
+          
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+      
+      .section-content {
+        padding: 1rem 2rem 2rem 2rem;
+        width: 100%; // Ensure content takes full width of section
+      }
+      
+      .section-subheader {
+        font-size: 1.1rem;
+        color: $text-color-data;
+        margin: 30px 0 5px 0;
+        font-weight: $font-weight-semibold;
+      }
+      
+      .section-description {
+        font-size: 0.85rem;
+        color: $text-light-data;
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+  
+      .impact-analysis-section {
+          background-color: lighten($primary-blue, 65%);;
+          border-radius: $border-radius;
+          box-shadow: $shadow;
+          padding: $spacing-4;
+    
+          h3 {
+            font-size: $font-size-lg;
+            font-weight: $font-weight-semibold;
+            color: $gray-800;
+            margin-bottom: $spacing-3;
+            position: relative;
+            padding-left: $spacing-4;
+  
+            &:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 4px;
+                height: 70%;
+                background-color: $primary-blue;
+                border-radius: 2px;
+            }
+  
+          }
+    
+          p {
+            font-size: $font-size-base;
+            color: $gray-700;
+            margin-bottom: $spacing-3;
+            line-height: 1.6;
+          }
+    
+          ul {
+            padding-left: $spacing-4;
+            margin-bottom: $spacing-2;
+    
+            li {
+              margin-bottom: $spacing-2;
+              font-size: $font-size-base;
+              color: $gray-700;
+              line-height: 1.5;
+              position: relative;
+              
+              &:before {
+                  content: '';
+                  position: absolute;
+                  left: -$spacing-4;
+                  top: $spacing-2;
+                  width: 6px;
+                  height: 6px;
+                  border-radius: 50%;
+                  background-color: $primary-blue;
+              }
+            }
+          }
+        }
+  
+      .donut-chart-container{
+          position: relative;
+          margin: 10px 0 30px 0;
+          // height: 400px;
+          height: 25rem;
+          
+          &.border-container {
+          border: 1px solid #e0e0e0;
+          border-radius: $border-radius;
+          padding: 15px;
+          margin-bottom: 40px;
+          }
+          
+          .chart-title {
+          text-align: center;
+          font-size: 1rem;
+          color: $text-color-data;
+          margin-bottom: 10px;
+          font-weight: $font-weight-medium;
+          }
+  
+          .donut-chart {
+              margin-top: 2rem;
+              margin-bottom: -2rem;
+          }
+      }
+        
+  
+      .mcoicop-chart-title {
+          text-align: center;
+          font-weight: bold;
+          font-size: 1.3rem;
+          // margin-bottom: 1rem;
+      }
+    }
+
+    .cpi-filter-row {
+      display: flex;
+      gap: 2rem;
+      margin: 1rem 1.5rem;
+      align-items: center; // Vertically align items if height differs
+      // padding: 15px 20px; // Add some padding
+      
+      @include responsive-md {
+        flex-direction: column;
+        gap: 10px;
+      }
+  }
+
+  .cpi-chart-container {
+    position: relative; // Crucial for overlay positioning
+    // height: 400px; // Set height via JS or here
+    width: 100%; // Take full width of content area
+    margin-top: 20px; // Space above chart
+    height: 30rem;
+
+    // Loading Overlay Styles
+    &.loading {
+      .loading-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(255, 255, 255, 0.8);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          z-index: 10;
+          border-radius: $border-radius;
+
+          .spinner {
+              border: 4px solid rgba(0, 0, 0, 0.1);
+              width: 36px;
+              height: 36px;
+              border-radius: 50%;
+              border-left-color: $primary-blue; // Use your theme color
+              animation: spin 1s ease infinite;
+              margin-bottom: 10px;
+          }
+
+          p {
+              font-size: 0.9rem;
+              color: #333;
+            }
+        }
+    }
+
+    // Error Message Style
+    .error-message {
+      text-align: center;
+      padding: 50px 20px;
+      color: $danger-color; // Use your theme's error color
+      font-weight: $font-weight-medium;
+      background-color: lighten($danger-color, 45%);
+      border: 1px solid lighten($danger-color, 30%);
+      border-radius: $border-radius;
+    }
+
+  }
+}
+
+// Spinner Animation
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}

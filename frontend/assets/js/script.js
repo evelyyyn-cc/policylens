@@ -1,3 +1,177 @@
+const isMobileDevice = () => {
+    return (window.innerWidth <= 768) || 
+           (window.navigator.userAgent.match(/Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i));
+  };
+// Function to load common header
+function loadHeader() {
+    const headerPlaceholder = document.getElementById("header-placeholder");
+    
+    if (headerPlaceholder) {
+      fetch('/templates/header.html')
+        .then(response => response.text())
+        .then(data => {
+          headerPlaceholder.innerHTML = data;
+          
+          // Set active class on current page
+          const currentPage = window.location.pathname.split("/").pop() || 'index.html';
+          document.querySelectorAll('#navLinks a').forEach(link => {
+            if (link.getAttribute('href') === currentPage) {
+              link.classList.add('active');
+            }
+          });
+          
+          // Initialize header elements after loading
+          initializeHeaderElements();
+        });
+    }
+  }
+  
+  // Initialize header-specific elements
+  function initializeHeaderElements() {
+    // Mobile Navigation Toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+      });
+      
+      const navItems = navLinks.querySelectorAll('a');
+      navItems.forEach(item => {
+        item.addEventListener('click', function() {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('active');
+          document.body.classList.remove('menu-open');
+        });
+      });
+      
+      document.addEventListener('click', function(e) {
+        if (navLinks.classList.contains('active') && 
+            !navLinks.contains(e.target) && 
+            !hamburger.contains(e.target)) {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('active');
+          document.body.classList.remove('menu-open');
+        }
+      });
+    }
+    
+    // Language selector dropdown
+    const languageSelector = document.querySelector('.language-selector');
+    if (languageSelector) {
+      const selectedLanguage = languageSelector.querySelector('.selected-language span');
+      const languageOptions = languageSelector.querySelectorAll('.language-dropdown li');
+      
+      // Toggle dropdown on click
+      languageSelector.querySelector('.selected-language').addEventListener('click', function(e) {
+        e.stopPropagation();
+        languageSelector.classList.toggle('active');
+      });
+      
+      // Close dropdown when clicking elsewhere
+      document.addEventListener('click', function(e) {
+        if (!languageSelector.contains(e.target)) {
+          languageSelector.classList.remove('active');
+        }
+      });
+      
+      // Handle language selection
+      languageOptions.forEach(option => {
+        option.addEventListener('click', function(e) {
+          e.stopPropagation();
+          
+          // Update selected language text
+          selectedLanguage.textContent = this.textContent;
+          
+          // Update active class
+          languageOptions.forEach(opt => opt.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Get language code
+          const langCode = this.getAttribute('data-lang');
+          
+          // This would be where you implement actual language switching
+          console.log(`Switching to language: ${langCode}`);
+          
+          // Close dropdown
+          languageSelector.classList.remove('active');
+        });
+      });
+    }
+  }
+
+function loadFooter() {
+    const footerPlaceholder = document.getElementById("footer-placeholder");
+    console.log("test")
+    if (footerPlaceholder) {
+        
+      fetch('/templates/footer.html')
+        .then(response => response.text())
+        .then(data => {
+          footerPlaceholder.innerHTML = data;
+        });
+    }
+  }
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+    loadHeader();
+    loadFooter();
+    const videoThumbnail = document.getElementById('videoThumbnail');
+    const youtubeIframe = document.getElementById('youtubeIframe');
+    
+    if (videoThumbnail && youtubeIframe) {
+        // When thumbnail is clicked, show iframe and start video
+        videoThumbnail.addEventListener('click', function() {
+            // Get the iframe
+            const iframe = youtubeIframe.querySelector('iframe');
+            
+            // Set the actual src from data-src to start loading the video
+            iframe.src = iframe.getAttribute('data-src');
+            
+            // Hide thumbnail and show iframe
+            videoThumbnail.style.display = 'none';
+            youtubeIframe.style.display = 'block';
+            
+            // Optional: Hide some overlay elements when video plays
+            const videoTitle = document.querySelector('.video-title');
+            if (videoTitle) {
+                videoTitle.style.opacity = '0.3'; // Fade out the title when video plays
+            }
+        });
+    }
+    
+    // Function to handle responsive video sizing
+    const handleVideoResize = () => {
+        const videoContainer = document.querySelector('.video-container');
+        if (videoContainer) {
+            // Adjust height based on width to maintain aspect ratio if needed
+            const containerWidth = videoContainer.offsetWidth;
+            const aspectRatio = 16 / 9;
+            
+            // Set a minimum height on smaller screens
+            if (window.innerWidth <= 576) {
+                videoContainer.style.minHeight = '250px';
+            } else if (window.innerWidth <= 768) {
+                videoContainer.style.minHeight = '300px';
+            } else if (window.innerWidth <= 992) {
+                videoContainer.style.minHeight = '350px';
+            } else {
+                videoContainer.style.minHeight = '400px';
+            }
+        }
+    };
+    
+    // Run on page load
+    handleVideoResize();
+    
+    // Run on window resize
+    window.addEventListener('resize', handleVideoResize);
+});  
+
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile Navigation Toggle
@@ -8,7 +182,27 @@ document.addEventListener('DOMContentLoaded', function() {
         hamburger.addEventListener('click', function() {
             hamburger.classList.toggle('active');
             navLinks.classList.toggle('active');
+
+            document.body.classList.toggle('menu-open');
         });
+        const navItems = navLinks.querySelectorAll('a');
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            });
+        });
+        document.addEventListener('click', function(e) {
+            if (navLinks.classList.contains('active') && 
+                !navLinks.contains(e.target) && 
+                !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+        });
+        
     }
     
     // Add CSS class for scroll animation effects
@@ -228,6 +422,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 languageSelector.classList.remove('active');
             });
         });
+        
     }
     
     // Counter animation for stats section
@@ -237,87 +432,105 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Only run once
         let animated = false;
-        
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && !animated) {
-                animated = true;
-                
-                statNumbers.forEach(counter => {
-                    const target = counter.textContent;
-                    let isDecimal = target.includes('.');
-                    let hasSlash = target.includes('/');
+
+        if (isMobileDevice()){
+            const mobileObserver = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && !animated) {
+                    animated = true;
                     
-                    // Set starting point
-                    counter.textContent = '0';
-                    if (hasSlash) {
-                        counter.textContent = '0/100';
-                    }
+                    statNumbers.forEach(counter => {
+                        // For mobile, just set the final value directly
+                        const target = counter.getAttribute('data-target') || counter.textContent;
+                        counter.textContent = target;
+                    });
                     
-                    let start = 0;
-                    const duration = 2000; // ms
-                    const startTime = performance.now();
+                    mobileObserver.disconnect();
+                }
+            }, { threshold: 0.2 }); // Lower threshold for mobile
+            
+            mobileObserver.observe(statsSection);            
+        } else {
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && !animated) {
+                    animated = true;
                     
-                    if (hasSlash) {
-                        // Handle fraction like 50/100
-                        const targetValue = parseInt(target.split('/')[0]);
+                    statNumbers.forEach(counter => {
+                        const target = counter.textContent;
+                        let isDecimal = target.includes('.');
+                        let hasSlash = target.includes('/');
                         
-                        const updateCounter = (currentTime) => {
-                            const elapsedTime = currentTime - startTime;
-                            const progress = Math.min(elapsedTime / duration, 1);
-                            const currentValue = Math.floor(progress * targetValue);
-                            
-                            counter.textContent = `${currentValue}/100`;
-                            
-                            if (progress < 1) {
-                                requestAnimationFrame(updateCounter);
-                            }
-                        };
+                        // Set starting point
+                        counter.textContent = '0';
+                        if (hasSlash) {
+                            counter.textContent = '0/100';
+                        }
                         
-                        requestAnimationFrame(updateCounter);
-                    } else if (isDecimal) {
-                        // Handle decimal like 32.8M
-                        const suffix = target.match(/[A-Za-z]+$/)[0]; // Extract M, K, etc.
-                        const targetValue = parseFloat(target.replace(suffix, ''));
+                        let start = 0;
+                        const duration = 2000; // ms
+                        const startTime = performance.now();
                         
-                        const updateCounter = (currentTime) => {
-                            const elapsedTime = currentTime - startTime;
-                            const progress = Math.min(elapsedTime / duration, 1);
-                            const currentValue = (progress * targetValue).toFixed(1);
+                        if (hasSlash) {
+                            // Handle fraction like 50/100
+                            const targetValue = parseInt(target.split('/')[0]);
                             
-                            counter.textContent = `${currentValue}${suffix}`;
+                            const updateCounter = (currentTime) => {
+                                const elapsedTime = currentTime - startTime;
+                                const progress = Math.min(elapsedTime / duration, 1);
+                                const currentValue = Math.floor(progress * targetValue);
+                                
+                                counter.textContent = `${currentValue}/100`;
+                                
+                                if (progress < 1) {
+                                    requestAnimationFrame(updateCounter);
+                                }
+                            };
                             
-                            if (progress < 1) {
-                                requestAnimationFrame(updateCounter);
-                            }
-                        };
-                        
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        // Handle whole number
-                        const targetValue = parseInt(target);
-                        
-                        const updateCounter = (currentTime) => {
-                            const elapsedTime = currentTime - startTime;
-                            const progress = Math.min(elapsedTime / duration, 1);
-                            const currentValue = Math.floor(progress * targetValue);
+                            requestAnimationFrame(updateCounter);
+                        } else if (isDecimal) {
+                            // Handle decimal like 32.8M
+                            const suffix = target.match(/[A-Za-z]+$/)[0]; // Extract M, K, etc.
+                            const targetValue = parseFloat(target.replace(suffix, ''));
                             
-                            counter.textContent = currentValue;
+                            const updateCounter = (currentTime) => {
+                                const elapsedTime = currentTime - startTime;
+                                const progress = Math.min(elapsedTime / duration, 1);
+                                const currentValue = (progress * targetValue).toFixed(1);
+                                
+                                counter.textContent = `${currentValue}${suffix}`;
+                                
+                                if (progress < 1) {
+                                    requestAnimationFrame(updateCounter);
+                                }
+                            };
                             
-                            if (progress < 1) {
-                                requestAnimationFrame(updateCounter);
-                            }
-                        };
-                        
-                        requestAnimationFrame(updateCounter);
-                    }
-                });
-                
-                // Disconnect after animation is done
-                observer.disconnect();
-            }
-        }, { threshold: 0.5 });
-        
-        observer.observe(statsSection);
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            // Handle whole number
+                            const targetValue = parseInt(target);
+                            
+                            const updateCounter = (currentTime) => {
+                                const elapsedTime = currentTime - startTime;
+                                const progress = Math.min(elapsedTime / duration, 1);
+                                const currentValue = Math.floor(progress * targetValue);
+                                
+                                counter.textContent = currentValue;
+                                
+                                if (progress < 1) {
+                                    requestAnimationFrame(updateCounter);
+                                }
+                            };
+                            
+                            requestAnimationFrame(updateCounter);
+                        }
+                    });
+                    
+                    // Disconnect after animation is done
+                    observer.disconnect();
+                }
+            }, { threshold: 0.5 });
+            
+            observer.observe(statsSection);
+        }
     };
     
     // Call the counter animation function

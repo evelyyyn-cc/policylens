@@ -34,10 +34,18 @@ build/
 # Python-specific files
 *.pyc
 *.pyo
-__pycache__/
+**/__pycache__/
+**/__iniit__.py
 env/
 venv/
 .venv/
 
 # Ruby-specific files
 .bundle/
+
+# database files
+FullStack/policylens/db.sqlite3
+FullStack/policylens/api/management/commands/cars_data.csv
+FullStack/policylens/api/management/commands/fuelprice_level.csv
+
+FullStack-Language/policylens/db.sqlite3

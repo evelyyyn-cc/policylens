@@ -1,0 +1,57 @@
+{% load i18n %}
+<header>
+    <nav class="container">
+        <a class="logo" href=" ">
+            <span>MY</span>{% trans "PolicyLens" %}
+        </a >
+        <div class="nav-links" id="navLinks">
+            <a href="/index/">{% trans "HOME" %}</a >
+            <a href="/policies/">{% trans "POLICY" %}</a >
+            <a href="#">{% trans "FAQ" %}</a >
+            <a href="#">{% trans "AI CHATBOT" %}</a >
+        </div>
+
+        <!-- Language Selector -->
+        <div class="language-selector">
+            <div class="selected-language">
+                <span>
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% if LANGUAGE_CODE == 'ms' %}
+                        {% trans "Bahasa Malaysia" %}
+                    {% else %}
+                        {% trans "English" %}
+                    {% endif %}
+                </span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+
+            <ul class="language-dropdown">
+                <li onclick="setLanguage('ms')" {% if LANGUAGE_CODE == 'ms' %}class="active"{% endif %}>
+                    {% trans "Bahasa Malaysia" %}
+                </li>
+                <li onclick="setLanguage('en')" {% if LANGUAGE_CODE == 'en' %}class="active"{% endif %}>
+                    {% trans "English" %}
+                </li>
+            </ul>
+        </div>
+
+       <!-- Hidden language switch form -->
+        <form id="language-form" action="{% url 'set_language' %}" method="post" style="display: none;">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+            <input type="hidden" name="language" id="language-input">
+        </form>
+
+        <script>
+            function setLanguage(langCode) {
+                document.getElementById('language-input').value = langCode;
+                document.getElementById('language-form').submit();
+            }
+        </script>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+</header>

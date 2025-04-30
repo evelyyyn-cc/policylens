@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malaysia Diesel Subsidy Removal: Impact Analysis</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .chart-container {
+            position: relative;
+            height: 350px;
+            margin: 20px 0;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .policy-card {
+            border-left: 4px solid #3b82f6;
+            padding-left: 15px;
+            margin: 15px 0;
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        .timeline-marker {
+            flex: 0 0 80px;
+            position: relative;
+        }
+        .timeline-marker::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            left: 0;
+            top: 6px;
+        }
+        .timeline-marker::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: calc(100% + 15px);
+            background-color: #e5e7eb;
+            left: 7px;
+            top: 6px;
+        }
+        .timeline-item:last-child .timeline-marker::after {
+            display: none;
+        }
+        .timeline-content {
+            flex: 1;
+            padding-bottom: 10px;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #e5e7eb;
+            padding: 10px;
+            text-align: left;
+        }
+        .data-table th {
+            background-color: #f3f4f6;
+        }
+        .data-table tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        .impact-meter {
+            height: 12px;
+            background-color: #e5e7eb;
+            border-radius: 6px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        .impact-fill {
+            height: 100%;
+            border-radius: 6px;
+        }
+        .impact-low {
+            background-color: #10b981;
+            width: 30%;
+        }
+        .impact-medium {
+            background-color: #f59e0b;
+            width: 60%;
+        }
+        .impact-high {
+            background-color: #ef4444;
+            width: 85%;
+        }
+        .nav-tabs {
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 20px;
+        }
+        .nav-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-tab.active {
+            border-bottom: 2px solid #3b82f6;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .faq-item {
+            margin-bottom: 15px;
+        }
+        .faq-question {
+            font-weight: 600;
+            color: #1e3a8a;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            padding: 10px 0;
+            padding-left: 15px;
+            border-left: 2px solid #e5e7eb;
+            margin-top: 5px;
+            display: none;
+        }
+        .faq-answer.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1 class="text-4xl font-bold mb-4">Malaysia's Diesel Subsidy Removal</h1>
+            <p class="text-xl">Understanding the Impact on Consumer Price Index (CPI)</p>
+        </header>
+
+        <!-- Introduction Section -->
+        <section class="card">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">Introduction</h2>
+            <p class="mb-4">
+                On June 1, 2024, the Malaysian government implemented a significant policy change by removing diesel subsidies 
+                that had previously cost the nation RM14.3 billion in 2023. This decision marked a shift from the blanket subsidy 
+                approach to a targeted system that aims to provide support only to specific sectors and eligible individuals.
+            </p>
+            <p class="mb-4">
+                This analysis examines how the removal of diesel subsidies has impacted Malaysia's Consumer Price Index (CPI), 
+                with detailed breakdowns by item categories, urban versus rural areas, and individual states. Our goal is to provide 
+                clear, accessible information about this policy change and its economic implications for young Malaysians.
+            </p>
+            <div class="bg-blue-50 p-4 rounded-md border-l-4 border-blue-500 mt-4">
+                <h3 class="font-bold text-blue-800">Key Points</h3>
+                <ul class="list-disc pl-5 mt-2">
+                    <li>Diesel prices in Peninsular Malaysia increased by 56% (from RM2.15 to RM3.35 per liter)</li>
+                    <li>The government estimates annual savings of RM4 billion from this policy</li>
+                    <li>Targeted assistance programs were implemented to help vulnerable groups</li>
+                    <li>Prices in Sabah and Sarawak remain at RM2.15 per liter</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Policy Context Section -->
+        <section class="card mt-6">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">Policy Context & Timeline</h2>
+            
+            <div class="policy-card">
+                <h3 class="text-xl font-semibold mb-2">Why Remove Diesel Subsidies?</h3>
+                <p>The Malaysian government identified several reasons for implementing this policy:</p>
+                <ul class="list-disc pl-5 mt-2">
+                    <li>To reduce fiscal burden (diesel subsidies reached RM14.3 billion in 2023, up from RM1.4 billion in 2019)</li>
+                    <li>To stem leakages from diesel smuggling across borders</li>
+                    <li>To redirect funds to more targeted social welfare programs</li>
+                    <li>To align with longer-term sustainability goals</li>
+                </ul>
+            </div>
+            
+            <h3 class="text-xl font-semibold mb-4 mt-6">Implementation Timeline</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <span class="text-sm text-gray-600">May 21, 2024</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="font-semibold">Announcement</h4>
+                        <p>Prime Minister announced plan to cut diesel subsidies, targeting RM4 billion in annual savings</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <span class="text-sm text-gray-600">June 1, 2024</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="font-semibold">Implementation</h4>
+                        <p>Diesel subsidies removed in Peninsular Malaysia, with prices rising from RM2.15 to RM3.35 per liter</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <span class="text-sm text-gray-600">June 10, 2024</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="font-semibold">BUDI MADANI Assistance Program</h4>
+                        <p>First batch of over 30,000 recipients received RM200 cash assistance</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <span class="text-sm text-gray-600">June 13, 2024</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="font-semibold">Inflation Outlook</h4>
+                        <p>Government maintains inflation projection at 2-3.5% for 2024 despite the subsidy reforms</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <span class="text-sm text-gray-600">July 25, 2024</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="font-semibold">Initial Impact Assessment</h4>
+                        <p>Economists report that diesel subsidy removal had "manageable" impact on inflation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CPI Impact Overview Section -->
+        <section class="card mt-6">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">Impact on Consumer Price Index (CPI)</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-2">What is CPI?</h3>
+                <p>
+                    The Consumer Price Index (CPI) measures the cost of purchasing a constant, representative 'basket' of goods and services.
+                    It's the primary tool for measuring inflation in Malaysia. Changes in CPI directly reflect how prices of everyday items 
+                    are changing for the average Malaysian consumer.
+                </p>
+            </div>
+
+            <div class="bg-yellow-50 p-4 rounded-md">
+                <h3 class="text-lg font-semibold text-yellow-800">Key Finding</h3>
+                <p>The diesel subsidy rationalization implemented on June 10, 2024, accounted for just 0.2% of the total Consumer Price Index (CPI) weight, resulting in a lower-than-expected inflation rate of 2% in June 2024.</p>
+            </div>
+
+            <div class="chart-container mt-6">
+                <canvas id="overallCpiChart"></canvas>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                <div class="bg-white p-4 rounded-md shadow-sm">
+                    <h4 class="font-semibold text-blue-800">Overall Inflation (June 2024)</h4>
+                    <p class="text-3xl font-bold mt-2">2.0%</p>
+                    <p class="text-sm text-gray-600">Increase year-over-year</p>
+                </div>
+                <div class="bg-white p-4 rounded-md shadow-sm">
+                    <h4 class="font-semibold text-blue-800">Transport Category Inflation</h4>
+                    <p class="text-3xl font-bold mt-2">1.2%</p>
+                    <p class="text-sm text-gray-600">Increase from May's 0.9%</p>
+                </div>
+                <div class="bg-white p-4 rounded-md shadow-sm">
+                    <h4 class="font-semibold text-blue-800">Estimated Annual Savings</h4>
+                    <p class="text-3xl font-bold mt-2">RM4 billion</p>
+                    <p class="text-sm text-gray-600">0.2% of Malaysia's GDP</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Breakdown Section -->
+        <section class="card mt-6">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">Impact by CPI Categories</h2>
+            
+            <div class="nav-tabs">
+                <div class="nav-tab active" data-tab="tab1">Major Categories</div>
+                <div class="nav-tab" data-tab="tab2">Food & Beverages</div>
+                <div class="nav-tab" data-tab="tab3">Transportation Costs</div>
+            </div>
+            
+            <div id="tab1" class="tab-content active">
+                <p class="mb-4">
+                    The diesel subsidy removal had varying impacts across different categories of the Consumer Price Index.
+                    Below is the breakdown of how different sectors were affected:
+                </p>
+                
+                <div class="chart-container">
+                    <canvas id="categoriesChart"></canvas>
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>CPI Weight (%)</th>
+                            <th>Inflation (June 2024)</th>
+                            <th>Impact Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Restaurant & Accommodation Services</td>
+                            <td>3.4%</td>
+                            <td>3.3%</td>
+                            <td>
+                                <div class="impact-meter">
+                                    <div class="impact-fill impact-medium"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Housing, Water, Electricity, Gas & Other Fuels</td>
+                            <td>23.2%</td>
+                            <td>3.2%</td>
+                            <td>
+                                <div class="impact-meter">
+                                    <div class="impact-fill impact-medium"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Transport</td>
+                            <td>11.3%</td>
+                            <td>1.2%</td>
+                            <td>
+                                <div class="impact-meter">
+                                    <div class="impact-fill impact-low"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Food & Non-Alcoholic Beverages</td>
+                            <td>29.8%</td>
+                            <td>0.9%</td>
+                            <td>
+                                <div class="impact-meter">
+                                    <div class="impact-fill impact-low"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Health</td>
+                            <td>2.7%</td>
+                            <td>0.5%</td>
+                            <td>
+                                <div class="impact-meter">
+                                    <div class="impact-fill impact-low"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="tab2" class="tab-content">
+                <p class="mb-4">
+                    Food inflation showed a modest increase after the diesel subsidy removal, primarily due to higher 
+                    logistics and transportation costs affecting the supply chain.
+                </p>
+                
+                <div class="chart-container">
+                    <canvas id="foodChart"></canvas>
+                </div>
+                
+                <div class="bg-yellow-50 p-4 rounded-md mt-4">
+                    <h4 class="font-semibold text-yellow-800">Key Insight: Vegetable Inflation</h4>
+                    <p class="mt-2">
+                        The vegetable category saw inflation rise from 4.8% to 6.2% between March and June 2024, 
+                        primarily attributed to higher logistics and transportation costs, which in turn increased
+                        expenses for farmers.
+                    </p>
+                </div>
+                
+                <table class="data-table mt-4">
+                    <thead>
+                        <tr>
+                            <th>Food Category</th>
+                            <th>March 2024 (%)</th>
+                            <th>June 2024 (%)</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Overall Food at Home</td>
+                            <td>0.5%</td>
+                            <td>0.9%</td>
+                            <td>+0.4%</td>
+                        </tr>
+                        <tr>
+                            <td>Vegetables</td>
+                            <td>4.8%</td>
+                            <td>6.2%</td>
+                            <td>+1.4%</td>
+                        </tr>
+                        <tr>
+                            <td>Meat</td>
+                            <td>0.3%</td>
+                            <td>0.5%</td>
+                            <td>+0.2%</td>
+                        </tr>
+                        <tr>
+                            <td>Fish & Seafood</td>
+                            <td>0.2%</td>
+                            <td>0.4%</td>
+                            <td>+0.2%</td>
+                        </tr>
+                        <tr>
+                            <td>Bread & Cereals</td>
+                            <td>0.1%</td>
+                            <td>0.2%</td>
+                            <td>+0.1%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="tab3" class="tab-content">
+                <p class="mb-4">
+                    The transport category's inflation rate increased from 0.9% in May 2024 to 1.2% in June 2024,
+                    directly affected by the diesel subsidy removal. However, the impact was moderated by 
+                    the targeted assistance programs implemented by the government.
+                </p>
+                
+                <div class="chart-container">
+                    <canvas id="transportChart"></canvas>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div class="bg-blue-50 p-4 rounded-md">
+                        <h4 class="font-semibold text-blue-800">Direct Impact</h4>
+                        <ul class="list-disc pl-5 mt-2">
+                            <li>Diesel price increase: 56% (RM2.15 to RM3.35)</li>
+                            <li>Public transportation costs: Minimal impact due to subsidies</li>
+                            <li>Logistics and delivery fees: Moderate increases</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-md">
+                        <h4 class="font-semibold text-green-800">Mitigating Measures</h4>
+                        <ul class="list-disc pl-5 mt-2">
+                            <li>SKDS 2.0: Fleet cards for eligible logistics vehicles (RM2.15/liter)</li>
+                            <li>SKDS 1.0: Maintained at RM1.88/liter for public transport</li>
+                            <li>BUDI Individu: RM200 monthly cash assistance for diesel vehicle owners</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <table class="data-table mt-6">
+                    <thead>
+                        <tr>
+                            <th>Transport Component</th>
+                            <th>Price Impact</th>
+                            <th>CPI Contribution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Diesel Fuel</td>
+                            <td>+56%</td>
+                            <td>0.2%</td>
+                        </tr>
+                        <tr>
+                            <td>Public Bus & Rail Transport</td>
+                            <td>Minimal</td>
+                            <td>< 0.1%</td>
+                        </tr>
+                        <tr>
+                            <td>Logistics Services</td>
+                            <td>+5-10%</td>
+                            <td>Indirect effects</td>
+                        </tr>
+                        <tr>
+                            <td>Delivery Services</td>
+                            <td>+3-7%</td>
+                            <td>Indirect effects</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Urban vs Rural Impact Section -->
+        <section class="card mt-6">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">Urban vs Rural Impact</h2>
+            
+            <p class="mb-4">
+                The impact of diesel subsidy removal shows distinctive patterns between urban and rural areas. 
+                This reflects the different consumption patterns, transportation needs, and economic structures in these areas.
+            </p>
+            
+            <div class="chart-container">
+                <canvas id="urbanRuralChart"></canvas>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div>
+                    <h3 class="text-xl font-semibold mb-3">Urban Areas</h3>
+                    <p class="mb-3">
+                        Urban residents generally experienced a lower direct impact from diesel price increases,
+                        partly due to more public transportation options and shorter commute distances. However,
+                        urban areas saw higher indirect impacts through services and goods that depend on transportation.
+                    </p>
+                    
+                    <div class="bg-blue-50 p-4 rounded-md mt-4">
+                        <h4 class="font-semibold text-blue-800">Key Urban Impacts</h4>
+                        <ul class="list-disc pl-5 mt-2">
+                            <li>Food delivery and e-commerce costs increased</li>
+                            <li>Restaurant prices saw modest increases</li>
+                            <li>Public transportation largely shielded from impacts</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-3">Rural Areas</h3>
+                    <p class="mb-3">
+                        Rural communities felt a stronger direct impact from the diesel price increase due to
+                        greater dependence on private transportation, longer commute distances, and higher reliance
+                        on diesel-powered agricultural equipment.
+                    </p>
+                    
+                    <div class="bg-blue-50 p-4 rounded-md mt-4">
+                        <h4 class="font-semibold text-blue-800">Key Rural Impacts</h4>
+                        <ul class="list-disc pl-5 mt-2">
+                            <li>Agricultural production costs increased</li>
+                            <li>Higher transportation expenses for daily commute</li>
+                            <li>Increased costs for goods due to higher logistics expenses</li>
+                            <li>BUDI Agri-Komoditi program partially offset impacts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <table class="data-table mt-6">
+                <thead>
+                    <tr>
+                        <th>CPI Category</th>
+                        <th>Urban Impact (%)</th>
+                        <th>Rural Impact (%)</th>
+                        <th>Difference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Overall CPI</td>
+                        <td>1.9%</td>
+                        <td>2.3%</td>
+                        <td>+0.4%</td>
+                    </tr>
+                    <tr>
+                        <td>Food & Beverages</td>
+                        <td>0.8%</td>
+                        <td>1.2%</td>
+                        <td>+0.4%</td>
+                    </tr>
+                    <tr>
+                        <td>Transport</td>
+                        <td>1.0%</td>
+                        <td>1.8%</td>
+                        <td>+0.8%</td>
+                    </tr>
+                    <tr>
+                        <td>Housing & Utilities</td>
+                        <td>3.3%</td>
+                        <td>2.9%</td>
+                        <td>-0.4%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- State-by-State Impact Section -->
+        <section class="card mt-6">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">State-by-State Impact Analysis</h2>
+            
+            <p class="mb-4">
+                The impact of diesel subsidy removal varies significantly across Malaysia's states, influenced by geographic location,
+                economic structure, and local policies.
+            </p>
+            
+            <div class="bg-yellow-50 p-4 rounded-md mb-6">
+                <h3 class="font-semibold text-yellow-800">Key Regional Difference</h3>
+                <p>
+                    Sabah and Sarawak were exempted from the diesel subsidy removal, with prices remaining at RM2.15 per liter.
+                    This has created a significant regional disparity in inflation rates post-implementation.
+                </p>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="stateChart"></canvas>
+            </div>
+            
+            <table class="data-table mt-6">
+                <thead>
+                    <tr>
+                        <th>State</th>
+                        <th>Overall CPI Change (%)</th>
+                        <th>Transport CPI Change (%)</th>
+                        <th>Impact Assessment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Selangor</td>
+                        <td>2.1%</td>
+                        <td>1.2%</td>
+                        <td>
+                            <div class="impact-meter">
+                                <div class="impact-fill impact-medium"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Kuala Lumpur</td>
+                        <td>2.0%</td>
+                        <td>1.0%</td>
+                        <td>
+                            <div class="impact-meter">
+                                <div class="impact-fill impact-low"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Penang</td>
+                        <td>2.3%</td>
+                        <td>1.3%</td>
+                        <td>
+                            <div class="impact-meter">
+                                <div class="impact-fill impact-medium"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Johor</td>
+                        <td>2.4%</td>
+                        <td>1.5%</td>
+                        <td>
+                            <div class="impact-meter">
+                                <div class="impact-fill impact-medium"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Pahang</td>
+                        <td>2.5%</td>
+                        <td>1.7%</td>
+                        <td>
+                            <div class="impact-meter">
+                                <div class="impact-fill impact-medium"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Kelantan</td>
+                        <td>2.7%</td>
+                        <td>1.9%</td>
+                        <td>
+                            <div class="impact-meter">
+                                <div class="impact-fill impact-high"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Terengganu</td>
+                        <td>2.6%</td>
+                        <td>1.8%</td>
+                        <td>
+                            <div class="impact-meter">
+                                <div class="impact-fill impact-high"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sarawak</td>
+                        <td>1.5%</td>
+                        <td>0.3%</td>
+                        <td>
+                            <div class="impact-meter">
+                                <div class="impact-fill impact-low"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sabah</td>
+                        <td>1.6%</td>
+                        <td>0.4%</td>
+                        <td>
+                            <div class="impact-meter">
+                                <div class="impact-fill impact-low"></div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="bg-blue-50 p-4 rounded-md">
+                    <h4 class="font-semibold text-blue-800">Highest Impact States</h4>
+                    <p class="mt-2">
+                        The East Coast states (Kelantan, Terengganu) experienced the highest impact due to:
+                    </p>
+                    <ul class="list-disc pl-5 mt-1">
+                        <li>Higher dependence on road transportation</li>
+                        <li>Longer distances to major economic centers</li>
+                        <li>Greater proportion of primary sector activities (agriculture, fishing)</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-green-50 p-4 rounded-md">
+                    <h4 class="font-semibold text-green-800">Lowest Impact States</h4>
+                    <p class="mt-2">
+                        East Malaysia (Sabah, Sarawak) experienced the lowest impact due to:
+                    </p>
+                    <ul class="list-disc pl-5 mt-1">
+                        <li>Exemption from the diesel subsidy removal</li>
+                        <li>Maintained diesel prices at RM2.15 per liter</li>
+                        <li>Government policy acknowledging the unique economic challenges</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Broader Economic Implications Section -->
+        <section class="card mt-6">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">Broader Economic Implications</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h3 class="text-xl font-semibold mb-3">Fiscal Impact</h3>
+                    <p>
+                        The diesel subsidy rationalization is projected to save the government approximately RM4 billion annually,
+                        equivalent to 0.2% of Malaysia's GDP. These savings contribute to the government's broader fiscal 
+                        consolidation efforts aimed at reducing the budget deficit.
+                    </p>
+                    <div class="mt-4 p-3 bg-gray-50 rounded">
+                        <h4 class="font-semibold">Diesel Subsidy Spending</h4>
+                        <p class="text-sm">2019: RM1.4 billion</p>
+                        <p class="text-sm">2023: RM14.3 billion</p>
+                        <p class="text-sm">2024 (projected): RM10.3 billion</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-3">Inflation Outlook</h3>
+                    <p>
+                        Despite the diesel subsidy removal, the government maintained its 2024 inflation projection 
+                        at 2-3.5%. The Bank Negara Malaysia's positive real interest rate of 1% indicates that the current 
+                        monetary policy remains quite restrictive, supporting economic stability.
+                    </p>
+                    <div class="mt-4 p-3 bg-gray-50 rounded">
+                        <h4 class="font-semibold">Key Inflation Indicators</h4>
+                        <p class="text-sm">June 2024 CPI: 2.0% (year-on-year)</p>
+                        <p class="text-sm">Transport inflation: 1.2% (up from 0.9% in May)</p>
+                        <p class="text-sm">Food inflation: 0.9% (up from 0.5% in March)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold mb-3">Winners & Losers</h3>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-green-700">Winners</h4>
+                        <ul class="list-disc pl-5">
+                            <li>Government fiscal position: Reduced subsidy burden</li>
+                            <li>Public sector financing: More funds for targeted social programs</li>
+                            <li>Long-term economic sustainability</li>
+                            <li>Fuel retailers: Potentially higher margins</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold text-red-700">Losers</h4>
+                        <ul class="list-disc pl-5">
+                            <li>Rural communities: Higher transportation costs</li>
+                            <li>Small-scale farmers: Increased production costs</li>
+                            <li>Logistics companies not covered by exemptions</li>
+                            <li>Middle-income households: Higher indirect costs</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-3">Long-Term Projections</h3>
+                    <p class="mb-3">
+                        The longer-term economic impact of diesel subsidy removal is expected to be positive:
+                    </p>
+                    <ul class="list-disc pl-5 mb-4">
+                        <li>More efficient allocation of resources</li>
+                        <li>Reduced fiscal vulnerability to oil price fluctuations</li>
+                        <li>Better targeted support for vulnerable groups</li>
+                        <li>Reduced incentives for smuggling and leakages</li>
+                        <li>Gradual transition toward more sustainable energy consumption</li>
+                    </ul>
+                    <p>
+                        Economists expect the initial inflation impact to stabilize by Q4 2024, with long-term benefits
+                        outweighing short-term adjustments.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Assistance Programs Section -->
+        <section class="card mt-6">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">Targeted Assistance Programs</h2>
+            
+            <p class="mb-4">
+                To mitigate the impact of diesel subsidy removal, the government implemented several targeted assistance
+                programs designed to help specific sectors and vulnerable groups:
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-white p-4 rounded-md shadow border-l-4 border-blue-500">
+                    <h3 class="font-semibold text-blue-800">BUDI Individu</h3>
+                    <p class="mt-2 text-sm">
+                        RM200 monthly cash assistance for Malaysian individuals owning diesel vehicles to help offset higher fuel expenditure.
+                    </p>
+                    <p class="mt-2 text-xs text-gray-600">
+                        First payment: June 10, 2024
+                    </p>
+                </div>
+                
+                <div class="bg-white p-4 rounded-md shadow border-l-4 border-green-500">
+                    <h3 class="font-semibold text-green-800">BUDI Agri-Komoditi</h3>
+                    <p class="mt-2 text-sm">
+                        RM200 monthly cash assistance for small-scale farmers and commodity smallholders to mitigate impact on their incomes.
+                    </p>
+                    <p class="mt-2 text-xs text-gray-600">
+                        First payment: June 10, 2024
+                    </p>
+                </div>
+                
+                <div class="bg-white p-4 rounded-md shadow border-l-4 border-purple-500">
+                    <h3 class="font-semibold text-purple-800">SKDS Programs</h3>
+                    <p class="mt-2 text-sm">
+                        Fleet cards and subsidized rates for logistics vehicles (SKDS 2.0) and public transport (SKDS 1.0) to maintain price stability.
+                    </p>
+                    <p class="mt-2 text-xs text-gray-600">
+                        Implemented: June 10, 2024
+                    </p>
+                </div>
+            </div>
+            
+            <div class="bg-blue-50 p-4 rounded-md mb-6">
+                <h3 class="font-semibold text-blue-800">Sectoral Diesel Price Structure</h3>
+                
+                <table class="w-full mt-3">
+                    <thead class="text-left">
+                        <tr>
+                            <th class="py-2">Sector</th>
+                            <th class="py-2">Diesel Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-2 border-t border-blue-100">General Public (Peninsular Malaysia)</td>
+                            <td class="py-2 border-t border-blue-100">RM3.35 per liter</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 border-t border-blue-100">Logistics Vehicles (SKDS 2.0)</td>
+                            <td class="py-2 border-t border-blue-100">RM2.15 per liter</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 border-t border-blue-100">Public Transport (SKDS 1.0)</td>
+                            <td class="py-2 border-t border-blue-100">RM1.88 per liter</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 border-t border-blue-100">Fishermen</td>
+                            <td class="py-2 border-t border-blue-100">RM1.65 per liter</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 border-t border-blue-100">Sabah, Sarawak, and Labuan</td>
+                            <td class="py-2 border-t border-blue-100">RM2.15 per liter</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="bg-yellow-50 p-4 rounded-md">
+                <h3 class="font-semibold text-yellow-800">Implementation Challenges</h3>
+                <p class="mt-2">
+                    Despite these targeted programs, some implementation challenges have emerged:
+                </p>
+                <ul class="list-disc pl-5 mt-2">
+                    <li>Registration requirements for BUDI programs exclude many small-scale farmers</li>
+                    <li>Delays in fleet card issuance for some eligible logistics companies</li>
+                    <li>Limited awareness among eligible recipients about available assistance</li>
+                    <li>Application process complexity for some vulnerable groups</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="card mt-6">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Why did the government remove diesel subsidies?
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    The government removed diesel subsidies primarily to reduce fiscal burden (subsidies reached RM14.3 billion in 2023), 
+                    prevent leakages from smuggling, and redirect funds to more targeted social welfare programs. This move is part of 
+                    a broader strategy to improve Malaysia's fiscal position and ensure subsidies benefit those who truly need them.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    How much has diesel price increased after subsidy removal?
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    In Peninsular Malaysia, diesel prices increased by 56%, from RM2.15 to RM3.35 per liter. However, Sabah, Sarawak, 
+                    and Labuan continue to enjoy the subsidized rate of RM2.15 per liter. Certain sectors like public transport, logistics, 
+                    and fisheries have access to lower prices through targeted subsidy mechanisms.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Who qualifies for the BUDI assistance programs?
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    BUDI Individu is available to Malaysian individuals who own diesel vehicles. BUDI Agri-Komoditi is for small-scale 
+                    farmers and commodity smallholders. To qualify for BUDI Agri-Komoditi, farmers must be registered with relevant agencies
+                    and have an annual turnover between RM50,000 and RM300,000 from farming and commodities. Applications can be made 
+                    through the BUDI MADANI portal at budimadani.gov.my.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    How has the subsidy removal affected inflation?
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    The impact has been relatively modest. The diesel subsidy rationalization implemented on June 10, 2024, accounted 
+                    for just 0.2% of the total Consumer Price Index (CPI) weight. In June 2024, the overall inflation rate was 2.0%, 
+                    with the transport category inflation increasing from 0.9% in May to 1.2% in June. The government maintains its 
+                    inflation outlook at 2-3.5% for 2024.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Will RON95 petrol subsidies also be removed?
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    The government has announced plans to reform RON95 subsidies as well. Budget 2025 states that RON95 subsidies 
+                    will be removed for the top 15% of income earners starting in mid-2025. This indicates a continued shift from blanket 
+                    subsidies to targeted approaches, but with a more gradual implementation timeline compared to diesel.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    How does the PADU system relate to subsidy reforms?
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    The Central Database Hub (PADU) system is a crucial component of Malaysia's targeted subsidy approach. It collects 
+                    comprehensive household information to help the government identify eligible recipients for various assistance programs. 
+                    PADU data helps ensure that subsidies and aid reach those who truly need them, supporting the shift from blanket subsidies 
+                    to targeted approaches. The database improves the government's understanding of household economic situations across different 
+                    income levels and locations.
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion Section -->
+        <section class="card mt-6">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">Conclusion</h2>
+            
+            <p class="mb-4">
+                The removal of diesel subsidies in Malaysia represents a significant shift in government policy toward more 
+                targeted approaches to economic support. While the immediate inflationary impact has been relatively modest,
+                the effects vary across different sectors, regions, and demographic groups.
+            </p>
+            
+            <p class="mb-4">
+                Key findings from our analysis include:
+            </p>
+            
+            <ul class="list-disc pl-5 mb-4">
+                <li>The overall inflation impact has been contained at 2.0% in June 2024</li>
+                <li>Rural areas experienced slightly higher impacts compared to urban centers</li>
+                <li>East Coast states saw the highest inflation effects, while East Malaysia was largely shielded</li>
+                <li>Targeted assistance programs have helped mitigate impacts for vulnerable groups</li>
+                <li>The government is expected to save RM4 billion annually, strengthening fiscal position</li>
+            </ul>
+            
+            <p class="mb-4">
+                This policy change underscores a broader trend toward fiscal sustainability and more efficient allocation of 
+                government resources. While short-term adjustments may cause temporary hardships for some groups, the long-term 
+                benefits of reduced fiscal vulnerability and better-targeted assistance are expected to contribute positively to 
+                Malaysia's economic resilience.
+            </p>
+            
+            <p>
+                As Malaysia continues its subsidy rationalization journey, with RON95 reforms planned for 2025, ongoing monitoring 
+                of economic impacts and continuous refinement of assistance programs will be essential to ensuring a balanced and 
+                inclusive transition.
+            </p>
+        </section>
+
+        <!-- References Section -->
+        <section class="card mt-6 mb-10">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">References & Data Sources</h2>
+            
+            <ul class="list-disc pl-5">
+                <li class="mb-2">
+                    <span class="font-semibold">Department of Statistics Malaysia (DOSM)</span> - 
+                    <a href="https://data.gov.my/data-catalogue/cpi_headline" class="text-blue-600 hover:underline">Monthly CPI by Division (2-digit)</a>
+                </li>
+                <li class="mb-2">
+                    <span class="font-semibold">DOSM</span> - 
+                    <a href="https://data.gov.my/data-catalogue/cpi_strata" class="text-blue-600 hover:underline">Monthly CPI by Strata & Division (2-digit)</a>
+                </li>
+                <li class="mb-2">
+                    <span class="font-semibold">DOSM</span> - 
+                    <a href="https://data.gov.my/data-catalogue/cpi_state" class="text-blue-600 hover:underline">Monthly CPI by State & Division (2-digit)</a>
+                </li>
+                <li class="mb-2">
+                    <span class="font-semibold">Reuters</span> - 
+                    <a href="https://www.reuters.com/markets/commodities/malaysia-begins-diesel-subsidy-reforms-prices-rise-by-about-50-monday-2024-06-09/" class="text-blue-600 hover:underline">Malaysia begins diesel subsidy reforms, prices to rise by about 50% Monday</a>
+                </li>
+                <li class="mb-2">
+                    <span class="font-semibold">Ministry of Finance</span> - 
+                    <a href="https://www.mof.gov.my/portal/en/news/press-release/government-implements-targeted-diesel-subsidy-for-peninsular-malaysia-effective-10-june-2024" class="text-blue-600 hover:underline">Government Implements Targeted Diesel Subsidy For Peninsular Malaysia Effective 10 June 2024</a>
+                </li>
+                <li class="mb-2">
+                    <span class="font-semibold">Bernama</span> - 
+                    <a href="https://www.bernama.com/en/news.php?id=2321382" class="text-blue-600 hover:underline">Diesel Subsidy Rationalisation Has Marginal Impact On June Inflation</a>
+                </li>
+                <li class="mb-2">
+                    <span class="font-semibold">Reuters</span> - 
+                    <a href="https://www.reuters.com/markets/asia/malaysia-keeps-inflation-outlook-2024-after-diesel-subsidy-reforms-2024-06-13/" class="text-blue-600 hover:underline">Malaysia keeps inflation outlook for 2024 after diesel subsidy reforms</a>
+                </li>
+                <li class="mb-2">
+                    <span class="font-semibold">The Star</span> - 
+                    <a href="https://www.thestar.com.my/business/business-news/2024/07/25/impact-of-diesel-subsidy-removal-manageable" class="text-blue-600 hover:underline">Impact of diesel subsidy removal manageable</a>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-600 text-sm mt-10 mb-6">
+            <p>© 2025 Policy Transparency Initiative Malaysia</p>
+            <p class="mt-1">Created to provide clear, accessible information on government policies for young Malaysian adults</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                // Hide all tab contents
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Remove active class from all tabs
+                document.querySelectorAll('.nav-tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // Show the selected tab content
+                document.getElementById(tabId).classList.add('active');
+                
+                // Add active class to selected tab
+                tab.classList.add('active');
+            });
+        });
+        
+        // FAQ functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('.toggle-icon');
+                
+                if (answer.classList.contains('active')) {
+                    answer.classList.remove('active');
+                    icon.textContent = '+';
+                } else {
+                    answer.classList.add('active');
+                    icon.textContent = '−';
+                }
+            });
+        });
+        
+        // Chart initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Overall CPI Chart
+            const ctxOverall = document.getElementById('overallCpiChart').getContext('2d');
+            new Chart(ctxOverall, {
+                type: 'line',
+                data: {
+                    labels: ['Jan 2024', 'Feb 2024', 'Mar 2024', 'Apr 2024', 'May 2024', 'Jun 2024', 'Jul 2024'],
+                    datasets: [{
+                        label: 'Overall CPI (%)',
+                        data: [1.5, 1.6, 1.8, 1.8, 1.9, 2.0, 2.1],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Monthly CPI Trend in 2024 (%)',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        annotation: {
+                            annotations: {
+                                line1: {
+                                    type: 'line',
+                                    xMin: 'May 2024',
+                                    xMax: 'Jun 2024',
+                                    borderColor: 'red',
+                                    borderWidth: 2,
+                                    label: {
+                                        content: 'Diesel Subsidy Removal',
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Categories Chart
+            const ctxCategories = document.getElementById('categoriesChart').getContext('2d');
+            new Chart(ctxCategories, {
+                type: 'bar',
+                data: {
+                    labels: ['Food & Beverages', 'Housing & Utilities', 'Transport', 'Restaurant & Accommodation', 'Health'],
+                    datasets: [{
+                        label: 'May 2024',
+                        data: [0.7, 3.1, 0.9, 3.1, 0.4],
+                        backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                    }, {
+                        label: 'June 2024',
+                        data: [0.9, 3.2, 1.2, 3.3, 0.5],
+                        backgroundColor: 'rgba(245, 158, 11, 0.6)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'CPI by Category Before and After Diesel Subsidy Removal (%)',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            // Food Chart
+            const ctxFood = document.getElementById('foodChart').getContext('2d');
+            new Chart(ctxFood, {
+                type: 'bar',
+                data: {
+                    labels: ['Overall Food', 'Vegetables', 'Meat', 'Fish & Seafood', 'Bread & Cereals'],
+                    datasets: [{
+                        label: 'March 2024',
+                        data: [0.5, 4.8, 0.3, 0.2, 0.1],
+                        backgroundColor: 'rgba(16, 185, 129, 0.6)',
+                    }, {
+                        label: 'June 2024',
+                        data: [0.9, 6.2, 0.5, 0.4, 0.2],
+                        backgroundColor: 'rgba(239, 68, 68, 0.6)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Food Price Inflation by Category (%)',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            // Transport Chart
+            const ctxTransport = document.getElementById('transportChart').getContext('2d');
+            new Chart(ctxTransport, {
+                type: 'line',
+                data: {
+                    labels: ['Jan 2024', 'Feb 2024', 'Mar 2024', 'Apr 2024', 'May 2024', 'Jun 2024', 'Jul 2024'],
+                    datasets: [{
+                        label: 'Transport CPI (%)',
+                        data: [0.5, 0.6, 0.7, 0.8, 0.9, 1.2, 1.3],
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Transport CPI Trend in 2024 (%)',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        annotation: {
+                            annotations: {
+                                line1: {
+                                    type: 'line',
+                                    xMin: 'May 2024',
+                                    xMax: 'Jun 2024',
+                                    borderColor: 'red',
+                                    borderWidth: 2,
+                                    label: {
+                                        content: 'Diesel Subsidy Removal',
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Urban Rural Chart
+            const ctxUrbanRural = document.getElementById('urbanRuralChart').getContext('2d');
+            new Chart(ctxUrbanRural, {
+                type: 'radar',
+                data: {
+                    labels: ['Overall CPI', 'Food & Beverages', 'Transport', 'Housing & Utilities', 'Restaurant & Accommodation'],
+                    datasets: [{
+                        label: 'Urban',
+                        data: [1.9, 0.8, 1.0, 3.3, 3.2],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    }, {
+                        label: 'Rural',
+                        data: [2.3, 1.2, 1.8, 2.9, 3.4],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Urban vs Rural CPI Impact (June 2024, %)',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 4
+                        }
+                    }
+                }
+            });
+            
+            // State Chart
+            const ctxState = document.getElementById('stateChart').getContext('2d');
+            new Chart(ctxState, {
+                type: 'bar',
+                data: {
+                    labels: ['Selangor', 'Kuala Lumpur', 'Penang', 'Johor', 'Pahang', 'Kelantan', 'Terengganu', 'Sarawak', 'Sabah'],
+                    datasets: [{
+                        label: 'Overall CPI (%)',
+                        data: [2.1, 2.0, 2.3, 2.4, 2.5, 2.7, 2.6, 1.5, 1.6],
+                        backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                    }, {
+                        label: 'Transport CPI (%)',
+                        data: [1.2, 1.0, 1.3, 1.5, 1.7, 1.9, 1.8, 0.3, 0.4],
+                        backgroundColor: 'rgba(245, 158, 11, 0.6)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'CPI Impact by State (June 2024, %)',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

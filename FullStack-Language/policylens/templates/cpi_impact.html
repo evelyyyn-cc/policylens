@@ -1,0 +1,535 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="/static/assets/scss/main.css">
+    <title>{% trans "CPI Impact" %}</title>
+</head>
+<body class="cpi-impact-page">
+    <!-- Top navigation bar -->
+    {% include "header.html" %}
+
+    <div class="breadcrumb-container">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="/index/">{% trans "Home" %}</a> >
+                <a href="/policies/">{% trans "Policies" %}</a> >
+                <a href="/diesel_policy/">{% trans "The Diesel Dilemma" %}</a> >
+                <span>{% trans "CPI Impact" %}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero/Banner section -->
+    <div class="hero-cpi-impact">
+        <h1>{% trans "Consumer Price Impact" %}</h1>
+    </div>
+
+    <!-- Dashboard Links Section -->
+    <section class="dashboard-links">
+        <div class="container">
+          <a href="/diesel_policy/" class="dashboard-link">
+              <i class="fas fa-chart-line dashboard-icon"></i>
+              {% trans "Diesel Dilemma" %}
+          </a>
+          <a href="/cpi_dataset/" class="dashboard-link">
+              <i class="fas fa-tags price-icon"></i>
+              {% trans "CPI Data Dashboard" %}
+          </a>
+          <a href="#" class="dashboard-link">
+            <i class="fas fa-industry manufacturing-icon"></i>
+            {% trans "Manufacturing Impact" %}
+        </a>
+        </div>
+    </section>
+
+    <!-- Sector Information Section -->
+    <section class="policy-info">
+        <div class="container">
+            <h2 class="section-title">{% trans "What is Consumer Price Index (CPI)?" %}</h2>
+            <p class="section-text">
+                {% blocktrans %}
+                The Consumer Price Index (CPI) is a measure that examines the average change over time in the prices
+                paid by urban consumers for a basket of goods and services. It's one of the most widely used indicators
+                of inflation. Basically, CPI tells you how much prices are rising or falling for things that regular people buy like food,
+                rent, gas, clothes, healthcare, etc.
+                {% endblocktrans %}
+            </p>
+        </div>
+    </section>
+
+    <section class="cpi-impact-section">
+        <!-- Tab navigation - Horizontal tabs below hero -->
+        <div class="main-tabs">
+            <a href="#" class="tab-link active" data-tab="price-calc-tab">{% trans "Personal Price Impact Calculator" %}</a>
+            <a href="#" class="tab-link" data-tab="regional-impact-tab">{% trans "Regional Price Impact" %}</a>
+            <a href="#" class="tab-link" data-tab="regional-map-tab">{% trans "Regional Price Impact Map" %}</a>
+            <div class="tab-indicator"></div>
+        </div>
+
+        <!-- Personal Price Impact Calculator Tab -->
+        <div class="tab-content active" id="price-calc-tab">
+            <div class="page-header">
+                <h1 class="page-title">{% trans "Personal Expenditure" %}</h1>
+                <p class="page-subtitle">{% trans "Understand how the policy changes affect your personal expenditure" %}</p>
+            </div>
+
+            <div id="price-calculator">
+                <div class="calculator-section">
+                    <p class="disclaimer">
+                        <i class="fas fa-info-circle"></i> {% trans "Disclaimer: Calculation Performed Using Data From December 2024 and May 2024." %}
+                    </p>
+
+                    <div class="calculator-grid">
+                        <div class="card calculator-form">
+                            <h3 class="card-title">{% trans "Your Monthly Expenses" %}</h3>
+
+                            <div class="form-group">
+                                <label class="form-label" for="locationSelect">{% trans "📍 Choose Your Location" %}</label>
+                                <select id="locationSelect" class="form-select">
+                                    <option>{% trans "Johor" %}</option>
+                                    <option>{% trans "Kedah" %}</option>
+                                    <option>{% trans "Kelantan" %}</option>
+                                    <option>{% trans "Melaka" %}</option>
+                                    <option>{% trans "Negeri Sembilan" %}</option>
+                                    <option>{% trans "Pahang" %}</option>
+                                    <option>{% trans "Perak" %}</option>
+                                    <option>{% trans "Perlis" %}</option>
+                                    <option>{% trans "Pulau Pinang" %}</option>
+                                    <option>{% trans "Sabah" %}</option>
+                                    <option>{% trans "Sarawak" %}</option>
+                                    <option>{% trans "Selangor" %}</option>
+                                    <option>{% trans "Terengganu" %}</option>
+                                    <option>{% trans "W.P. Kuala Lumpur" %}</option>
+                                    <option>{% trans "W.P. Labuan" %}</option>
+                                    <option>{% trans "W.P. Putrajaya" %}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="slider-label-container">
+                                    <label class="form-label">{% trans "Transport" %}</label>
+                                    <span class="slider-value" id="transportValue">{% trans "RM 500" %}</span>
+                                </div>
+                                <div class="slider-container">
+                                    <i class="fas fa-car-side slider-icon"></i>
+                                    <input type="range" min="0" max="2000" value="500" class="slider" id="transportSlider">
+                                    <i class="fas fa-truck slider-icon"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="slider-label-container">
+                                    <label class="form-label">{% trans "Food & Beverages" %}</label>
+                                    <span class="slider-value" id="foodValue">{% trans "RM 800" %}</span>
+                                </div>
+                                <div class="slider-container">
+                                    <i class="fas fa-apple-alt slider-icon"></i>
+                                    <input type="range" min="0" max="3000" value="800" class="slider" id="foodSlider">
+                                    <i class="fas fa-utensils slider-icon"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="slider-label-container">
+                                    <label class="form-label">{% trans "Housing, Water, Electricity, Gas & Other fuels" %}</label>
+                                    <span class="slider-value" id="housingValue">{% trans "RM 1200" %}</span>
+                                </div>
+                                <div class="slider-container">
+                                    <i class="fas fa-home slider-icon"></i>
+                                    <input type="range" min="0" max="5000" value="1200" class="slider" id="housingSlider">
+                                    <i class="fas fa-building slider-icon"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="slider-label-container">
+                                    <label class="form-label">{% trans "Restaurants & Accommodation Services" %}</label>
+                                    <span class="slider-value" id="otherValue">{% trans "RM 500" %}</span>
+                                </div>
+                                <div class="slider-container">
+                                    <i class="fas fa-shopping-bag slider-icon"></i>
+                                    <input type="range" min="0" max="3000" value="500" class="slider" id="otherSlider">
+                                    <i class="fas fa-gifts slider-icon"></i>
+                                </div>
+                            </div>
+
+                            <button id="calculateBtn" class="button button-primary">
+                                {% trans "Calculate Impact" %}
+                            </button>
+                        </div>
+
+                        <div class="card results-section">
+                            <h3 class="card-title">{% trans "Estimated Impact" %}</h3>
+
+                            <div class="impact-comparison impact-monthly">
+                                <h4 class="comparison-title">{% trans "Monthly Comparison" %}</h4>
+                                <div class="comparison-grid">
+                                    <div class="comparison-box">
+                                        <p class="comparison-label">{% trans "Before Policy:" %}</p>
+                                        <p class="comparison-value comparison-value--before" id="monthlyBefore">{% trans "RM 3,000.00" %}</p>
+                                    </div>
+                                    <div class="comparison-box">
+                                        <p class="comparison-label">{% trans "After Policy:" %}</p>
+                                        <p class="comparison-value comparison-value--after" id="monthlyAfter">{% trans "RM 3,087.50" %}</p>
+                                    </div>
+                                </div>
+                                <div class="comparison-summary">
+                                    <p class="comparison-summary-label">{% trans "Additional monthly cost:" %}</p>
+                                    <p class="comparison-summary-value comparison-summary-value--monthly" id="monthlyDifference">{% trans "+ RM 87.50" %}</p>
+                                    <p class="comparison-summary-percentage" id="monthlyPercentage">{% trans "(3.2% increase)" %}</p>
+                                </div>
+                            </div>
+
+                            <div class="impact-comparison impact-yearly">
+                                 <h4 class="comparison-title">{% trans "Yearly Comparison" %}</h4>
+                                <div class="comparison-grid">
+                                    <div class="comparison-box">
+                                        <p class="comparison-label">{% trans "Before Policy:" %}</p>
+                                        <p class="comparison-value comparison-value--before" id="yearlyBefore">{% trans "RM 36,000.00" %}</p>
+                                    </div>
+                                    <div class="comparison-box">
+                                        <p class="comparison-label">{% trans "After Policy:" %}</p>
+                                        <p class="comparison-value comparison-value--after" id="yearlyAfter">{% trans "RM 37,050.00" %}</p>
+                                    </div>
+                                </div>
+                                <div class="comparison-summary">
+                                    <p class="comparison-summary-label">{% trans "Additional yearly cost:" %}</p>
+                                    <p class="comparison-summary-value comparison-summary-value--yearly" id="yearlyDifference">{% trans "+ RM 1,050.00" %}</p>
+                                    <p class="comparison-summary-percentage" id="yearlyPercentage">{% trans "(3.2% increase)" %}</p>
+                                </div>
+                            </div>
+
+                            <h4 class="breakdown-title">{% trans "Impact Breakdown" %}</h4>
+                            <div class="breakdown-list">
+                                <div class="breakdown-item">
+                                    <div class="breakdown-item__label">
+                                        <i class="fas fa-car-side breakdown-icon"></i>
+                                        <span>{% trans "Transport" %}</span>
+                                    </div>
+                                    <div class="breakdown-item__value">
+                                        <span class="impact-value" id="transportImpact">{% trans "+ RM 55.00" %}</span>
+                                        <span class="impact-percentage" id="transportPercentage">{% trans "(11.0% increase)" %}</span>
+                                    </div>
+                                </div>
+                                 <div class="breakdown-item">
+                                    <div class="breakdown-item__label">
+                                        <i class="fas fa-utensils breakdown-icon"></i>
+                                        <span>{% trans "Food & Beverages" %}</span>
+                                    </div>
+                                    <div class="breakdown-item__value">
+                                        <span class="impact-value" id="foodImpact">{% trans "+ RM 16.00" %}</span>
+                                        <span class="impact-percentage" id="foodPercentage">{% trans "(2.0% increase)" %}</span>
+                                    </div>
+                                </div>
+                                 <div class="breakdown-item">
+                                    <div class="breakdown-item__label">
+                                        <i class="fas fa-home breakdown-icon"></i>
+                                        <span>{% trans "House, Water, Electricity, Gas & Other fuels" %}</span>
+                                    </div>
+                                    <div class="breakdown-item__value">
+                                        <span class="impact-value" id="housingImpact">{% trans "+ RM 12.00" %}</span>
+                                        <span class="impact-percentage" id="housingPercentage">{% trans "(1.0% increase)" %}</span>
+                                    </div>
+                                </div>
+                                <div class="breakdown-item">
+                                    <div class="breakdown-item__label">
+                                        <i class="fas fa-shopping-bag breakdown-icon"></i>
+                                        <span>{% trans "Restaurants & Accommodation Services" %}</span>
+                                    </div>
+                                    <div class="breakdown-item__value">
+                                        <span class="impact-value" id="otherImpact">{% trans "+ RM 4.50" %}</span>
+                                        <span class="impact-percentage" id="otherPercentage">{% trans "(0.9% increase)" %}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="recommendations">
+                                <h4 class="recommendations-title">
+                                    <i class="fas fa-lightbulb recommendations-icon"></i>
+                                    {% trans "Money-Saving Tips" %}
+                                </h4>
+                                <ul class="recommendations-list">
+                                    <li>{% trans "Consider carpooling or public transport to reduce transportation costs" %}</li>
+                                    <li>{% trans "Buy groceries in bulk and during promotional periods" %}</li>
+                                    <li>{% trans "Use energy-efficient appliances to reduce utility bills" %}</li>
+                                    <li>{% trans "Look for government assistance programs available for eligible households" %}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Regional Price Impact Tab -->
+        <div class="tab-content" id="regional-impact-tab">
+            <!-- Category Breakdown Section -->
+            <div class="page-header">
+                <h1 class="page-title">{% trans "Regional Category Impact" %}</h1>
+                <p class="page-subtitle">{% trans "Understand how the policy changes affect different sectors" %}</p>
+            </div>
+
+            <div class="category-tabs">
+                <a href="#" class="category-tab-link active" data-tab="tab1">{% trans "Major Categories" %}</a>
+                <!-- <a href="#" class="category-tab-link" data-tab="tab2">Food & Beverages</a>
+                <a href="#" class="category-tab-link" data-tab="tab3">Transportation Costs</a> -->
+                <div class="category-tab-indicator"></div>
+            </div>
+
+            <div id="tab1" class="category-tab-content active">
+                <div id="regional-impact">
+                    <div class="regional-categories">
+                        <h2 class="section-title">{% trans "Impact by CPI Categories" %}</h2>
+                        <p class="section-description">
+                            {% blocktrans %}
+                            The diesel subsidy removal had varying impacts across different categories of the Consumer Price Index.
+                            Below is the breakdown of how different sectors were affected:
+                            {% endblocktrans %}
+                        </p>
+
+                        <div class="filter-dropdown">
+                            <label>{% trans "📍 Country State:" %}</label>
+                            <div class="dropdown-select">
+                                <span>{% trans "Johor" %}</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="categoriesChart"></canvas>
+                        </div>
+
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th class="table-category">{% trans "Category" %}</th>
+                                    <th class="table-cpi-diff">{% trans "CPI Difference (%)" %}</th>
+                                    <th class="table-impact-lvl">{% trans "Impact Level" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="food-row">
+                                    <td>{% trans "Food & Beverages" %}</td>
+                                    <td id="food-cpi-diff">2.422%</td>
+                                    <td>
+                                        <div class="impact-meter">
+                                            <div class="impact-fill impact-high" id="food-impact-meter"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="restaurant-row">
+                                    <td>{% trans "Restaurant & Accommodation Services" %}</td>
+                                    <td id="restaurant-cpi-diff">1.318%</td>
+                                    <td>
+                                        <div class="impact-meter">
+                                            <div class="impact-fill impact-medium" id="restaurant-impact-meter"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="housing-row">
+                                    <td>{% trans "Housing, Water, Electricity, Gas & Other Fuels" %}</td>
+                                    <td id="housing-cpi-diff">0.307%</td>
+                                    <td>
+                                        <div class="impact-meter">
+                                            <div class="impact-fill impact-low" id="housing-impact-meter"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="transport-row">
+                                    <td>{% trans "Transport" %}</td>
+                                    <td id="transport-cpi-diff">0.819%</td>
+                                    <td>
+                                        <div class="impact-meter">
+                                            <div class="impact-fill impact-medium" id="transport-impact-meter"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- <div id="tab2" class="category-tab-content">
+            </div>
+
+            <div id="tab3" class="category-tab-content">
+            </div> -->
+
+        </div>
+
+        <!-- Regional Price Impact Map -->
+        <div class="tab-content" id="regional-map-tab">
+            <div class="page-header">
+                <h1 class="page-title">{% trans "Regional Impact Map" %}</h1>
+                <p class="page-subtitle">{% trans "Understand how the policy affects the country across states" %}</p>
+            </div>
+
+            <div class="regional-map-container">
+                <div class="map-intro">
+                    <h3 class="section-title">{% trans "Regional Price Impact Map" %}</h3>
+                    <p class="section-description">{% trans "This interactive map shows how the diesel subsidy policy affects different regions in Malaysia. Click on a region to see detailed information about price changes in that area." %}</p>
+
+                    <div class="map-filters">
+                        <div class="filter-group">
+                            <label for="impactCategorySelect">{% trans "📚 Impact Category:" %}</label>
+                            <select id="impactCategorySelect" class="form-select">
+                                <option value="overall_Rate" selected>{% trans "Overall Price Impact" %}</option>
+                                <option value="transport_Rate">{% trans "Transportation" %}</option>
+                                <option value="food_Rate">{% trans "Food & Beverages" %}</option>
+                                <option value="housing_Rate">{% trans "Housing & Utilities" %}</option>
+                                <option value="restaurant_accommodation_Rate">{% trans "Restaurants & Accommodation" %}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-visualization-container">
+                    <div class="map-wrapper">
+                        <!-- Map will be rendered here by Leaflet -->
+                        <div id="malaysiaMap"></div>
+
+                        <!-- Map Legend -->
+                        <div class="map-legend">
+                            <h6>{% trans "Impact Level" %}</h6>
+                            <div class="legend-gradient">
+                                <span>{% trans "Lower Impact" %}</span>
+                                <div class="gradient-bar"></div>
+                                <span>{% trans "Higher Impact" %}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="region-details">
+                        <div class="region-header">
+                            <h4 id="selectedRegionName">{% trans "Select a region" %}</h4>
+                        </div>
+
+                        <div class="region-impact-summary">
+                            <div class="impact-summary-item">
+                                <span class="summary-label">{% trans "Overall Price Impact:" %}</span>
+                                <span id="overallImpactValue" class="summary-value impact-medium">-</span>
+                            </div>
+                        </div>
+
+                        <div class="impact-category-breakdown">
+                            <h5>{% trans "Impact by Category" %}</h5>
+
+                            <div class="impact-category-item">
+                                <div class="category-info">
+                                    <span class="category-name">{% trans "Transportation" %}</span>
+                                    <span id="transportImpactValue" class="category-value">-</span>
+                                </div>
+                                <div class="impact-bar-container">
+                                    <div id="transportImpactBar" class="impact-bar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="impact-category-item">
+                                <div class="category-info">
+                                    <span class="category-name">{% trans "Food & Beverages" %}</span>
+                                    <span id="foodImpactValue" class="category-value">-</span>
+                                </div>
+                                <div class="impact-bar-container">
+                                    <div id="foodImpactBar" class="impact-bar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="impact-category-item">
+                                <div class="category-info">
+                                    <span class="category-name">{% trans "Housing & Utilities" %}</span>
+                                    <span id="housingImpactValue" class="category-value">-</span>
+                                </div>
+                                <div class="impact-bar-container">
+                                    <div id="housingImpactBar" class="impact-bar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="impact-category-item">
+                                <div class="category-info">
+                                    <span class="category-name">{% trans "Restaurants & Accommodation" %}</span>
+                                    <span id="restaurantImpactValue" class="category-value">-</span>
+                                </div>
+                                <div class="impact-bar-container">
+                                    <div id="restaurantImpactBar" class="impact-bar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="regional-factors">
+                            <h5>Regional Factors</h5>
+                            <div id="regionalFactors">
+                                <p class="no-selection-message">Select a region on the map to view region-specific factors</p>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+
+                <div class="impact-analysis">
+                    <div class="impact-analysis-section">
+                        <h3>{% trans "Reasons for regional differences" %}</h3>
+                        <p>{% blocktrans %}East Malaysia (Sabah, Sarawak) and the East Coast states (Kelantan, Terengganu, Pahang) are most affected by the diesel price policy adjustment. The main reasons include:{% endblocktrans %}</p>
+                        <ul>
+                            <li>{% trans "The logistics distance is long and the transportation cost accounts for a high proportion" %}</li>
+                            <li>{% trans "A high proportion of agricultural and fishing activities are dependent on diesel" %}</li>
+                            <li>{% trans "Limited alternative transportation options and high private car usage" %}</li>
+                            <li>{% trans "There are few consumer goods produced locally, and they rely on foreign supplies" %}</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-analysis-section">
+                        <h3>{% trans "Targeted policy response" %}</h3>
+                        <p>{% trans "The government has introduced a series of targeted measures for high-impact areas:" %}</p>
+                        <ul>
+                            <li>{% trans "Special logistics subsidy scheme for East Malaysia to reduce transportation costs of essential goods" %}</li>
+                            <li>{% trans "Special fuel subsidies for fishermen and farmers in remote areas" %}</li>
+                            <li>{% trans "Investment plans to strengthen food production capacity in East Coast and East Malaysia" %}</li>
+                            <li>{% trans "Long-term planning to expand public transport network coverage" %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- Footer -->
+    <!-- <div id="footer-placeholder"></div> -->
+    {% include "footer.html" %}
+    <!--<footer>
+        <div class="container">
+            <div class="footer-logo">
+                <span>MY</span>PolicyLens
+            </div>
+            <div class="quick-links">
+                <h3>Quick Links</h3>
+                <a href="index.html#who-we-are">About us</a>
+                <a href="#">FAQ</a>
+            </div>
+        </div>
+    </footer> -->
+
+    <!-- <script src="/static/assets/js/datasets_page.js"></script>
+    <script src="/static/assets/js/script.js"></script> -->
+
+    <script src="/static/assets/js/cpi_impact.js"></script>
+    <script src="/static/assets/js/script.js"></script>
+    <script src="{% url 'javascript-catalog' %}"></script>
+</body>
+</html>
