@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-29 14:44+0000\n"
+"POT-Creation-Date: 2025-04-30 03:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,127 +18,113 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: templates/cpi_datasets.html:11 templates/cpi_impact.html:11
+#: templates/cpi_datasets.html:11
 msgid "CPI Datasets"
 msgstr "Set Data IHP"
 
-#: templates/cpi_datasets.html:24 templates/cpi_impact.html:24
+#: templates/cpi_datasets.html:24 templates/cpi_impact.html:22
 #: templates/datasets_page.html:54 templates/diesel_policy.html:20
 #: templates/policies.html:19
 msgid "Home"
 msgstr "Laman Utama"
 
-#: templates/cpi_datasets.html:25 templates/cpi_impact.html:25
+#: templates/cpi_datasets.html:25 templates/cpi_impact.html:23
 #: templates/datasets_page.html:54 templates/diesel_policy.html:20
 #: templates/policies.html:19 templates/policies.html:27
 msgid "Policies"
 msgstr "Dasar"
 
-#: templates/cpi_datasets.html:26 templates/cpi_impact.html:26
+#: templates/cpi_datasets.html:26 templates/cpi_impact.html:24
 #: templates/datasets_page.html:54 templates/diesel_policy.html:20
 #: templates/diesel_policy.html:28
 msgid "The Diesel Dilemma"
 msgstr "Dilema Diesel"
 
-#: templates/cpi_datasets.html:27 templates/cpi_impact.html:27
+#: templates/cpi_datasets.html:27 templates/cpi_impact.html:13
+#: templates/cpi_impact.html:25
 msgid "CPI Impact"
 msgstr "Kesan IHP"
 
 #: templates/cpi_datasets.html:28 templates/cpi_datasets.html:35
-#: templates/cpi_impact.html:28 templates/cpi_impact.html:35
-#: templates/datasets_page.html:82
+#: templates/cpi_impact.html:44 templates/datasets_page.html:82
 msgid "CPI Data Dashboard"
 msgstr "Papan Pemuka Data IHP"
 
-#: templates/cpi_datasets.html:43 templates/cpi_impact.html:43
-#: templates/datasets_page.html:54 templates/datasets_page.html:61
-#: templates/datasets_page.html:65 templates/diesel_policy.html:38
+#: templates/cpi_datasets.html:43 templates/datasets_page.html:54
+#: templates/datasets_page.html:61 templates/datasets_page.html:65
+#: templates/diesel_policy.html:38
 msgid "Fuel Data Dashboard"
 msgstr "Papan Pemuka Data Bahan Api"
 
-#: templates/cpi_datasets.html:47 templates/cpi_impact.html:47
+#: templates/cpi_datasets.html:47 templates/cpi_impact.html:32
 #: templates/diesel_policy.html:42
 msgid "Consumer Price Impact"
 msgstr "Kesan Harga Pengguna"
 
-#: templates/cpi_datasets.html:51 templates/cpi_impact.html:51
-#: templates/datasets_page.html:86
+#: templates/cpi_datasets.html:51 templates/datasets_page.html:86
 msgid "Manufacturing Data Dashboard"
 msgstr "Papan Pemuka Data Pembuatan"
 
-#: templates/cpi_datasets.html:59 templates/cpi_impact.html:59
+#: templates/cpi_datasets.html:59
 msgid "CPI Data"
 msgstr "Data IHP"
 
-#: templates/cpi_datasets.html:60 templates/cpi_impact.html:60
+#: templates/cpi_datasets.html:60
 msgid "State CPI Map"
 msgstr "Peta IHP Negeri"
 
-#: templates/cpi_datasets.html:61 templates/cpi_impact.html:61
+#: templates/cpi_datasets.html:61
 msgid "MCOICOP"
 msgstr "MCOICOP"
 
-#: templates/cpi_datasets.html:68 templates/cpi_impact.html:68
+#: templates/cpi_datasets.html:68
 msgid "CPI Dataset Chart"
 msgstr "Carta Set Data IHP"
 
-#: templates/cpi_datasets.html:73 templates/cpi_impact.html:73
-#: templates/datasets_page.html:116 templates/datasets_page.html:208
-msgid "Year"
-msgstr "Tahun"
-
-#: templates/cpi_datasets.html:82 templates/cpi_impact.html:82
-#: templates/datasets_page.html:217
-msgid "Region"
-msgstr "Kawasan"
-
-#: templates/cpi_datasets.html:94 templates/cpi_impact.html:94
+#: templates/cpi_datasets.html:94
 msgid "CPI Dataset by State & Division"
 msgstr "Set Data IHP mengikut Negeri & Bahagian"
 
 #: templates/cpi_datasets.html:102 templates/cpi_datasets.html:146
-#: templates/cpi_impact.html:102 templates/cpi_impact.html:146
 #: templates/datasets_page.html:184 templates/datasets_page.html:262
 msgid "Data Source:"
 msgstr "Sumber Data:"
 
-#: templates/cpi_datasets.html:102 templates/cpi_impact.html:102
+#: templates/cpi_datasets.html:102
 msgid "data.gov.my, 2010-2025"
 msgstr "data.gov.my, 2010-2025"
 
 #: templates/cpi_datasets.html:103 templates/cpi_datasets.html:147
-#: templates/cpi_impact.html:103 templates/cpi_impact.html:147
 #: templates/datasets_page.html:185 templates/datasets_page.html:263
 msgid "URL:"
 msgstr "URL:"
 
 #: templates/cpi_datasets.html:104 templates/cpi_datasets.html:148
-#: templates/cpi_impact.html:104 templates/cpi_impact.html:148
 #: templates/datasets_page.html:186 templates/datasets_page.html:264
 msgid "Methodology:"
 msgstr "Metodologi:"
 
-#: templates/cpi_datasets.html:104 templates/cpi_impact.html:104
+#: templates/cpi_datasets.html:104
 msgid "Montly CPI values were collected from official goverment data centers."
 msgstr "Nilai IHP bulanan dikumpulkan dari pusat data rasmi kerajaan."
 
-#: templates/cpi_datasets.html:114 templates/cpi_impact.html:114
+#: templates/cpi_datasets.html:114
 msgid "state map"
 msgstr "peta negeri"
 
-#: templates/cpi_datasets.html:121 templates/cpi_impact.html:121
+#: templates/cpi_datasets.html:121
 msgid "MCOICOP Chart"
 msgstr "Carta MCOICOP"
 
-#: templates/cpi_datasets.html:126 templates/cpi_impact.html:126
+#: templates/cpi_datasets.html:126
 msgid "Distribution of 5-Digit MCOICOP Subclasses"
 msgstr "Taburan Subkelas MCOICOP 5 Digit"
 
-#: templates/cpi_datasets.html:134 templates/cpi_impact.html:134
+#: templates/cpi_datasets.html:134
 msgid "Key Insights:"
 msgstr "Penemuan Utama:"
 
-#: templates/cpi_datasets.html:135 templates/cpi_impact.html:135
+#: templates/cpi_datasets.html:135
 msgid ""
 "The sections in the chart represents the MCOICOP divisions (2 digit) and the "
 "values for each section\n"
@@ -147,44 +133,44 @@ msgid ""
 "                            using the CPI value of each of the subclasses (5 "
 "digit)."
 msgstr ""
-"Bahagian dalam carta mewakili bahagian MCOICOP (2 digit) dan nilai untuk setiap bahagian\n"
-"                            mewakili bilangan subkelas (5 digit) untuk setiap bahagian (2 digit). IHP dikira\n"
-"                            menggunakan nilai IHP bagi setiap subkelas (5 digit)."
+"Bahagian dalam carta mewakili bahagian MCOICOP (2 digit) dan nilai untuk "
+"setiap bahagian\n"
+"                            mewakili bilangan subkelas (5 digit) untuk "
+"setiap bahagian (2 digit). IHP dikira\n"
+"                            menggunakan nilai IHP bagi setiap subkelas (5 "
+"digit)."
 
-#: templates/cpi_datasets.html:139 templates/cpi_impact.html:139
-#, python-format
+#: templates/cpi_datasets.html:139
 msgid ""
 "Food & Beverages has the highest weight in the CPI calculation at 27.49%%, "
 "reflecting its importance in household budgets."
 msgstr ""
-"Makanan & Minuman mempunyai pemberat tertinggi dalam pengiraan IHP pada 27.49%%, "
-"mencerminkan kepentingannya dalam belanjawan isi rumah."
+"Makanan & Minuman mempunyai pemberat tertinggi dalam pengiraan IHP pada "
+"27.49%%, mencerminkan kepentingannya dalam belanjawan isi rumah."
 
-#: templates/cpi_datasets.html:140 templates/cpi_impact.html:140
-#, python-format
+#: templates/cpi_datasets.html:140
 msgid ""
 "Transport accounts for 10.90%% of the CPI basket, which explains why the "
 "diesel subsidy reform has a significant but no overwelming impact on the "
 "overall CPI."
 msgstr ""
 "Pengangkutan menyumbang 10.90%% daripada bakul IHP, yang menjelaskan mengapa "
-"reformasi subsidi diesel mempunyai kesan yang ketara tetapi tidak terlalu besar pada "
-"keseluruhan IHP."
+"reformasi subsidi diesel mempunyai kesan yang ketara tetapi tidak terlalu "
+"besar pada keseluruhan IHP."
 
-#: templates/cpi_datasets.html:141 templates/cpi_impact.html:141
-#, python-format
+#: templates/cpi_datasets.html:141
 msgid ""
 "Housing & Utilities accounts for 4.74%%, representing another household "
 "expense."
 msgstr ""
-"Perumahan & Utiliti menyumbang 4.74%%, mewakili satu lagi perbelanjaan "
-"isi rumah."
+"Perumahan & Utiliti menyumbang 4.74%%, mewakili satu lagi perbelanjaan isi "
+"rumah."
 
-#: templates/cpi_datasets.html:146 templates/cpi_impact.html:146
+#: templates/cpi_datasets.html:146
 msgid "data.gov.my, 2018"
 msgstr "data.gov.my, 2018"
 
-#: templates/cpi_datasets.html:148 templates/cpi_impact.html:148
+#: templates/cpi_datasets.html:148
 msgid ""
 "This data provides a complete lookup for 2, 3, 4, and 5-digit codes under "
 "Malaysia's COICOP (Classification of Individual Consumption According to "
@@ -192,6 +178,479 @@ msgid ""
 msgstr ""
 "Data ini menyediakan rujukan lengkap untuk kod 2, 3, 4, dan 5 digit di bawah "
 "COICOP Malaysia (Klasifikasi Penggunaan Individu Mengikut Tujuan)."
+
+#: templates/cpi_impact.html:40 templates/datasets_page.html:74
+msgid "Diesel Dilemma"
+msgstr "Dilema Diesel"
+
+#: templates/cpi_impact.html:48 templates/diesel_policy.html:46
+msgid "Manufacturing Impact"
+msgstr "Kesan Terhadap Sektor Pembuatan"
+
+#: templates/cpi_impact.html:56
+msgid "What is Consumer Price Index (CPI)?"
+msgstr "Apakah Indeks Harga Pengguna (IHP)?"
+
+#: templates/cpi_impact.html:58
+msgid ""
+"\n"
+"                The Consumer Price Index (CPI) is a measure that examines "
+"the average change over time in the prices\n"
+"                paid by urban consumers for a basket of goods and services. "
+"It's one of the most widely used indicators\n"
+"                of inflation. Basically, CPI tells you how much prices are "
+"rising or falling for things that regular people buy like food,\n"
+"                rent, gas, clothes, healthcare, etc.\n"
+"                "
+msgstr ""
+"\n"
+"                Indeks Harga Pengguna (IHP) adalah ukuran yang mengkaji "
+"perubahan purata harga yang dibayar oleh\n"
+"                pengguna bandar untuk sekumpulan barangan dan perkhidmatan dari masa ke masa. "
+"Ia merupakan salah satu petunjuk\n"
+"                inflasi yang paling meluas digunakan. Pada asasnya, IHP memberitahu anda "
+"tentang kenaikan atau penurunan harga\n"
+"                barang-barang yang biasa dibeli oleh orang ramai seperti makanan, "
+"sewa, petrol, pakaian, penjagaan kesihatan, dan sebagainya.\n"
+"                "
+
+#: templates/cpi_impact.html:71
+msgid "Personal Price Impact Calculator"
+msgstr "Kalkulator Kesan Harga Peribadi"
+
+#: templates/cpi_impact.html:72
+msgid "Regional Price Impact"
+msgstr "Kesan Harga Mengikut Kawasan"
+
+#: templates/cpi_impact.html:73 templates/cpi_impact.html:383
+msgid "Regional Price Impact Map"
+msgstr "Peta Kesan Harga Mengikut Kawasan"
+
+#: templates/cpi_impact.html:80
+msgid "Personal Expenditure"
+msgstr "Perbelanjaan Peribadi"
+
+#: templates/cpi_impact.html:81
+msgid "Understand how the policy changes affect your personal expenditure"
+msgstr "Fahami bagaimana perubahan dasar mempengaruhi perbelanjaan peribadi anda"
+
+#: templates/cpi_impact.html:87
+msgid ""
+"Disclaimer: Calculation Performed Using Data From December 2024 and May 2024."
+msgstr "Penafian: Pengiraan Dilakukan Menggunakan Data Dari Disember 2024 dan Mei 2024."
+
+#: templates/cpi_impact.html:92
+msgid "Your Monthly Expenses"
+msgstr "Perbelanjaan Bulanan Anda"
+
+#: templates/cpi_impact.html:95
+msgid "📍 Choose Your Location"
+msgstr "📍 Pilih Lokasi Anda"
+
+#: templates/cpi_impact.html:97 templates/cpi_impact.html:302
+msgid "Johor"
+msgstr "Johor"
+
+#: templates/cpi_impact.html:98
+msgid "Kedah"
+msgstr "Kedah"
+
+#: templates/cpi_impact.html:99
+msgid "Kelantan"
+msgstr "Kelantan"
+
+#: templates/cpi_impact.html:100
+msgid "Melaka"
+msgstr "Melaka"
+
+#: templates/cpi_impact.html:101
+msgid "Negeri Sembilan"
+msgstr "Negeri Sembilan"
+
+#: templates/cpi_impact.html:102
+msgid "Pahang"
+msgstr "Pahang"
+
+#: templates/cpi_impact.html:103
+msgid "Perak"
+msgstr "Perak"
+
+#: templates/cpi_impact.html:104
+msgid "Perlis"
+msgstr "Perlis"
+
+#: templates/cpi_impact.html:105
+msgid "Pulau Pinang"
+msgstr "Pulau Pinang"
+
+#: templates/cpi_impact.html:106
+msgid "Sabah"
+msgstr "Sabah"
+
+#: templates/cpi_impact.html:107
+msgid "Sarawak"
+msgstr "Sarawak"
+
+#: templates/cpi_impact.html:108
+msgid "Selangor"
+msgstr "Selangor"
+
+#: templates/cpi_impact.html:109
+msgid "Terengganu"
+msgstr "Terengganu"
+
+#: templates/cpi_impact.html:110
+msgid "W.P. Kuala Lumpur"
+msgstr "W.P. Kuala Lumpur"
+
+#: templates/cpi_impact.html:111
+msgid "W.P. Labuan"
+msgstr "W.P. Labuan"
+
+#: templates/cpi_impact.html:112
+msgid "W.P. Putrajaya"
+msgstr "W.P. Putrajaya"
+
+#: templates/cpi_impact.html:118 templates/cpi_impact.html:215
+#: templates/cpi_impact.html:350
+
+msgid "Transport"
+msgstr "Pengangkutan"
+
+#: templates/cpi_impact.html:119 templates/cpi_impact.html:155
+msgid "RM 500"
+msgstr "RM 500"
+
+#: templates/cpi_impact.html:130 templates/cpi_impact.html:225
+#: templates/cpi_impact.html:323 templates/cpi_impact.html:392
+#: templates/cpi_impact.html:443
+msgid "Food & Beverages"
+msgstr "Makanan & Minuman"
+
+#: templates/cpi_impact.html:131
+msgid "RM 800"
+msgstr "RM 800"
+
+#: templates/cpi_impact.html:142
+msgid "Housing, Water, Electricity, Gas & Other fuels"
+msgstr "Perumahan, Air, Elektrik, Gas & Bahan Api Lain"
+
+#: templates/cpi_impact.html:143
+msgid "RM 1200"
+msgstr "RM 1200"
+
+#: templates/cpi_impact.html:154 templates/cpi_impact.html:245
+msgid "Restaurants & Accommodation Services"
+msgstr "Perkhidmatan Restoran & Penginapan"
+
+#: templates/cpi_impact.html:165
+msgid "Calculate Impact"
+msgstr "Kira Kesan"
+
+#: templates/cpi_impact.html:170
+
+msgid "Estimated Impact"
+msgstr "Anggaran Kesan"
+
+#: templates/cpi_impact.html:173
+msgid "Monthly Comparison"
+msgstr "Perbandingan Bulanan"
+
+#: templates/cpi_impact.html:176 templates/cpi_impact.html:195
+
+
+msgid "Before Policy:"
+msgstr "Sebelum Dasar:"
+
+#: templates/cpi_impact.html:177
+msgid "RM 3,000.00"
+msgstr "RM 3,000.00"
+
+#: templates/cpi_impact.html:180 templates/cpi_impact.html:199
+msgid "After Policy:"
+msgstr "Selepas Dasar:"
+
+#: templates/cpi_impact.html:181
+msgid "RM 3,087.50"
+msgstr "RM 3,087.50"
+
+#: templates/cpi_impact.html:185
+msgid "Additional monthly cost:"
+msgstr "Kos bulanan tambahan:"
+
+#: templates/cpi_impact.html:186
+msgid "+ RM 87.50"
+msgstr "+ RM 87.50"
+
+#: templates/cpi_impact.html:187 templates/cpi_impact.html:206
+msgid "(3.2%% increase)"
+msgstr "(kenaikan 3.2%%)"
+
+#: templates/cpi_impact.html:192
+msgid "Yearly Comparison"
+msgstr "Perbandingan Tahunan"
+
+#: templates/cpi_impact.html:196
+msgid "RM 36,000.00"
+msgstr "RM 36,000.00"
+
+#: templates/cpi_impact.html:200
+msgid "RM 37,050.00"
+msgstr "RM 37,050.00"
+
+#: templates/cpi_impact.html:204
+msgid "Additional yearly cost:"
+msgstr "Kos tahunan tambahan:"
+
+#: templates/cpi_impact.html:205
+msgid "+ RM 1,050.00"
+msgstr "+ RM 1,050.00"
+
+#: templates/cpi_impact.html:210
+msgid "Impact Breakdown"
+msgstr "Perincian Kesan"
+
+#: templates/cpi_impact.html:218
+msgid "+ RM 55.00"
+msgstr "+ RM 55.00"
+
+#: templates/cpi_impact.html:219
+msgid "(11.0%% increase)"
+msgstr "(kenaikan 11.0%%)"
+
+#: templates/cpi_impact.html:228
+msgid "+ RM 16.00"
+msgstr "+ RM 16.00"
+
+#: templates/cpi_impact.html:229
+msgid "(2.0%% increase)"
+msgstr "(kenaikan 2.0%%)"
+
+#: templates/cpi_impact.html:235
+msgid "House, Water, Electricity, Gas & Other fuels"
+msgstr "Rumah, Air, Elektrik, Gas & Bahan Api Lain"
+
+#: templates/cpi_impact.html:238
+msgid "+ RM 12.00"
+msgstr "+ RM 12.00"
+
+#: templates/cpi_impact.html:239
+msgid "(1.0%% increase)"
+msgstr "(kenaikan 1.0%%)"
+
+#: templates/cpi_impact.html:248
+msgid "+ RM 4.50"
+msgstr "+ RM 4.50"
+
+#: templates/cpi_impact.html:249
+msgid "(0.9%% increase)"
+msgstr "(kenaikan 0.9%%)"
+
+#: templates/cpi_impact.html:257
+msgid "Money-Saving Tips"
+msgstr "Tip Penjimatan Wang"
+
+#: templates/cpi_impact.html:260
+msgid "Consider carpooling or public transport to reduce transportation costs"
+msgstr "Pertimbangkan perkongsian kereta atau pengangkutan awam untuk mengurangkan kos pengangkutan"
+
+#: templates/cpi_impact.html:261
+msgid "Buy groceries in bulk and during promotional periods"
+msgstr "Beli barang runcit secara pukal dan semasa tempoh promosi"
+
+#: templates/cpi_impact.html:262
+msgid "Use energy-efficient appliances to reduce utility bills"
+msgstr "Gunakan peralatan jimat tenaga untuk mengurangkan bil utiliti"
+
+#: templates/cpi_impact.html:263
+msgid ""
+"Look for government assistance programs available for eligible households"
+msgstr "Cari program bantuan kerajaan yang tersedia untuk isi rumah yang layak"
+
+#: templates/cpi_impact.html:277
+msgid "Regional Category Impact"
+msgstr "Kesan Kategori Mengikut Kawasan"
+
+#: templates/cpi_impact.html:278
+msgid "Understand how the policy changes affect different sectors"
+msgstr "Fahami bagaimana perubahan dasar mempengaruhi sektor yang berbeza"
+
+#: templates/cpi_impact.html:282
+msgid "Major Categories"
+msgstr "Kategori Utama"
+
+#: templates/cpi_impact.html:291
+msgid "Impact by CPI Categories"
+msgstr "Kesan Mengikut Kategori IHP"
+
+#: templates/cpi_impact.html:293
+msgid ""
+"\n"
+"                            The diesel subsidy removal had varying impacts "
+"across different categories of the Consumer Price Index.\n"
+"                            Below is the breakdown of how different sectors "
+"were affected:\n"
+"                            "
+msgstr ""
+"\n"
+"                            Penghapusan subsidi diesel mempunyai kesan yang berbeza-beza "
+"terhadap kategori Indeks Harga Pengguna yang berlainan.\n"
+"                            Berikut adalah perincian bagaimana sektor yang berbeza "
+"terjejas:\n"
+"                            "
+
+#: templates/cpi_impact.html:300
+msgid "📍 Country State:"
+msgstr "📍 Negeri:"
+
+#: templates/cpi_impact.html:316
+msgid "Category"
+msgstr "Kategori"
+
+#: templates/cpi_impact.html:317
+msgid "CPI Difference (%%)"
+msgstr "Perbezaan IHP (%%)"
+
+#: templates/cpi_impact.html:318 templates/cpi_impact.html:407
+msgid "Impact Level"
+msgstr "Tahap Kesan"
+
+#: templates/cpi_impact.html:332
+msgid "Restaurant & Accommodation Services"
+msgstr "Perkhidmatan Restoran & Penginapan"
+
+#: templates/cpi_impact.html:341
+msgid "Housing, Water, Electricity, Gas & Other Fuels"
+msgstr "Perumahan, Air, Elektrik, Gas & Bahan Api Lain"
+
+#: templates/cpi_impact.html:377
+msgid "Regional Impact Map"
+msgstr "Peta Kesan Mengikut Kawasan"
+
+#: templates/cpi_impact.html:378
+msgid "Understand how the policy affects the country across states"
+msgstr "Fahami bagaimana dasar mempengaruhi negara di seluruh negeri"
+
+#: templates/cpi_impact.html:384
+msgid ""
+"This interactive map shows how the diesel subsidy policy affects different "
+"regions in Malaysia. Click on a region to see detailed information about "
+"price changes in that area."
+msgstr ""
+"Peta interaktif ini menunjukkan bagaimana dasar subsidi diesel mempengaruhi "
+"kawasan berbeza di Malaysia. Klik pada sesuatu kawasan untuk melihat "
+"maklumat terperinci tentang perubahan harga di kawasan tersebut."
+
+#: templates/cpi_impact.html:388
+msgid "📚 Impact Category:"
+msgstr "📚 Kategori Kesan:"
+
+#: templates/cpi_impact.html:390
+msgid "Overall Price Impact"
+msgstr "Kesan Harga Keseluruhan"
+
+#: templates/cpi_impact.html:391 templates/cpi_impact.html:433
+
+msgid "Transportation"
+msgstr "Pengangkutan"
+
+#: templates/cpi_impact.html:393 templates/cpi_impact.html:453
+msgid "Housing & Utilities"
+msgstr "Perumahan & Utiliti"
+
+#: templates/cpi_impact.html:394 templates/cpi_impact.html:463
+msgid "Restaurants & Accommodation"
+msgstr "Restoran & Penginapan"
+
+#: templates/cpi_impact.html:409
+
+msgid "Lower Impact"
+msgstr "Kesan Rendah"
+
+#: templates/cpi_impact.html:411
+
+msgid "Higher Impact"
+msgstr "Kesan Tinggi"
+
+#: templates/cpi_impact.html:418
+msgid "Select a region"
+msgstr "Pilih kawasan"
+
+#: templates/cpi_impact.html:423
+msgid "Overall Price Impact:"
+msgstr "Kesan Harga Keseluruhan:"
+
+#: templates/cpi_impact.html:429
+msgid "Impact by Category"
+msgstr "Kesan Mengikut Kategori"
+
+#: templates/cpi_impact.html:483
+
+msgid "Reasons for regional differences"
+msgstr "Sebab-sebab perbezaan mengikut kawasan"
+
+#: templates/cpi_impact.html:484
+msgid ""
+"East Malaysia (Sabah, Sarawak) and the East Coast states (Kelantan, "
+"Terengganu, Pahang) are most affected by the diesel price policy adjustment. "
+"The main reasons include:"
+msgstr ""
+"Malaysia Timur (Sabah, Sarawak) dan negeri-negeri Pantai Timur (Kelantan, "
+"Terengganu, Pahang) paling terjejas oleh pelarasan dasar harga diesel. "
+"Antara sebab utama termasuk:"
+
+#: templates/cpi_impact.html:486
+msgid ""
+"The logistics distance is long and the transportation cost accounts for a "
+"high proportion"
+msgstr "Jarak logistik yang jauh dan kos pengangkutan menyumbang kepada sebahagian besar perbelanjaan"
+
+#: templates/cpi_impact.html:487
+msgid ""
+"A high proportion of agricultural and fishing activities are dependent on "
+"diesel"
+msgstr "Sebahagian besar aktiviti pertanian dan perikanan bergantung kepada diesel"
+
+#: templates/cpi_impact.html:488
+msgid "Limited alternative transportation options and high private car usage"
+msgstr "Pilihan pengangkutan alternatif yang terhad dan penggunaan kereta persendirian yang tinggi"
+
+#: templates/cpi_impact.html:489
+msgid ""
+"There are few consumer goods produced locally, and they rely on foreign "
+"supplies"
+msgstr "Terdapat sedikit barangan pengguna yang dihasilkan di peringkat tempatan, dan mereka bergantung kepada bekalan luar"
+
+#: templates/cpi_impact.html:494
+msgid "Targeted policy response"
+msgstr "Tindak balas dasar yang disasarkan"
+
+#: templates/cpi_impact.html:495
+msgid ""
+"The government has introduced a series of targeted measures for high-impact "
+"areas:"
+msgstr "Kerajaan telah memperkenalkan siri langkah-langkah yang disasarkan untuk kawasan yang terjejas teruk:"
+
+#: templates/cpi_impact.html:497
+msgid ""
+"Special logistics subsidy scheme for East Malaysia to reduce transportation "
+"costs of essential goods"
+msgstr "Skim subsidi logistik khas untuk Malaysia Timur bagi mengurangkan kos pengangkutan barangan keperluan asas"
+
+#: templates/cpi_impact.html:498
+msgid "Special fuel subsidies for fishermen and farmers in remote areas"
+msgstr "Subsidi bahan api khas untuk nelayan dan petani di kawasan pedalaman"
+
+#: templates/cpi_impact.html:499
+msgid ""
+"Investment plans to strengthen food production capacity in East Coast and "
+"East Malaysia"
+msgstr "Pelan pelaburan untuk memperkukuh kapasiti pengeluaran makanan di Pantai Timur dan Malaysia Timur"
+
+#: templates/cpi_impact.html:500
+msgid "Long-term planning to expand public transport network coverage"
+msgstr "Perancangan jangka panjang untuk memperluaskan liputan rangkaian pengangkutan awam"
+
 
 #: templates/datasets_page.html:7
 msgid "MyPolicyLens - Data Dashboard"
@@ -206,17 +665,13 @@ msgid "POLICY"
 msgstr "DASAR"
 
 #: templates/datasets_page.html:27 templates/datasets_page.html:282
-#: templates/footer.html:9 templates/header.html:10
+#: templates/footer.html:10 templates/header.html:10
 msgid "FAQ"
 msgstr "SOALAN LAZIM"
 
 #: templates/datasets_page.html:28 templates/header.html:11
 msgid "AI CHATBOT"
 msgstr "BOT SEMBANG AI"
-
-#: templates/datasets_page.html:74
-msgid "Diesel Dilemma"
-msgstr "Dilema Diesel"
 
 #: templates/datasets_page.html:78
 msgid "Household Impact"
@@ -233,18 +688,6 @@ msgstr "Kenderaan Berdaftar"
 #: templates/datasets_page.html:104
 msgid "Fuel Price Dataset"
 msgstr "Set Data Harga Bahan Api"
-
-#: templates/datasets_page.html:118 templates/datasets_page.html:210
-msgid "All Years"
-msgstr "Semua Tahun"
-
-#: templates/datasets_page.html:125
-msgid "Fuel Type"
-msgstr "Jenis Bahan Api"
-
-#: templates/datasets_page.html:127
-msgid "All Types"
-msgstr "Semua Jenis"
 
 #: templates/datasets_page.html:138
 msgid "Diesel"
@@ -268,7 +711,8 @@ msgstr "Perbandingan Harga Mengikut Kawasan"
 
 #: templates/datasets_page.html:177
 msgid "Compare diesel prices across different regions after the subsidy reform"
-msgstr "Bandingkan harga diesel di seluruh kawasan berbeza selepas reformasi subsidi"
+msgstr ""
+"Bandingkan harga diesel di seluruh kawasan berbeza selepas reformasi subsidi"
 
 #: templates/datasets_page.html:184
 msgid "data.gov.my, 2017-2025"
@@ -281,10 +725,6 @@ msgstr "Harga bahan api mingguan dikumpulkan dari pusat data rasmi kerajaan."
 #: templates/datasets_page.html:196
 msgid "Registered Vehicles Dataset"
 msgstr "Set Data Kenderaan Berdaftar"
-
-#: templates/datasets_page.html:219
-msgid "All Regions"
-msgstr "Semua Kawasan"
 
 #: templates/datasets_page.html:246
 msgid "Vehicle Types Distribution (2024)"
@@ -303,14 +743,14 @@ msgid ""
 "Vehicle registration records aggregated by type, state, and year. Updated "
 "monthly."
 msgstr ""
-"Rekod pendaftaran kenderaan diagregatkan mengikut jenis, negeri, dan tahun. Dikemaskini "
-"setiap bulan."
+"Rekod pendaftaran kenderaan diagregatkan mengikut jenis, negeri, dan tahun. "
+"Dikemaskini setiap bulan."
 
-#: templates/datasets_page.html:280 templates/footer.html:7
+#: templates/datasets_page.html:280 templates/footer.html:8
 msgid "Quick Links"
 msgstr "Pautan Pantas"
 
-#: templates/datasets_page.html:281 templates/footer.html:8
+#: templates/datasets_page.html:281 templates/footer.html:9
 msgid "About us"
 msgstr "Tentang Kami"
 
@@ -321,10 +761,6 @@ msgstr "MYPolicyLens - Dilema Diesel"
 #: templates/diesel_policy.html:29
 msgid "Malaysia's 2024 Subsidy Transformation"
 msgstr "Transformasi Subsidi Malaysia 2024"
-
-#: templates/diesel_policy.html:46
-msgid "Manufacturing Impact"
-msgstr "Kesan Terhadap Sektor Pembuatan"
 
 #: templates/diesel_policy.html:54
 msgid "What is the Diesel Subsidy Policy?"
@@ -343,11 +779,12 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"                Pada Jun 2024, Malaysia melaksanakan dasar subsidi diesel bersasar "
-"yang bertujuan untuk mengurangkan perbelanjaan kerajaan dan memastikan subsidi\n"
-"                memberi manfaat kepada mereka yang paling memerlukan. Sebelum reformasi ini, diesel "
-"disubsidi secara besar-besaran, menyebabkan beban kewangan yang ketara kepada "
-"kerajaan. Kos\n"
+"                Pada Jun 2024, Malaysia melaksanakan dasar subsidi diesel "
+"bersasar yang bertujuan untuk mengurangkan perbelanjaan kerajaan dan "
+"memastikan subsidi\n"
+"                memberi manfaat kepada mereka yang paling memerlukan. "
+"Sebelum reformasi ini, diesel disubsidi secara besar-besaran, menyebabkan "
+"beban kewangan yang ketara kepada kerajaan. Kos\n"
 "                subsidi diesel meningkat dari RM1.4 bilion pada 2019 kepada "
 "RM14.3 bilion pada 2023.\n"
 "                "
@@ -371,8 +808,9 @@ msgid ""
 "rise in subsidy costs became a pressing issue that demanded reform."
 msgstr ""
 "Perbelanjaan subsidi diesel Malaysia meningkat secara dramatik sejak "
-"beberapa tahun kebelakangan ini, mewujudkan beban yang tidak mampan pada kewangan kerajaan. Peningkatan "
-"pesat dalam kos subsidi menjadi isu mendesak yang memerlukan reformasi."
+"beberapa tahun kebelakangan ini, mewujudkan beban yang tidak mampan pada "
+"kewangan kerajaan. Peningkatan pesat dalam kos subsidi menjadi isu mendesak "
+"yang memerlukan reformasi."
 
 #: templates/diesel_policy.html:81
 msgid "Subsidy Cost Explosion"
@@ -399,7 +837,6 @@ msgid "14.3 billion MYR"
 msgstr "14.3 bilion MYR"
 
 #: templates/diesel_policy.html:98
-#, python-format
 msgid "A staggering 920%% increase in just four years"
 msgstr "Peningkatan mendadak sebanyak 920%% dalam tempoh empat tahun sahaja"
 
@@ -454,7 +891,6 @@ msgid "RM 4.50"
 msgstr "RM 4.50"
 
 #: templates/diesel_policy.html:142
-#, python-format
 msgid ""
 "\n"
 "                        The diesel price increased from RM2.15 per liter to "
@@ -469,8 +905,8 @@ msgstr ""
 "\n"
 "                        Harga diesel meningkat dari RM2.15 seliter kepada "
 "RM3.35 seliter, peningkatan\n"
-"                        sebanyak 56%%. Pelarasan ini menyelaraskan harga dengan lebih "
-"dekat dengan kadar\n"
+"                        sebanyak 56%%. Pelarasan ini menyelaraskan harga "
+"dengan lebih dekat dengan kadar\n"
 "                        pasaran sementara program bantuan bersasar membantu "
 "mengurangkan kesan terhadap\n"
 "                        kumpulan yang mudah terjejas.\n"
@@ -616,8 +1052,9 @@ msgid ""
 "                            "
 msgstr ""
 "\n"
-"                            Sumber: Kementerian Kewangan Malaysia. (2024, Mac "
-"22). Program Bantuan Subsidi MADANI Dibuka Untuk Permohonan. Diambil dari\n"
+"                            Sumber: Kementerian Kewangan Malaysia. (2024, "
+"Mac 22). Program Bantuan Subsidi MADANI Dibuka Untuk Permohonan. Diambil "
+"dari\n"
 "                            "
 
 #: templates/diesel_policy.html:284
@@ -671,12 +1108,12 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"                    Reformasi subsidi diesel dijangka menjana "
-"penjimatan yang ketara bagi kerajaan Malaysia, yang boleh disalurkan semula ke "
-"bidang keutamaan lain.\n"
+"                    Reformasi subsidi diesel dijangka menjana penjimatan "
+"yang ketara bagi kerajaan Malaysia, yang boleh disalurkan semula ke bidang "
+"keutamaan lain.\n"
 "                    Pelaksanaannya juga berbeza mengikut kawasan. Dasar "
-"subsidi diesel bersasar dijangka menjimatkan kerajaan sebanyak RM4 "
-"bilion (USD 852\n"
+"subsidi diesel bersasar dijangka menjimatkan kerajaan sebanyak RM4 bilion "
+"(USD 852\n"
 "                    juta) setiap tahun.\n"
 "                    "
 
@@ -688,8 +1125,8 @@ msgid ""
 "                        "
 msgstr ""
 "\n"
-"                        Sumber: Reuters. (2024, Mei 27). Malaysia akan potong "
-"subsidi diesel, menjimatkan $852 juta setiap tahun. Diambil dari\n"
+"                        Sumber: Reuters. (2024, Mei 27). Malaysia akan "
+"potong subsidi diesel, menjimatkan $852 juta setiap tahun. Diambil dari\n"
 "                        "
 
 #: templates/diesel_policy.html:332
@@ -734,7 +1171,12 @@ msgid ""
 "reallocated to other aid programs and initiatives, such as cash assistance "
 "for low-income groups, improving the well-being of vulnerable Malaysians, "
 "and financing free nutritious meal programs in schools."
-msgstr "Penjimatan daripada rasionalisasi subsidi bahan api dijangka disalurkan semula kepada program bantuan dan inisiatif lain, seperti bantuan tunai untuk golongan berpendapatan rendah, meningkatkan kesejahteraan rakyat Malaysia yang terdedah, dan membiayai program makanan berkhasiat percuma di sekolah."
+msgstr ""
+"Penjimatan daripada rasionalisasi subsidi bahan api dijangka disalurkan "
+"semula kepada program bantuan dan inisiatif lain, seperti bantuan tunai "
+"untuk golongan berpendapatan rendah, meningkatkan kesejahteraan rakyat "
+"Malaysia yang terdedah, dan membiayai program makanan berkhasiat percuma di "
+"sekolah."
 
 #: templates/diesel_policy.html:362
 msgid "Regional Price Differences"
@@ -769,7 +1211,10 @@ msgid ""
 "The diesel subsidy reform has been implemented differently across Malaysia's "
 "regions, with distinct approaches for Peninsular Malaysia versus East "
 "Malaysia."
-msgstr "Reformasi subsidi diesel telah dilaksanakan secara berbeza di seluruh wilayah Malaysia, dengan pendekatan yang berbeza antara Semenanjung Malaysia dan Malaysia Timur."
+msgstr ""
+"Reformasi subsidi diesel telah dilaksanakan secara berbeza di seluruh "
+"wilayah Malaysia, dengan pendekatan yang berbeza antara Semenanjung Malaysia "
+"dan Malaysia Timur."
 
 #: templates/diesel_policy.html:386
 msgid ""
@@ -778,7 +1223,12 @@ msgid ""
 "9). Government Implements Targeted Diesel Subsidy for Peninsular Malaysia "
 "Effective 10 June 2024. Retrieved from\n"
 "                        "
-msgstr "\n                        Sumber: Kementerian Kewangan Malaysia. (9 Jun 2024). Kerajaan Melaksanakan Subsidi Diesel Bersasar untuk Semenanjung Malaysia Berkuat Kuasa 10 Jun 2024. Dipetik dari\n                        "
+msgstr ""
+"\n"
+"                        Sumber: Kementerian Kewangan Malaysia. (9 Jun 2024). "
+"Kerajaan Melaksanakan Subsidi Diesel Bersasar untuk Semenanjung Malaysia "
+"Berkuat Kuasa 10 Jun 2024. Dipetik dari\n"
+"                        "
 
 #: templates/diesel_policy.html:401
 msgid "The Future Outlook"
@@ -817,7 +1267,8 @@ msgstr "Reformasi Subsidi Petrol RON95"
 msgid ""
 "Similar targeted approach for RON95 petrol, currently priced at RM 2.05 per "
 "liter"
-msgstr "Pendekatan bersasar serupa untuk petrol RON95, kini berharga RM2.05 seliter"
+msgstr ""
+"Pendekatan bersasar serupa untuk petrol RON95, kini berharga RM2.05 seliter"
 
 #: templates/diesel_policy.html:431
 msgid "Phase 3 (2025)"
@@ -852,10 +1303,11 @@ msgid "Fiscal Sustainability"
 msgstr "Kemampanan Fiskal"
 
 #: templates/diesel_policy.html:458
-#, python-format
 msgid ""
 "Projected reduction in fiscal deficit from 5.8%% to 3.8%% of GDP by 2025"
-msgstr "Pengurangan defisit fiskal yang diunjurkan daripada 5.8%% kepada 3.8%% daripada KDNK menjelang 2025"
+msgstr ""
+"Pengurangan defisit fiskal yang diunjurkan daripada 5.8%% kepada 3.8%% "
+"daripada KDNK menjelang 2025"
 
 #: templates/diesel_policy.html:467
 msgid "Enhanced Social Services"
@@ -863,7 +1315,9 @@ msgstr "Perkhidmatan Sosial yang Dipertingkatkan"
 
 #: templates/diesel_policy.html:468
 msgid "Reallocation of funds to healthcare, education, and social protection"
-msgstr "Penyaluran semula dana kepada penjagaan kesihatan, pendidikan, dan perlindungan sosial"
+msgstr ""
+"Penyaluran semula dana kepada penjagaan kesihatan, pendidikan, dan "
+"perlindungan sosial"
 
 #: templates/diesel_policy.html:477
 msgid "Infrastructure Development"
@@ -879,7 +1333,8 @@ msgstr "Kesan Alam Sekitar"
 
 #: templates/diesel_policy.html:488
 msgid "Reduced fuel consumption and related environmental benefits"
-msgstr "Pengurangan penggunaan bahan api dan manfaat alam sekitar yang berkaitan"
+msgstr ""
+"Pengurangan penggunaan bahan api dan manfaat alam sekitar yang berkaitan"
 
 #: templates/diesel_policy.html:497
 msgid "Economic Resilience"
@@ -896,7 +1351,13 @@ msgid ""
 "of a comprehensive strategy to rationalize subsidies across the board, "
 "ensuring that they benefit those who need them most while reducing fiscal "
 "leakage and promoting a more sustainable financial model."
-msgstr "Berikutan reformasi subsidi diesel, kerajaan Malaysia merancang untuk melaksanakan mekanisme subsidi bersasar yang serupa bagi petrol RON95. Ini adalah sebahagian daripada strategi komprehensif untuk merasionalisasi subsidi secara menyeluruh, memastikan bantuan disasarkan kepada golongan yang benar-benar memerlukan sambil mengurangkan kebocoran fiskal dan menggalakkan model kewangan yang lebih lestari."
+msgstr ""
+"Berikutan reformasi subsidi diesel, kerajaan Malaysia merancang untuk "
+"melaksanakan mekanisme subsidi bersasar yang serupa bagi petrol RON95. Ini "
+"adalah sebahagian daripada strategi komprehensif untuk merasionalisasi "
+"subsidi secara menyeluruh, memastikan bantuan disasarkan kepada golongan "
+"yang benar-benar memerlukan sambil mengurangkan kebocoran fiskal dan "
+"menggalakkan model kewangan yang lebih lestari."
 
 #: templates/diesel_policy.html:512
 msgid ""
@@ -904,156 +1365,188 @@ msgid ""
 "                        Source: Bloomberg. (2024, June 25). Malaysia's "
 "Carbon Tax Ambitions Need to Overcome Fuel Subsidies. Retrieved from\n"
 "                        "
-msgstr "\n                        Sumber: Bloomberg. (25 Jun 2024). Aspirasi Cukai Karbon Malaysia Perlu Mengatasi Subsidi Bahan Api. Dipetik dari\n                        "
+msgstr ""
+"\n"
+"                        Sumber: Bloomberg. (25 Jun 2024). Aspirasi Cukai "
+"Karbon Malaysia Perlu Mengatasi Subsidi Bahan Api. Dipetik dari\n"
+"                        "
 
-#: templates/footer.html:4 templates/header.html:5
+#: templates/footer.html:5 templates/header.html:5
 msgid "PolicyLens"
 msgstr "PolicyLens"
 
-#: templates/index.html:6
+#: templates/header.html:22 templates/header.html:33
+msgid "English"
+msgstr ""
+
+#: templates/index.html:7
 msgid "PolicyLens - Making Policies Transparent & Understandable"
 msgstr "PolicyLens - Menjadikan Dasar Lebih Telus & Difahami"
 
-#: templates/index.html:17
+#: templates/index.html:18
 msgid "Making Policies"
 msgstr "Menjadikan Dasar"
 
-#: templates/index.html:17
+#: templates/index.html:18
 msgid "Transparent"
 msgstr "Telus"
 
-#: templates/index.html:17
+#: templates/index.html:18
 msgid "Understandable"
 msgstr "Mudah Difahami"
 
-#: templates/index.html:17
+#: templates/index.html:18
 msgid "for Everyone"
 msgstr "untuk Semua"
 
-#: templates/index.html:18
+#: templates/index.html:19
 msgid ""
 "Navigating policies made easy — breaking down complex policies into "
 "straightforward, accessible information for everyone."
-msgstr "Menavigasi dasar menjadi mudah — menguraikan dasar kompleks kepada maklumat yang jelas dan mudah diakses oleh semua."
+msgstr ""
+"Menavigasi dasar menjadi mudah — menguraikan dasar kompleks kepada maklumat "
+"yang jelas dan mudah diakses oleh semua."
 
-#: templates/index.html:19
+#: templates/index.html:20
 msgid "Explore Policies"
 msgstr "Terokai Dasar"
 
-#: templates/index.html:21
+#: templates/index.html:22
 msgid "Scroll Down"
 msgstr "Skrol ke Bawah"
 
-#: templates/index.html:30
+#: templates/index.html:31
 msgid "Diesel Subsidy Reform: What's Going to Cost You?"
 msgstr "Reformasi Subsidi Diesel: Apa Kos untuk Anda?"
 
-#: templates/index.html:31
+#: templates/index.html:32
 msgid "Subsidies are changing. Prices are rising."
 msgstr "Subsidi sedang berubah. Harga semakin meningkat."
 
-#: templates/index.html:31
+#: templates/index.html:32
 msgid ""
 "Find out how this new policy could hit your wallet—and what it really means "
 "for your daily life."
-msgstr "Ketahui bagaimana dasar baharu ini boleh menjejaskan kewangan anda—dan apa maksud sebenarnya untuk kehidupan harian anda."
+msgstr ""
+"Ketahui bagaimana dasar baharu ini boleh menjejaskan kewangan anda—dan apa "
+"maksud sebenarnya untuk kehidupan harian anda."
 
-#: templates/index.html:32
+#: templates/index.html:33
 msgid "Explore the Policy"
 msgstr "Terokai Dasar Ini"
 
-#: templates/index.html:46
+#: templates/index.html:47
 msgid ""
 "The platform helps citizens access policy transparency data by visualizing "
 "key metrics and policy impacts across different regions"
-msgstr "Platform ini membantu rakyat mengakses data ketelusan dasar dengan memvisualkan metrik utama dan kesan dasar merentasi pelbagai wilayah"
+msgstr ""
+"Platform ini membantu rakyat mengakses data ketelusan dasar dengan "
+"memvisualkan metrik utama dan kesan dasar merentasi pelbagai wilayah"
 
-#: templates/index.html:51
+#: templates/index.html:52
 msgid "Malaysians Potentially Impacted"
 msgstr "Rakyat Malaysia yang Berkemungkinan Terjejas"
 
-#: templates/index.html:55
+#: templates/index.html:56
 msgid "Malaysia's Transparency Score"
 msgstr "Skor Ketelusan Malaysia"
 
-#: templates/index.html:64
+#: templates/index.html:65
 msgid "What We Do?"
 msgstr "Apa yang Kami Lakukan?"
 
-#: templates/index.html:66
+#: templates/index.html:67
 msgid ""
 "PolicyLens helps Malaysians understand how government decisions affect "
 "everyday life, without the jargon."
-msgstr "PolicyLens membantu rakyat Malaysia memahami bagaimana keputusan kerajaan memberi kesan kepada kehidupan harian, tanpa jargon yang rumit."
+msgstr ""
+"PolicyLens membantu rakyat Malaysia memahami bagaimana keputusan kerajaan "
+"memberi kesan kepada kehidupan harian, tanpa jargon yang rumit."
 
-#: templates/index.html:67
+#: templates/index.html:68
 msgid ""
 "We simplify official policies, break down complex data, and visualize real-"
 "world impacts, so you can make informed choices with confidence."
-msgstr "Kami mempermudah dasar rasmi, menghuraikan data kompleks, dan memvisualkan kesan dunia sebenar supaya anda boleh membuat keputusan dengan yakin."
+msgstr ""
+"Kami mempermudah dasar rasmi, menghuraikan data kompleks, dan memvisualkan "
+"kesan dunia sebenar supaya anda boleh membuat keputusan dengan yakin."
 
-#: templates/index.html:74
+#: templates/index.html:75
 msgid "Data Dashboard"
 msgstr "Papan Pemuka Data"
 
-#: templates/index.html:80
+#: templates/index.html:81
 msgid "Policy Impact Analysis"
 msgstr "Analisis Kesan Dasar"
 
-#: templates/index.html:86
+#: templates/index.html:87
 msgid "Educational Resources"
 msgstr "Sumber Pendidikan"
 
-#: templates/index.html:98
+#: templates/index.html:99
 msgid "Video Thumbnail"
 msgstr "Imej Pratonton Video"
 
-#: templates/index.html:119
+#: templates/index.html:120
 msgid "Why it Matters?"
 msgstr "Mengapa Ia Penting?"
 
-#: templates/index.html:120
+#: templates/index.html:121
 msgid ""
 "Government policies shape the prices we pay, the jobs we pursue, and the "
 "lives we lead."
-msgstr "Dasar kerajaan membentuk harga yang kita bayar, pekerjaan yang kita kejar, dan kehidupan yang kita jalani."
-
-#: templates/index.html:121
-msgid ""
-"But when policies are buried in jargon or distorted by headlines, citizens "
-"lose trust and power."
-msgstr "Tetapi apabila dasar diselubungi jargon atau diputarbelitkan oleh tajuk berita, rakyat kehilangan kepercayaan dan kuasa."
+msgstr ""
+"Dasar kerajaan membentuk harga yang kita bayar, pekerjaan yang kita kejar, "
+"dan kehidupan yang kita jalani."
 
 #: templates/index.html:122
 msgid ""
+"But when policies are buried in jargon or distorted by headlines, citizens "
+"lose trust and power."
+msgstr ""
+"Tetapi apabila dasar diselubungi jargon atau diputarbelitkan oleh tajuk "
+"berita, rakyat kehilangan kepercayaan dan kuasa."
+
+#: templates/index.html:123
+msgid ""
 "PolicyLens helps you cut through the noise, understand what's really "
 "happening, and make decisions that matter."
-msgstr "PolicyLens membantu anda menapis kekeliruan, memahami apa yang benar-benar berlaku, dan membuat keputusan yang bermakna."
+msgstr ""
+"PolicyLens membantu anda menapis kekeliruan, memahami apa yang benar-benar "
+"berlaku, dan membuat keputusan yang bermakna."
 
-#: templates/index.html:130
+#: templates/index.html:131
 msgid "Who We Are?"
 msgstr "Siapa Kami?"
 
-#: templates/index.html:131
+#: templates/index.html:132
 msgid ""
 "We're a group of designers, developers, and researchers from Monash "
 "University's School of IT, brought together by a shared frustration: public "
 "policies are hard to understand, but they affect all of us."
-msgstr "Kami adalah sekumpulan pereka bentuk, pembangun, dan penyelidik dari Sekolah IT Universiti Monash, disatukan oleh satu kekecewaan bersama: dasar awam sukar difahami, tetapi ia memberi kesan kepada kita semua."
-
-#: templates/index.html:132
-msgid ""
-"So we built PolicyLens, a platform that simplifies complex policies into "
-"clear, actionable insights for everyday people."
-msgstr "Jadi kami membina PolicyLens, sebuah platform yang mempermudah dasar yang kompleks menjadi wawasan yang jelas dan boleh diambil tindakan oleh semua orang."
+msgstr ""
+"Kami adalah sekumpulan pereka bentuk, pembangun, dan penyelidik dari Sekolah "
+"IT Universiti Monash, disatukan oleh satu kekecewaan bersama: dasar awam "
+"sukar difahami, tetapi ia memberi kesan kepada kita semua."
 
 #: templates/index.html:133
 msgid ""
+"So we built PolicyLens, a platform that simplifies complex policies into "
+"clear, actionable insights for everyday people."
+msgstr ""
+"Jadi kami membina PolicyLens, sebuah platform yang mempermudah dasar yang "
+"kompleks menjadi wawasan yang jelas dan boleh diambil tindakan oleh semua "
+"orang."
+
+#: templates/index.html:134
+msgid ""
 "We believe informed citizens are empowered citizens and that starts with "
 "clarity."
-msgstr "Kami percaya rakyat yang bermaklumat ialah rakyat yang berkuasa, dan semuanya bermula dengan kejelasan."
+msgstr ""
+"Kami percaya rakyat yang bermaklumat ialah rakyat yang berkuasa, dan "
+"semuanya bermula dengan kejelasan."
 
-#: templates/index.html:136
+#: templates/index.html:137
 msgid "Malaysian Flags"
 msgstr "Bendera Malaysia"
 
@@ -1087,9 +1580,32 @@ msgid ""
 "reducing government expenditure and ensuring that subsidies benefit those "
 "most in need. Prior to this reform, diesel was heavily subsidized, leading "
 "to significant financial burdens on the government."
-msgstr "Pada Jun 2024, Malaysia melaksanakan dasar subsidi diesel bersasar yang bertujuan mengurangkan perbelanjaan kerajaan dan memastikan subsidi memberi manfaat kepada golongan yang paling memerlukan. Sebelum reformasi ini, diesel disubsidi secara besar-besaran, menyebabkan beban kewangan yang besar kepada kerajaan."
+msgstr ""
+"Pada Jun 2024, Malaysia melaksanakan dasar subsidi diesel bersasar yang "
+"bertujuan mengurangkan perbelanjaan kerajaan dan memastikan subsidi memberi "
+"manfaat kepada golongan yang paling memerlukan. Sebelum reformasi ini, "
+"diesel disubsidi secara besar-besaran, menyebabkan beban kewangan yang besar "
+"kepada kerajaan."
 
 #: templates/policies.html:48 templates/policies.html:58
 #: templates/policies.html:68 templates/policies.html:78
 msgid "Read More"
 msgstr "Baca Lagi"
+
+#~ msgid "Year"
+#~ msgstr "Tahun"
+
+#~ msgid "Region"
+#~ msgstr "Kawasan"
+
+#~ msgid "All Years"
+#~ msgstr "Semua Tahun"
+
+#~ msgid "Fuel Type"
+#~ msgstr "Jenis Bahan Api"
+
+#~ msgid "All Types"
+#~ msgstr "Semua Jenis"
+
+#~ msgid "All Regions"
+#~ msgstr "Semua Kawasan"
