@@ -1,0 +1,125 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-30 00:10+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+#: static/assets/js/datasets_page.js:657 static/assets/js/datasets_page.js:673
+#: static/assets/js/datasets_page.js:696 static/assets/js/datasets_page.js:787
+#: static/assets/js/datasets_page.js:789
+msgid "line"
+msgstr "garisan"
+
+#: static/assets/js/datasets_page.js:684 static/assets/js/datasets_page.js:705
+msgid "bar"
+msgstr "bar"
+
+#: static/assets/js/datasets_page.js:690
+msgid "Error initializing diesel price charts:"
+msgstr "Ralat semasa memulakan carta harga diesel:"
+
+#: static/assets/js/datasets_page.js:768 static/assets/js/datasets_page.js:825
+#: static/assets/js/datasets_page.js:835 static/assets/js/datasets_page.js:1794
+msgid "All Years"
+msgstr "Semua Tahun"
+
+#: static/assets/js/datasets_page.js:825
+msgid "all years"
+msgstr "semua tahun"
+
+#: static/assets/js/datasets_page.js:838 static/assets/js/datasets_page.js:1794
+msgid "All Regions"
+msgstr "Semua Wilayah"
+
+#: static/assets/js/diesel_policy.js:12
+msgid "Private Vehicle Owners"
+msgstr "Pemilik Kenderaan Persendirian"
+
+#: static/assets/js/diesel_policy.js:13
+msgid "Farmers"
+msgstr "Petani"
+
+#: static/assets/js/diesel_policy.js:14
+msgid "Livestock Breeders"
+msgstr "Penternak Ternakan"
+
+#: static/assets/js/diesel_policy.js:15
+msgid "Aquaculture Farmers"
+msgstr "Penternak Akuakultur"
+
+#: static/assets/js/diesel_policy.js:88 static/assets/js/diesel_policy.js:92
+msgid "Bahasa Malaysia"
+msgstr "Bahasa Malaysia"
+
+#: static/assets/js/diesel_policy.js:89
+msgid "English"
+msgstr "Bahasa Inggeris"
+
+#: static/assets/js/policies.js:36
+msgid "Ready to implement policy filters"
+msgstr "Sedia untuk melaksanakan penapis polisi"
+
+#: static/assets/js/policies.js:67
+msgid "Read More"
+msgstr "Baca Lagi"
+
+#: static/assets/js/script.js:121
+msgid "Diesel Subsidy Reform: What's Going to Cost You?"
+msgstr "Reformasi Subsidi Diesel: Berapakah Kos untuk Anda?"
+
+#: static/assets/js/script.js:122
+msgid ""
+"Subsidies are changing. Prices are rising.<br>Find out how this new policy "
+"could hit your wallet—and what it really means for your daily life."
+msgstr ""
+"Subsidi sedang berubah. Harga semakin meningkat.<br>Ketahui bagaimana dasar baru ini "
+"boleh memberi kesan kepada dompet anda—dan apa maknanya bagi kehidupan harian anda."
+
+#: static/assets/js/script.js:125
+msgid "New Education Budget: The Impact on Schools"
+msgstr "Bajet Pendidikan Baru: Kesan terhadap Sekolah"
+
+#: static/assets/js/script.js:126
+msgid ""
+"The government's latest education budget has major implications for schools "
+"across Malaysia.<br>Learn how this affects students, teachers, and families."
+msgstr ""
+"Bajet pendidikan terbaru kerajaan mempunyai implikasi besar bagi sekolah-sekolah "
+"di seluruh Malaysia.<br>Ketahui bagaimana ini memberi kesan kepada pelajar, guru, dan keluarga."
+
+#: static/assets/js/script.js:129
+msgid "Healthcare System Changes: What You Need to Know"
+msgstr "Perubahan Sistem Kesihatan: Apa yang Anda Perlu Tahu"
+
+#: static/assets/js/script.js:130
+msgid ""
+"Major restructuring in our healthcare system is coming.<br>Discover what "
+"services will change and how it affects your access to care."
+msgstr ""
+"Penstrukturan semula besar dalam sistem kesihatan kita akan datang.<br>Ketahui "
+"perkhidmatan apa yang akan berubah dan bagaimana ia memberi kesan kepada akses penjagaan anda."
+
+#: static/assets/js/script.js:133
+msgid "Environmental Protection Act: New Regulations"
+msgstr "Akta Perlindungan Alam Sekitar: Peraturan Baru"
+
+#: static/assets/js/script.js:134
+msgid ""
+"New environmental regulations are being implemented nationwide.<br>See how "
+"these changes will impact businesses and communities."
+msgstr ""
+"Peraturan alam sekitar baru sedang dilaksanakan di seluruh negara.<br>Lihat bagaimana "
+"perubahan ini akan memberi kesan kepada perniagaan dan masyarakat."

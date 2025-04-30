@@ -1,0 +1,167 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="/static/assets/scss/main.css">
+    <title>{% trans "CPI Datasets" %}</title>
+</head>
+<body class="cpi-datasets-page">
+    {% include "header.html" %}
+
+    <div class="breadcrumb-container">
+        <div class="container">
+            <div class="breadcrumb">
+                <!-- <a href="/index/">Home</a> >
+                <a href="/policies/">Policies</a> >
+                <a href="/diesel_policy/">The Diesel Dilemma</a> >
+                <span>CPI Impact</span> -->
+
+                <a href="/index/">{% trans "Home" %}</a> >
+                <a href="/policies/">{% trans "Policies" %}</a> >
+                <a href="/diesel_policy/">{% trans "The Diesel Dilemma" %}</a> >
+                <a href="/cpi_impact/">{% trans "CPI Impact" %}</a> >
+                <span>{% trans "CPI Data Dashboard" %}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero/Banner section -->
+    <div class="hero-cpi-dataset">
+        <h1>{% trans "CPI Data Dashboard" %}</h1>
+    </div>
+
+    <!-- Dashboard Links Section -->
+    <section class="dashboard-links">
+        <div class="container">
+          <a href="/datasets_page/" class="dashboard-link">
+              <i class="fas fa-chart-line dashboard-icon"></i>
+              {% trans "Fuel Data Dashboard" %}
+          </a>
+          <a href="/cpi_impact/" class="dashboard-link">
+              <i class="fas fa-tags price-icon"></i>
+              {% trans "Consumer Price Impact" %}
+          </a>
+          <a href="#" class="dashboard-link">
+            <i class="fas fa-industry manufacturing-icon"></i>
+            {% trans "Manufacturing Data Dashboard" %}
+        </a>
+        </div>
+    </section>
+
+    <section class="cpi-datasets-section">
+        <!-- Tab navigation - Horizontal tabs below hero -->
+        <div class="main-tabs">
+            <a href="#" class="tab-link active" data-tab="cpi-line-tab">{% trans "CPI Data" %}</a>
+            <a href="#" class="tab-link" data-tab="state-data-map-tab">{% trans "State CPI Map" %}</a>
+            <a href="#" class="tab-link" data-tab="mcoicop-tab">{% trans "MCOICOP" %}</a>
+            <div class="tab-indicator"></div>
+        </div>
+
+        <div class="tab-content active" id="cpi-line-tab">
+            <section class="cpi-dashboard-section">
+                <div class="section-header diesel-header">
+                    <span class="title">{% trans "CPI Dataset Chart" %}</span>
+                </div>
+
+                <div class="cpi-filter-row">
+                    <div class="filter-dropdown">
+                        <label>Year</label>
+                        <div class="dropdown-select">
+                            <span>2024</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="filter-dropdown">
+                        <label>Region</label>
+                        <div class="dropdown-select">
+                            <span>Johor</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-content">
+                    <div class="mcoicop-chart-title">
+                        {% trans "CPI Dataset by State & Division" %}
+                    </div>
+
+                    <div class="cpi-chart-container">
+                        <canvas class="cpi-chart" id="cpiChart"></canvas>
+                    </div>
+
+                    <div class="data-citation">
+                        <strong>{% trans "Data Source:" %}</strong> {% trans "data.gov.my, 2010-2025" %}<br>
+                        <strong>{% trans "URL:" %}</strong> <a href="https://data.gov.my/data-catalogue/cpi_state" target="_blank">https://data.gov.my/data-catalogue/cpi_state</a><br>
+                        <strong>{% trans "Methodology:" %}</strong> {% trans "Montly CPI values were collected from official goverment data centers." %}
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        <div class="tab-content" id="state-data-map-tab">
+            {% trans "state map" %}
+
+        </div>
+
+        <div class="tab-content" id="mcoicop-tab">
+            <section class="cpi-dashboard-section">
+                <div class="section-header diesel-header">
+                    <span class="title">{% trans "MCOICOP Chart" %}</span>
+                </div>
+
+                <div class="section-content">
+                    <div class="mcoicop-chart-title">
+                        {% trans "Distribution of 5-Digit MCOICOP Subclasses" %}
+                    </div>
+
+                    <div class="donut-chart-container">
+                        <canvas class="donut-chart" id="mcoicopChart"></canvas>
+                    </div>
+
+                    <div class="impact-analysis-section">
+                        <h3>{% trans "Key Insights:" %}</h3>
+                        <p>{% blocktrans %}The sections in the chart represents the MCOICOP divisions (2 digit) and the values for each section
+                            represents the number of subclasses (5 digit) for each of the divisions (2 digit). The CPI is calculated
+                            using the CPI value of each of the subclasses (5 digit).{% endblocktrans %}</p>
+                        <ul>
+                            <li>{% blocktrans %}Food & Beverages has the highest weight in the CPI calculation at 27.49%, reflecting its importance in household budgets.{% endblocktrans %}</li>
+                            <li>{% blocktrans %}Transport accounts for 10.90% of the CPI basket, which explains why the diesel subsidy reform has a significant but no overwelming impact on the overall CPI.{% endblocktrans %}</li>
+                            <li>{% blocktrans %}Housing & Utilities accounts for 4.74%, representing another household expense.{% endblocktrans %}</li>
+                        </ul>
+                    </div>
+
+                    <div class="data-citation">
+                        <strong>{% trans "Data Source:" %}</strong> {% trans "data.gov.my, 2018" %}<br>
+                        <strong>{% trans "URL:" %}</strong> <a href="https://open.dosm.gov.my/data-catalogue/mcoicop" target="_blank">https://open.dosm.gov.my/data-catalogue/mcoicop</a><br>
+                        <strong>{% trans "Methodology:" %}</strong> {% trans "This data provides a complete lookup for 2, 3, 4, and 5-digit codes under Malaysia's COICOP (Classification of Individual Consumption According to Purpose)." %}
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+    </section>
+
+    <!-- Footer -->
+    {% include "footer.html" %}
+
+    <script src="/static/assets/js/cpi_datasets.js"></script>
+    <script src="/static/assets/js/script.js"></script>
+    <script src="{% url 'javascript-catalog' %}"></script>
+</body>
+</html>
