@@ -239,7 +239,51 @@ function initializeMCOICOPChart() {
     // Calculate percentages for better display in tooltips
     const total = data.reduce((sum, value) => sum + value, 0);
     const percentages = data.map(value => ((value / total) * 100).toFixed(2));
-    
+    // console.log("Calculated Percentages:", percentages); 
+
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'right',
+                labels: {
+                    fontSize: 12,
+                    boxWidth: 15,
+                    fontColor: '#333',
+                    padding: 15
+                }
+            },
+            tooltip: {
+                enabled: true,
+                callbacks: {
+                    label: function(context) {
+                        const labelIndex = context.dataIndex;
+                        const label = context.chart.data.labels[labelIndex] || '';
+                        const value = context.dataset.data[labelIndex] || 0;
+                        const percentage = percentages[labelIndex];
+                        const generatedString = `${label}: ${value} subclasses (${percentage}%)`;
+
+                        // *** Your console log (should run if callback is called) ***
+                        // console.log(`Tooltip Callback - Index: ${labelIndex}, Label: ${label}, Value: ${value}, Percentage: ${percentage}, Generated: "${generatedString}"`);
+
+                        return generatedString;
+                    }
+                },
+                backgroundColor: 'rgba(0,0,0,0.8)', // Darker tooltip background
+                titleFont: { size: 14 }, // Modern way to set font size
+                bodyFont: { size: 13 },
+                padding: 12
+                }
+            },
+            animation: {
+            animateScale: true,
+            animateRotate: true,
+            duration: 1500
+            },
+            cutout: '45%' // Use percentage string
+        };
+
     // Create and configure the chart
     charts.mcoicop = new Chart(ctxMCOICOP, {
         type: 'doughnut',
@@ -252,49 +296,7 @@ function initializeMCOICOPChart() {
                 borderWidth: 2
             }]
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'right',
-                    labels: {
-                        fontSize: 12,
-                        boxWidth: 15,
-                        fontColor: '#333',
-                        padding: 15
-                    }
-                },
-                // title: {
-                //     display: true,
-                //     text: 'MCOICOP 5-Digit Subclasses Distribution',
-                //     fontSize: 25,
-                //     fontColor: '#333',
-                //     padding: 20
-                // },
-                tooltips: {
-                    enabled: true, // Make sure tooltips are enabled
-                    callbacks: {
-                        label: function(tooltipItem, data) {
-                            const label = data.labels[tooltipItem.index];
-                            const value = data.datasets[0].data[tooltipItem.index];
-                            const percentage = percentages[tooltipItem.index];
-                            return `${label}: ${value} subclasses (${percentage}%)`;
-                        }
-                    },
-                    backgroundColor: 'rgba(0,0,0,0.8)', // Darker tooltip background
-                     titleFont: { size: 14 }, // Modern way to set font size
-                     bodyFont: { size: 13 },
-                     padding: 12
-                }
-            },
-            animation: {
-                animateScale: true,
-                animateRotate: true,
-                duration: 1500
-            },
-            cutout: '45%' // Use percentage string
-        }
+        options: chartOptions // Pass the options object
     });
     console.log("MCOICOP Chart Initialized");
 }
