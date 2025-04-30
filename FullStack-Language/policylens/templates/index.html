@@ -1,0 +1,148 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "PolicyLens - Making Policies Transparent & Understandable" %}</title>
+    <link rel="stylesheet" href="/static/assets/scss/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="index-page">
+    <!-- Header -->
+    {% include "header.html" %}
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container hero-content">
+            <h1>{% trans "Making Policies" %} <span class="blue">{% trans "Transparent" %}</span><br>&amp; <span class="light-blue">{% trans "Understandable" %}</span> {% trans "for Everyone" %}</h1>
+            <p>{% trans "Navigating policies made easy — breaking down complex policies into straightforward, accessible information for everyone." %}</p>
+            <a href="/policies/" class="cta-button">{% trans "Explore Policies" %}</a>
+            <div class="scroll-indicator">
+                <p>{% trans "Scroll Down" %}</p>
+                <i class="fas fa-arrow-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Policy Section -->
+    <section id="featured-policy">
+        <div class="featured-content">
+            <h2>{% trans "Diesel Subsidy Reform: What's Going to Cost You?" %}</h2>
+            <p>{% trans "Subsidies are changing. Prices are rising." %}<br>{% trans "Find out how this new policy could hit your wallet—and what it really means for your daily life." %}</p>
+            <a href="/diesel_policy/" class="cta-button">{% trans "Explore the Policy" %}</a>
+            <div class="dots-container">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats">
+        <div class="stats-container">
+            <div class="stats-text">
+                <p>{% trans "The platform helps citizens access policy transparency data by visualizing key metrics and policy impacts across different regions" %}</p>
+            </div>
+            <div class="stats-numbers">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="32.8M">32.8M</div>
+                    <div class="stat-label">{% trans "Malaysians Potentially Impacted" %}</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="50/100">50/100</div>
+                    <div class="stat-label">{% trans "Malaysia's Transparency Score" %}</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What We Do Section -->
+    <section id="what-we-do">
+        <div class="container">
+            <h2 class="section-title">{% trans "What We Do?" %}</h2>
+            <div class="what-we-do-text">
+                <p>{% trans "PolicyLens helps Malaysians understand how government decisions affect everyday life, without the jargon." %}</p>
+                <p>{% trans "We simplify official policies, break down complex data, and visualize real-world impacts, so you can make informed choices with confidence." %}</p>
+            </div>
+            <div class="services">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3 class="service-title">{% trans "Data Dashboard" %}</h3>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="service-title">{% trans "Policy Impact Analysis" %}</h3>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="service-title">{% trans "Educational Resources" %}</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why It Matters Section -->
+    <section id="why-matters">
+        <div class="video-container">
+            <div class="youtube-video-wrapper">
+                <!-- YouTube thumbnail with play button overlay -->
+                <div class="video-thumbnail" id="videoThumbnail">
+                    <img src="https://img.youtube.com/vi/94MH1V5_dtQ/maxresdefault.jpg" alt="{% trans "Video Thumbnail" %}">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <!-- YouTube iframe (hidden initially) -->
+                <div class="youtube-iframe" id="youtubeIframe" style="display: none;">
+                    <iframe
+                        width="100%"
+                        height="100%"
+                        src="about:blank"
+                        data-src="https://www.youtube.com/embed/94MH1V5_dtQ?autoplay=1"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+        <div class="why-matters-content">
+            <h2 class="section-title">{% trans "Why it Matters?" %}</h2>
+            <p>{% trans "Government policies shape the prices we pay, the jobs we pursue, and the lives we lead." %}</p>
+            <p>{% trans "But when policies are buried in jargon or distorted by headlines, citizens lose trust and power." %}</p>
+            <p>{% trans "PolicyLens helps you cut through the noise, understand what's really happening, and make decisions that matter." %}</p>
+        </div>
+    </section>
+
+    <!-- Who We Are Section -->
+    <section id="who-we-are">
+        <div class="container">
+            <div class="who-content">
+                <h2 class="section-title">{% trans "Who We Are?" %}</h2>
+                <p>{% trans "We're a group of designers, developers, and researchers from Monash University's School of IT, brought together by a shared frustration: public policies are hard to understand, but they affect all of us." %}</p>
+                <p>{% trans "So we built PolicyLens, a platform that simplifies complex policies into clear, actionable insights for everyday people." %}</p>
+                <p>{% trans "We believe informed citizens are empowered citizens and that starts with clarity." %}</p>
+            </div>
+            <div class="who-image">
+                <img src="/static/assets/images/malaysia.svg" alt="{% trans "Malaysian Flags" %}">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    {% include "footer.html" %}
+
+    <script src="/static/assets/js/script.js"></script>
+    <script src="{% url 'javascript-catalog' %}"></script>
+</body>
+</html>

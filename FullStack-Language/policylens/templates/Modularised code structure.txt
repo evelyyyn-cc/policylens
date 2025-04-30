@@ -1,0 +1,35 @@
+FRONTEND/
+├─ .vscode/
+├─ assets/
+│  ├─ images/
+│  └─ js/
+├─ scss/
+│  ├─ base/
+│  │  ├─ _animations.scss
+│  │  ├─ _mixins.scss
+│  │  ├─ _reset.scss
+│  │  └─ _variables.scss
+│  ├─ components/
+│  │  ├─ _breadcrumbs.scss
+│  │  ├─ _dashboards.scss
+│  │  ├─ _footer.scss
+│  │  └─ _header.scss
+│  └─ pages/
+│     ├─ _cpi_impact.scss
+│     ├─ _datasets_page.scss
+│     ├─ _diesel_policy.scss
+│     ├─ _index.scss
+│     ├─ _page_overrides.scss
+│     └─ _policies.scss
+├─ main.css
+├─ main.css.map
+├─ main.scss
+├─ .gitignore
+├─ cpi_impact.html
+├─ datasets_page.html
+├─ diesel_policy.html
+├─ footer.html
+├─ header.html
+├─ index.html
+└─ policies.html
+
