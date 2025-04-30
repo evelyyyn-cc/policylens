@@ -6,41 +6,40 @@
     <title>MYPolicyLens - The Diesel Dilemma</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/scss/diesel_policy.css">
+    <link rel="stylesheet" href="assets/scss/main.css">
 </head>
-<body>
-    <!-- Header/Navigation -->
-    <header>
-      <nav class="container">
-          <div class="logo">
-              <!-- <img src="/api/placeholder/32/32" alt="PolicyLens Logo"> -->
-              <span>MY</span>PolicyLens
-          </div>
-          <div class="nav-links" id="navLinks">
-              <a href="index.html">HOME</a>
-              <a href="policies.html" class="active">POLICY</a>
-              <a href="#">FAQ</a>
-              <a href="#">AI CHATBOT</a>
-          </div>
-          <div class="language-selector">
-              <div class="selected-language">
-                  <span>Bahasa Malaysia</span>
-                  <i class="fas fa-chevron-down"></i>
-              </div>
-              <ul class="language-dropdown">
-                  <li data-lang="bm" class="active">Bahasa Malaysia</li>
-                  <li data-lang="en">English</li>
-                  <li data-lang="zh">中文</li>
-                  <li data-lang="ta">தமிழ்</li>
-              </ul>
-          </div>
-          <div class="hamburger" id="hamburger">
-              <span></span>
-              <span></span>
-              <span></span>
-          </div>
-      </nav>
-  </header>
+<body class="diesel-policy-page">
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+        <!--<nav class="container">
+            <a class="logo" href="index.html">
+                <span>MY</span>PolicyLens
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="active">HOME</a>
+                <a href="policies.html">POLICY</a>
+                <a href="#">FAQ</a>
+                <a href="#">AI CHATBOT</a>
+            </div>
+            <div class="language-selector">
+                <div class="selected-language">
+                    <span>BM</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="language-dropdown">
+                    <li data-lang="bm" class="active">BM</li>
+                    <li data-lang="en">EN</li>
+                    <li data-lang="zh">ZH</li>
+                    <li data-lang="ta">TA</li>
+                </ul>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav> -->
+    <!--</header> -->
 
   
    <!-- Breadcrumb -->
@@ -53,10 +52,10 @@
   </div>
 
     <!-- Hero Section with Background Image -->
-    <section class="hero" style="background-image: url('assets/images/sample2.svg');">
-        <div class="hero-content">
-            <h1 class="hero-title">The Diesel Dilemma</h1>
-            <h2 class="hero-subtitle">Malaysia's 2024 Subsidy Transformation</h2>
+    <section class="hero-diesel" style="background-image: url('assets/images/sample2.svg');">
+        <div class="hero-diesel-content">
+            <h1 class="hero-diesel-title">The Diesel Dilemma</h1>
+            <h2 class="hero-diesel-subtitle">Malaysia's 2024 Subsidy Transformation</h2>
         </div>
     </section>
 
@@ -67,13 +66,13 @@
                 <i class="fas fa-chart-line dashboard-icon"></i>
                 Fuel Data Dashboard
             </a>
-            <a href="#" class="dashboard-link">
+            <!-- <a href="#" class="dashboard-link">
                 <i class="fas fa-home household-icon"></i>
                 Household Impact
-            </a>
-            <a href="#" class="dashboard-link">
+            </a> -->
+            <a href="cpi_impact.html" class="dashboard-link">
                 <i class="fas fa-tags price-icon"></i>
-                Price Index
+                Consumer Price Impact
             </a>
             <a href="#" class="dashboard-link">
                 <i class="fas fa-industry manufacturing-icon"></i>
@@ -531,18 +530,20 @@
       </div>
     </div>
   </section>
-  <footer>
-    <div class="container">
-        <div class="footer-logo">
-            <span>MY</span>PolicyLens
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+    <!--<footer>
+        <div class="container">
+            <div class="footer-logo">
+                <span>MY</span>PolicyLens
+            </div>
+            <div class="quick-links">
+                <h3>Quick Links</h3>
+                <a href="index.html#who-we-are">About us</a>
+                <a href="#">FAQ</a>
+            </div>
         </div>
-        <div class="quick-links">
-            <h3>Quick Links</h3>
-            <a href="index.html#who-we-are">About us</a>
-            <a href="#">FAQ</a>
-        </div>
-    </div>
-</footer>
+    </footer> -->
     <!-- Include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="assets/js/diesel_policy.js"></script>

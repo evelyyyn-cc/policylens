@@ -13,6 +13,11 @@ async function fetchFuelPrices(fuelType, startDate, endDate) {
                 dieselChartContainer.appendChild(loadingOverlay);
             }
         }
+
+        // convert UI name to API equivalent name
+        if(fuelType === 'diesel_east') {
+            fuelType = 'diesel_euro5';
+        }
         
         // Fetch from the API
         const response = await fetch(`http://localhost:8000/api/fuel-prices/?fuel_type=${fuelType}&start_date=${startDate}&end_date=${endDate}`);
@@ -61,62 +66,11 @@ function formatDateLabels(dateArray) {
 }
 
 // Transform API data to chart.js format
-// function transformApiDataToChartFormat(apiData, fuelType,selectedYear) {
-//     // Determine which data property to use based on the fuelType
-//     let fuelTypeKey = fuelType.toLowerCase().replace(' ', '_');
-//     console.log('Fuel Type Key:', fuelTypeKey);
-//     if(fuelTypeKey === 'diesel_euro5') {
-//         fuelTypeKey = 'diesel_eastern';}
-//     const dataValues = apiData[fuelTypeKey] || [];
-    
-//     // Generate the color based on fuel type
-//     let borderColor, backgroundColor;
-    
-//     switch(fuelType) {
-//         case 'RON95':
-//             borderColor = '#4fc3f7';
-//             backgroundColor = 'rgba(79, 195, 247, 0.3)';
-//             break;
-//         case 'RON97':
-//             borderColor = '#5c6bc0';
-//             backgroundColor = 'rgba(92, 107, 192, 0.1)';
-//             break;
-//         case 'Diesel':
-//             borderColor = '#6c757d';
-//             backgroundColor = 'rgba(108, 117, 125, 0.1)';
-//             break;
-//         case 'Diesel Euro5':
-//             borderColor = '#0d47a1';
-//             backgroundColor = 'rgba(13, 71, 161, 0.1)';
-//             break;
-//         default:
-//             borderColor = '#4fc3f7';
-//             backgroundColor = 'rgba(79, 195, 247, 0.3)';
-//     }
-    
-//     // Create a dataset with the fuel prices
-//     const transformedData = {
-//         labels: formatDateLabels(apiData.date),
-//         datasets: [
-//             {
-//                 label: fuelType,
-//                 data: dataValues,
-//                 borderColor: borderColor,
-//                 backgroundColor: backgroundColor,
-//                 borderWidth: 2,
-//                 fill: true,
-//                 tension: 0.1
-//             }
-//         ]
-//     };
-    
-//     return transformedData;
-// }
 function transformApiDataToChartFormat(apiData, fuelType, selectedYear) {
     // Determine which data property to use based on the fuelType
     let fuelTypeKey = fuelType.toLowerCase().replace(' ', '_');
     console.log('Fuel Type Key:', fuelTypeKey);
-    if(fuelTypeKey === 'diesel_euro5') {
+    if(fuelTypeKey === 'diesel_east') {
         fuelTypeKey = 'diesel_eastern';
     }
     
@@ -194,7 +148,7 @@ function transformApiDataToChartFormat(apiData, fuelType, selectedYear) {
             borderColor = '#6c757d';
             backgroundColor = 'rgba(108, 117, 125, 0.1)';
             break;
-        case 'Diesel Euro5':
+        case 'Diesel East':
             borderColor = '#0d47a1';
             backgroundColor = 'rgba(13, 71, 161, 0.1)';
             break;
@@ -288,7 +242,7 @@ const chartData = {
                 tension: 0.1
             },
             {
-                label: 'Diesel Euro5',
+                label: 'Diesel East',
                 data: [2.4, 2.3, 2.3, 2.2, 2.2, 2.2, 2.2, 2.2, 2.2, 2.2, 2.1, 3.3, 3.3],
                 borderColor: '#0d47a1',
                 backgroundColor: 'rgba(13, 71, 161, 0.1)',
@@ -567,28 +521,125 @@ const chartOptions = {
 let charts = {};
 
 // Initialize Diesel Vehicles Tab Charts
-function initializeDieselVehiclesCharts() {
-    // Vehicle Types Chart
-    const vehicleTypesCtx = document.getElementById('vehicleTypesChart')?.getContext('2d');
-    if (vehicleTypesCtx) {
-        charts.vehicleTypesChart = new Chart(vehicleTypesCtx, {
-            type: 'bar',
-            data: chartData.vehicleTypesData,
-            options: chartOptions.vehicleTypesOptions
-        });
+// function initializeDieselVehiclesCharts() {
+//     // Vehicle Types Chart
+//     const vehicleTypesCtx = document.getElementById('vehicleTypesChart')?.getContext('2d');
+//     if (vehicleTypesCtx) {
+//         charts.vehicleTypesChart = new Chart(vehicleTypesCtx, {
+//             type: 'bar',
+//             data: chartData.vehicleTypesData,
+//             options: chartOptions.vehicleTypesOptions
+//         });
         
-    }
+//     }
 
-    // Total Registered Vehicles Chart
-    const totalRegisteredVehiclesCtx = document.getElementById('totalRegisteredVehiclesChart')?.getContext('2d');
-    if (totalRegisteredVehiclesCtx) {
-        charts.totalRegisteredVehiclesChart = new Chart(totalRegisteredVehiclesCtx, {
-            type: 'line',
-            data: chartData.totalRegisteredVehiclesData,
-            options: chartOptions.totalRegisteredVehiclesOptions
-        });
-    }
-}
+//     // Total Registered Vehicles Chart
+//     const totalRegisteredVehiclesCtx = document.getElementById('totalRegisteredVehiclesChart')?.getContext('2d');
+//     if (totalRegisteredVehiclesCtx) {
+//         charts.totalRegisteredVehiclesChart = new Chart(totalRegisteredVehiclesCtx, {
+//             type: 'line',
+//             data: chartData.totalRegisteredVehiclesData,
+//             options: chartOptions.totalRegisteredVehiclesOptions
+//         });
+//     }
+// }
+// Update the initializeDieselVehiclesCharts function to properly scale the y-axis
+// async function initializeDieselVehiclesCharts() {
+//     try {
+//         // Fetch vehicle data from API
+//         const vehicleData = await fetchVehicleData('all', 'all');
+        
+//         // Transform the API data or use fallback
+//         let chartDataToUse;
+//         if (vehicleData) {
+//             chartDataToUse = transformVehicleApiData(vehicleData);
+//         } else {
+//             chartDataToUse = {
+//                 vehicleTypesData: chartData.vehicleTypesData,
+//                 totalRegisteredVehiclesData: chartData.totalRegisteredVehiclesData
+//             };
+//         }
+        
+//         // Update the chart subtitle to reflect API data
+//         const chartTitle = document.querySelector('.chart-title');
+//         if (chartTitle && vehicleData && vehicleData.fuel_stats_2021_2025) {
+//             chartTitle.textContent = 'Vehicle Types Distribution (2021-2025)';
+//         }
+        
+//         // Calculate appropriate y-axis scale based on actual data BEFORE creating the chart
+//         const vehicleMaxValue = Math.max(...chartDataToUse.vehicleTypesData.datasets[0].data);
+//         const vehiclePadding = vehicleMaxValue * 0.1; // 10% padding
+        
+//         // Update the options with calculated scale
+//         chartOptions.vehicleTypesOptions.scales.y.max = vehicleMaxValue + vehiclePadding;
+//         chartOptions.vehicleTypesOptions.scales.y.beginAtZero = true; // Ensure it starts at 0
+        
+//         // Vehicle Types Chart - create with the updated options
+//         const vehicleTypesCtx = document.getElementById('vehicleTypesChart')?.getContext('2d');
+//         if (vehicleTypesCtx) {
+//             charts.vehicleTypesChart = new Chart(vehicleTypesCtx, {
+//                 type: 'bar',
+//                 data: chartDataToUse.vehicleTypesData,
+//                 options: chartOptions.vehicleTypesOptions
+//             });
+//         }
+
+//         // Total Registered Vehicles Chart - similar approach for this chart
+//         const totalRegisteredVehiclesCtx = document.getElementById('totalRegisteredVehiclesChart')?.getContext('2d');
+//         if (totalRegisteredVehiclesCtx) {
+//             // Calculate appropriate scale for this chart too
+//             const regVehiclesData = chartDataToUse.totalRegisteredVehiclesData.datasets[0].data;
+//             const regMaxValue = Math.max(...regVehiclesData);
+//             const regMinValue = Math.min(...regVehiclesData);
+//             const regPadding = Math.max((regMaxValue - regMinValue) * 0.1, 50000);
+            
+//             // Update options before creating chart
+//             chartOptions.totalRegisteredVehiclesOptions.scales.y.max = regMaxValue + regPadding;
+//             chartOptions.totalRegisteredVehiclesOptions.scales.y.min = Math.max(0, regMinValue - regPadding);
+            
+//             charts.totalRegisteredVehiclesChart = new Chart(totalRegisteredVehiclesCtx, {
+//                 type: 'line',
+//                 data: chartDataToUse.totalRegisteredVehiclesData,
+//                 options: chartOptions.totalRegisteredVehiclesOptions
+//             });
+//         }
+//     } catch (error) {
+//         console.error('Error initializing diesel vehicles charts:', error);
+        
+//         // If API fetch fails, initialize with fallback data but still calculate proper scales
+//         const vehicleTypesCtx = document.getElementById('vehicleTypesChart')?.getContext('2d');
+//         if (vehicleTypesCtx) {
+//             // Calculate scale for fallback data
+//             const vehicleMaxValue = Math.max(...chartData.vehicleTypesData.datasets[0].data);
+//             const vehiclePadding = vehicleMaxValue * 0.1;
+//             chartOptions.vehicleTypesOptions.scales.y.max = vehicleMaxValue + vehiclePadding;
+            
+//             charts.vehicleTypesChart = new Chart(vehicleTypesCtx, {
+//                 type: 'bar',
+//                 data: chartData.vehicleTypesData,
+//                 options: chartOptions.vehicleTypesOptions
+//             });
+//         }
+
+//         const totalRegisteredVehiclesCtx = document.getElementById('totalRegisteredVehiclesChart')?.getContext('2d');
+//         if (totalRegisteredVehiclesCtx) {
+//             // Calculate scale for fallback data
+//             const regVehiclesData = chartData.totalRegisteredVehiclesData.datasets[0].data;
+//             const regMaxValue = Math.max(...regVehiclesData);
+//             const regMinValue = Math.min(...regVehiclesData);
+//             const regPadding = Math.max((regMaxValue - regMinValue) * 0.1, 50000);
+            
+//             chartOptions.totalRegisteredVehiclesOptions.scales.y.max = regMaxValue + regPadding;
+//             chartOptions.totalRegisteredVehiclesOptions.scales.y.min = Math.max(0, regMinValue - regPadding);
+            
+//             charts.totalRegisteredVehiclesChart = new Chart(totalRegisteredVehiclesCtx, {
+//                 type: 'line',
+//                 data: chartData.totalRegisteredVehiclesData,
+//                 options: chartOptions.totalRegisteredVehiclesOptions
+//             });
+//         }
+//     }
+// }
 
 // Initialize Diesel Price Tab Charts
 async function initializeDieselPriceCharts() {
@@ -782,7 +833,7 @@ async function updateChartWithFilter(year, fuelType) {
 // Filter dropdown options
 const filterOptions = {
     years: ['All Years', '2021', '2022', '2023', '2024', '2025'],
-    fuelTypes: ['RON95', 'RON97', 'Diesel', 'Diesel Euro5'], // Removed "All Types"
+    fuelTypes: ['RON95', 'RON97', 'Diesel', 'Diesel East'], // Removed "All Types"
     regions: [
         'All Regions',
         'Rakan Niaga',
@@ -849,7 +900,7 @@ function setupDropdowns() {
             dropdownMenu.classList.add('dropdown-menu');
             
             // Add styles to position the dropdown menu
-           // dropdownMenu.style.position = 'absolute';
+            dropdownMenu.style.position = 'absolute';
             dropdownMenu.style.top = (this.offsetTop + this.offsetHeight) + 'px';
             dropdownMenu.style.left = this.offsetLeft + 'px';
             dropdownMenu.style.width = this.offsetWidth + 'px';
@@ -933,89 +984,89 @@ function applyFilters() {
 }
 
 // User menu dropdown
-function setupUserDropdown() {
-    const userButton = document.querySelector('.user-btn');
+// function setupUserDropdown() {
+//     const userButton = document.querySelector('.user-btn');
     
-    if (userButton) {
-        userButton.addEventListener('click', function(e) {
-            e.stopPropagation();
+//     if (userButton) {
+//         userButton.addEventListener('click', function(e) {
+//             e.stopPropagation();
             
-            // Close any existing dropdown first
-            const existingMenu = document.querySelector('.language-dropdown-menu');
-            if (existingMenu) {
-                existingMenu.remove();
-                return;
-            }
+//             // Close any existing dropdown first
+//             const existingMenu = document.querySelector('.language-dropdown-menu');
+//             if (existingMenu) {
+//                 existingMenu.remove();
+//                 return;
+//             }
             
-            // Create dropdown menu for languages
-            const dropdownMenu = document.createElement('div');
-            dropdownMenu.classList.add('language-dropdown-menu');
+//             // Create dropdown menu for languages
+//             const dropdownMenu = document.createElement('div');
+//             dropdownMenu.classList.add('language-dropdown-menu');
             
-            // Styling
-            dropdownMenu.style.position = 'absolute';
-            dropdownMenu.style.top = (this.offsetTop + this.offsetHeight) + 'px';
-            dropdownMenu.style.right = '20px';
-            dropdownMenu.style.backgroundColor = '#fff';
-            dropdownMenu.style.border = '1px solid #dee2e6';
-            dropdownMenu.style.borderRadius = '4px';
-            dropdownMenu.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-            dropdownMenu.style.zIndex = '1000';
+//             // Styling
+//             dropdownMenu.style.position = 'absolute';
+//             dropdownMenu.style.top = (this.offsetTop + this.offsetHeight) + 'px';
+//             dropdownMenu.style.right = '20px';
+//             dropdownMenu.style.backgroundColor = '#fff';
+//             dropdownMenu.style.border = '1px solid #dee2e6';
+//             dropdownMenu.style.borderRadius = '4px';
+//             dropdownMenu.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+//             dropdownMenu.style.zIndex = '1000';
             
-            // Add language options
-            const languages = ['English', 'Bahasa Malaysia', 'Chinese', 'Tamil'];
+//             // Add language options
+//             const languages = ['English', 'Bahasa Malaysia', 'Chinese', 'Tamil'];
             
-            languages.forEach(language => {
-                const option = document.createElement('div');
-                option.classList.add('language-option');
-                option.textContent = language;
+//             languages.forEach(language => {
+//                 const option = document.createElement('div');
+//                 option.classList.add('language-option');
+//                 option.textContent = language;
                 
-                // Styling
-                option.style.padding = '8px 16px';
-                option.style.cursor = 'pointer';
-                option.style.fontSize = '0.85rem';
+//                 // Styling
+//                 option.style.padding = '8px 16px';
+//                 option.style.cursor = 'pointer';
+//                 option.style.fontSize = '0.85rem';
                 
-                // Hover effect
-                option.addEventListener('mouseover', function() {
-                    this.style.backgroundColor = '#f8f9fa';
-                });
+//                 // Hover effect
+//                 option.addEventListener('mouseover', function() {
+//                     this.style.backgroundColor = '#f8f9fa';
+//                 });
                 
-                option.addEventListener('mouseout', function() {
-                    this.style.backgroundColor = 'transparent';
-                });
+//                 option.addEventListener('mouseout', function() {
+//                     this.style.backgroundColor = 'transparent';
+//                 });
                 
-                // Click event
-                option.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const userBtnText = userButton.querySelector('span');
-                    userBtnText.textContent = language;
-                    dropdownMenu.remove();
-                });
+//                 // Click event
+//                 option.addEventListener('click', function(e) {
+//                     e.stopPropagation();
+//                     const userBtnText = userButton.querySelector('span');
+//                     userBtnText.textContent = language;
+//                     dropdownMenu.remove();
+//                 });
                 
-                dropdownMenu.appendChild(option);
-            });
+//                 dropdownMenu.appendChild(option);
+//             });
             
-            // Add to document
-            document.querySelector('.user-dropdown').appendChild(dropdownMenu);
+//             // Add to document
+//             document.querySelector('.user-dropdown').appendChild(dropdownMenu);
             
-            // Close when clicking outside
-            document.addEventListener('click', function closeMenu(e) {
-                if (!e.target.closest('.language-dropdown-menu') && !e.target.closest('.user-btn')) {
-                    const menu = document.querySelector('.language-dropdown-menu');
-                    if (menu) {
-                        menu.remove();
-                    }
-                    document.removeEventListener('click', closeMenu);
-                }
-            });
-        });
-    }
-}
+//             // Close when clicking outside
+//             document.addEventListener('click', function closeMenu(e) {
+//                 if (!e.target.closest('.language-dropdown-menu') && !e.target.closest('.user-btn')) {
+//                     const menu = document.querySelector('.language-dropdown-menu');
+//                     if (menu) {
+//                         menu.remove();
+//                     }
+//                     document.removeEventListener('click', closeMenu);
+//                 }
+//             });
+//         });
+//     }
+// }
 
 // Set up main tab navigation
 function setupMainTabs() {
-    const tabLinks = document.querySelectorAll('.main-tabs .tab-link');
+    const tabLinks = document.querySelectorAll('.main-tabs-fuel .tab-link-fuel');
     const tabContents = document.querySelectorAll('.tab-content');
-    const tabIndicator = document.querySelector('.tab-indicator');
+    const tabIndicator = document.querySelector('.tab-indicator-fuel');
     
     tabLinks.forEach((link, index) => {
         link.addEventListener('click', function(e) {
@@ -1286,6 +1337,8 @@ async function fetchVehicleData(year = 'all', state = 'all') {
         return null;
     }
 }
+// Update the initializeDieselVehiclesCharts function to prevent negative y-axis values
+// Update the initializeDieselVehiclesCharts function to ensure clean integer y-axis values
 async function initializeDieselVehiclesCharts() {
     try {
         // Fetch vehicle data from API
@@ -1311,31 +1364,86 @@ async function initializeDieselVehiclesCharts() {
         // Vehicle Types Chart
         const vehicleTypesCtx = document.getElementById('vehicleTypesChart')?.getContext('2d');
         if (vehicleTypesCtx) {
+            // Modify vehicle type options to display clean integers
+            chartOptions.vehicleTypesOptions.scales.y.ticks = {
+                callback: function(value) {
+                    if (value >= 1000) {
+                        // Round to integer and format with k for thousands
+                        return Math.round(value / 1000) + 'k';
+                    }
+                    return Math.round(value);
+                }
+            };
+            
             charts.vehicleTypesChart = new Chart(vehicleTypesCtx, {
                 type: 'bar',
                 data: chartDataToUse.vehicleTypesData,
                 options: chartOptions.vehicleTypesOptions
             });
         }
-
+        
+        charts.vehicleTypesChart.options.scales.x.ticks.autoSkip = false; // Show all x-axis labels
+        
+        // Calculate max with clean rounding to nearest 10,000
+        const vehicleMaxValue = Math.max(...chartDataToUse.vehicleTypesData.datasets[0].data);
+        const roundedMax = Math.ceil(vehicleMaxValue / 10000) * 10000;
+        
+        charts.vehicleTypesChart.options.scales.y.max = roundedMax; // Set max y-axis value as rounded integer
+        charts.vehicleTypesChart.options.scales.y.min = 0;
+        charts.vehicleTypesChart.update();
+        
         // Total Registered Vehicles Chart
         const totalRegisteredVehiclesCtx = document.getElementById('totalRegisteredVehiclesChart')?.getContext('2d');
         if (totalRegisteredVehiclesCtx) {
+            // Calculate appropriate y-axis values BEFORE creating the chart
+            const regVehiclesData = chartDataToUse.totalRegisteredVehiclesData.datasets[0].data;
+            const regMaxValue = Math.max(...regVehiclesData);
+            
+            // Modify total registered vehicles options for clean integers
+            chartOptions.totalRegisteredVehiclesOptions.scales.y.ticks = {
+                callback: function(value) {
+                    // Always display as rounded integers with k for thousands
+                    return Math.round(value / 1000) + 'k';
+                }
+            };
+            
+            // Round min/max to clean integer values (nearest 10,000)
+            const minDataValue = Math.min(...regVehiclesData);
+            const suggestedMin = Math.floor(Math.max(0, minDataValue) / 10000) * 10000;
+            const suggestedMax = Math.ceil(regMaxValue * 1.1 / 10000) * 10000; // 10% padding, rounded up
+            
+            // Set y-axis range to ensure it's appropriate for the data and uses clean integers
+            chartOptions.totalRegisteredVehiclesOptions.scales.y.min = suggestedMin;
+            chartOptions.totalRegisteredVehiclesOptions.scales.y.max = suggestedMax;
+            
             charts.totalRegisteredVehiclesChart = new Chart(totalRegisteredVehiclesCtx, {
                 type: 'line',
                 data: chartDataToUse.totalRegisteredVehiclesData,
                 options: chartOptions.totalRegisteredVehiclesOptions
             });
-            charts.totalRegisteredVehiclesChart.options.scales.y.max = Math.max(...chartDataToUse.totalRegisteredVehiclesData.datasets[0].data) + 50000;
-            charts.totalRegisteredVehiclesChart.options.scales.y.min = Math.min(...chartDataToUse.totalRegisteredVehiclesData.datasets[0].data) - 50000;
-            charts.totalRegisteredVehiclesChart.update();
         }
     } catch (error) {
         console.error('Error initializing diesel vehicles charts:', error);
         
-        // If API fetch fails, initialize with fallback data
+        // If API fetch fails, initialize with fallback data but still ensure clean integer y-axis values
         const vehicleTypesCtx = document.getElementById('vehicleTypesChart')?.getContext('2d');
         if (vehicleTypesCtx) {
+            // Modify vehicle type options to display clean integers
+            chartOptions.vehicleTypesOptions.scales.y.ticks = {
+                callback: function(value) {
+                    if (value >= 1000) {
+                        // Round to integer and format with k for thousands
+                        return Math.round(value / 1000) + 'k';
+                    }
+                    return Math.round(value);
+                }
+            };
+            
+            // Calculate max with clean rounding to nearest 10,000
+            const vehicleMaxValue = Math.max(...chartData.vehicleTypesData.datasets[0].data);
+            const roundedMax = Math.ceil(vehicleMaxValue / 10000) * 10000;
+            chartOptions.vehicleTypesOptions.scales.y.max = roundedMax;
+            
             charts.vehicleTypesChart = new Chart(vehicleTypesCtx, {
                 type: 'bar',
                 data: chartData.vehicleTypesData,
@@ -1345,6 +1453,26 @@ async function initializeDieselVehiclesCharts() {
 
         const totalRegisteredVehiclesCtx = document.getElementById('totalRegisteredVehiclesChart')?.getContext('2d');
         if (totalRegisteredVehiclesCtx) {
+            // Modify total registered vehicles options for clean integers
+            chartOptions.totalRegisteredVehiclesOptions.scales.y.ticks = {
+                callback: function(value) {
+                    // Always display as rounded integers with k for thousands
+                    return Math.round(value / 1000) + 'k';
+                }
+            };
+            
+            // Calculate scale for fallback data with rounded values
+            const regVehiclesData = chartData.totalRegisteredVehiclesData.datasets[0].data;
+            const regMaxValue = Math.max(...regVehiclesData);
+            const minDataValue = Math.min(...regVehiclesData);
+            
+            // Round to clean integers (nearest 10,000)
+            const suggestedMin = Math.floor(Math.max(0, minDataValue) / 10000) * 10000;
+            const suggestedMax = Math.ceil(regMaxValue * 1.1 / 10000) * 10000; // 10% padding, rounded up
+            
+            chartOptions.totalRegisteredVehiclesOptions.scales.y.min = suggestedMin;
+            chartOptions.totalRegisteredVehiclesOptions.scales.y.max = suggestedMax;
+            
             charts.totalRegisteredVehiclesChart = new Chart(totalRegisteredVehiclesCtx, {
                 type: 'line',
                 data: chartData.totalRegisteredVehiclesData,
@@ -1663,10 +1791,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize all charts
     initializeDieselVehiclesCharts();
     initializeDieselPriceCharts();
+    updateVehicleCharts('All Years', 'All Regions');    
+    
     
     // Set up interactive elements
     setupMainTabs();
     setupChartTypeToggle();
     setupDropdowns();
-    setupUserDropdown();
+    // setupUserDropdown();
 });

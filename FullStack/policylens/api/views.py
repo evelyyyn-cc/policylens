@@ -9,7 +9,7 @@ Created time: 08/04/2025
 # from django.shortcuts import render
 # Create your views here.
 from rest_framework import serializers
-from .models import FuelPrice, Car
+from .models import FuelPrice, Car, CPIData
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -19,6 +19,12 @@ from django.db.models.functions import ExtractYear, ExtractMonth
 
 from django.shortcuts import render
 
+
+# def header(request):
+#     return render(request, "header.html")
+
+# def footer(request):
+#     return render(request, "footer.html")
 
 def index(request):
     return render(request, 'index.html')
@@ -35,10 +41,22 @@ def datasets_page(request):
 def policies(request):
     return render(request, "policies.html")
 
+def cpi_impact(request):
+    return render(request, "cpi_impact.html")
+
+def cpi_dataset(request):
+    return render(request, "cpi_datasets.html")
+
 
 class FuelPriceSerializer(serializers.ModelSerializer):
     class Meta:
         model = FuelPrice
+        fields = '__all__'
+
+
+class CPIDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CPIData
         fields = '__all__'
 
 
@@ -64,6 +82,9 @@ class FuelPriceFilterView(APIView):
 
         if fuel_type not in ["ron95", "ron97", "diesel", "diesel_euro5"]:
             return Response({"error": "Invalid fuel type"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if fuel_type == "diesel_euro5":
+            fuel_type = "diesel_eastern"
 
         if not start_date or not end_date:
             return Response({"error": "Start and end dates are required"}, status=status.HTTP_400_BAD_REQUEST)
@@ -195,4 +216,96 @@ class CarFuelStatsView(APIView):
                 "diesel_monthly_count": monthly_result
             }, status=status.HTTP_200_OK)
 
+
+class CPIReportAPI(APIView):
+    """
+    API endpoint to retrieve CPI data for specific year and state
+    Returns data in format:
+    [
+        {
+            "date": "YYYY-MM",
+            "Food & Beverages": float,
+            "Utilities": float,
+            "Transport": float,
+            "Restaurant & Accommodation": float,
+            "Overall CPI": float
+        },
+        ...
+    ]
+    """
+
+    # Hardcoded divisions we need to include in the response
+    REQUIRED_DIVISIONS = [
+        'Food & Beverages',
+        'Utilities',
+        'Transport',
+        'Restaurant & Accommodation',
+        'Overall CPI'
+    ]
+
+    def get(self, request):
+        """
+        Handle POST request with parameters:
+        - year: integer (e.g., 2023)
+        - state: string (e.g., "Johor")
+
+        return Json format:
+        [{
+        "date": "2023-01",
+        "Food & Beverages": 158.0,
+        "Utilities": 124.8,
+        "Transport": 120.4,
+        "Restaurant & Accommodation": 146.8,
+        "Overall CPI": 132.9
+    }
+    ...,
+    ]
+         """
+        # Extract parameters from request body
+        year = request.GET.get('year')
+        state = request.GET.get('state')
+        print("testing",year, state)
+
+        # Validate required parameters
+        if not year or not state:
+            return Response(
+                {"error": "Missing required parameters: year or state"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Query database for matching records
+        cpi_data = CPIData.objects.filter(
+            date__startswith=str(year),  # Match year prefix in YYYY-MM format
+            state=state,  # Exact match for single state
+            division__in=self.REQUIRED_DIVISIONS
+        ).order_by('date', 'division')
+
+        # Process data into required format
+        processed_data = self._structure_response(cpi_data)
+
+        return Response(processed_data, status=status.HTTP_200_OK)
+
+    def _structure_response(self, queryset):
+        """
+        Transform queryset into the required response format:
+        - Group by date
+        - Pivot divisions into columns
+        """
+        result = {}
+
+        for entry in queryset:
+            # Use date as the primary key
+            if entry.date not in result:
+                result[entry.date] = {
+                    'date': entry.date,
+                    # Initialize all divisions with None
+                    **{div: None for div in self.REQUIRED_DIVISIONS}
+                }
+
+            # Update division value if present in dataset
+            if entry.division in self.REQUIRED_DIVISIONS:
+                result[entry.date][entry.division] = entry.index
+
+        # Convert dictionary to sorted list
+        return sorted(result.values(), key=lambda x: x['date'])
 

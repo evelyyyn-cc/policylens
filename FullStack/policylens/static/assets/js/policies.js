@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('.nav-links a');
     navLinks.forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('href') === 'policies.html') {
+        if (link.getAttribute('href') === '/policies/') {
             link.classList.add('active');
         }
     });
@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     // Function to render policies (would be used with real data)
+    
     const renderPolicies = (policiesData) => {
         const container = document.querySelector('.policies-container');
         
