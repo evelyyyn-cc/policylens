@@ -409,6 +409,7 @@ async function initializeCpiChart() {
     let chartData;
     if (apiData) {
         chartData = transformCpiDataToChartFormat(apiData);
+        dateArray = apiData.map(item => item.date); // Extract YYYY-MM dates
     } else {
         // Provide empty data structure if fetch failed to prevent Chart.js errors
          chartData = {
@@ -460,17 +461,30 @@ async function initializeCpiChart() {
                     position: 'top', // Or 'bottom', 'left', 'right'
                 },
                 tooltip: {
-                    mode: 'index', // Show tooltips for all datasets at the same x-index
-                    intersect: false,
-                     callbacks: {
+                    // Show tooltips for all datasets at the same x-index
+                    mode: 'index', // 'nearest' to display only the hovered data point
+                    intersect: false, // 'true' to display only the hovered data point
+                    customData: {
+                        dates: dateArray // Store initial dates here
+                    },
+                    callbacks: {
                         title: function(tooltipItems) {
-                            // Show Year-Month in tooltip title
-                            const dateStr = apiData[tooltipItems[0].dataIndex]?.date;
-                            if (dateStr) {
-                                const date = new Date(dateStr + '-01');
-                                return date.toLocaleString('default', { month: 'long', year: 'numeric' });
+                            // Access dates from chart options
+                            const chart = tooltipItems[0].chart; // Get chart instance
+                            
+                            // Retrieve the stored dates
+                            const currentDates = chart.options.plugins.tooltip.customData.dates;
+                            const dataIndex = tooltipItems[0].dataIndex; // Get index of hovered point
+
+                            // Check if dates and index are valid
+                            if (currentDates && currentDates.length > dataIndex) {
+                                const dateStr = currentDates[dataIndex]; // Get YYYY-MM string
+                                if (dateStr) {
+                                    const date = new Date(dateStr + '-01'); // Append day for Date object
+                                    return date.toLocaleString('default', { month: 'long', year: 'numeric' });
+                                }
                             }
-                            return '';
+                            return ''; // Fallback
                         }
                     }
                 }
@@ -495,10 +509,14 @@ async function updateCpiChart(year, state) {
 
     if (apiData) {
         const updatedData = transformCpiDataToChartFormat(apiData);
+        const newDateArray = apiData.map(item => item.date); // Extract new dates
 
         // Update chart data and labels
         charts.cpiChart.data.labels = updatedData.labels;
         charts.cpiChart.data.datasets = updatedData.datasets;
+
+        // Update the stored dates in the chart options ***
+        charts.cpiChart.options.plugins.tooltip.customData.dates = newDateArray;
 
         // Optional: Adjust Y-axis scale dynamically if needed
         // Find min/max across all datasets
@@ -525,6 +543,10 @@ async function updateCpiChart(year, state) {
          // Optionally clear the chart or show an error message
          charts.cpiChart.data.labels = ['Failed to load data'];
          charts.cpiChart.data.datasets = [{ label: 'Error', data: [], borderColor: 'red' }];
+
+         // Optionally clear stored dates on error
+         charts.cpiChart.options.plugins.tooltip.customData.dates = [];
+
          charts.cpiChart.update();
     }
 }
