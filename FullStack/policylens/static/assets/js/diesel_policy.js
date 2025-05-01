@@ -1,6 +1,34 @@
 // Script for MYPolicyLens - The Diesel Dilemma webpage
 
-// Add this to your script.js file
+function setupMainTabs() {
+    const tabLinks = document.querySelectorAll('.chart-tabs .chart-tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabLinks.forEach((link, index) => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remove active class from all links
+            tabLinks.forEach(tab => tab.classList.remove('active'));
+            
+            // Add active class to clicked link
+            this.classList.add('active');
+            
+            // Hide all tab contents
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Show the selected tab content
+            const tabId = this.getAttribute('data-tab');
+            // document.getElementById(tabId).classList.add('active');
+
+            const targetTab = document.getElementById(tabId);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+
+        });
+    });
+}
 
 // Initialize the beneficiary donut chart
 function initializeBeneficiaryChart() {
@@ -75,6 +103,9 @@ function initializeBeneficiaryChart() {
     return beneficiaryChart;
   }
 document.addEventListener('DOMContentLoaded', function() {
+    // The Challenge chart description tabs
+    setupMainTabs();
+
     // Language selector functionality
     const languageBtn = document.querySelector('.language-btn');
     if (languageBtn) {
@@ -124,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
           beneficiaryChart.resize();
         });
       }
-      
+
       // More Details link functionality
     //   const moreDetailsLink = document.querySelector('.more-link');
     //   if (moreDetailsLink) {
@@ -325,7 +356,7 @@ function initializeCharts() {
             labels: ['Malaysia (Pre-Reform)', 'Malaysia (Post-Reform)', 'Thailand', 'Indonesia', 'Singapore'],
             datasets: [{
                 label: 'Diesel Price (RM per liter)',
-                data: [2.15, 3.35, 4.00, 4.50, 7.80],
+                data: [2.15, 3.35, 4.24, 4.43, 8.79],
                 backgroundColor: [
                     'rgba(76, 175, 80, 0.7)',  // Green for Malaysia pre-reform
                     'rgba(79, 132, 212, 0.7)', // Light blue for Malaysia post-reform

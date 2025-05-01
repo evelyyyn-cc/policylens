@@ -1,19 +1,42 @@
 // Script for MYPolicyLens - The Diesel Dilemma webpage
 
-// Add this to your script.js file
+function setupMainTabs() {
+    const tabLinks = document.querySelectorAll('.chart-tabs .chart-tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabLinks.forEach((link, index) => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remove active class from all links
+            tabLinks.forEach(tab => tab.classList.remove('active'));
+            
+            // Add active class to clicked link
+            this.classList.add('active');
+            
+            // Hide all tab contents
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Show the selected tab content
+            const tabId = this.getAttribute('data-tab');
+            // document.getElementById(tabId).classList.add('active');
+
+            const targetTab = document.getElementById(tabId);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+
+        });
+    });
+}
 
 // Initialize the beneficiary donut chart
 function initializeBeneficiaryChart() {
     const ctx = document.getElementById('beneficiaryChart').getContext('2d');
-
+    
     // Beneficiary data
     const beneficiaryData = {
-      labels: [
-        gettext('Private Vehicle Owners'),
-        gettext('Farmers'),
-        gettext('Livestock Breeders'),
-        gettext('Aquaculture Farmers')
-      ],
+      labels: ['Private Vehicle Owners', 'Farmers', 'Livestock Breeders', 'Aquaculture Farmers'],
       datasets: [{
         data: [300000, 68000, 8000, 34000],
         backgroundColor: [
@@ -27,7 +50,7 @@ function initializeBeneficiaryChart() {
         hoverOffset: 10
       }]
     };
-
+    
     // Create the donut chart
     const beneficiaryChart = new Chart(ctx, {
       type: 'doughnut',
@@ -76,20 +99,23 @@ function initializeBeneficiaryChart() {
         }
       }
     });
-
+    
     return beneficiaryChart;
   }
 document.addEventListener('DOMContentLoaded', function() {
+    // The Challenge chart description tabs
+    setupMainTabs();
+
     // Language selector functionality
     const languageBtn = document.querySelector('.language-btn');
     if (languageBtn) {
         languageBtn.addEventListener('click', function() {
             // Toggle between languages
-            if (languageBtn.textContent.includes(gettext('Bahasa Malaysia'))) {
-                languageBtn.textContent = gettext('English') + ' ▼';
+            if (languageBtn.textContent.includes('Bahasa Malaysia')) {
+                languageBtn.textContent = 'English ▼';
                 // Apply language change logic here
             } else {
-                languageBtn.textContent = gettext('Bahasa Malaysia') + ' ▼';
+                languageBtn.textContent = 'Bahasa Malaysia ▼';
                 // Apply language change logic here
             }
         });
@@ -101,11 +127,11 @@ document.addEventListener('DOMContentLoaded', function() {
         link.addEventListener('click', function(e) {
             // Remove active class from all links
             navLinks.forEach(item => item.classList.remove('active'));
-
+            
             // Add active class to clicked link
             this.classList.add('active');
         });
-
+        
         // Check if current page matches link href and set as active
         if (link.getAttribute('href') === window.location.pathname) {
             link.classList.add('active');
@@ -123,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeCharts();
     if (document.getElementById('beneficiaryChart')) {
         const beneficiaryChart = initializeBeneficiaryChart();
-
+        
         // Handle resize for this chart too
         window.addEventListener('resize', function() {
           beneficiaryChart.resize();
@@ -154,7 +180,7 @@ function initializeCharts() {
     // Consumption growth chart (consumption vs vehicle registration)
     const createConsumptionChart = () => {
         const ctx = document.getElementById('consumptionChart').getContext('2d');
-
+        
         // Data for yearly view
         const yearlyData = {
             labels: ['2021', '2022', '2023'],
@@ -180,7 +206,7 @@ function initializeCharts() {
                 }
             ]
         };
-
+        
         // Data for cumulative growth
         const cumulativeData = {
             labels: ['2021', '2022', '2023'],
@@ -295,10 +321,10 @@ function initializeCharts() {
                 tab.addEventListener('click', function() {
                     // Remove active class from all tabs
                     chartTabs.forEach(t => t.classList.remove('active'));
-
+                    
                     // Add active class to clicked tab
                     this.classList.add('active');
-
+                    
                     // Update chart based on selected view
                     if (this.getAttribute('data-view') === 'yearly') {
                         consumptionChart.data = yearlyData;
@@ -313,7 +339,7 @@ function initializeCharts() {
                         consumptionChart.options.scales.y.min = 0;
                         consumptionChart.options.scales.y1.min = 0;
                     }
-
+                    
                     consumptionChart.update();
                 });
             });
@@ -325,12 +351,12 @@ function initializeCharts() {
     // Regional price comparison chart
     const createPriceComparisonChart = () => {
         const ctx = document.getElementById('priceComparisonChart').getContext('2d');
-
+        
         const regionalPriceData = {
             labels: ['Malaysia (Pre-Reform)', 'Malaysia (Post-Reform)', 'Thailand', 'Indonesia', 'Singapore'],
             datasets: [{
                 label: 'Diesel Price (RM per liter)',
-                data: [2.15, 3.35, 4.00, 4.50, 7.80],
+                data: [2.15, 3.35, 4.24, 4.43, 8.79],
                 backgroundColor: [
                     'rgba(76, 175, 80, 0.7)',  // Green for Malaysia pre-reform
                     'rgba(79, 132, 212, 0.7)', // Light blue for Malaysia post-reform
@@ -348,7 +374,7 @@ function initializeCharts() {
                 borderWidth: 1
             }]
         };
-
+        
         const priceComparisonChart = new Chart(ctx, {
             type: 'bar',
             data: regionalPriceData,
