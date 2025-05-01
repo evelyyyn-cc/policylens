@@ -74,7 +74,7 @@
 
             <div class="challenge-content">
                 <div class="challenge-info">
-                    <p>
+                    <p class="section-text">
                         {% trans "Malaysia's diesel subsidy expenditure increased dramatically over recent years, creating an unsustainable burden on government finances. The rapid rise in subsidy costs became a pressing issue that demanded reform." %}
                     </p>
 
@@ -101,13 +101,34 @@
                     <p>{% trans "Diesel consumption growth significantly outpaced vehicle registration:" %}</p>
 
                     <div class="chart-tabs">
-                        <button class="chart-tab active" data-view="cumulative">{% trans "Cumulative Growth" %}</button>
-                        <button class="chart-tab" data-view="yearly">{% trans "Yearly View" %}</button>
+                        <button class="chart-tab active" data-view="cumulative" data-tab="cumulative">{% trans "Cumulative Growth" %}</button>
+                        <button class="chart-tab" data-view="yearly" data-tab="yearly">{% trans "Yearly View" %}</button>
                     </div>
 
                     <div class="chart-container">
                         <canvas id="consumptionChart"></canvas>
                     </div>
+
+                    
+                    <div class="tab-content active" id="cumulative">
+                        <p class="conclusion-text">
+                          The solid blue line shows how much total diesel use has grown since 2021. 
+                          The gold dashed line shows how much the number of diesel vehicles has grown. 
+                          By 2023, diesel use has risen much more than vehicle numbers, so it’s the same trucks 
+                          and cars using more fuel, not just more vehicles on the road.
+                        </p>
+                      </div>
+  
+                      <div class="tab-content" id="yearly">
+                        <p class="conclusion-text">
+                          In this view, the blue line tracks total diesel burned each year, 
+                          and the gold dashed line tracks how many diesel vehicles were added each year. 
+                          Even when fewer new vehicles were registered in 2023, fuel use kept climbing. 
+                          That means the existing vehicles are driving farther or hauling heavier loads, 
+                          using more diesel per vehicle.
+                        </p>
+                      </div>
+                      
                 </div>
 
                 <div class="border-leakage">
@@ -119,19 +140,25 @@
                     <div class="price-comparison">
                         <div class="country">
                             <span class="country-name">{% trans "Singapore" %}</span>
-                            <span class="price">{% trans "RM 7.8" %}</span>
+                            <span class="price">{% trans "RM 8.79" %}</span>
                             <span class="per-unit">{% trans "per liter" %}</span>
                         </div>
                         <div class="country">
                             <span class="country-name">{% trans "Thailand" %}</span>
-                            <span class="price">{% trans "RM 4.00" %}</span>
+                            <span class="price">{% trans "RM 4.24" %}</span>
                             <span class="per-unit">{% trans "per liter" %}</span>
                         </div>
                         <div class="country">
                             <span class="country-name">{% trans "Indonesia" %}</span>
-                            <span class="price">{% trans "RM 4.50" %}</span>
+                            <span class="price">{% trans "RM 4.43" %}</span>
                             <span class="per-unit">{% trans "per liter" %}</span>
                         </div>
+                    </div>
+
+                    <div class="chart-title">
+                        <span>
+                          Diesel Price Comparison with Neighbouring Countries (June 2024)
+                        </span>
                     </div>
 
                     <div class="price-chart-container">
@@ -156,10 +183,8 @@
                             <a href="https://www.mof.gov.my/portal/en/news/press-release/government-implements-targeted-diesel-subsidy-for-peninsular-malaysia-effective-10-june-2024">https://www.mof.gov.my/portal/en/news/press-release/government-implements-targeted-diesel-subsidy-for-peninsular-malaysia-effective-10-june-2024</a>
                         </p>
                         <p class="source">
-                            {% blocktrans %}
-                            Source: Global Petrol Prices. (2023). Diesel Prices in Asia. Retrieved from
-                            {% endblocktrans %}
-                            <a href="https://www.globalpetrolprices.com/diesel_prices/#asia">https://www.globalpetrolprices.com/diesel_prices/#asia</a>
+                            Source: Diesel Price Increase to RM3.35 Per Litre Effective Today, June 10, 2024. Retrieved from 
+                            <a href="https://www.mycarsearch.com.my/latestnews/nid/141443/?utm_source=chatgpt.com">https://www.mycarsearch.com.my/latestnews/nid/141443/?utm_source=chatgpt.com</a>>
                         </p>
                     </div>
                 </div>
@@ -198,6 +223,9 @@
                             <h4 class="stat-title">{% trans "Aquaculture Farmers" %}</h4>
                             <p class="stat-value">34,000</p>
                         </div>
+                    </div>
+                    <div class="more-details">
+                        <a href="https://www.mof.gov.my/portal/ms/berita/siaran-media/100-000-permohonan-bantuan-tunai-budi-madani-diluluskan" class="more-link" target="_blank"><i class="fas fa-info-circle"></i> Information Source</a>
                     </div>
                 </div>
 
@@ -247,7 +275,7 @@
                         </div>
                         <div class="process-step">
                             <h4 class="step-title">{% trans "Online Application" %}</h4>
-                            <p class="step-description">{% blocktrans %}Complete application at <a href="https://budimasani.gov.my" target="_blank">budimasani.gov.my</a>{% endblocktrans %}</p>
+                            <p class="step-description">{% blocktrans %}Complete application at <a href="https://budimadani.gov.my/" target="_blank">budimadani.gov.my</a>{% endblocktrans %}</p>
                         </div>
                         <div class="process-step">
                             <h4 class="step-title">{% trans "Verification Period" %}</h4>
@@ -281,10 +309,7 @@
                             <a href="https://www.mof.gov.my/portal/en/news/press-release/program-bantuan-subsidi-madani-open-for-application" target="_blank">https://www.mof.gov.my/portal/en/news/press-release/program-bantuan-subsidi-madani-open-for-application</a>
                         </p>
                         <p class="source">
-                            {% blocktrans %}
-                            Source: Ministry of Finance Malaysia. (2024, June 9). Over 30,000 applicants will receive first BUDI MADANI cash assistance on June 10 – MoF. Retrieved from
-                            {% endblocktrans %}
-                            <a href="https://www.mof.gov.my/portal/en/news/press-citation/over-30-000-applicants-will-receive-first-budi-madani-cash-assistance-on-june-10-mof" target="_blank">https://www.mof.gov.my/portal/en/news/press-citation/over-30-000-applicants-will-receive-first-budi-madani-cash-assistance-on-june-10-mof</a>
+                            Source: Ministry of Finance Malaysia. (2024, June 9). 100,000 Civil Service Cash Assistance Applications Approved. Retrieved from <a href="https://www.mof.gov.my/portal/ms/berita/siaran-media/100-000-permohonan-bantuan-tunai-budi-madani-diluluskan" target="_blank">https://www.mof.gov.my/portal/ms/berita/siaran-media/100-000-permohonan-bantuan-tunai-budi-madani-diluluskan</a>
                         </p>
                     </div>
                 </div>
@@ -318,11 +343,9 @@
 
                 <div class="sources">
                     <p class="source">
-                        {% blocktrans %}
-                        Source: Reuters. (2024, May 27). Malaysia to cut diesel subsidies, saving $852 million annually. Retrieved from
-                        {% endblocktrans %}
-                        <a href="https://www.reuters.com/markets/commodities/malaysia-cut-diesel-subsidies-targets-852-million-annual-savings-pm-says-2024-05-21/" target="_blank">
-                            https://www.reuters.com/markets/commodities/malaysia-cut-diesel-subsidies-targets-852-million-annual-savings-pm-says-2024-05-21/
+                        Source: MOF. (2024, June 9). Diesel Price In Peninsula Set At RM3.35 Per Litre From 12.01am Monday. Retrieved from 
+                        <a href="https://www.mof.gov.my/portal/en/news/press-citations/diesel-price-in-peninsula-set-at-rm3-35-per-litre-from-12-01am-monday" target="_blank">
+                        https://www.mof.gov.my/portal/en/news/press-citations/diesel-price-in-peninsula-set-at-rm3-35-per-litre-from-12-01am-monday
                         </a>
                     </p>
                 </div>
@@ -509,11 +532,9 @@
 
                 <div class="sources">
                     <p class="source">
-                        {% blocktrans %}
-                        Source: Bloomberg. (2024, June 25). Malaysia's Carbon Tax Ambitions Need to Overcome Fuel Subsidies. Retrieved from
-                        {% endblocktrans %}
-                        <a href="https://www.bloomberg.com/news/articles/2024-06-25/malaysia-s-carbon-tax-ambitions-need-to-overcome-fuel-subsidies" target="_blank">
-                            https://www.bloomberg.com/news/articles/2024-06-25/malaysia-s-carbon-tax-ambitions-need-to-overcome-fuel-subsidies
+                        Source: Bernama. (2025, April 24). Malaysia's Great Shift: Navigating The High Stakes Of Targeted Subsidies. Retrieved from 
+                        <a href="https://www.bernama.com/en/news.php/sports/politics/target='_blank'?id=2416103" target="_blank">
+                        https://www.bernama.com/en/news.php/sports/politics/target='_blank'?id=2416103
                         </a>
                     </p>
                 </div>

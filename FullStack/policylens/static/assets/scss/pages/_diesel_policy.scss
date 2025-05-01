@@ -64,6 +64,10 @@
       line-height: 1.7;
       color: $text-color;
       max-width: 90%;
+      text-align: justify;
+      // background-color: $text-section;
+      // border-radius: 8px;
+      // padding: 1rem;
 
       @include responsive-md{
         max-width: 100%;
@@ -101,11 +105,25 @@
   
       .challenge-info, .border-leakage {
         flex: 1;
+        text-align: justify;
+      }
+    }
+
+    .challenge-info {
+      .section-text {
+        background-color: $text-section;
+        border-radius: 8px;
+        padding: 1rem;
       }
     }
   
     .subsection-title {
       @include subsection-title(1.3rem);
+    }
+
+    .chart-title {
+      @include subsection-title($size: 1rem, $margin-bottom: 0rem);
+      text-align: center;
     }
   
     p {
@@ -184,13 +202,27 @@
         }
       }
     }
+
+    .tab-content {
+      display: none;
+      // background-color: $white;
+      // padding: 1.5rem 16rem;
+      // padding-bottom: 1rem;
+      // margin: 1rem 1rem;
+      text-align: justify;
+      
+      &.active {
+      display: block;
+      }
+    }
   
     .chart-container{
-      @include chart-container($margin:null)
+      @include chart-container($margin:null);
     } 
     
     .price-chart-container {
-      @include chart-container($margin-bottom:null)
+      @include chart-container($margin-bottom:null);
+      margin-top: 0.5rem;
     }
   
     .leakage-image {
@@ -419,8 +451,8 @@
       }
       
       .eligible-counter {
-        background-color: #e1f1fd;
-        color: darken(#e1f1fd, 60%);
+        background-color: $text-section;
+        color: darken($text-section, 60%);
       }
       
       .approved-counter {
@@ -457,6 +489,14 @@
     .annual-savings, .budget-reallocation, .regional-differences {
       margin-bottom: 3rem;
     }
+
+    .annual-savings {
+      .section-text {
+        background-color: $text-section;
+        border-radius: 8px;
+        padding: 1rem;
+      }
+    }
     
     .subsection-title {
       @include subsection-title;
@@ -469,7 +509,7 @@
       border-radius: 8px;
       padding: 2rem;
       text-align: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.3rem;
       box-shadow: $shadow-md;
       
       .savings-title {
@@ -509,7 +549,7 @@
     }
     
     .reallocation-impact {
-      background-color: #e1f1fd;
+      background-color: $text-section;
     }
     
     .column-title {
@@ -562,7 +602,7 @@
       }
       
       &:last-child {
-        background-color: #e1f1fd;
+        background-color: $text-section;
       }
       
       .region-name {
@@ -759,9 +799,9 @@
     
     /* Summary Styles */
     .outlook-summary {
-      background-color: $light-gray;
+      background-color: $text-section;
       border-radius: 8px;
-      padding: 1.5rem;
+      padding: 1rem;
       margin-top: 1rem;
     }
     
