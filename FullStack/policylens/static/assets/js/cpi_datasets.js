@@ -597,7 +597,6 @@ document.addEventListener('DOMContentLoaded', function() {
          initializeCpiChart();
     }
 
-
     // Initialize MCOICOP chart if its tab exists (it might not be active initially)
      if (document.getElementById('mcoicop-tab')) {
          // Delay initialization slightly if it's not the active tab to potentially improve load performance
@@ -618,6 +617,22 @@ document.addEventListener('DOMContentLoaded', function() {
             mainTabIndicator.style.opacity = '1'; // Make visible after positioning
          }, 50);
     }
+    const mapTabLink = document.querySelector('.main-tabs .tab-link[data-tab="state-data-map-tab"]');
+    
+    if (mapTabLink) {
+        mapTabLink.addEventListener('click', function() {
+            // Short delay to ensure the tab content is visible
+            setTimeout(initializeMap, 100);
+        });
+    }
+    
+    // Also check if we need to initialize the map on page load
+    setTimeout(function() {
+        const mapTab = document.getElementById('state-data-map-tab');
+        if (mapTab && mapTab.classList.contains('active')) {
+            initializeMap();
+        }
+    }, 500);
 });
 
 // MCOICOP Data
@@ -694,3 +709,409 @@ const filterOptions = {
         "W.P. Putrajaya"
     ]
 };
+
+
+// Malaysia map-related functions
+let malaysiaMap; // Global map variable
+let geoJsonLayer; // Global layer variable to allow updates
+let selectedRegion = null; // Track the currently selected region
+
+// Map Initialization
+function initializeMap() {
+    // Check if map element exists
+    const mapElement = document.getElementById('malaysiaMap');
+    if (!mapElement) return;
+    
+    // Initialize the map centered on Malaysia
+    malaysiaMap = L.map('malaysiaMap', {
+        center: [4.2105, 109.6284], // Center coordinates for Malaysia
+        zoom: 5,
+        minZoom: 5,
+        maxZoom: 9,
+        zoomControl: true,
+        attributionControl: true
+    });
+    
+    // Add OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(malaysiaMap);
+    
+    // Load and display Malaysia GeoJSON
+    loadMalaysiaGeoJson();
+    
+    // Add legend to map
+    //addLegendToMap();
+}
+
+// function addLegendToMap() {
+//     const legend = L.control({ position: 'bottomleft' });
+    
+//     legend.onAdd = function(map) {
+//         const div = L.DomUtil.create('div', 'map-legend');
+//         div.innerHTML = `
+//             <h6>CPI Value Range</h6>
+//             <div class="legend-gradient">
+//                 <span>Lower</span>
+//                 <div class="gradient-bar"></div>
+//                 <span>Higher</span>
+//             </div>
+//         `;
+//         return div;
+//     };
+    
+//     legend.addTo(malaysiaMap);
+// }
+
+async function loadMalaysiaGeoJson() {
+    try {
+        // Fetch CPI data from the API
+        const cpiData = await getCPIByStateByMonthName();
+        
+        // Fetch GeoJSON data 
+        const response = await fetch('/static/my.json');
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch GeoJSON: ${response.status}`);
+        }
+        
+        const geojsonData = await response.json();
+        
+        // Process GeoJSON to map feature properties to our CPI dataset
+        processGeoJson(geojsonData, cpiData);
+        
+        // Add the GeoJSON layer to the map
+        addGeoJsonToMap(geojsonData);
+        
+    } catch (error) {
+        console.error('Error loading Malaysia GeoJSON:', error);
+        // Show user-friendly error message
+        const mapElement = document.getElementById('malaysiaMap');
+        if (mapElement) {
+            mapElement.innerHTML = '<div class="map-error">Failed to load map data. Please try again later.</div>';
+        }
+    }
+}
+
+function processGeoJson(geojsonData, cpiData) {
+    // Map state names in GeoJSON to our CPI dataset keys
+    const stateNameMapping = {
+        'Johor': 'Johor',
+        'Kedah': 'Kedah',
+        'Kelantan': 'Kelantan',
+        'Melaka': 'Melaka',
+        'Negeri Sembilan': 'Negeri Sembilan',
+        'Pahang': 'Pahang',
+        'Perak': 'Perak',
+        'Perlis': 'Perlis',
+        'Pulau Pinang': 'Pulau Pinang',
+        'Sabah': 'Sabah',
+        'Sarawak': 'Sarawak',
+        'Selangor': 'Selangor',
+        'Terengganu': 'Terengganu',
+        'Kuala Lumpur': 'W.P. Kuala Lumpur',
+        'Labuan': 'W.P. Labuan',
+        'Putrajaya': 'W.P. Putrajaya'
+    };
+
+    // Get the latest month from the data (assuming all states have the same latest month)
+    let latestMonth = '';
+    if (cpiData && Object.keys(cpiData).length > 0) {
+        const firstState = Object.keys(cpiData)[0];
+        latestMonth = Object.keys(cpiData[firstState])[0];
+    }
+    
+    // Add CPI data to each feature
+    geojsonData.features.forEach(feature => {
+        const stateName = feature.properties.name;
+        const mappedName = stateNameMapping[stateName];
+        
+        if (mappedName && cpiData[mappedName] && cpiData[mappedName][latestMonth]) {
+            // Add CPI data to the feature properties
+            feature.properties.cpi_data = cpiData[mappedName][latestMonth];
+            // Add month information
+            feature.properties.month = latestMonth;
+        } else {
+            console.warn(`No CPI data found for state: ${stateName} in month: ${latestMonth}`);
+            // Add empty data to prevent errors
+            feature.properties.cpi_data = {
+                overall: 0,
+                '01': 0,
+                '04': 0, 
+                '07': 0,
+                '11': 0
+            };
+            feature.properties.month = latestMonth || 'Unknown';
+        }
+    });
+}
+
+// Add the GeoJSON layer to the map with styling
+function addGeoJsonToMap(geojsonData) {
+    // Remove existing layer if present
+    if (geoJsonLayer) {
+        malaysiaMap.removeLayer(geoJsonLayer);
+    }
+    
+    // Add new layer with styles
+    geoJsonLayer = L.geoJson(geojsonData, {
+        style: getFeatureStyle,
+        onEachFeature: attachFeatureEvents
+    }).addTo(malaysiaMap);
+    
+    // Fit map bounds to GeoJSON layer
+    malaysiaMap.fitBounds(geoJsonLayer.getBounds());
+}
+
+// Get style for each feature based on CPI value
+function getFeatureStyle(feature) {
+    const overallCPI = feature.properties.cpi_data?.overall || 0;
+    const color = getColorFromCPI(overallCPI);
+    
+    return {
+        fillColor: color,
+        weight: 1,
+        opacity: 1,
+        color: '#fff',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+function getColorFromCPI(cpi) {
+    // Color scale from light to dark
+    // Assuming CPI values range roughly from 110 to 150 based on your data
+    if (cpi <= 0) return '#f7f7f7';  // For missing data
+    if (cpi < 120) return '#ffffcc';
+    if (cpi < 125) return '#ffeda0';
+    if (cpi < 130) return '#fed976';
+    if (cpi < 135) return '#feb24c';
+    if (cpi < 140) return '#fd8d3c';
+    if (cpi < 145) return '#fc4e2a';
+    if (cpi < 150) return '#e31a1c';
+    return '#b10026'; // 150+ (dark red)
+}
+
+// Attach events to map features (states)
+function attachFeatureEvents(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: selectRegion
+    });
+}
+
+function highlightFeature(e) {
+    const layer = e.target;
+    
+    // Don't highlight if this is the selected region
+    if (selectedRegion === layer) return;
+    
+    layer.setStyle({
+        weight: 2,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.8
+    });
+    
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+}
+
+// Reset highlight on mouseout
+function resetHighlight(e) {
+    const layer = e.target;
+    
+    // Don't reset if this is the selected region
+    if (selectedRegion === layer) return;
+    
+    geoJsonLayer.resetStyle(layer);
+}
+
+// Handle region selection on click
+function selectRegion(e) {
+    const layer = e.target;
+    const feature = layer.feature;
+    
+    // Reset previous selection if exists
+    if (selectedRegion) {
+        geoJsonLayer.resetStyle(selectedRegion);
+    }
+    
+    // Set new selection
+    selectedRegion = layer;
+    
+    // Highlight selected region
+    layer.setStyle({
+        weight: 3,
+        color: '#222',
+        dashArray: '',
+        fillOpacity: 0.9
+    });
+    
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+    
+    // Update details panel with selected region data
+    updateRegionDetails(feature);
+}
+
+// Update the details panel with data from the selected region
+function updateRegionDetails(feature) {
+    const properties = feature.properties;
+    const cpiData = properties.cpi_data;
+    const month = properties.month;
+    
+    if (!cpiData) {
+        console.warn('No CPI data for selected region');
+        return;
+    }
+    
+    // Update region name
+    const regionNameElement = document.getElementById('selectedRegionName');
+    if (regionNameElement) {
+        regionNameElement.textContent = `${properties.name} (${month})`;
+    }
+    
+    // Update overall CPI value
+    const overallImpactElement = document.getElementById('overallImpactValue');
+    if (overallImpactElement) {
+        overallImpactElement.textContent = cpiData.overall ? cpiData.overall.toFixed(1) : 'N/A';
+        
+        // Set class based on value level
+        const cpiLevel = getCPILevelClass(cpiData.overall);
+        overallImpactElement.className = `summary-value ${cpiLevel}`;
+    }
+    
+    // Update category values and bars
+    updateCategoryDetail('transport', cpiData['07']);
+    updateCategoryDetail('food', cpiData['01']);
+    updateCategoryDetail('housing', cpiData['04']);
+    updateCategoryDetail('restaurant', cpiData['11']);
+}
+
+// Update a category detail in the panel
+function updateCategoryDetail(category, value) {
+    const valueElement = document.getElementById(`${category}ImpactValue`);
+    const barElement = document.getElementById(`${category}ImpactBar`);
+    
+    if (valueElement && barElement) {
+        valueElement.textContent = value ? value.toFixed(1) : 'N/A';
+        
+        // Calculate bar width based on CPI value
+        // Assuming values might range from 110 to 180
+        const minCPI = 110; // baseline
+        const maxCPI = 180; // high end
+        const percentage = value ? Math.min(100, Math.max(0, ((value - minCPI) / (maxCPI - minCPI)) * 100)) : 0;
+        barElement.style.width = `${percentage}%`;
+        
+        // Set color based on CPI level
+        barElement.className = `impact-bar ${getCPILevelClass(value)}`;
+    }
+}
+
+// Get class to represent CPI level
+function getCPILevelClass(value) {
+    if (!value || value <= 0) return 'impact-neutral';
+    if (value < 130) return 'impact-low';
+    if (value < 150) return 'impact-medium';
+    return 'impact-high';
+}
+
+// Fetch latest CPI data by state
+async function getLatestCPIByState() {
+    try {
+        const baseUrl = 'https://api.data.gov.my/data-catalogue';
+        const dataId = 'cpi_state';
+      
+        // 1) Fetch the single most recent date
+        const latestResp = await fetch(
+            `${baseUrl}?id=${dataId}&sort=-date&limit=1`
+        );
+        
+        if (!latestResp.ok) {
+            throw new Error(`Failed to fetch latest date: ${latestResp.status}`);
+        }
+        
+        const latestJson = await latestResp.json();
+        
+        if (!latestJson || !latestJson.length) {
+            console.warn('No data found when fetching latest date');
+            return [];
+        }
+        
+        const latestDate = latestJson[0]['date']; 
+        // e.g. "2025-03-01"
+      
+        // 2) Fetch all records for that date
+        //    (we pick a high limit to ensure we grab all divisions)
+        const allResp = await fetch(
+            `${baseUrl}`
+            + `?id=${dataId}`
+            + `&date_start=${latestDate}@date`
+            + `&date_end=${latestDate}@date`
+            + `&limit=1000`
+        );
+        
+        if (!allResp.ok) {
+            throw new Error(`Failed to fetch data for date ${latestDate}: ${allResp.status}`);
+        }
+        
+        const allJson = await allResp.json();
+      
+        // 3) Client-side filter for our five divisions
+        const wanted = new Set(['overall','01','04','07','11']);
+        const filtered = allJson.filter(r => wanted.has(r.division));
+      
+        return filtered;
+    } catch (error) {
+        console.error('Error fetching CPI data:', error);
+        
+        // For demonstration purposes, return mock data if API fails
+        // This is just an example - in production, handle API failures more gracefully
+        return getMockCPIData();
+    }
+}
+
+// Transform raw CPI data into a structured format organized by state and month
+async function getCPIByStateByMonthName() {
+    try {
+        const raw = await getLatestCPIByState();
+        
+        if (!raw || !raw.length) {
+            console.warn('No data returned from getLatestCPIByState');
+            return {};
+        }
+
+        const pivot = raw.reduce((acc, { date, state, division, index }) => {
+            // derive the month name from the ISO date:
+            // e.g. new Date("2025-03-01") → month "March"
+            const monthName = new Date(date).toLocaleString('en-US', { month: 'long' });
+
+            // init your state bucket
+            if (!acc[state]) acc[state] = {};
+
+            // init this month in that state
+            if (!acc[state][monthName]) {
+                acc[state][monthName] = {
+                    overall: null,
+                    '01': null,
+                    '04': null,
+                    '07': null,
+                    '11': null
+                };
+            }
+
+            // fill in the division
+            acc[state][monthName][division] = index;
+            return acc;
+        }, {});
+
+        return pivot;
+    } catch (error) {
+        console.error('Error processing CPI data:', error);
+        return {};
+    }
+}
