@@ -4099,6 +4099,11 @@ canvas {
     transform: rotate(360deg);
   }
 }
+.disclaimer {
+  color: orange;
+  margin-bottom: 1rem;
+}
+
 /*
 @import 'base/variables';
 @import 'base/mixins';
