@@ -18,15 +18,15 @@
     <div class="breadcrumb-container">
         <div class="container">
             <div class="breadcrumb">
-                <!-- <a href="/index/">Home</a> >
-                <a href="/policies/">Policies</a> >
-                <a href="/diesel_policy/">The Diesel Dilemma</a> >
+                <!-- <a href=" ">Home</a > >
+                <a href="/policies/">Policies</a > >
+                <a href="/diesel_policy/">The Diesel Dilemma</a > >
                 <span>CPI Impact</span> -->
 
-                <a href="/index/">{% trans "Home" %}</a> >
-                <a href="/policies/">{% trans "Policies" %}</a> >
-                <a href="/diesel_policy/">{% trans "The Diesel Dilemma" %}</a> >
-                <a href="/cpi_impact/">{% trans "CPI Impact" %}</a> >
+                <a href="/index/">{% trans "Home" %}</a > >
+                <a href="/policies/">{% trans "Policies" %}</a > >
+                <a href="/diesel_policy/">{% trans "The Diesel Dilemma" %}</a > >
+                <a href="/cpi_impact/">{% trans "CPI Impact" %}</a > >
                 <span>{% trans "CPI Data Dashboard" %}</span>
             </div>
         </div>
@@ -43,24 +43,24 @@
           <a href="/datasets_page/" class="dashboard-link">
               <i class="fas fa-chart-line dashboard-icon"></i>
               {% trans "Fuel Data Dashboard" %}
-          </a>
+          </a >
           <a href="/cpi_impact/" class="dashboard-link">
               <i class="fas fa-tags price-icon"></i>
               {% trans "Consumer Price Impact" %}
-          </a>
+          </a >
           <a href="#" class="dashboard-link">
             <i class="fas fa-industry manufacturing-icon"></i>
             {% trans "Manufacturing Data Dashboard" %}
-        </a>
+        </a >
         </div>
     </section>
 
     <section class="cpi-datasets-section">
         <!-- Tab navigation - Horizontal tabs below hero -->
         <div class="main-tabs">
-            <a href="#" class="tab-link active" data-tab="cpi-line-tab">{% trans "CPI Data" %}</a>
-            <a href="#" class="tab-link" data-tab="state-data-map-tab">{% trans "State CPI Map" %}</a>
-            <a href="#" class="tab-link" data-tab="mcoicop-tab">{% trans "MCOICOP" %}</a>
+            <a href="#" class="tab-link active" data-tab="cpi-line-tab">{% trans "CPI Data" %}</a >
+            <a href="#" class="tab-link" data-tab="state-data-map-tab">{% trans "State CPI Map" %}</a >
+            <a href="#" class="tab-link" data-tab="mcoicop-tab">{% trans "MCOICOP" %}</a >
             <div class="tab-indicator"></div>
         </div>
 
@@ -72,7 +72,7 @@
 
                 <div class="cpi-filter-row">
                     <div class="filter-dropdown">
-                        <label>Year</label>
+                        <label>{% trans "Year" %}</label>
                         <div class="dropdown-select">
                             <span>2024</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     <div class="filter-dropdown">
-                        <label>Region</label>
+                        <label>{% trans "Region" %}</label>
                         <div class="dropdown-select">
                             <span>Johor</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -102,7 +102,7 @@
 
                     <div class="data-citation">
                         <strong>{% trans "Data Source:" %}</strong> {% trans "data.gov.my, 2010-2025" %}<br>
-                        <strong>{% trans "URL:" %}</strong> <a href="https://data.gov.my/data-catalogue/cpi_state" target="_blank">https://data.gov.my/data-catalogue/cpi_state</a><br>
+                        <strong>{% trans "URL:" %}</strong> <a href="https://data.gov.my/data-catalogue/cpi_state" target="_blank">https://data.gov.my/data-catalogue/cpi_state</a ><br>
                         <strong>{% trans "Methodology:" %}</strong> {% trans "Montly CPI values were collected from official goverment data centers." %}
                     </div>
 
@@ -115,22 +115,21 @@
         <div class="tab-content" id="state-data-map-tab">
             <section class="cpi-dashboard-section">
                 <div class="section-header diesel-header">
-                    <span class="title">State CPI Map</span>
+                    <span class="title">{% trans "State CPI Map" %}</span>
                 </div>
         
                 <div class="section-content">
                     <div class="mcoicop-chart-title">
-                        State CPI Value Map
+                        {% trans "State CPI Value Map" %}
                     </div>
         
                     <p class="section-description">
-                        This interactive map shows the CPI (Consumer Price Index) values for different states in Malaysia. 
-                        Click on a state to see detailed CPI values for different categories in that region.
-                    </p>
+                        {% trans "This interactive map shows the CPI (Consumer Price Index) values for different states in Malaysia. Click on a state to see detailed CPI values for different categories in that region." %}
+                    </p >
 
                     <p class="disclaimer">
-                        <i class="fas fa-info-circle"></i> Disclaimer: This map shows data for Febuary 2025.
-                    </p>
+                        <i class="fas fa-info-circle"></i> {% trans "Disclaimer: This map shows data for Febuary 2025." %}
+                    </p >
         
                     <div class="map-visualization-container">
                         <div class="map-wrapper">
@@ -139,33 +138,33 @@
                             
                             <!-- Map Legend -->
                             <div class="map-legend">
-                                <h6>CPI Value Range</h6>
+                                <h6>{% trans "CPI Value Range" %}</h6>
                                 <div class="legend-gradient">
-                                    <span>Lower</span>
+                                    <span>{% trans "Lower" %}</span>
                                     <div class="gradient-bar"></div>
-                                    <span>Higher</span>
+                                    <span>{% trans "Higher" %}</span>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="region-details">
                             <div class="region-header">
-                                <h4 id="selectedRegionName">Select a State</h4>
+                                <h4 id="selectedRegionName">{% trans "Select a State" %}</h4>
                             </div>
                             
                             <div class="region-impact-summary">
                                 <div class="impact-summary-item">
-                                    <span class="summary-label">Overall CPI Value:</span>
+                                    <span class="summary-label">{% trans "Overall CPI Value:" %}</span>
                                     <span id="overallImpactValue" class="summary-value impact-medium">-</span>
                                 </div>
                             </div>
                             
                             <div class="impact-category-breakdown">
-                                <h5>CPI Values by Category</h5>
+                                <h5>{% trans "CPI Values by Category" %}</h5>
                                 
                                 <div class="impact-category-item">
                                     <div class="category-info">
-                                        <span class="category-name">Transportation</span>
+                                        <span class="category-name">{% trans "Transportation" %}</span>
                                         <span id="transportImpactValue" class="category-value">-</span>
                                     </div>
                                     <div class="impact-bar-container">
@@ -175,7 +174,7 @@
                                 
                                 <div class="impact-category-item">
                                     <div class="category-info">
-                                        <span class="category-name">Food & Beverages</span>
+                                        <span class="category-name">{% trans "Food & Beverages" %}</span>
                                         <span id="foodImpactValue" class="category-value">-</span>
                                     </div>
                                     <div class="impact-bar-container">
@@ -185,7 +184,7 @@
                                 
                                 <div class="impact-category-item">
                                     <div class="category-info">
-                                        <span class="category-name">Housing & Utilities</span>
+                                        <span class="category-name">{% trans "Housing & Utilities" %}</span>
                                         <span id="housingImpactValue" class="category-value">-</span>
                                     </div>
                                     <div class="impact-bar-container">
@@ -195,7 +194,7 @@
                                 
                                 <div class="impact-category-item">
                                     <div class="category-info">
-                                        <span class="category-name">Restaurants & Accommodation</span>
+                                        <span class="category-name">{% trans "Restaurants & Accommodation" %}</span>
                                         <span id="restaurantImpactValue" class="category-value">-</span>
                                     </div>
                                     <div class="impact-bar-container">
@@ -207,19 +206,19 @@
                     </div>
         
                     <div class="impact-analysis-section">
-                        <h3>Key Insights:</h3>
-                        <p>The sections in the map represents the state CPI values. Colors indicate the overall CPI value level, with darker colors representing higher values.</p>
+                        <h3>{% trans "Key Insights:" %}</h3>
+                        <p>{% trans "The sections in the map represents the state CPI values. Colors indicate the overall CPI value level, with darker colors representing higher values." %}</p >
                         <ul>
-                            <li>Food & Beverages typically shows the highest CPI values, often exceeding 140 in most states.</li>
-                            <li>Transportation CPI values tend to be lower, typically in the 110-125 range.</li>
-                            <li>Restaurant & Accommodation services show significant variation between states, reflecting differences in tourism and economic activity.</li>
+                            <li>{% trans "Food & Beverages typically shows the highest CPI values, often exceeding 140 in most states." %}</li>
+                            <li>{% trans "Transportation CPI values tend to be lower, typically in the 110-125 range." %}</li>
+                            <li>{% trans "Restaurant & Accommodation services show significant variation between states, reflecting differences in tourism and economic activity." %}</li>
                         </ul>
                     </div>
         
                     <div class="data-citation">
-                        <strong>Data Source:</strong> data.gov.my, 2025<br>
-                        <strong>URL:</strong> <a href="https://data.gov.my/data-catalogue/cpi_state" target="_blank">https://data.gov.my/data-catalogue/cpi_state</a><br>
-                        <strong>Methodology:</strong> The CPI values were collected from official government data centers and represent the most recent month available.
+                        <strong>{% trans "Data Source:" %}</strong> {% trans "data.gov.my, 2025" %}<br>
+                        <strong>{% trans "URL:" %}</strong> <a href="https://data.gov.my/data-catalogue/cpi_state" target="_blank">https://data.gov.my/data-catalogue/cpi_state</a ><br>
+                        <strong>{% trans "Methodology:" %}</strong> {% trans "The CPI values were collected from official government data centers and represent the most recent month available." %}
                     </div>
                 </div>
             </section>
@@ -245,7 +244,7 @@
                         <h3>{% trans "Key Insights:" %}</h3>
                         <p>{% blocktrans %}The sections in the chart represents the MCOICOP divisions (2 digit) and the values for each section
                             represents the number of subclasses (5 digit) for each of the divisions (2 digit). The CPI is calculated
-                            using the CPI value of each of the subclasses (5 digit).{% endblocktrans %}</p>
+                            using the CPI value of each of the subclasses (5 digit).{% endblocktrans %}</p >
                         <ul>
                             <li>{% blocktrans %}Food & Beverages has the highest weight in the CPI calculation at 27.49%, reflecting its importance in household budgets.{% endblocktrans %}</li>
                             <li>{% blocktrans %}Transport accounts for 10.90% of the CPI basket, which explains why the diesel subsidy reform has a significant but no overwelming impact on the overall CPI.{% endblocktrans %}</li>
@@ -255,7 +254,7 @@
 
                     <div class="data-citation">
                         <strong>{% trans "Data Source:" %}</strong> {% trans "data.gov.my, 2018" %}<br>
-                        <strong>{% trans "URL:" %}</strong> <a href="https://open.dosm.gov.my/data-catalogue/mcoicop" target="_blank">https://open.dosm.gov.my/data-catalogue/mcoicop</a><br>
+                        <strong>{% trans "URL:" %}</strong> <a href="https://open.dosm.gov.my/data-catalogue/mcoicop" target="_blank">https://open.dosm.gov.my/data-catalogue/mcoicop</a ><br>
                         <strong>{% trans "Methodology:" %}</strong> {% trans "This data provides a complete lookup for 2, 3, 4, and 5-digit codes under Malaysia's COICOP (Classification of Individual Consumption According to Purpose)." %}
                     </div>
 
