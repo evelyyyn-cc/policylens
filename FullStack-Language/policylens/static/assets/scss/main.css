@@ -389,7 +389,7 @@ footer .container .quick-links a:hover {
   }
 }
 .dashboard-links .dashboard-link {
-  background-color: #1a3a72;
+  background-color: #1e3a8a;
   color: #ffffff;
   padding: 0.8rem 1rem;
   border-radius: 10px;
@@ -408,8 +408,14 @@ footer .container .quick-links a:hover {
   transition: all 0.3s ease;
 }
 .dashboard-links .dashboard-link:hover {
-  background-color: #234f9c;
+  background-color: #274cb4;
   transform: translateY(-3px);
+}
+.dashboard-links .dashboard-link.data-dashboard {
+  background-color: #ec9b0d;
+}
+.dashboard-links .dashboard-link.impact-pages {
+  background-color: #1a3a72;
 }
 .dashboard-links .dashboard-link .icon {
   width: 24px;
