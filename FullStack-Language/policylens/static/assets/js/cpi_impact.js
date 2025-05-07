@@ -194,35 +194,150 @@ function calculateImpact() {
     const totalImpact = transportImpact + foodImpact + housingImpact + otherImpact;
     const totalMonthly = transport + food + housing + other;
     const percentageIncrease = (totalImpact / totalMonthly) * 100;
+    const totalMonthlyAfter = totalMonthly + totalImpact;
     
     // Update the impact display
-    document.getElementById('transportImpact').textContent = `+ RM ${formatCurrency(transportImpact)}`;
+    // document.getElementById('transportImpact').textContent = `+ RM ${formatCurrency(transportImpact)}`;
+    updateFinancialDisplay('transportImpact', transportImpact, transportImpact, true);
     document.getElementById('transportPercentage').textContent = `(${(transportRate * 100).toFixed(3)}% increase)`;
     
-    document.getElementById('foodImpact').textContent = `+ RM ${formatCurrency(foodImpact)}`;
+    // document.getElementById('foodImpact').textContent = `+ RM ${formatCurrency(foodImpact)}`;
+    updateFinancialDisplay('foodImpact', foodImpact, foodImpact, true);
     document.getElementById('foodPercentage').textContent = `(${(foodRate * 100).toFixed(3)}% increase)`;
     
-    document.getElementById('housingImpact').textContent = `+ RM ${formatCurrency(housingImpact)}`;
+    // document.getElementById('housingImpact').textContent = `+ RM ${formatCurrency(housingImpact)}`;
+    updateFinancialDisplay('housingImpact', housingImpact, housingImpact, true);
     document.getElementById('housingPercentage').textContent = `(${(housingRate * 100).toFixed(3)}% increase)`;
     
-    document.getElementById('otherImpact').textContent = `+ RM ${formatCurrency(otherImpact)}`;
+    // document.getElementById('otherImpact').textContent = `+ RM ${formatCurrency(otherImpact)}`;
+    updateFinancialDisplay('otherImpact', otherImpact, otherImpact, true);
     document.getElementById('otherPercentage').textContent = `(${(otherRate * 100).toFixed(3)}% increase)`;
     
     // Update Monthly comparison
     document.getElementById('monthlyBefore').textContent = `RM ${formatCurrency(totalMonthly)}`;
-    document.getElementById('monthlyAfter').textContent = `RM ${formatCurrency(totalMonthly + totalImpact)}`;
-    document.getElementById('monthlyDifference').textContent = `+ RM ${formatCurrency(totalImpact)}`;
+    // document.getElementById('monthlyAfter').textContent = `RM ${formatCurrency(totalMonthly + totalImpact)}`;
+    // document.getElementById('monthlyDifference').textContent = `+ RM ${formatCurrency(totalImpact)}`;
     document.getElementById('monthlyPercentage').textContent = `(${percentageIncrease.toFixed(1)}% increase from your total expenses)`;
+
+    // For "After Policy", display the total value, but color based on the *impact*
+    updateFinancialDisplay('monthlyAfter', totalMonthlyAfter, totalImpact, true);
+    updateFinancialDisplay('monthlyDifference', totalImpact, totalImpact, true);
     
     // Update Yearly comparison
     const yearlyBefore = totalMonthly * 12;
-    const yearlyAfter = (totalMonthly + totalImpact) * 12;
+    const yearlyAfter = totalMonthlyAfter * 12;
     const yearlyImpact = totalImpact * 12;
     
     document.getElementById('yearlyBefore').textContent = `RM ${formatCurrency(yearlyBefore)}`;
-    document.getElementById('yearlyAfter').textContent = `RM ${formatCurrency(yearlyAfter)}`;
+    // document.getElementById('yearlyAfter').textContent = `RM ${formatCurrency(yearlyAfter)}`;
     document.getElementById('yearlyDifference').textContent = `+ RM ${formatCurrency(yearlyImpact)}`;
     document.getElementById('yearlyPercentage').textContent = `(${percentageIncrease.toFixed(1)}% increase from your total yearly expenses)`;
+
+    updateFinancialDisplay('yearlyAfter', yearlyAfter, yearlyImpact, true);
+    updateFinancialDisplay('yearlyDifference', yearlyImpact, yearlyImpact, true);
+}
+
+/**
+ * Updates the text content and CSS classes for an element to reflect financial values.
+ * @param {string} elementId - The ID of the HTML element to update.
+ * @param {number} valueToDisplay - The numerical value to be displayed.
+ * @param {number} valueForColoring - The numerical value that determines the color (e.g., a change or impact).
+ * @param {boolean} [isCurrency=true] - Whether the value is a currency.
+ * @param {string} [prefixPositive="+ "] - Prefix for positive values (for differences/impacts).
+ * @param {string} [prefixNegative="- "] - Prefix for negative values (for differences/impacts).
+ * @param {string} [neutralPrefix="RM "] - Neutral prefix, typically for "After Policy" totals.
+ */
+function updateFinancialDisplay(elementId, valueToDisplay, valueForColoring, isCurrency = true, prefixPositive = "+ ", prefixNegative = "- ", neutralPrefix = "RM ") {
+    const element = document.getElementById(elementId);
+    if (!element) {
+        console.warn(`Element with ID ${elementId} not found.`);
+        return;
+    }
+
+    const absValueToDisplay = Math.abs(valueToDisplay);
+    const formattedDisplayValue = isCurrency ? `RM ${formatCurrency(absValueToDisplay)}` : `${absValueToDisplay.toFixed(2)}%`; // Adjust toFixed as needed for percentages
+
+    let textContent;
+
+    // Remove previous color classes
+    element.classList.remove('text--positive', 'text--negative');
+
+    // Determine text content and add new color class
+    if (element.classList.contains('comparison-value--after')) { // For "After Policy" totals
+        textContent = `${neutralPrefix}${formatCurrency(valueToDisplay)}`; // Display the actual total
+        if (valueForColoring >= 0) {
+            element.classList.add('text--positive');
+        } else {
+            element.classList.add('text--negative');
+        }
+    } else { // For differences and impact breakdown items
+        if (valueForColoring >= 0) {
+            textContent = `${prefixPositive}${formattedDisplayValue}`;
+            element.classList.add('text--positive');
+        } else {
+            textContent = `${prefixNegative}${formattedDisplayValue}`;
+            element.classList.add('text--negative');
+        }
+    }
+    element.textContent = textContent;
+
+    // Update associated percentage text and class
+    // Assumes percentage element ID is derived (e.g., 'monthlyDifference' -> 'monthlyPercentage')
+    // const percentageElementId = elementId.replace('Difference', 'Percentage').replace('Impact', 'Percentage').replace('After', 'Percentage');
+    // const percentageElement = document.getElementById(percentageElementId);
+
+    // if (percentageElement) {
+    //     percentageElement.classList.remove('text--positive', 'text--negative');
+    //     let percentageText = "";
+    //     let percentageChangeForColoring = 0; // This will be the actual % change.
+
+    //     // Calculate base values for percentage calculation
+    //     const transportBase = parseFloat(transportSlider.value);
+    //     const foodBase = parseFloat(foodSlider.value);
+    //     const housingBase = parseFloat(housingSlider.value);
+    //     const otherBase = parseFloat(otherSlider.value);
+    //     const totalMonthlyOriginal = transportBase + foodBase + housingBase + otherBase;
+
+    //     if (elementId.includes('monthly') || elementId.includes('yearly')) { // Covers After and Difference for overall summary
+    //         let changeAmountForPercentage = valueForColoring; // For 'Difference', valueForColoring is the change.
+    //          if (elementId.includes('After')) { // For 'After Policy', valueForColoring is totalImpact/yearlyImpact.
+    //              // The displayed percentage should still be based on this change.
+    //          }
+
+    //         if (totalMonthlyOriginal > 0) {
+    //             percentageChangeForColoring = (changeAmountForPercentage / totalMonthlyOriginal) * 100;
+    //             if (percentageChangeForColoring >= 0) {
+    //                 percentageText = `(${percentageChangeForColoring.toFixed(1)}% increase)`;
+    //                 percentageElement.classList.add('text--positive');
+    //             } else {
+    //                 percentageText = `(${Math.abs(percentageChangeForColoring).toFixed(1)}% decrease)`;
+    //                 percentageElement.classList.add('text--negative');
+    //             }
+    //         } else {
+    //              percentageText = "(N/A)"; // Or empty if preferred
+    //         }
+    //     } else if (element.classList.contains('impact-value')) { // For breakdown items
+    //         let originalItemValue = 0;
+    //         if (elementId === 'transportImpact') originalItemValue = transportBase;
+    //         else if (elementId === 'foodImpact') originalItemValue = foodBase;
+    //         else if (elementId === 'housingImpact') originalItemValue = housingBase;
+    //         else if (elementId === 'otherImpact') originalItemValue = otherBase;
+
+    //         if (originalItemValue > 0) {
+    //             percentageChangeForColoring = (valueForColoring / originalItemValue) * 100; // valueForColoring is the item's impact
+    //             if (percentageChangeForColoring >= 0) {
+    //                 percentageText = `(${percentageChangeForColoring.toFixed(1)}% increase)`;
+    //                 percentageElement.classList.add('text--positive');
+    //             } else {
+    //                 percentageText = `(${Math.abs(percentageChangeForColoring).toFixed(1)}% decrease)`;
+    //                 percentageElement.classList.add('text--negative');
+    //             }
+    //         } else {
+    //             percentageText = "(N/A)"; // Or empty
+    //         }
+    //     }
+    //     percentageElement.textContent = percentageText;
+    // }
 }
 
 function setupCategoryTabs() {
