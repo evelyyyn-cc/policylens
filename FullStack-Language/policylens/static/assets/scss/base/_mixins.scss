@@ -80,37 +80,6 @@
   }
 }
 
-// @mixin dashboard-linkage {
-//   background-color: $white;
-//   padding: 1.5rem 0;
-
-//   .container {
-//     display:flex;
-//     justify-content: space-between;
-//     gap:1rem;
-//     @include responsive-md{
-//       flex-direction: column;
-//     }
-//   }
-//   .dashboard-link{
-//     @include button-style(
-//       $bg-color:$primary-blue,
-//       $padding-y: 0.8rem,
-//       $padding-x: 1rem,
-//       $hover-bg-modifier:'lighten',
-//       $hover-bg-amount:10%,
-//       $hover-transform-y:-3px  
-//     );
-//     flex:1;
-//     display:flex;
-//     gap:0.5rem;
-//     .icon {
-//       width: 24px;
-//       height: 24px;
-//       display:inline-block;
-//     }
-//   }
-// }
 
 @mixin section-title-styles($align: center) {
   font-size: 1.8rem;
