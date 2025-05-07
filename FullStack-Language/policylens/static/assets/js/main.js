@@ -1,8 +1,8 @@
 // Main JavaScript file that imports and initializes all modules
-import { setupMobileNavigation } from './modules/mobileNavigation.js';
+import { setupMobileNavigation } from './modules/base/mobileNavigation.js';
 import { setupVideoPlayer } from './modules/videoPlayer.js';
-import { setupLanguageSelector } from './modules/languageSelector.js';
-import { setupStatCounters } from './modules/statCounters.js';
+import { setupLanguageSelector } from './modules/base/languageSelector.js';
+import { setupStatCounters } from './modules/statsCounter.js';
 import { setupScrollEffects } from './modules/scrollEffects.js';
 import { setupFeaturedPolicySlider } from './modules/featuredSlider.js';
 
@@ -22,10 +22,18 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Home page specific components
   if (isHomePage) {
-    setupVideoPlayer();
-    setupStatCounters();
     setupScrollEffects();
     setupFeaturedPolicySlider();
+    setupStatCounters();
+    setupVideoPlayer();
+  }
+
+  if (isPoliciesPage){
+    import ('./modules/policies.js')
+    .then (module => {module.initializePoliciesPage();
+    })
+    .catch(error => {console.error('Error loading policies page:',error);
+    })
   }
   
   // Other page-specific initializations can be added as needed
