@@ -557,7 +557,7 @@ function initializeCategoryCharts() {
                                 label += ': ';
                             }
                             if (context.parsed.y !== null) {
-                                label += context.parsed.y + '%';
+                                label += context.parsed.y.toFixed(3) + '%';
                             }
                             return label;
                         }

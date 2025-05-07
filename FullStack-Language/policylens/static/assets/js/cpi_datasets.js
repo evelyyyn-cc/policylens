@@ -305,6 +305,7 @@ function initializeMCOICOPChart() {
 // Fetch CPI data from the API
 async function fetchCpiData(year, state) {
     const apiUrl = `http://mypolicylens.xyz/api/cpidata/?year=${year}&state=${state}`;
+    // const apiUrl = `http://127.0.0.1:8000/api/cpidata/?year=${year}&state=${state}`;
     const cpiChartContainer = document.getElementById('cpiChart')?.closest('.cpi-chart-container');
 
     try {
