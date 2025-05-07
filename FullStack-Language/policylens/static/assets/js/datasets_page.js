@@ -21,6 +21,7 @@ async function fetchFuelPrices(fuelType, startDate, endDate) {
         
         // Fetch from the API
         const response = await fetch(`http://mypolicylens.xyz/api/fuel-prices/?fuel_type=${fuelType}&start_date=${startDate}&end_date=${endDate}`);
+        // const response = await fetch(`http://127.0.0.1:8000/api/fuel-prices/?fuel_type=${fuelType}&start_date=${startDate}&end_date=${endDate}`);
         
         // Remove loading indication
         if (dieselChartContainer) {
