@@ -1,13 +1,13 @@
 {% load i18n %}
 <header>
     <nav class="container">
-        <a class="logo" href=" ">
+        <a class="logo" href="/index/">
             <span>MY</span>{% trans "PolicyLens" %}
         </a >
         <div class="nav-links" id="navLinks">
             <a href="/index/">{% trans "HOME" %}</a >
             <a href="/policies/">{% trans "POLICY" %}</a >
-            <a href="#">{% trans "FAQ" %}</a >
+            <!-- <a href="#">{% trans "FAQ" %}</a > -->
             <a href="#">{% trans "AI CHATBOT" %}</a >
         </div>
 
@@ -17,9 +17,11 @@
                 <span>
                     {% get_current_language as LANGUAGE_CODE %}
                     {% if LANGUAGE_CODE == 'ms' %}
-                        {% trans "Bahasa Malaysia" %}
+                        <!-- {% trans "Bahasa Malaysia" %} -->
+                        Bahasa Malaysia
                     {% else %}
-                        {% trans "English" %}
+                        <!-- {% trans "English" %} -->
+                        English
                     {% endif %}
                 </span>
                 <i class="fas fa-chevron-down"></i>
@@ -27,10 +29,12 @@
 
             <ul class="language-dropdown">
                 <li onclick="setLanguage('ms')" {% if LANGUAGE_CODE == 'ms' %}class="active"{% endif %}>
-                    {% trans "Bahasa Malaysia" %}
+                    <!-- {% trans "Bahasa Malaysia" %} -->
+                    Bahasa Malaysia
                 </li>
                 <li onclick="setLanguage('en')" {% if LANGUAGE_CODE == 'en' %}class="active"{% endif %}>
-                    {% trans "English" %}
+                    <!-- {% trans "English" %} -->
+                    English
                 </li>
             </ul>
         </div>

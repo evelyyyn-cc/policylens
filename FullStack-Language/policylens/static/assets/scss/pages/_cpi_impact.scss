@@ -354,13 +354,27 @@
     
             &.impact-monthly {
                 background-color: $blue-50; // Tailwind blue-50
-                .comparison-summary { border-top: 1px solid $blue-100; } // Tailwind blue-100
-                .comparison-summary-value--monthly { color: $primary-color; }
+                .comparison-summary { border-top: 1px solid $blue-100; }; // Tailwind blue-100
+                .comparison-summary-value--monthly {
+                  &.text--positive {
+                    color: $danger-color;
+                  }
+                  &.text--negative {
+                    color: $success-color;
+                  }
+                };
             }
             &.impact-yearly {
                 background-color: $indigo-50; // *** FIX: Use correct Tailwind indigo-50 ***
-                .comparison-summary { border-top: 1px solid $indigo-100; } // *** FIX: Use correct Tailwind indigo-100 ***
-                .comparison-summary-value--yearly { color: $yearly-impact-color; }
+                .comparison-summary { border-top: 1px solid $indigo-100; }; // *** FIX: Use correct Tailwind indigo-100 ***
+                .comparison-summary-value--yearly {
+                  &.text--positive {
+                    color: $danger-color;
+                  }
+                  &.text--negative {
+                    color: $success-color;
+                  }
+                };
             }
     
             .comparison-title {
@@ -386,7 +400,7 @@
             }
     
             .comparison-label {
-                font-size: $font-size-xs;
+                font-size: $font-size-s;
                 color: $gray-600;
                 margin-bottom: $spacing-0; // Reduced from mb-0 (already 0)
             }
@@ -395,8 +409,15 @@
                 font-size: $font-size-lg;
                 font-weight: $font-weight-bold;
     
-                &--before { color: $gray-800; }
-                &--after { color: $danger-color; }
+                &--before { color: $gray-800; };
+                &--after {
+                  &.text--positive {
+                    color: $danger-color;
+                  }
+                  &.text--negative {
+                    color: $success-color;
+                  }
+                };
             }
     
             .comparison-summary {
@@ -405,7 +426,7 @@
             }
     
             .comparison-summary-label {
-                font-size: $font-size-xs;
+                font-size: $font-size-s;
                 color: $gray-600;
                 margin-bottom: $spacing-0;
             }
@@ -417,7 +438,7 @@
             }
     
             .comparison-summary-percentage {
-                font-size: $font-size-xs;
+                font-size: $font-size-s;
                 color: $gray-500;
             }
         }
@@ -462,7 +483,13 @@
             .impact-value {
                 font-size: $font-size-sm;
                 font-weight: $font-weight-medium;
-                color: darken($danger-color, 5%); // red-600 approx
+                // color: darken($danger-color, 5%); // red-600 approx
+                &.text--positive {
+                  color: $danger-color;
+                };
+                &.text--negative {
+                  color: $success-color;
+                };
             }
     
             .impact-percentage {
