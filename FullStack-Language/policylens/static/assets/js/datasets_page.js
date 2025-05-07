@@ -20,7 +20,8 @@ async function fetchFuelPrices(fuelType, startDate, endDate) {
         }
         
         // Fetch from the API
-        const response = await fetch(`http://mypolicylens.xyz/api/fuel-prices/?fuel_type=${fuelType}&start_date=${startDate}&end_date=${endDate}`);
+        const response = await fetch(`https://mypolicylens.xyz/api/fuel-prices/?fuel_type=${fuelType}&start_date=${startDate}&end_date=${endDate}`);
+        // const response = await fetch(`http://127.0.0.1:8000/api/fuel-prices/?fuel_type=${fuelType}&start_date=${startDate}&end_date=${endDate}`);
         
         // Remove loading indication
         if (dieselChartContainer) {
@@ -1305,7 +1306,7 @@ async function fetchVehicleData(year = 'all', state = 'all') {
         }
         
         // Fetch from the API
-        const response = await fetch(`http://mypolicylens.xyz/api/car-fuel-states/?year=${year}&state=${state}`);
+        const response = await fetch(`https://mypolicylens.xyz/api/car-fuel-states/?year=${year}&state=${state}`);
         
         // Remove loading indication
         if (vehicleChartContainer) {

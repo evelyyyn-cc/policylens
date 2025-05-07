@@ -12,13 +12,22 @@
   }
   .dashboard-link {
     @include button-style(
-      $bg-color: $primary-blue,
+      // $bg-color: $primary-blue,
       $padding-y: 0.8rem,
       $padding-x: 1rem,
       $hover-bg-modifier: "lighten",
       $hover-bg-amount: 10%,
       $hover-transform-y: -3px
     );
+
+    &.data-dashboard {
+      background-color: $orange-button;
+    };
+
+    &.impact-pages {
+      background-color: $primary-blue;
+    };
+    
     flex: 1;
     display: flex;
     align-items: center;

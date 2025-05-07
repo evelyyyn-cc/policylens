@@ -389,7 +389,7 @@ footer .container .quick-links a:hover {
   }
 }
 .dashboard-links .dashboard-link {
-  background-color: #1a3a72;
+  background-color: #1e3a8a;
   color: #ffffff;
   padding: 0.8rem 1rem;
   border-radius: 10px;
@@ -408,8 +408,14 @@ footer .container .quick-links a:hover {
   transition: all 0.3s ease;
 }
 .dashboard-links .dashboard-link:hover {
-  background-color: #234f9c;
+  background-color: #274cb4;
   transform: translateY(-3px);
+}
+.dashboard-links .dashboard-link.data-dashboard {
+  background-color: #ec9b0d;
+}
+.dashboard-links .dashboard-link.impact-pages {
+  background-color: #1a3a72;
 }
 .dashboard-links .dashboard-link .icon {
   width: 24px;
@@ -3068,8 +3074,11 @@ canvas {
 .cpi-impact-section .results-section .impact-comparison.impact-monthly .comparison-summary {
   border-top: 1px solid #DBEAFE;
 }
-.cpi-impact-section .results-section .impact-comparison.impact-monthly .comparison-summary-value--monthly {
-  color: #1e3a8a;
+.cpi-impact-section .results-section .impact-comparison.impact-monthly .comparison-summary-value--monthly.text--positive {
+  color: #d41b1b;
+}
+.cpi-impact-section .results-section .impact-comparison.impact-monthly .comparison-summary-value--monthly.text--negative {
+  color: #28a745;
 }
 .cpi-impact-section .results-section .impact-comparison.impact-yearly {
   background-color: #EEF2FF;
@@ -3077,8 +3086,11 @@ canvas {
 .cpi-impact-section .results-section .impact-comparison.impact-yearly .comparison-summary {
   border-top: 1px solid #E0E7FF;
 }
-.cpi-impact-section .results-section .impact-comparison.impact-yearly .comparison-summary-value--yearly {
-  color: #4F46E5;
+.cpi-impact-section .results-section .impact-comparison.impact-yearly .comparison-summary-value--yearly.text--positive {
+  color: #d41b1b;
+}
+.cpi-impact-section .results-section .impact-comparison.impact-yearly .comparison-summary-value--yearly.text--negative {
+  color: #28a745;
 }
 .cpi-impact-section .results-section .impact-comparison .comparison-title {
   font-size: 0.875rem;
@@ -3100,7 +3112,7 @@ canvas {
   text-align: center;
 }
 .cpi-impact-section .results-section .impact-comparison .comparison-label {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: #4B5563;
   margin-bottom: 0;
 }
@@ -3111,15 +3123,18 @@ canvas {
 .cpi-impact-section .results-section .impact-comparison .comparison-value--before {
   color: #1F2937;
 }
-.cpi-impact-section .results-section .impact-comparison .comparison-value--after {
+.cpi-impact-section .results-section .impact-comparison .comparison-value--after.text--positive {
   color: #d41b1b;
+}
+.cpi-impact-section .results-section .impact-comparison .comparison-value--after.text--negative {
+  color: #28a745;
 }
 .cpi-impact-section .results-section .impact-comparison .comparison-summary {
   text-align: center;
   padding-top: 0.2rem;
 }
 .cpi-impact-section .results-section .impact-comparison .comparison-summary-label {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: #4B5563;
   margin-bottom: 0;
 }
@@ -3129,7 +3144,7 @@ canvas {
   margin: 0.2rem 0;
 }
 .cpi-impact-section .results-section .impact-comparison .comparison-summary-percentage {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: #6B7280;
 }
 .cpi-impact-section .results-section .breakdown-title {
@@ -3167,7 +3182,12 @@ canvas {
 .cpi-impact-section .results-section .breakdown-item .impact-value {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #bd1818;
+}
+.cpi-impact-section .results-section .breakdown-item .impact-value.text--positive {
+  color: #d41b1b;
+}
+.cpi-impact-section .results-section .breakdown-item .impact-value.text--negative {
+  color: #28a745;
 }
 .cpi-impact-section .results-section .breakdown-item .impact-percentage {
   font-size: 0.75rem;
