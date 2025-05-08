@@ -1,4 +1,4 @@
-import { isMobileDevice } from './base/mobileNavigation.js';
+import { isMobileDevice } from '../base/mobileNavigation.js';
 
 export function setupStatCounters() {
   const animateCounters = () => {

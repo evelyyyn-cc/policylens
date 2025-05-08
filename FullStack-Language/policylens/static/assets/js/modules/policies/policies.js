@@ -22,15 +22,15 @@ export function initializePolicyCards() {
   });
 }
 
-export function highlightPolicyNavLink() {
-  const navLinks = document.querySelectorAll(".nav-links a");
-  navLinks.forEach((link) => {
-    link.classList.remove("active");
-    if (link.getAttribute("href") === "/policies/") {
-      link.classList.add("active");
-    }
-  });
-}
+// export function highlightPolicyNavLink() {
+//   const navLinks = document.querySelectorAll(".nav-links a");
+//   navLinks.forEach((link) => {
+//     link.classList.remove("active");
+//     if (link.getAttribute("href") === "/policies/") {
+//       link.classList.add("active");
+//     }
+//   });
+// }
 
 export function setupFilters() {
   // Placeholder for future filter implementation
@@ -46,7 +46,7 @@ export function initializePoliciesPage() {
   initializePolicyCards();
 
   // Highlight correct nav link
-  highlightPolicyNavLink();
+  // highlightPolicyNavLink();
 }
 
 // Add animation styles
