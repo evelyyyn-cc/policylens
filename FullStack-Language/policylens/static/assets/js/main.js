@@ -1,10 +1,11 @@
 // Main JavaScript file that imports and initializes all modules
 import { setupMobileNavigation } from './modules/base/mobileNavigation.js';
-import { setupVideoPlayer } from './modules/videoPlayer.js';
+import { setupVideoPlayer } from './modules/index/videoPlayer.js';
 import { setupLanguageSelector } from './modules/base/languageSelector.js';
-import { setupStatCounters } from './modules/statsCounter.js';
-import { setupScrollEffects } from './modules/scrollEffects.js';
-import { setupFeaturedPolicySlider } from './modules/featuredSlider.js';
+import { setupStatCounters } from './modules/index/statsCounter.js';
+import { setupScrollEffects } from './modules/index/scrollEffects.js';
+import { setupFeaturedPolicySlider } from './modules/index/featuredSlider.js';
+import { initializeNavigation } from './modules/base/navLinks.js';
 
 // Initialize everything when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Common components for all pages
   setupMobileNavigation();
   setupLanguageSelector();
+  initializeNavigation();
   
   // Home page specific components
   if (isHomePage) {
@@ -29,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   if (isPoliciesPage){
-    import ('./modules/policies.js')
+    import ('./modules/policies/policies.js')
     .then (module => {module.initializePoliciesPage();
     })
     .catch(error => {console.error('Error loading policies page:',error);
