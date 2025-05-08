@@ -694,6 +694,7 @@ const filterOptions = {
         '2024', 
         '2025'],
     regions: [
+        "All States",
         "Johor",
         "Kedah",
         "Kelantan",
