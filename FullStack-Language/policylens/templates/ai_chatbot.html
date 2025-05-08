@@ -1,0 +1,83 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/assets/scss/main.css">
+    <link rel="stylesheet" href="/static/assets/css/chatbot.css">
+    <title>{% trans "AI Chatbot" %}</title>
+</head>
+<body class="chatbot-page">
+    <!-- Header -->
+    {% include "header.html" %}
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-container">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="/index/">{% trans "Home" %}</a> > <span>{% trans "AI Chatbot" %}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <section class="chatbot-section">
+            <h1 class="section-title">{% trans "AI Chatbot" %}</h1>
+            
+            <div class="chatbot-description">
+                <p>{% trans "Our AI chatbot is designed to help you understand how Malaysia's diesel subsidy policies affect your personal situation. Whether you're a student, young professional, or just curious about policy impacts, our chatbot can provide clear, accessible explanations tailored to your needs." %}</p>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-window" id="chatWindow">
+                    <!-- Initial bot message -->
+                    <div class="chat-message bot-message">
+                        <div class="message-avatar">
+                            <img src="/static/assets/images/bot-avatar.svg" alt="PolicyBot">
+                        </div>
+                        <div class="message-content">
+                            <div class="message-sender">
+                                <span class="bot-name">PolicyBot</span>
+                                <span class="bot-badge">👋</span>
+                            </div>
+                            <div class="message-text">
+                                <p>{% trans "Hello! I'm PolicyBot, your guide to understanding Malaysia's diesel subsidy policy." %}</p>
+                                <p>{% trans "I can help you understand:" %}</p>
+                                <ul>
+                                    <li>{% trans "The details and objectives of the current diesel subsidy policy" %}</li>
+                                    <li>{% trans "How this policy might affect your personal finances" %}</li>
+                                    <li>{% trans "The broader economic impacts on prices and industries" %}</li>
+                                    <li>{% trans "Complex policy terminology in simple language" %}</li>
+                                    <li>{% trans "Data and visualizations related to the policy" %}</li>
+                                </ul>
+                                <p>{% trans "You can type your question below or use one of the predefined prompts to get started!" %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Chat messages will be added here dynamically -->
+                </div>
+
+                <div class="chat-input-container">
+                    <form id="chatForm">
+                        <input type="text" id="userInput" placeholder="{% trans 'Type your question here...' %}" required>
+                        <button type="submit" id="sendButton">
+                            <i class="fas fa-paper-plane"></i> {% trans "Send" %}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    {% include "footer.html" %}
+
+    <script src="/static/assets/js/script.js"></script>
+    <script src="/static/assets/js/chatbot.js"></script>
+    <script src="{% url 'javascript-catalog' %}"></script>
+</body>
+</html>
