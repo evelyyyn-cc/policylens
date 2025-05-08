@@ -106,37 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // The Challenge chart description tabs
     setupMainTabs();
 
-    // Language selector functionality
-    const languageBtn = document.querySelector('.language-btn');
-    if (languageBtn) {
-        languageBtn.addEventListener('click', function() {
-            // Toggle between languages
-            if (languageBtn.textContent.includes('Bahasa Malaysia')) {
-                languageBtn.textContent = 'English ▼';
-                // Apply language change logic here
-            } else {
-                languageBtn.textContent = 'Bahasa Malaysia ▼';
-                // Apply language change logic here
-            }
-        });
-    }
 
-    // Highlight active navigation link
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            // Remove active class from all links
-            navLinks.forEach(item => item.classList.remove('active'));
-            
-            // Add active class to clicked link
-            this.classList.add('active');
-        });
-        
-        // Check if current page matches link href and set as active
-        if (link.getAttribute('href') === window.location.pathname) {
-            link.classList.add('active');
-        }
-    });
 
     // Make links in source citations open in new tabs
     const sourceLinks = document.querySelectorAll('.source a');
@@ -155,16 +125,6 @@ document.addEventListener('DOMContentLoaded', function() {
           beneficiaryChart.resize();
         });
       }
-
-      // More Details link functionality
-    //   const moreDetailsLink = document.querySelector('.more-link');
-    //   if (moreDetailsLink) {
-    //     moreDetailsLink.addEventListener('click', function(e) {
-    //       e.preventDefault();
-    //       // This could show a modal, expand a section, or navigate to a details page
-    //       alert('Additional eligibility details would be shown here.');
-    //     });
-    //   }
 });
 
 function initializeCharts() {
