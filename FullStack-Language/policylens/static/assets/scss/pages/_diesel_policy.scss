@@ -816,3 +816,16 @@
   }
   
   // Responsive styles moved to each component
+
+
+  .container {
+    .scroll-indicator-diesel-policy{
+      margin-top: 1rem;
+      animation: bounce 2s infinite;
+      text-align: center;
+      
+      p {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
