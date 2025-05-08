@@ -2866,6 +2866,34 @@ canvas {
   color: orange;
   margin-bottom: 1rem;
 }
+.cpi-impact-section .citations-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  .cpi-impact-section .citations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.cpi-impact-section .citations-grid .data-citation {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  line-height: 1.4;
+}
+.cpi-impact-section .citations-grid .data-citation strong {
+  font-weight: 600;
+}
+.cpi-impact-section .citations-grid .data-citation a {
+  color: #0066cc;
+  text-decoration: none;
+}
+.cpi-impact-section .citations-grid .data-citation a:hover {
+  text-decoration: underline;
+}
 .cpi-impact-section .calculator-section {
   margin-bottom: 1.2rem;
 }
@@ -4108,6 +4136,34 @@ canvas {
   text-decoration: none;
 }
 .cpi-datasets-section .data-citation a:hover {
+  text-decoration: underline;
+}
+.cpi-datasets-section .citations-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  .cpi-datasets-section .citations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.cpi-datasets-section .citations-grid .data-citation {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  line-height: 1.4;
+}
+.cpi-datasets-section .citations-grid .data-citation strong {
+  font-weight: 600;
+}
+.cpi-datasets-section .citations-grid .data-citation a {
+  color: #0066cc;
+  text-decoration: none;
+}
+.cpi-datasets-section .citations-grid .data-citation a:hover {
   text-decoration: underline;
 }
 
