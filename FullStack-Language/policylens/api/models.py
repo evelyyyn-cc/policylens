@@ -198,3 +198,75 @@ class CPIData(models.Model):
         """String representation of the CPI data record"""
         return f"{self.date} - {self.state} - {self.division} - {self.index}"
 
+class IPI1DRecord(models.Model):
+    """Model to store IPI 1D data (with seasonally adjusted index)"""
+
+    id = models.AutoField(primary_key=True)
+
+    series = models.CharField(
+        max_length=100,
+        db_index=True
+    )
+
+    date = models.DateField(
+        db_index=True,
+        help_text="Format: YYYY-MM-DD"
+    )
+
+    index = models.FloatField(
+        validators=[MinValueValidator(0)]
+    )
+
+    index_sa = models.FloatField(
+        verbose_name="Seasonally Adjusted Index",
+        validators=[MinValueValidator(0)]
+    )
+
+    class Meta:
+        ordering = ['-date']
+        unique_together = ['series', 'date']
+        db_table = 'ipi_Data_1d'
+    def __str__(self):
+        return f"{self.series} - {self.date}"
+
+class IPIRecord(models.Model):
+    """Model to store Industrial Production Index (IPI) data"""
+
+    id = models.AutoField(primary_key=True)
+
+    # Series name (e.g., 'abs')
+    series = models.CharField(
+        max_length=100,
+        db_index=True
+    )
+
+    # Date of the index record
+    date = models.DateField(
+        help_text="Format: YYYY-MM-DD",
+        db_index=True
+    )
+
+    # Industry division code (e.g., 10)
+    division = models.IntegerField(
+        db_index=True
+    )
+
+    # English description of the industry division
+    desc_en = models.CharField(
+        max_length=100,
+        db_index=True
+    )
+
+    # Index value
+    index = models.FloatField(
+        validators=[MinValueValidator(0)]
+    )
+
+    class Meta:
+        ordering = ['-date']
+        unique_together = ['date', 'division', 'series']
+        db_table = 'ipi_Data_2d'
+
+    def __str__(self):
+        return f"{self.date} - Division {self.division} - {self.index}"
+
