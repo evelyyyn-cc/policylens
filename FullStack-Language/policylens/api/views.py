@@ -42,6 +42,9 @@ def cpi_impact(request):
 def cpi_dataset(request):
     return render(request, "cpi_datasets.html")
 
+def ai_chatbot(request):
+    return render(request,'ai_chatbot.html')
+
 
 class FuelPriceSerializer(serializers.ModelSerializer):
     class Meta:

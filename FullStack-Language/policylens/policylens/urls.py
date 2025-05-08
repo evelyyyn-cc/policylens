@@ -18,7 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from django.views.generic import TemplateView
-from api.views import FuelPriceFilterView, CarFuelStatsView, index, diesel_policy, datasets_page, policies, CPIReportAPI, cpi_impact, cpi_dataset,set_language
+from api.views import FuelPriceFilterView, CarFuelStatsView, index, diesel_policy, datasets_page, policies, CPIReportAPI, cpi_impact, cpi_dataset,set_language,ai_chatbot
 from django.conf.urls.i18n import i18n_patterns
 from django.views.i18n import JavaScriptCatalog
 from django.views.i18n import JavaScriptCatalog
@@ -30,6 +30,7 @@ urlpatterns = [
     path("diesel_policy/", diesel_policy),
     path("datasets_page/", datasets_page),
     path("policies/", policies),
+    path('ai_chatbot/',ai_chatbot),
     path("api/fuel-prices/", FuelPriceFilterView.as_view(), name="fuel-prices"),
     path("api/car-fuel-states/", CarFuelStatsView.as_view(), name="car-fuel-states"),
     path("api/cpidata/", CPIReportAPI.as_view(), name="cpidata"),
