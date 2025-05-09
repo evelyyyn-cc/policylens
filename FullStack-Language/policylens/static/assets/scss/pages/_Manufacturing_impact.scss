@@ -28,7 +28,7 @@
   }
 }
 
-// Add this new section for the tabs navigation
+// tabs navigation
 .tabs-container {
   display: flex;
   justify-content: space-between;
@@ -36,7 +36,7 @@
   position: relative;
   border-bottom: 1px solid #ccc;
   
-  // Add this class for each tab
+  // each tab
   .tab {
     flex: 1;
     text-align: center;
@@ -121,7 +121,7 @@
   margin-bottom: 3rem;
   
   .card-header {
-    background-color: #0a4275; // Deep blue color
+    background-color: #233D91; // Deep blue color
     color: white;
     padding: 20px; // Increased padding for better spacing
     border-radius: 0.5rem 0.5rem 0 0; // Rounded corners
@@ -285,7 +285,7 @@
 #overview {
     // Card Header
     .card-header {
-        background-color: #0a4275; // Deep blue color
+        background-color: #233D91; // Deep blue color
         color: white;
         padding: 20px; // Increased padding for better spacing
         border-radius: 0.5rem 0.5rem 0 0; // Rounded corners
