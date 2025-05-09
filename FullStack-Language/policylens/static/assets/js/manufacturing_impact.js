@@ -178,27 +178,48 @@ function initializeSectorImpactChart() {
     
     // Sector data by period
     const data = {
-        labels: ['Food Products', 'Chemicals', 'Rubber & Plastics', 'Basic Metals', 'Motor Vehicles', 'Other Transport'],
+        labels: ['Jun 2023', 'Jul 2023', 'Aug 2023', 'Jan 2024', 'Feb 2024', 'Mar 2024'],
         datasets: [
             {
-                label: 'Initial Policy Period (Jun-Aug 2023)',
-                data: [-1.2, -1.8, -1.5, -2.1, -0.9, -1.1],
+                label: 'Food Products',
+                data: [-0.8, -1.5, -1.2, -1.4, -0.9, -0.5],
                 backgroundColor: 'rgba(59, 130, 246, 0.7)',
-                borderColor: 'rgb(59, 130, 246)',
-                borderWidth: 1
+                borderColor: 'rgb(59, 130, 246)', 
+                borderWidth: 1  
             },
             {
-                label: 'Adaptation Period (Sep-Dec 2023)',
-                data: [-0.8, -1.4, -1.0, -1.6, -0.5, -0.7],
+                label: 'Chemicals & Chemical Products',
+                data: [-1.6, -2.1, -1.8, -2.0, -1.6, -1.1],
                 backgroundColor: 'rgba(16, 185, 129, 0.7)',
                 borderColor: 'rgb(16, 185, 129)',
                 borderWidth: 1
             },
             {
-                label: 'Targeted Implementation (Jan-Mar 2024)',
-                data: [-0.6, -1.1, -0.8, -1.3, -0.4, -0.5],
-                backgroundColor: 'rgba(249, 115, 22, 0.7)',
-                borderColor: 'rgb(249, 115, 22)',
+                label: 'Rubber & Plastics',
+                data: [-1.3, -1.9, -1.6, -1.7, -1.3, -0.8],
+                backgroundColor: 'rgba(245, 158, 11, 0.7)',
+                borderColor: 'rgb(245, 158, 11)',
+                borderWidth: 1
+            },
+            {
+                label: 'Basic Metals',
+                data: [-1.9, -2.5, -2.3, -2.2, -1.8, -1.5],
+                backgroundColor: 'rgba(239, 68, 68, 0.7)',
+                borderColor: 'rgb(239, 68, 68)',
+                borderWidth: 1
+            },
+            {
+                label: 'Motor Vehicles',
+                data: [-0.5, -1.2, -1.0, -1.1, -0.8, -0.4],
+                backgroundColor: 'rgba(139, 92, 246, 0.7)',
+                borderColor: 'rgb(139, 92, 246)',
+                borderWidth: 1
+            },
+            {
+                label: 'Other Transport Equipment',
+                data: [-0.7, -1.4, -1.3, -1.2, -0.9, -0.6],
+                backgroundColor: 'rgba(236, 72, 153, 0.7)',
+                borderColor: 'rgb(236, 72, 153)',
                 borderWidth: 1
             }
         ]
