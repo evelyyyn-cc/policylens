@@ -44,6 +44,9 @@ def cpi_impact(request):
 def cpi_dataset(request):
     return render(request, "cpi_datasets.html")
 
+def manufacturing_impact(request):
+    return render(request, "manufacturing_impact.html")
+
 
 class FuelPriceSerializer(serializers.ModelSerializer):
     class Meta:
