@@ -501,7 +501,7 @@ class ManufacturingDivisionsDataView(APIView):
     """
     API View to process manufacturing divisions data with abs, yoy and mom changes.
     
-    POST Request Body:
+    GET Request Body:
     - year: specific year (e.g., 2023)
     - month: specific month (1-12)
     
@@ -518,15 +518,15 @@ class ManufacturingDivisionsDataView(APIView):
     ]
     """
     
-    def post(self, request):
+    def get(self, request):
         """
         Handle POST request with body parameters:
         - year: specific year
         - month: specific month
         """
         # Extract parameters from request body
-        year = request.data.get('year')
-        month = request.data.get('month')
+        year = request.GET.get('year')
+        month = request.GET.get('month')
         
         # Validate parameters
         if not year or not month:
