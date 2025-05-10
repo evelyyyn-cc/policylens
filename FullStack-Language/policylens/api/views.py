@@ -327,13 +327,13 @@ class IPI1DDataView(APIView):
     
     Query Parameters:
     - year: 'all' or specific year (e.g., 2023)
-    - series_type: 'abs' or 'growth_mom'
+    - series_type:  'abs', 'growth_mom', or 'growth_yoy'
     
     Returns data in format:
     [
         {
             "date": "YYYY-MM-DD",
-            "series": "abs/growth_mom",
+            "series": "abs/growth_mom/growth_yoy",
             "index": float,
             "index_sa": float
         },
@@ -345,7 +345,7 @@ class IPI1DDataView(APIView):
         """
         Handle GET request with parameters:
         - year: 'all' or specific year
-        - series_type: 'abs' or 'growth_mom'
+        - series_type: 'abs', 'growth_mom', or 'growth_yoy'
         """
         year = request.GET.get('year')
         series_type = request.GET.get('series_type')
@@ -357,9 +357,9 @@ class IPI1DDataView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
             
-        if series_type not in ['abs', 'growth_mom']:
+        if series_type not in ['abs', 'growth_mom','growth_yoy']:
             return Response(
-                {"error": "Invalid series_type. Must be 'abs' or 'growth_mom'"},
+                {"error": "Invalid series_type. Must be 'abs' , 'growth_mom' or 'growth_yoy'"},
                 status=status.HTTP_400_BAD_REQUEST
             )
         
