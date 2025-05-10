@@ -25,48 +25,48 @@
 // }
 
 /* Main tab navigation */
-// .main-tabs {
-//     display: flex;
-//     justify-content: center;
-//     border-bottom: 1px solid #dee2e6;
-//     padding: 0;
-//     margin: 20px auto 30px;
-//     position: relative;
-//     max-width: 400px;
+.main-tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #dee2e6;
+    padding: 0;
+    margin: 20px auto 30px;
+    position: relative;
+    max-width: 400px;
     
-//     .tab-link {
-//       padding: 0.8rem 3rem;
-//       text-decoration: none;
-//       color: $text-light;
-//       font-weight: $font-weight-medium;
-//       position: relative;
-//       transition: color 0.3s;
-//       text-align: center;
-//       flex: 1;
-//       white-space: nowrap;     
-//       font-size: 1.2rem; 
+    .tab-link {
+      padding: 0.8rem 3rem;
+      text-decoration: none;
+      color: $text-light;
+      font-weight: $font-weight-medium;
+      position: relative;
+      transition: color 0.3s;
+      text-align: center;
+      flex: 1;
+      white-space: nowrap;     
+      font-size: 1.2rem; 
       
-//       &:hover {
-//         color: $primary-color-diesel;
-//       }
+      &:hover {
+        color: $primary-color-diesel;
+      }
       
-//       &.active {
-//         color: $primary-color-diesel;
-//       }
-//     }
+      &.active {
+        color: $primary-color-diesel;
+      }
+    }
     
-//     .tab-indicator {
-//       position: absolute;
-//       bottom: -1px;
-//       height: 3px;
-//       width: 33.33%;
-//       background-color: $primary-color-diesel;
-//       transition: left 0.3s ease, width 0.3s ease;
-//       left: 0;
-//       width: 0;
-//       // transform: translateX(0%);;
-//     }
-//   }
+    .tab-indicator {
+      position: absolute;
+      bottom: -1px;
+      height: 3px;
+      width: 33.33%;
+      background-color: $primary-color-diesel;
+      transition: left 0.3s ease, width 0.3s ease;
+      left: 0;
+      width: 0;
+      // transform: translateX(0%);;
+    }
+  }
   
 .cpi-impact-section {
     /* Tab Content */

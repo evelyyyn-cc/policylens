@@ -909,7 +909,8 @@ body.menu-open {
 #why-matters .video-container .video-thumbnail img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 #why-matters .video-container .video-thumbnail .play-button {
   position: absolute;
@@ -1153,7 +1154,8 @@ body.menu-open {
   width: 100%;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 #page-title {
@@ -1467,6 +1469,10 @@ body.menu-open {
 .policy-info .disclaimer {
   color: orange;
   padding-top: 1rem;
+}
+
+.policy-info-more .main-tabs {
+  margin: 0.5rem auto 0rem;
 }
 
 .challenge-section {
@@ -2788,6 +2794,44 @@ canvas {
 }
 
 /* Main tab navigation */
+.main-tabs {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #dee2e6;
+  padding: 0;
+  margin: 20px auto 30px;
+  position: relative;
+  max-width: 400px;
+}
+.main-tabs .tab-link {
+  padding: 0.8rem 3rem;
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s;
+  text-align: center;
+  flex: 1;
+  white-space: nowrap;
+  font-size: 1.2rem;
+}
+.main-tabs .tab-link:hover {
+  color: #0066cc;
+}
+.main-tabs .tab-link.active {
+  color: #0066cc;
+}
+.main-tabs .tab-indicator {
+  position: absolute;
+  bottom: -1px;
+  height: 3px;
+  width: 33.33%;
+  background-color: #0066cc;
+  transition: left 0.3s ease, width 0.3s ease;
+  left: 0;
+  width: 0;
+}
+
 .cpi-impact-section {
   /* Tab Content */
   /* Tab Content */
@@ -2900,7 +2944,9 @@ canvas {
   border: 1px solid #D1D5DB;
   border-radius: 0.375rem;
   padding: 0.4rem 0.6rem;
-  appearance: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
   background-position: right 0.5rem center;
   background-repeat: no-repeat;
@@ -2931,7 +2977,8 @@ canvas {
 }
 .cpi-impact-section .calculator-form .slider {
   -webkit-appearance: none;
-  appearance: none;
+  -moz-appearance: none;
+       appearance: none;
   margin: 10px 0;
   width: 100%;
   height: 8px;
@@ -3369,7 +3416,9 @@ canvas {
   border: 1px solid #D1D5DB;
   border-radius: 0.375rem;
   padding: 0.4rem 0.6rem;
-  appearance: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
   background-position: right 0.5rem center;
   background-repeat: no-repeat;
@@ -4218,7 +4267,8 @@ canvas {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .chatbot-page .message-content {
   padding: 1rem;
