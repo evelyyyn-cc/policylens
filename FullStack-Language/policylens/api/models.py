@@ -219,7 +219,9 @@ class IPI1DRecord(models.Model):
 
     index_sa = models.FloatField(
         verbose_name="Seasonally Adjusted Index",
-        validators=[MinValueValidator(0)]
+        validators=[MinValueValidator(0)],
+        null=True,
+        blank=True
     )
 
     class Meta:
