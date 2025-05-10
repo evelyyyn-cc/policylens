@@ -463,27 +463,59 @@
   }
 }
 
-.data-citation {
-  font-size: 0.75rem;
-  color: $text-light-data;
-  margin-top: 15px;
-  padding-top: 15px;
-  border-top: 1px solid #eee;
-  line-height: 1.4;
-  
-  strong {
-    font-weight: $font-weight-semibold;
-  }
-  
-  a {
-    color: $primary-color-data;
-    text-decoration: none;
+  .data-citation {
+    font-size: 0.75rem;
+    color: $text-light-data;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    line-height: 1.4;
     
-    &:hover {
-      text-decoration: underline;
+    strong {
+      font-weight: $font-weight-semibold;
+    }
+    
+    a {
+      color: $primary-color-data;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
-}
+  
+  .citations-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-5;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .data-citation {
+      font-size: 0.8rem;
+      color: $text-light-data;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #eee;
+      line-height: 1.4;
+      
+      strong {
+        font-weight: $font-weight-semibold;
+      }
+      
+      a {
+        color: $primary-color-data;
+        text-decoration: none;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
 }
 
 // Spinner Animation
