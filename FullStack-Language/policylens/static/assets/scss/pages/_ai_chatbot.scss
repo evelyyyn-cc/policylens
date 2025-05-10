@@ -4,27 +4,51 @@
   background-color: $light-bg;
   
   .chatbot-section {
-    margin: 2rem 0;
-    
-    .section-title {
+    margin: 0.4rem 0 2rem 0;
+    background-color: $white;
+    // padding: 1rem;
+    padding-bottom: 2rem;
+
+    .chatbot-info {
+      // max-width: 66%;
+      margin: 0rem auto 1rem;
+      // border: 2px solid $primary-color;
+      // border-radius: 10px;
+      overflow: hidden;
+      background-color: $white;
+      // box-shadow: $shadow-md;
+      display: flex;
+      flex-direction: column;
+      // height: 60vh; // Adjust as needed
+      position: relative;
+
+
+      .section-title {
       font-size: 1.8rem;
       font-weight: $font-weight-semibold;
       color: $dark-gray;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0rem;
       text-align: center;
+      padding: 1rem 1rem 0.5rem 1rem;
+      }
+    
+      .chatbot-description {
+        max-width: 800px;
+        // margin: 0 auto 1rem;
+        padding: 0.5rem 1.4rem 0.5rem 1.4rem;
+        text-align: justify;
+        
+        p {
+          font-size: 1.1rem;
+          line-height: 1.6;
+          color: $medium-text;
+        }
+      }
+
     }
     
-    .chatbot-description {
-      max-width: 800px;
-      margin: 0 auto 2rem;
-      text-align: center;
-      
-      p {
-        font-size: 1rem;
-        line-height: 1.6;
-        color: $medium-text;
-      }
-    }
+    
+    
   }
   
   // Main chat container - this is the green box in the image
@@ -148,7 +172,7 @@
     
     .message-text {
       color: $text-color;
-      font-size: 0.95rem;
+      font-size: 1rem;
       line-height: 1.5;
       
       p {
@@ -189,7 +213,7 @@
         padding: 0.8rem 1rem;
         border: 1px solid $border-color;
         border-radius: 5px;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         
         &:focus {
           outline: none;
@@ -216,7 +240,7 @@
         }
         
         i {
-          font-size: 0.9rem;
+          font-size: 0.95rem;
         }
       }
     }
@@ -237,7 +261,7 @@
   
   p {
     color: $medium-text;
-    font-size: 0.95rem;
+    font-size: 1rem;
     margin-bottom: 1.5rem;
   }
   
@@ -279,7 +303,7 @@
       border: 1px solid $border-color;
       border-radius: 20px;
       padding: 0.6rem 1.2rem;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: $text-color;
       cursor: pointer;
       transition: $transition;
