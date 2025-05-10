@@ -1,0 +1,297 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="/static/assets/scss/main.css">
+    <title>{% trans "Manufacturing Impact" %}</title>
+</head>
+<body class="cpi-impact-page">
+    <!-- Top navigation bar -->
+    {% include "header.html" %}
+
+    <div class="breadcrumb-container">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="/index/">{% trans "Home" %}</a> >
+                <a href="/policies/">{% trans "Policies" %}</a> >
+                <a href="/diesel_policy/">{% trans "The Diesel Dilemma" %}</a> >
+                <span>{% trans "Manufacturing Impact" %}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero/Banner section -->
+    <div class="hero-cpi-impact">
+        <h1>{% trans "Manufacturing Impact" %}</h1>
+    </div>
+
+    <!-- Dashboard Links Section -->
+    <section class="dashboard-links">
+        <div class="container">
+          <a href="/diesel_policy/" class="dashboard-link impact-pages">
+              <i class="fas fa-chart-line dashboard-icon"></i>
+              {% trans "Diesel Dilemma" %}
+          </a>
+          <a href="/cpi_dataset/" class="dashboard-link data-dashboard">
+              <i class="fas fa-tags price-icon"></i>
+              {% trans "CPI Data Dashboard" %}
+          </a>
+          <a href="/manufacturing_dataset/" class="dashboard-link impact-pages">
+            <i class="fas fa-industry manufacturing-icon"></i>
+            {% trans "Manufacturing Dashboard" %}
+        </a>
+        </div>
+    </section>
+
+    <!-- Tab navigation at the top -->
+    <div class="tabs-container">
+        <a href="#overview" class="tab active">Overall Manufacturing Performance Trend</a>
+        <a href="#sectors" class="tab">Impact on Fuel-Sensitive Manufacturing Sectors</a> 
+        <a href="#analysis" class="tab">Diesel Price Impact Analysis</a>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Introduction -->
+        <section class="content-card">
+            <h2>What is Industrial Production Index (IPI)?</h2>
+
+            <div style="margin-bottom: 2rem;"></div>
+
+            <div class="card-content">
+                <p>
+                    Industrial Production Index (IPI) measures the real output of the three main industrial sectors in Malaysia: 
+                    mining, manufacturing, and electricity. It serves as a key indicator of industrial activity and economic performance.
+                </p>
+                <p>
+                    For this analysis, we focus on how Malaysia's diesel subsidy policy affects the manufacturing sector, 
+                    which contributes approximately 23% to the country's GDP and employs over 2.2 million workers.
+                </p>
+            </div>
+        </section>
+
+        <!-- Overall Manufacturing Performance Trend Analysis -->
+        <section id="overview" class="content-card">
+            <div class="card-header">
+                <h2>Overall Manufacturing Performance Trend</h2>
+                <div class="tooltip">
+                    <i class="fas fa-info-circle info-icon"></i>
+                    <span class="tooltip-text">This chart shows the manufacturing index trends before and after key diesel subsidy policy changes.</span>
+                </div>
+            </div>
+            
+            <div class="card-content">
+                <p class="section-description">
+                    The chart below shows Malaysia's manufacturing performance from 2023 to early 2025, 
+                    highlighting the periods before and after major diesel subsidy policy implementations. 
+                    The absolute index values (2015=100) illustrate the sector's overall performance trajectory.
+                </p>
+                
+                <div class="chart-container">
+                    <canvas id="overallTrendChart"></canvas>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3>Key Observations:</h3>
+                    <ul class="observation-list">
+                        <li>
+                            <strong>Apr–Jul 2023:</strong> 
+                            Manufacturing output plunged by 2.1 % y/y at its weakest point, driven primarily by softer global demand, 
+                            semiconductor supply-chain disruptions, and firms’ destocking—policy-driven fuel costs played no part.
+                        </li>
+                        <li>
+                            <strong>Aug–Dec 2023:</strong> 
+                            Output stabilized around flat (±0.1 % y/y) as companies implemented tighter working-capital management, 
+                            deferred non-critical capital expenditures, and shifted toward just-in-time inventories to preserve cash flow.
+                        </li>
+                        <li>
+                            <strong>Jan 2024:</strong>
+                            The government’s announcement of a move to targeted diesel subsidies prompted manufacturers to hedge fuel exposure and renegotiate long-term transport contracts, 
+                            signaling a shift in cost-management strategies even before prices changed.
+                        </li>
+                        <li>
+                            <strong>10 Jun 2024:</strong> 
+                            The blanket diesel subsidy was removed in Peninsular Malaysia (price rose from RM 2.15 to RM 3.35/L), 
+                            increasing average logistics and on-site energy costs by roughly 30 %. 
+                            Manufacturers responded with accelerated cost-pass-through, renegotiated supplier rates, 
+                            and increased automation to offset higher fuel expenses.
+                        </li>
+                        <li>
+                            <strong>Jul 2024–Jan 2025:</strong> 
+                            Despite higher diesel prices, output rebounded strongly (+3 %–5 % y/y), 
+                            driven by renewed export orders, strategic inventory restocking, 
+                            and a 4 % improvement in energy intensity per unit of output—underscoring the sector’s resilience and adaptability.
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="data-source">
+                    Source: Department of Statistics Malaysia, Industrial Production Index (IPI) Data, Feb 2025
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Analysis on Fuel-Sensitive Manufacturing Sectors -->
+        <section id="sectors" class="content-card">
+            <div class="card-header">
+                <h2>Impact on Fuel-Sensitive Manufacturing Sectors</h2>
+                <div class="tooltip">
+                    <i class="fas fa-info-circle info-icon"></i>
+                    <span class="tooltip-text">Month-on-month growth rates show immediate reactions to policy changes across different manufacturing sectors.</span>
+                </div>
+            </div>
+            
+            <div class="card-content">
+                <div style="margin-bottom: 2rem;"></div>
+                <p>
+                      Not all manufacturing sectors respond equally to diesel subsidy changes. 
+                    This section examines the month-on-month growth rates for six key fuel-sensitive sectors 
+                    during critical policy implementation periods, revealing which industries are most affected.
+                </p>
+                
+                <div class="chart-container">
+                    <canvas id="sectorImpactChart"></canvas>
+                </div>
+                
+                <h3>Sector Sensitivity Analysis</h3>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Manufacturing Sector</th>
+                                <th>Average MoM Change<br>After Policy</th>
+                                <th>Sensitivity Level</th>
+                                <th>Key Factors</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Food Products</td>
+                                <td>-1.2%</td>
+                                <td>High</td>
+                                <td>Transport-intensive distribution networks, cold chain requirements</td>
+                            </tr>
+                            <tr>
+                                <td>Chemicals & Chemical Products</td>
+                                <td>-1.8%</td>
+                                <td>Very High</td>
+                                <td>Uses petroleum derivatives as raw materials, energy-intensive processes</td>
+                            </tr>
+                            <tr>
+                                <td>Rubber & Plastics</td>
+                                <td>-1.5%</td>
+                                <td>High</td>
+                                <td>Petroleum-based raw materials, high energy consumption</td>
+                            </tr>
+                            <tr>
+                                <td>Basic Metals</td>
+                                <td>-2.1%</td>
+                                <td>Very High</td>
+                                <td>Extremely energy-intensive production processes</td>
+                            </tr>
+                            <tr>
+                                <td>Motor Vehicles</td>
+                                <td>-0.9%</td>
+                                <td>Moderate</td>
+                                <td>Complex supply chains, assembly operations</td>
+                            </tr>
+                            <tr>
+                                <td>Other Transport Equipment</td>
+                                <td>-1.1%</td>
+                                <td>Moderate</td>
+                                <td>Large components, specialized transport needs</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3>Why These Sectors Are More Affected</h3>
+                    <p>
+                        The sectors most impacted by diesel subsidy policy changes share common characteristics:
+                    </p>
+                    <ul>
+                        <li><strong>Energy Intensity:</strong> Basic metals and chemical manufacturing require substantial energy inputs</li>
+                        <li><strong>Transport Dependencies:</strong> Food products rely heavily on transportation networks</li>
+                        <li><strong>Petroleum-Based Inputs:</strong> Chemicals and rubber/plastics use petroleum derivatives as raw materials</li>
+                        <li><strong>Limited Short-term Alternatives:</strong> These sectors have fewer immediate options to adapt their energy sources</li>
+                    </ul>
+                </div>
+                
+                <div class="data-source">
+                    Source: Department of Statistics Malaysia, IPI by Division (2 digit) Data, Feb 2025
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Between Export-Oriented and Domestic-Oriented Manufacturing -->
+        <section id="comparison" class="content-card">
+            <div class="card-header">
+                <h2>Export vs. Domestic-Oriented Manufacturing</h2>
+                <div class="tooltip">
+                    <i class="fas fa-info-circle info-icon"></i>
+                    <span class="tooltip-text">This comparison shows how export and domestic-oriented sectors respond differently to diesel subsidy changes.</span>
+                </div>
+            </div>
+            
+            <div class="card-content">
+                 <div style="margin-bottom: 2rem;"></div>
+                <p>
+                    Malaysia's manufacturing sector can be broadly divided into export-oriented industries 
+                    (which produce mainly for international markets) and domestic-oriented industries 
+                    (which serve the local market). Each responds differently to diesel subsidy policy changes.
+                </p>
+                
+                <div class="chart-container">
+                    <canvas id="exportDomesticChart"></canvas>
+                </div>
+                
+                </div>
+                
+                <div class="highlight-box">
+                    <h3>Economic Implications</h3>
+                    <p>
+                        The different responses between export and domestic-oriented manufacturing have important implications:
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>International Competitiveness:</strong> Export sectors face greater challenges as they cannot easily pass increased costs to international buyers in competitive markets
+                        </li>
+                        <li>
+                            <strong>Consumer Prices:</strong> Domestic manufacturing sectors can partially pass costs to local consumers, contributing to inflationary pressure
+                        </li>
+                        <li>
+                            <strong>Employment Effects:</strong> Export sectors typically employ more workers, so their volatility can have larger employment impacts
+                        </li>
+                        <li>
+                            <strong>Policy Considerations:</strong> Targeted support mechanisms may be needed for export sectors to maintain international competitiveness
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="data-source">
+                    Source: Department of Statistics Malaysia, IPI for Export-Oriented Divisions and IPI for Domestic-Oriented Divisions Data, Feb 2025
+                </div>
+            </div>
+        </section>
+
+
+
+        {% include "footer.html" %}
+
+    </main>
+
+
+    <script src="/static/assets/js/manufacturing_impact.js"></script>
+    <script src="/static/assets/js/script.js"></script>
+    <script src="{% url 'javascript-catalog' %}"></script>
+</body>
+</html>

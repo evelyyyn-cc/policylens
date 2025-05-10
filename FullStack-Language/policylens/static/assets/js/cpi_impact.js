@@ -175,6 +175,13 @@ function calculateImpact() {
             housingRate = cpi_impact_data.W_P_Putrajaya.housing_Rate;
             otherRate = cpi_impact_data.W_P_Putrajaya.restaurant_accommodation_Rate;
             break;
+            
+        case "All States":               // W.P. Putrajaya in dataset
+            transportRate = cpi_impact_data.All_States.transport_Rate;
+            foodRate = cpi_impact_data.All_States.food_Rate;
+            housingRate = cpi_impact_data.All_States.housing_Rate;
+            otherRate = cpi_impact_data.All_States.restaurant_accommodation_Rate;
+            break;
         default:
             // Default rates if location not found
             transportRate = 0.01;        // 1%
@@ -909,11 +916,19 @@ const cpi_impact_data = {
         housing_Rate: calculatePercentage(138.1,138.1),                  // 0%
         restaurant_accommodation_Rate: calculatePercentage(174.3,178.1), // -2.133633%
         overall_Rate: calculatePercentage(140.5,140.3)
-    }
+    },
+    All_States: {
+        transport_Rate: calculatePercentage(121.8,121.3),                // 
+        food_Rate: calculatePercentage(157.2,154.5),                     // 
+        housing_Rate: calculatePercentage(130.0,129.3),                  // 
+        restaurant_accommodation_Rate: calculatePercentage(153.6,151.6), // 
+        overall_Rate: calculatePercentage(133.4,132.8)
+    },
 };
 
 const filterOptions = {
     regions: [
+        "All States",
         "Johor",
         "Kedah",
         "Kelantan",
@@ -929,7 +944,7 @@ const filterOptions = {
         "Terengganu",
         "W.P. Kuala Lumpur",
         "W.P. Labuan",
-        "W.P. Putrajaya"
+        "W.P. Putrajaya" 
     ]
 }
 

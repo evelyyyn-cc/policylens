@@ -20,7 +20,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from django.views.generic import TemplateView
-from api.views import FuelPriceFilterView, CarFuelStatsView, index, diesel_policy, datasets_page, policies, CPIReportAPI, cpi_impact, cpi_dataset,set_language
+from api.views import FuelPriceFilterView, CarFuelStatsView, index, diesel_policy, datasets_page, policies, CPIReportAPI, cpi_impact, cpi_dataset,set_language, Manufacturing_impact
 from django.conf.urls.i18n import i18n_patterns
 from django.views.i18n import JavaScriptCatalog
 from django.views.i18n import JavaScriptCatalog
@@ -42,5 +42,6 @@ urlpatterns = [
     path("api/cpidata/", CPIReportAPI.as_view(), name="cpidata"),
     path("cpi_impact/", cpi_impact),
     path("cpi_dataset/", cpi_dataset),
+    path("Manufacturing_impact/", Manufacturing_impact),
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
 ]

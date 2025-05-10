@@ -9,7 +9,7 @@ Created time: 08/04/2025
 # from django.shortcuts import render
 # Create your views here.
 from rest_framework import serializers
-from .models import FuelPrice, Car, CPIData
+from .models import FuelPrice, Car, CPIData, IPI1DRecord, IPIRecord
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -17,6 +17,8 @@ from django.db.models import Count, Q
 from django.db.models.functions import ExtractYear, ExtractMonth
 from django.utils import translation
 from django.shortcuts import redirect
+from datetime import datetime
+import calendar
 
 
 from django.shortcuts import render
@@ -44,6 +46,9 @@ def cpi_dataset(request):
 
 def ai_chatbot(request):
     return render(request,'ai_chatbot.html')
+
+def manufacturing_impact(request):
+    return render(request, "manufacturing_impact.html")
 
 
 class FuelPriceSerializer(serializers.ModelSerializer):
@@ -311,4 +316,302 @@ class CPIReportAPI(APIView):
 
         # Convert dictionary to sorted list
         return sorted(result.values(), key=lambda x: x['date'])
+
+
+class IPI1DRecordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IPI1DRecord
+        fields = '__all__'
+
+
+class IPI1DDataView(APIView):
+    """
+    API View to retrieve IPI1D data based on year and series_type.
+    
+    Query Parameters:
+    - year: 'all' or specific year (e.g., 2023)
+    - series_type:  'abs', 'growth_mom', or 'growth_yoy'
+    
+    Returns data in format:
+    [
+        {
+            "date": "YYYY-MM-DD",
+            "series": "abs/growth_mom/growth_yoy",
+            "index": float,
+            "index_sa": float
+        },
+        ...
+    ]
+    """
+    
+    def get(self, request):
+        """
+        Handle GET request with parameters:
+        - year: 'all' or specific year
+        - series_type: 'abs', 'growth_mom', or 'growth_yoy'
+        """
+        year = request.GET.get('year')
+        series_type = request.GET.get('series_type')
+        
+        # Validate parameters
+        if not year or not series_type:
+            return Response(
+                {"error": "Missing required parameters: year or series_type"}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            
+        if series_type not in ['abs', 'growth_mom','growth_yoy']:
+            return Response(
+                {"error": "Invalid series_type. Must be 'abs' , 'growth_mom' or 'growth_yoy'"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Base query for the specified series_type
+        queryset = IPI1DRecord.objects.filter(series=series_type)
+        
+        # Apply year filter
+        if year.lower() == 'all':
+            # Get data from Feb 2023 to the latest
+            start_date = datetime(2023, 2, 1)
+            queryset = queryset.filter(date__gte=start_date)
+        else:
+            try:
+                year_int = int(year)
+                start_date = datetime(year_int, 1, 1)
+                # Calculate the end date (last day of the year)
+                end_date = datetime(year_int, 12, 31)
+                queryset = queryset.filter(date__gte=start_date, date__lte=end_date)
+            except ValueError:
+                return Response(
+                    {"error": "Invalid year format. Must be 'all' or a valid year (e.g., 2023)"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+        
+        # Order by date (ascending)
+        queryset = queryset.order_by('date')
+        
+        # Serialize the data
+        serializer = IPI1DRecordSerializer(queryset, many=True)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class IPIRecordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IPIRecord
+        fields = '__all__'
+
+
+class IPIDataView(APIView):
+    """
+    API View to retrieve IPI data based on year, month, series_type, and display parameters.
+    
+    Query Parameters:
+    - year: specific year (e.g., 2023)
+    - month: specific month (1-12)
+    - series_type: 'abs', 'growth_mom', or 'growth_yoy'
+    - display: 'all' or 'top' (top returns top 10 records by index value)
+    
+    Returns data in format:
+    [
+        {
+            "date": "YYYY-MM-DD",
+            "series": "abs/growth_mom/growth_yoy",
+            "index": float,
+            "division": int,
+            "desc_en": string
+        },
+        ...
+    ]
+    """
+    
+    def get(self, request):
+        """
+        Handle GET request with parameters:
+        - year: specific year
+        - month: specific month
+        - series_type: 'abs', 'growth_mom', or 'growth_yoy'
+        - display: 'all' or 'top'
+        """
+        year = request.GET.get('year')
+        month = request.GET.get('month')
+        series_type = request.GET.get('series_type')
+        display = request.GET.get('display')
+        
+        # Validate parameters
+        if not year or not month or not series_type or not display:
+            return Response(
+                {"error": "Missing required parameters: year, month, series_type, or display"}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            
+        if series_type not in ['abs', 'growth_mom', 'growth_yoy']:
+            return Response(
+                {"error": "Invalid series_type. Must be 'abs', 'growth_mom', or 'growth_yoy'"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            
+        if display not in ['all', 'top']:
+            return Response(
+                {"error": "Invalid display parameter. Must be 'all' or 'top'"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        try:
+            year_int = int(year)
+            month_int = int(month)
+            
+            if month_int < 1 or month_int > 12:
+                return Response(
+                    {"error": "Invalid month. Must be between 1 and 12"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+                
+            # Create date for filtering
+            start_date = datetime(year_int, month_int, 1)
+            
+            # Get the last day of the month
+            _, last_day = calendar.monthrange(year_int, month_int)
+            end_date = datetime(year_int, month_int, last_day)
+            
+        except ValueError:
+            return Response(
+                {"error": "Invalid year or month format. Year must be a valid year and month must be between 1-12."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Base query for the specified series_type and date range
+        queryset = IPIRecord.objects.filter(
+            series=series_type,
+            date__gte=start_date,
+            date__lte=end_date
+        )
+        
+        # Apply display filter (top 10 or all)
+        if display == 'top':
+            queryset = queryset.order_by('-index')[:10]
+        else:
+            # For 'all', just order by division
+            queryset = queryset.order_by('division')
+        
+        # Serialize the data
+        serializer = IPIRecordSerializer(queryset, many=True)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ManufacturingDivisionsDataView(APIView):
+    """
+    API View to process manufacturing divisions data with abs, yoy and mom changes.
+    
+    GET Request Body:
+    - year: specific year (e.g., 2023)
+    - month: specific month (1-12)
+    
+    Returns data in format:
+    [
+        {
+            "division": int,
+            "desc_en": string,
+            "abs": float,
+            "yoy_change": float,
+            "mom_change": float
+        },
+        ...
+    ]
+    """
+    
+    def get(self, request):
+        """
+        Handle POST request with body parameters:
+        - year: specific year
+        - month: specific month
+        """
+        # Extract parameters from request body
+        year = request.GET.get('year')
+        month = request.GET.get('month')
+        
+        # Validate parameters
+        if not year or not month:
+            return Response(
+                {"error": "Missing required parameters: year or month"}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        try:
+            year_int = int(year)
+            month_int = int(month)
+            
+            if month_int < 1 or month_int > 12:
+                return Response(
+                    {"error": "Invalid month. Must be between 1 and 12"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+                
+            # Create date for current month filtering
+            current_month_start = datetime(year_int, month_int, 1)
+            _, last_day = calendar.monthrange(year_int, month_int)
+            current_month_end = datetime(year_int, month_int, last_day)
+            
+        except ValueError:
+            return Response(
+                {"error": "Invalid year or month format. Year must be a valid year and month must be between 1-12."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Get all unique divisions for the current month with 'abs' series
+        abs_data = IPIRecord.objects.filter(
+            series='abs',
+            date__gte=current_month_start,
+            date__lte=current_month_end
+        )
+        
+        if not abs_data.exists():
+            return Response(
+                {"error": f"No data found for {year_int}-{month_int} with 'abs' series"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        # Get growth_yoy data for the same period
+        yoy_data = IPIRecord.objects.filter(
+            series='growth_yoy',
+            date__gte=current_month_start,
+            date__lte=current_month_end
+        )
+        
+        # Get growth_mom data for the same period
+        mom_data = IPIRecord.objects.filter(
+            series='growth_mom',
+            date__gte=current_month_start,
+            date__lte=current_month_end
+        )
+        
+        # Create dictionaries for faster lookup
+        yoy_dict = {item.division: item.index for item in yoy_data}
+        mom_dict = {item.division: item.index for item in mom_data}
+        
+        # Prepare result
+        result = []
+        
+        for item in abs_data:
+            division = item.division
+            abs_value = item.index
+            
+            # 直接使用growth_yoy和growth_mom的值作为增长率
+            yoy_change = yoy_dict.get(division, None)
+            mom_change = mom_dict.get(division, None)
+            
+            # Add to result
+            result.append({
+                "division": division,
+                "desc_en": item.desc_en,
+                "abs": abs_value,
+                "yoy_change": yoy_change,
+                "mom_change": mom_change
+            })
+        
+        # Sort result by division
+        result.sort(key=lambda x: x["division"])
+        
+        return Response(result, status=status.HTTP_200_OK)
 
