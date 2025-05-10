@@ -48,31 +48,31 @@
   
   // Policy Information Section
   .policy-info {
-    background-color: $white;
-    padding: 2rem 0;
-    margin-top: 2rem;
+    // background-color: $white;
+    // padding: 2rem 0;
+    // margin-top: 2rem;
   
-    .section-title {
-      @include responsive-font(2rem, 1.75rem, 1.5rem);
-      font-weight: $font-weight-semibold;
-      color: $dark-gray;
-      margin-bottom: 1.5rem;
-    }
+    // .section-title {
+    //   @include responsive-font(2rem, 1.75rem, 1.5rem);
+    //   font-weight: $font-weight-semibold;
+    //   color: $dark-gray;
+    //   margin-bottom: 1.5rem;
+    // }
   
-    .section-text {
-      @include responsive-font(1rem, 0.935rem, 0.875rem);
-      line-height: 1.7;
-      color: $text-color;
-      max-width: 90%;
-      text-align: justify;
-      // background-color: $text-section;
-      // border-radius: 8px;
-      // padding: 1rem;
+    // .section-text {
+    //   @include responsive-font(1rem, 0.935rem, 0.875rem);
+    //   line-height: 1.7;
+    //   color: $text-color;
+    //   max-width: 90%;
+    //   text-align: justify;
+    //   // background-color: $text-section;
+    //   // border-radius: 8px;
+    //   // padding: 1rem;
 
-      @include responsive-md{
-        max-width: 100%;
-      }
-    }
+    //   @include responsive-md{
+    //     max-width: 100%;
+    //   }
+    // }
   
     // Disclaimer
     .disclaimer {
