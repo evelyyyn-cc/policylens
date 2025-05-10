@@ -105,7 +105,7 @@
         
                             <div class="highlight-point">
                                 <span class="highlight-icon">●</span>
-                                <span>{% trans "A staggering 920% increase in just four years" %}</span>
+                                <span>{% trans "A staggering 1021% increase in just four years" %}</span>
                             </div>
         
                             <p>{% trans "Diesel consumption growth significantly outpaced vehicle registration:" %}</p>
@@ -211,10 +211,6 @@
         <div class="tab-content" id="targeted-tab">
             <section class="targeted-approach">
                 <div class="container">
-                    <div class="scroll-indicator-diesel-policy">
-                        <p>{% trans "Previous Section" %}</p>
-                        <i class="fas fa-arrow-up"></i>
-                    </div>
                     <h2 class="section-title">{% trans "The Targeted Approach" %}</h2>
                     <p class="section-subtitle">{% trans "Ensuring Support Reaches the Right People" %}</p>
                     <hr class="section-divider">
@@ -334,10 +330,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="scroll-indicator-diesel-policy">
-                        <p>{% trans "Next Section" %}</p>
-                        <i class="fas fa-arrow-down"></i>
-                    </div>
                 </div>
             </section>
         </div>
@@ -346,10 +338,6 @@
         <div class="tab-content" id="financial-perspective-tab">
             <section class="financial-perspective">
                 <div class="container">
-                    <div class="scroll-indicator-diesel-policy">
-                        <p>{% trans "Previous Section" %}</p>
-                        <i class="fas fa-arrow-up"></i>
-                    </div>
                     <h2 class="section-title">{% trans "The Financial Perspective" %}</h2>
                     <p class="section-subtitle">{% trans "Fiscal Impact and Resource Allocation" %}</p>
                     <hr class="section-divider">
@@ -445,10 +433,6 @@
                             </p>
                         </div>
                     </div>
-                    <div class="scroll-indicator-diesel-policy">
-                        <p>{% trans "Next Section" %}</p>
-                        <i class="fas fa-arrow-down"></i>
-                    </div>
                 </div>
             </section>
         </div>
@@ -457,10 +441,6 @@
         <div class="tab-content" id="future-outlook-tab">
             <section class="future-outlook">
                 <div class="container">
-                    <div class="scroll-indicator-diesel-policy">
-                        <p>{% trans "Go to Top" %}</p>
-                        <i class="fas fa-arrow-up-long"></i>
-                    </div>
                     <h2 class="section-title">{% trans "The Future Outlook" %}</h2>
                     <p class="section-subtitle">{% trans "What Comes Next and Long-Term Benefits" %}</p>
                     <hr class="section-divider">
@@ -716,137 +696,7 @@
     </section> -->
 
     <!-- Targeted Approach Section -->
-    <section class="targeted-approach">
-        <div class="container">
-            <div class="scroll-indicator-diesel-policy">
-                <p>{% trans "Previous Section" %}</p>
-                <i class="fas fa-arrow-up"></i>
-            </div>
-            <h2 class="section-title">{% trans "The Targeted Approach" %}</h2>
-            <p class="section-subtitle">{% trans "Ensuring Support Reaches the Right People" %}</p>
-            <hr class="section-divider">
 
-            <div class="support-details">
-                <!-- Beneficiary Groups -->
-                <div class="info-card">
-                    <h3 class="card-title">{% trans "Beneficiary Groups" %}</h3>
-                    <div class="donut-chart-container">
-                        <canvas id="beneficiaryChart"></canvas>
-                    </div>
-                    <div class="beneficiary-stats">
-                        <div class="stat-box">
-                            <h4 class="stat-title">{% trans "Private Vehicle Owners" %}</h4>
-                            <p class="stat-value">300,000</p>
-                        </div>
-                        <div class="stat-box">
-                            <h4 class="stat-title">{% trans "Farmers" %}</h4>
-                            <p class="stat-value">68,000</p>
-                        </div>
-                        <div class="stat-box">
-                            <h4 class="stat-title">{% trans "Livestock Breeders" %}</h4>
-                            <p class="stat-value">8,000</p>
-                        </div>
-                        <div class="stat-box">
-                            <h4 class="stat-title">{% trans "Aquaculture Farmers" %}</h4>
-                            <p class="stat-value">34,000</p>
-                        </div>
-                    </div>
-                    <div class="more-details">
-                        <a href="https://www.mof.gov.my/portal/ms/berita/siaran-media/100-000-permohonan-bantuan-tunai-budi-madani-diluluskan" class="more-link" target="_blank"><i class="fas fa-info-circle"></i> Information Source</a>
-                    </div>
-                </div>
-
-                <!-- Eligibility Criteria -->
-                <div class="info-card">
-                    <h3 class="card-title">{% trans "Eligibility Criteria" %}</h3>
-                    <div class="criteria-grid">
-                        <div class="criteria-item">
-                            <div class="criteria-icon malaysian-icon">
-                                <i class="fas fa-id-card"></i>
-                            </div>
-                            <p class="criteria-text">{% trans "Valid Malaysian citizenship required" %}</p>
-                        </div>
-                        <div class="criteria-item">
-                            <div class="criteria-icon income-icon">
-                                <i class="fas fa-money-bill-wave"></i>
-                            </div>
-                            <p class="criteria-text">{% trans "Individual or household income threshold" %}</p>
-                        </div>
-                        <div class="criteria-item">
-                            <div class="criteria-icon vehicle-icon">
-                                <i class="fas fa-truck-pickup"></i>
-                            </div>
-                            <p class="criteria-text">{% trans "Private diesel vehicle registered with JPJ" %}</p>
-                        </div>
-                        <div class="criteria-item">
-                            <div class="criteria-icon age-icon">
-                                <i class="fas fa-calendar-alt"></i>
-                            </div>
-                            <p class="criteria-text">{% trans "Non-luxury vehicles under 10 years old" %}</p>
-                        </div>
-                    </div>
-                    <div class="more-details">
-                        <a href="https://www.mof.gov.my/portal/en/news/press-release/program-bantuan-subsidi-madani-open-for-application" class="more-link" target="_blank"><i class="fas fa-info-circle"></i> {% trans "More eligibility details" %}</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="process-status">
-                <!-- Application Process -->
-                <div class="info-card">
-                    <h3 class="card-title">{% trans "Application Process" %}</h3>
-                    <div class="process-steps">
-                        <div class="process-step">
-                            <h4 class="step-title">{% trans "Check Eligibility" %}</h4>
-                            <p class="step-description">{% trans "Verify if you meet the income and vehicle requirements" %}</p>
-                        </div>
-                        <div class="process-step">
-                            <h4 class="step-title">{% trans "Online Application" %}</h4>
-                            <p class="step-description">{% blocktrans %}Complete application at <a href="https://budimadani.gov.my/" target="_blank">budimadani.gov.my</a>{% endblocktrans %}</p>
-                        </div>
-                        <div class="process-step">
-                            <h4 class="step-title">{% trans "Verification Period" %}</h4>
-                            <p class="step-description">{% trans "Application verified against LHDNM records" %}</p>
-                        </div>
-                        <div class="process-step">
-                            <h4 class="step-title">{% trans "Monthly Disbursement" %}</h4>
-                            <p class="step-description">{% trans "RM 200 transferred to approved applicants' bank accounts" %}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Current Implementation Status -->
-                <div class="info-card">
-                    <h3 class="card-title">{% trans "Current Implementation Status" %}</h3>
-                    <div class="status-counters">
-                        <div class="counter-box eligible-counter">
-                            <h4 class="counter-title">{% trans "Estimated Eligible" %}</h4>
-                            <p class="counter-value">300,000</p>
-                        </div>
-                        <div class="counter-box approved-counter">
-                            <h4 class="counter-title">{% trans "Applications Approved" %}</h4>
-                            <p class="counter-value">100,000</p>
-                        </div>
-                    </div>
-                    <div class="sources">
-                        <p class="source">
-                            {% blocktrans %}
-                            Source: Ministry of Finance Malaysia. (2024, Mar 22). Program Bantuan Subsidi MADANI Open For Application. Retrieved from
-                            {% endblocktrans %}
-                            <a href="https://www.mof.gov.my/portal/en/news/press-release/program-bantuan-subsidi-madani-open-for-application" target="_blank">https://www.mof.gov.my/portal/en/news/press-release/program-bantuan-subsidi-madani-open-for-application</a>
-                        </p>
-                        <p class="source">
-                            {% trans "Source: Ministry of Finance Malaysia. (2024, June 9). 100,000 Civil Service Cash Assistance Applications Approved. Retrieved from " %} <a href="https://www.mof.gov.my/portal/ms/berita/siaran-media/100-000-permohonan-bantuan-tunai-budi-madani-diluluskan" target="_blank">https://www.mof.gov.my/portal/ms/berita/siaran-media/100-000-permohonan-bantuan-tunai-budi-madani-diluluskan</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="scroll-indicator-diesel-policy">
-                <p>{% trans "Next Section" %}</p>
-                <i class="fas fa-arrow-down"></i>
-            </div>
-        </div>
-    </section>
 
     <!-- Financial Perspective Section -->
     <!-- <section class="financial-perspective">
@@ -1091,9 +941,9 @@
     <!-- Include Chart.js -->
     <script src="{% url 'javascript-catalog' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="/static/assets/js/diesel_policy.js"></script>
-    <script src="/static/assets/js/script.js"></script>
-    <script src="/static/assets/js/section-navigation-policy.js"></script>
+    <!-- <script src="/static/assets/js/diesel_policy.js"></script>
+    <script src="/static/assets/js/script.js"></script> -->
+    <script type="module" src="/static/assets/js/main.js"></script>
     <!-- <script src="/static/assets/js/modules/index/scrollEffects.js"></script> -->
 
 </body>
