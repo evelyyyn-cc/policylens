@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const isDatasetPage = document.body.classList.contains('datasets-page');
   const isCpiImpactPage = document.body.classList.contains('cpi-impact-page');
   const isCpiDatasetsPage = document.body.classList.contains('cpi-datasets-page');
+  const isChatbotPage = document.body.classList.contains('chatbot-page');
 
   // Common components for all pages
   setupMobileNavigation();
@@ -36,6 +37,28 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .catch(error => {console.error('Error loading policies page:',error);
     })
+  }
+
+    // Diesel Policy page specific components
+  if (isDieselPolicyPage) {
+    import('./modules/diesel_policy/diesel.js')
+      .then(module => {
+        module.initializeDieselPolicyPage();
+      })
+      .catch(error => {
+        console.error('Error loading diesel policy page:', error);
+      });
+  }
+
+    // Chatbot page
+  if (isChatbotPage) {
+    import('./modules/chatbot/chatbot.js')
+      .then(module => {
+        module.initChatbotPage();
+      })
+      .catch(error => {
+        console.error('Error loading chatbot page:', error);
+      });
   }
   
   // Other page-specific initializations can be added as needed
