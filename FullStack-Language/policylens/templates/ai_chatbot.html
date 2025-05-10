@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="/static/assets/scss/main.css">
-    <link rel="stylesheet" href="/static/assets/css/chatbot.css">
     <title>{% trans "AI Chatbot" %}</title>
 </head>
 <body class="chatbot-page">
@@ -76,8 +75,8 @@
     <!-- Footer -->
     {% include "footer.html" %}
 
-    <script src="/static/assets/js/script.js"></script>
-    <script src="/static/assets/js/chatbot.js"></script>
+    <!-- <script src="/static/assets/js/script.js"></script> -->
+    <script type="module" src="/static/assets/js/main.js"></script>
     <script src="{% url 'javascript-catalog' %}"></script>
 </body>
 </html>
