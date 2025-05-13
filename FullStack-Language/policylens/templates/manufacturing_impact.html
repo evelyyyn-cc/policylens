@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/static/assets/scss/main.css">
     <title>{% trans "Manufacturing Impact" %}</title>
 </head>
-<body class="cpi-impact-page">
+<body class="manufacturing-impact-page">
     <!-- Top navigation bar -->
     {% include "header.html" %}
 
@@ -51,38 +51,37 @@
     </section>
 
             <!-- Sector Information Section -->
-        <section class="policy-info">
-            <div class="container">
-                <h2 class="section-title">{% trans "What is Industrial Production Index (IPI)?" %}</h2>
-                <p class="section-text">
-                    {% blocktrans %}
-                    Industrial Production Index (IPI) measures the real output of the three main industrial sectors in Malaysia: 
-                    mining, manufacturing, and electricity. It serves as a key indicator of industrial activity and economic performance.
-                    {% endblocktrans %}
-                </p>
-                <p class="section-text">
-                    {% blocktrans %}
-                    For this analysis, we focus on how Malaysia's diesel subsidy policy affects the manufacturing sector, 
-                    which contributes approximately 23% to the country's GDP and employs over 2.2 million workers.
-                    {% endblocktrans %}
-                </p>
-            </div>
-        </section>
+    <section class="policy-info">
+        <div class="container">
+            <h2 class="section-title">{% trans "What is Industrial Production Index (IPI)?" %}</h2>
+            <p class="section-text">
+                {% blocktrans %}
+                Industrial Production Index (IPI) measures the real output of the three main industrial sectors in Malaysia: 
+                mining, manufacturing, and electricity. It serves as a key indicator of industrial activity and economic performance.
+                {% endblocktrans %}
+            </p>
+            <p class="section-text">
+                {% blocktrans %}
+                For this analysis, we focus on how Malaysia's diesel subsidy policy affects the manufacturing sector, 
+                which contributes approximately 23% to the country's GDP and employs over 2.2 million workers.
+                {% endblocktrans %}
+            </p>
+        </div>
+    </section>
 
-        <section class="manufacturing-impact-section">
-            <!-- Tab navigation - Horizontal tabs below hero -->
-            <div class="main-tabs">
-                <a href="#" class="tab-link active" data-tab="overview">{% trans "Overall Manufacturing Performance Trend" %}</a>
-                <a href="#" class="tab-link" data-tab="sectors">{% trans "Impact on Fuel-Sensitive Manufacturing Sectors " %}</a>
-                <a href="#" class="tab-link" data-tab="comparison">{% trans "Diesel Price Impact Analysis" %}</a>
-                <div class="tab-indicator"></div>
-            </div>
+    <section class="manufacturing-impact-section">
+        <!-- Tab navigation - Horizontal tabs below hero -->
+        <div class="main-tabs">
+            <a href="#" class="tab-link active" data-tab="overview">{% trans "Overall Manufacturing Performance Trend" %}</a>
+            <a href="#" class="tab-link" data-tab="sectors">{% trans "Impact on Fuel-Sensitive Manufacturing Sectors " %}</a>
+            <a href="#" class="tab-link" data-tab="comparison">{% trans "Diesel Price Impact Analysis" %}</a>
+            <div class="tab-indicator"></div>
+        </div>
 
         <!-- Overall Manufacturing Performance Trend Analysis -->
-        <div class="content-card" id="overview" >
-            <div class="card-header">
-                <h2>Overall Manufacturing Performance Trend</h2>
-
+        <div class="tab-content active" id="overview" >
+            <div class="page-header"> 
+                <h1 class="page-title">{% trans "Overall Manufacturing Performance Trend" %}</h1>
             </div>
             
             <div class="card-content">
@@ -136,9 +135,9 @@
         </div>
 
         <!-- Impact Analysis on Fuel-Sensitive Manufacturing Sectors -->
-        <div class="content-card" id="sectors" >
-            <div class="card-header">
-                <h2>Impact on Fuel-Sensitive Manufacturing Sectors</h2>
+        <div class="tab-content" id="sectors" >
+            <div class="page-header">
+                <h1 class = “page-title"> Impact on Fuel-Sensitive Manufacturing Sectors</h1>
             </div>
             
             <div class="card-content">
@@ -179,21 +178,15 @@
         </div>
 
         <!-- Comparison Between Export-Oriented and Domestic-Oriented Manufacturing -->
-        <section id="analysis" class="content-card">
+        <div class="tab-content" id="comparison" >
             <div class="card-header">
                 <h2>Diesel Price Impact Analysis</h2>
-                <div class="tooltip">
-                    <i class="fas fa-info-circle info-icon"></i>
-                    <span class="tooltip-text">This comparison shows how export and domestic-oriented sectors respond differently to diesel subsidy changes.</span>
-                </div>
             </div>
             
             <div class="card-content">
                 <div style="margin-bottom: 2rem;"></div>
                 <p>
-                    Malaysia's manufacturing sector can be broadly divided into export-oriented industries 
-                    (which produce mainly for international markets) and domestic-oriented industries 
-                    (which serve the local market). Each responds differently to diesel subsidy policy changes.
+                    This chart shows the relationship between manufacturing growth (blue line, % change month-on-month) and diesel prices (orange line, RM/L) in Malaysia throughout 2024.
                 </p>
                 
                 <div class="chart-container">
@@ -225,11 +218,12 @@
                     Source: Department of Statistics Malaysia, IPI for Export-Oriented Divisions and IPI for Domestic-Oriented Divisions Data, Feb 2025
                 </div>
             </div>
-        </section>
+        </div>
 
-        {% include "footer.html" %}
+    </section>
+        
+    {% include "footer.html" %}
 
-    </main>
 
     <script src="/static/assets/js/manufacturing_impact.js"></script>
     <script src="/static/assets/js/script.js"></script>
