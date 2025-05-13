@@ -312,8 +312,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Counter animation for stats section
     const animateCounters = () => {
+        // 检查当前页面是否为制造业影响页面
+        if (document.querySelector('.manufacturing-impact-page')) {
+            console.log("制造业影响页面，跳过计数器动画");
+            return;
+        }
+
         const statsSection = document.getElementById('stats');
         const statNumbers = document.querySelectorAll('.stat-number');
+
+        // 如果stats部分不存在，直接返回，避免错误
+        if (!statsSection) {
+            console.log("Stats section not found, skipping counter animation");
+            return;
+        }
 
         // Only run once
         let animated = false;
@@ -369,6 +381,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     requestAnimationFrame(updateCounter);
                                 }
                             };
+                            
 
                             requestAnimationFrame(updateCounter);
                         } else if (isDecimal) {

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/static/assets/scss/main.css">
     <title>{% trans "Manufacturing Impact" %}</title>
 </head>
-<body class="cpi-impact-page">
+<body class="manufacturing-impact-page">
     <!-- Top navigation bar -->
     {% include "header.html" %}
 
@@ -51,38 +51,37 @@
     </section>
 
             <!-- Sector Information Section -->
-        <section class="policy-info">
-            <div class="container">
-                <h2 class="section-title">{% trans "What is Industrial Production Index (IPI)?" %}</h2>
-                <p class="section-text">
-                    {% blocktrans %}
-                    Industrial Production Index (IPI) measures the real output of the three main industrial sectors in Malaysia: 
-                    mining, manufacturing, and electricity. It serves as a key indicator of industrial activity and economic performance.
-                    {% endblocktrans %}
-                </p>
-                <p class="section-text">
-                    {% blocktrans %}
-                    For this analysis, we focus on how Malaysia's diesel subsidy policy affects the manufacturing sector, 
-                    which contributes approximately 23% to the country's GDP and employs over 2.2 million workers.
-                    {% endblocktrans %}
-                </p>
-            </div>
-        </section>
+    <section class="policy-info">
+        <div class="container">
+            <h2 class="section-title">{% trans "What is Industrial Production Index (IPI)?" %}</h2>
+            <p class="section-text">
+                {% blocktrans %}
+                Industrial Production Index (IPI) measures the real output of the three main industrial sectors in Malaysia: 
+                mining, manufacturing, and electricity. It serves as a key indicator of industrial activity and economic performance.
+                {% endblocktrans %}
+            </p>
+            <p class="section-text">
+                {% blocktrans %}
+                For this analysis, we focus on how Malaysia's diesel subsidy policy affects the manufacturing sector, 
+                which contributes approximately 23% to the country's GDP and employs over 2.2 million workers.
+                {% endblocktrans %}
+            </p>
+        </div>
+    </section>
 
-        <section class="manufacturing-impact-section">
-            <!-- Tab navigation - Horizontal tabs below hero -->
-            <div class="main-tabs">
-                <a href="#" class="tab-link active" data-tab="overview">{% trans "Overall Manufacturing Performance Trend" %}</a>
-                <a href="#" class="tab-link" data-tab="sectors">{% trans "Impact on Fuel-Sensitive Manufacturing Sectors " %}</a>
-                <a href="#" class="tab-link" data-tab="comparison">{% trans "Diesel Price Impact Analysis" %}</a>
-                <div class="tab-indicator"></div>
-            </div>
+    <section class="manufacturing-impact-section" style="padding: 0 12%; ">
+        <!-- Tab navigation - Horizontal tabs below hero -->
+        <div class="main-tabs">
+            <a href="#" class="tab-link active" data-tab="overview">{% trans "Overall Manufacturing Performance Trend" %}</a>
+            <a href="#" class="tab-link" data-tab="sectors">{% trans "Impact on Fuel-Sensitive Manufacturing Sectors " %}</a>
+            <a href="#" class="tab-link" data-tab="comparison">{% trans "Diesel Price Impact Analysis" %}</a>
+            <div class="tab-indicator"></div>
+        </div>
 
         <!-- Overall Manufacturing Performance Trend Analysis -->
-        <div class="content-card" id="overview" >
-            <div class="card-header">
-                <h2>Overall Manufacturing Performance Trend</h2>
-
+        <div class="tab-content active" id="overview" >
+            <div class="page-header"> 
+                <h1 class="page-title">{% trans "Overall Manufacturing Performance Trend" %}</h1>
             </div>
             
             <div class="card-content">
@@ -134,26 +133,27 @@
                 <strong>{% trans "Methodology:" %}</strong> {% trans "Monthly Manufacturing Index (IPI) and Seasonally Adjusted values were obtained from official national statistics, categorized under Section C (Manufacturing) and indexed to base year 2015 = 100. " %}
             </div>
         </div>
+        </div>
 
         <!-- Impact Analysis on Fuel-Sensitive Manufacturing Sectors -->
-        <div class="content-card" id="sectors" >
-            <div class="card-header">
-                <h2>Impact on Fuel-Sensitive Manufacturing Sectors</h2>
+        <div class="tab-content" id="sectors" >
+            <div class="page-header">
+                <h1 class = "page-title"> Impact on Fuel-Sensitive Manufacturing Sectors</h1>
             </div>
             
             <div class="card-content">
                 <div style="margin-bottom: 2rem;"></div>
                 <p>
-                    This chart shows Malaysia’s monthly Manufacturing Index (blue) and seasonally adjusted index (green) for 2024.  
+                    This chart shows Malaysia's monthly Manufacturing Index (blue) and seasonally adjusted index (green) for 2024.  
                     The blue line reflects actual industrial output, while the green line smooths out seasonal patterns.  
                     A red line in June 2024 marks the start of the diesel subsidy reform, a major policy change affecting fuel costs in manufacturing.
                 </p>
                 
-                <div class="chart-container">
+                <div class="chart-container" style="display:block; height:400px; visibility:visible; opacity:1;">
                     <canvas id="sectorImpactChart"></canvas>
                 </div>
                 
-                <div class="chart-container">
+                <div class="chart-container" style="display:block; height:500px; visibility:visible; opacity:1;">
                     <canvas id="sectorSensitivityChart"></canvas>
                 </div>
                 
@@ -179,24 +179,18 @@
         </div>
 
         <!-- Comparison Between Export-Oriented and Domestic-Oriented Manufacturing -->
-        <section id="analysis" class="content-card">
+        <div class="tab-content" id="comparison" >
             <div class="card-header">
                 <h2>Diesel Price Impact Analysis</h2>
-                <div class="tooltip">
-                    <i class="fas fa-info-circle info-icon"></i>
-                    <span class="tooltip-text">This comparison shows how export and domestic-oriented sectors respond differently to diesel subsidy changes.</span>
-                </div>
             </div>
             
             <div class="card-content">
                 <div style="margin-bottom: 2rem;"></div>
                 <p>
-                    Malaysia's manufacturing sector can be broadly divided into export-oriented industries 
-                    (which produce mainly for international markets) and domestic-oriented industries 
-                    (which serve the local market). Each responds differently to diesel subsidy policy changes.
+                    This chart shows the relationship between manufacturing growth (blue line, % change month-on-month) and diesel prices (orange line, RM/L) in Malaysia throughout 2024.
                 </p>
                 
-                <div class="chart-container">
+                <div class="chart-container" style="display:block; visibility:visible; opacity:1; position:relative; min-height:400px;">
                     <canvas id="exportDomesticChart"></canvas>
                 </div>
                 
@@ -225,14 +219,72 @@
                     Source: Department of Statistics Malaysia, IPI for Export-Oriented Divisions and IPI for Domestic-Oriented Divisions Data, Feb 2025
                 </div>
             </div>
-        </section>
+        </div>
 
-        {% include "footer.html" %}
+    </section>
+        
+    {% include "footer.html" %}
 
-    </main>
 
     <script src="/static/assets/js/manufacturing_impact.js"></script>
     <script src="/static/assets/js/script.js"></script>
     <script src="{% url 'javascript-catalog' %}"></script>
+
+    <script>
+    // 设置MutationObserver监听标签内容区域的变化
+    function setupChartObserver() {
+        // 创建观察器
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach(mutation => {
+                // 如果某个标签内容区域变为可见
+                if (mutation.target.classList.contains('tab-content') && 
+                    mutation.target.style.display === 'block') {
+                    
+                    // 根据内容区域ID初始化相应图表
+                    if (mutation.target.id === 'sectors') {
+                        if (typeof initializeSectorImpactChart === 'function') {
+                            initializeSectorImpactChart();
+                            setTimeout(() => {
+                                if (typeof initializeSectorSensitivityChart === 'function') {
+                                    initializeSectorSensitivityChart();
+                                }
+                            }, 300);
+                        }
+                    }
+                }
+            });
+        });
+        
+        // 开始观察所有标签内容区域
+        document.querySelectorAll('.tab-content').forEach(content => {
+            observer.observe(content, { 
+                attributes: true, 
+                attributeFilter: ['style', 'class']
+            });
+        });
+    }
+
+    // 页面加载完成后设置观察器
+    window.addEventListener('load', function() {
+        setupChartObserver();
+        
+        // 添加窗口大小变化事件，确保图表响应式调整
+        window.addEventListener('resize', function() {
+            // 获取所有活跃图表实例并调整大小
+            const charts = [
+                window.overallTrendChart, 
+                window.sectorImpactChart, 
+                window.sectorSensitivityChart, 
+                window.exportDomesticChart
+            ];
+            
+            charts.forEach(chart => {
+                if (chart && typeof chart.resize === 'function') {
+                    chart.resize();
+                }
+            });
+        });
+    });
+    </script>
 </body>
 </html>

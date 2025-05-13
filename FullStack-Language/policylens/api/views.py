@@ -632,8 +632,8 @@ class DieselImpactChartAPI(APIView):
     
     def get(self, request):
         # 1. Define the date range
-        start_date = datetime(2024, 3, 1)
-        end_date = datetime(2025, 2, 28)
+        start_date = datetime(2024, 1, 1)
+        end_date = datetime(2024, 12, 30)
         
         # Generate month labels list (format: YYYY-MM)
         current_date = start_date
