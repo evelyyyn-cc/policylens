@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 import mimetypes
+from dotenv import load_dotenv, find_dotenv
+
+
+# Load API Keys
+load_dotenv(find_dotenv()) # take environment variables from .env
 
 # Force js files to be sent as application/javascript instead of text/plain
 mimetypes.add_type("application/javascript", ".js", True)
@@ -43,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'django_celery_beat',
+    "chatbot.vector_database.apps.VectorDatabaseConfig",
 ]
 
 MIDDLEWARE = [
