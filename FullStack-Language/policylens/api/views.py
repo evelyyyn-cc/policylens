@@ -13,12 +13,13 @@ from .models import FuelPrice, Car, CPIData, IPI1DRecord, IPIRecord
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.db.models import Count, Q
-from django.db.models.functions import ExtractYear, ExtractMonth
+from django.db.models import Count, Q, Avg
+from django.db.models.functions import ExtractYear, ExtractMonth, TruncMonth
 from django.utils import translation
 from django.shortcuts import redirect
-from datetime import datetime
+from datetime import datetime, timedelta
 import calendar
+import pandas as pd
 
 
 from django.shortcuts import render
@@ -223,6 +224,7 @@ class CarFuelStatsView(APIView):
                 "fuel_stats_year": fuel_result,
                 "diesel_monthly_count": monthly_result
             }, status=status.HTTP_200_OK)
+
 
 
 class CPIReportAPI(APIView):
@@ -614,4 +616,73 @@ class ManufacturingDivisionsDataView(APIView):
         result.sort(key=lambda x: x["division"])
         
         return Response(result, status=status.HTTP_200_OK)
+
+
+class DieselImpactChartAPI(APIView):
+    """
+    API View to retrieve data for diesel impact chart from March 2024 to March 2025
+    
+    Returns:
+    {
+        "labels": ["2024-03", "2024-04", ...],
+        "diesel_prices": [2.15, 2.18, ...],
+        "manufacturing_growth": [4.0, 4.05, ...]
+    }
+    """
+    
+    def get(self, request):
+        # 1. Define the date range
+        start_date = datetime(2024, 3, 1)
+        end_date = datetime(2025, 2, 28)
+        
+        # Generate month labels list (format: YYYY-MM)
+        current_date = start_date
+        labels = []
+        while current_date <= end_date:
+            labels.append(current_date.strftime("%Y-%m"))
+            # Move to the first day of the next month
+            if current_date.month == 12:
+                current_date = datetime(current_date.year + 1, 1, 1)
+            else:
+                current_date = datetime(current_date.year, current_date.month + 1, 1)
+        
+        # 2. Query diesel price data and calculate monthly averages
+        diesel_prices_query = FuelPrice.objects.filter(
+            date__gte=start_date,
+            date__lte=end_date
+        ).annotate(
+            month=TruncMonth('date')
+        ).values('month').annotate(
+            avg_price=Avg('diesel')
+        ).order_by('month')
+        
+        # Convert query results to a dictionary for easier lookup by month
+        diesel_prices_dict = {item['month'].strftime("%Y-%m"): float(item['avg_price']) for item in diesel_prices_query}
+        
+        # Generate diesel price list based on labels, fill with None for months without data
+        diesel_prices = [diesel_prices_dict.get(label) for label in labels]
+        
+        # 3. Query IPI1DRecord data
+        manufacturing_data = IPI1DRecord.objects.filter(
+            series='growth_mom',
+            date__gte=start_date,
+            date__lte=end_date
+        ).annotate(
+            month=TruncMonth('date')
+        ).values('month').annotate(
+            avg_index=Avg('index')
+        ).order_by('month')
+        
+        # Convert query results to a dictionary
+        manufacturing_dict = {item['month'].strftime("%Y-%m"): float(item['avg_index']) for item in manufacturing_data}
+        
+        # Generate manufacturing growth list based on labels, fill with None for months without data
+        manufacturing_growth = [manufacturing_dict.get(label) for label in labels]
+        
+        # Return the results
+        return Response({
+            "labels": labels,
+            "diesel_prices": diesel_prices,
+            "manufacturing_growth": manufacturing_growth
+        }, status=status.HTTP_200_OK)
 

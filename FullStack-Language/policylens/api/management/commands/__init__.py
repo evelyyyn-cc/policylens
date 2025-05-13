@@ -1,0 +1,1 @@
+# 此文件使Django能识别management/commands目录作为Python包

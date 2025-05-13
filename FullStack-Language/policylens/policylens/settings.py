@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +143,13 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+# Celery 配置
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # 使用Redis作为消息代理
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'  # 使用Redis存储任务结果
+CELERY_ACCEPT_CONTENT = ['json']  # 指定接受的内容类型
+CELERY_TASK_SERIALIZER = 'json'  # 任务序列化和反序列化使用json
+CELERY_RESULT_SERIALIZER = 'json'  # 结果序列化使用json
+CELERY_TIMEZONE = TIME_ZONE  # 使用与Django相同的时区
+CELERY_TASK_TRACK_STARTED = True  # 跟踪任务的开始
+CELERY_TASK_TIME_LIMIT = 30 * 60  # 设置任务的硬时间限制为30分钟

@@ -295,101 +295,133 @@ function initializeExportDomesticChart() {
     
     const chartCtx = ctx.getContext('2d');
     
-    // Monthly growth data for export vs domestic sectors
-    const data = {
-        labels: ['May 23', 'Jun 23', 'Jul 23', 'Aug 23', 'Sep 23', 'Oct 23', 'Nov 23', 
-                'Dec 23', 'Jan 24', 'Feb 24', 'Mar 24', 'Apr 24', 'May 24'],
-        datasets: [
-            {
-                label: 'Export-Oriented Manufacturing',
-                data: [0.5, -0.8, -1.7, -1.4, -0.5, 0.2, 0.8, 1.2, -0.7, -1.5, -0.9, 0.4, 0.9],
-                borderColor: 'rgb(59, 130, 246)',
-                backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                fill: false,
-                tension: 0.3,
-                pointRadius: 3,
-                pointHoverRadius: 6,
-                borderWidth: 2
-            },
-            {
-                label: 'Domestic-Oriented Manufacturing',
-                data: [0.3, -0.5, -0.9, -0.7, -0.4, -0.1, 0.2, 0.4, -0.4, -0.8, -0.6, 0.1, 0.3],
-                borderColor: 'rgb(249, 115, 22)',
-                backgroundColor: 'rgba(249, 115, 22, 0.1)',
-                fill: false,
-                tension: 0.3,
-                pointRadius: 3,
-                pointHoverRadius: 6,
-                borderWidth: 2
-            }
-        ]
-    };
-    
-    // Policy implementation annotations
-    const annotations = {
-        line1: {
-            type: 'line',
-            xMin: 1, // June 2023
-            xMax: 1,
-            borderColor: 'rgba(255, 99, 132, 0.7)',
-            borderWidth: 2,
-            label: {
-                enabled: true,
-                content: 'First Subsidy Change',
-                position: 'top'
-            }
-        },
-        line2: {
-            type: 'line',
-            xMin: 8, // January 2024
-            xMax: 8,
-            borderColor: 'rgba(255, 99, 132, 0.7)',
-            borderWidth: 2,
-            label: {
-                enabled: true,
-                content: 'Targeted Implementation',
-                position: 'top'
-            }
-        }
-    };
-    
-    new Chart(chartCtx, {
-        type: 'line',
-        data: data,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'top',
+    // 从API获取数据
+    fetch('/api/diesel-impact-chart/')
+        .then(response => response.json())
+        .then(data => {
+            const chartData = {
+                labels: data.labels,
+                datasets: [
+                    {
+                        label: 'Manufacturing Growth (YoY %)',
+                        data: data.manufacturing_growth,
+                        borderColor: 'rgb(59, 130, 246)',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 3,
+                        pointHoverRadius: 6,
+                        borderWidth: 2,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Diesel Price (RM/L)',
+                        data: data.diesel_prices,
+                        borderColor: 'rgb(249, 115, 22)',
+                        backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 3,
+                        pointHoverRadius: 6,
+                        borderWidth: 2,
+                        yAxisID: 'y1'
+                    }
+                ]
+            };
+            
+            // Policy implementation annotations
+            const annotations = {
+                line1: {
+                    type: 'line',
+                    xMin: 3, // June 2024
+                    xMax: 3,
+                    borderColor: 'rgba(255, 99, 132, 0.7)',
+                    borderWidth: 2,
+                    label: {
+                        enabled: true,
+                        content: 'First Subsidy Change',
+                        position: 'top'
+                    }
                 },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return context.dataset.label + ': ' + context.raw + '% MoM change';
+                line2: {
+                    type: 'line',
+                    xMin: 10, // January 2025
+                    xMax: 10,
+                    borderColor: 'rgba(255, 99, 132, 0.7)',
+                    borderWidth: 2,
+                    label: {
+                        enabled: true,
+                        content: 'Targeted Implementation',
+                        position: 'top'
+                    }
+                }
+            };
+            
+            new Chart(chartCtx, {
+                type: 'line',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const datasetLabel = context.dataset.label;
+                                    const value = context.raw;
+                                    if (datasetLabel === 'Manufacturing Growth (YoY %)') {
+                                        return datasetLabel + ': ' + value + '%';
+                                    } else {
+                                        return datasetLabel + ': RM ' + value;
+                                    }
+                                }
+                            }
+                        },
+                        annotation: {
+                            annotations: annotations
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Growth Rate (%)'
+                            },
+                            min: -20,
+                            max: 20
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'Diesel Price (RM/L)'
+                            },
+                            min: 0,
+                            max: 10,
+                            grid: {
+                                drawOnChartArea: false
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                            }
                         }
                     }
-                },
-                annotation: {
-                    annotations: annotations
                 }
-            },
-            scales: {
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Month-on-Month Change (%)'
-                    }
-                },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Month'
-                    }
-                }
-            }
-        }
-    });
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching diesel impact data:', error);
+        });
 }
 
 /**
