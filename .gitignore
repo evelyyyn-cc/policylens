@@ -40,6 +40,9 @@ env/
 venv/
 .venv/
 
+# Secret Environment
+.env
+
 # Ruby-specific files
 .bundle/
 
