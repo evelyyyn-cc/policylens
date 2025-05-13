@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize charts
     initializeOverallTrendChart();
     initializeSectorImpactChart();
+    initializeSectorSensitivityChart();
     initializeExportDomesticChart();
     
     // Initialize map
@@ -64,49 +65,18 @@ function initializeOverallTrendChart() {
     const chartCtx = ctx.getContext('2d');
     
     // Manufacturing data (sample data - would be replaced with real data)
-    const labels = ['Jan 23', 'Feb 23', 'Mar 23', 'Apr 23', 'May 23', 'Jun 23', 
-                    'Jul 23', 'Aug 23', 'Sep 23', 'Oct 23', 'Nov 23', 'Dec 23', 
-                    'Jan 24', 'Feb 24', 'Mar 24', 'Apr 24', 'May 24', 'Jun 24', 
+    const labels = ['Jan 24', 'Feb 24', 'Mar 24', 'Apr 24', 'May 24', 'Jun 24', 
                     'Jul 24', 'Aug 24', 'Sep 24', 'Oct 24', 'Nov 24', 'Dec 24', 
-                    'Jan 25', 'Feb 25'];
+                    ];
     
-    const manufactIndex = [110, 112, 111, 113, 114, 112, 110, 109, 111, 112, 113, 
-                          114, 112, 110, 111, 113, 115, 116, 117, 118, 119, 120, 
-                          121, 122, 123, 124];
+    const manufactIndex = [143.064, 134.084, 144.632, 132.718, 141.588, 150.207, 147.191, 153.006, 151.303, 149.475, 150.995, 
+        148.7];
     
-    const seasonalIndex = [112, 113, 112, 114, 114, 113, 111, 110, 112, 113, 114, 
-                          115, 114, 111, 112, 114, 116, 117, 118, 119, 119, 121, 
-                          122, 123, 124, 125];
+    const seasonalIndex = [142.089, 142.138, 142.873, 142.747, 148.36, 146.734, 150.624, 149.3, 145.593, 144.84, 145.804, 
+        145.874];
 
     // Policy implementation dates for annotations
-    const annotations = {
-        line1: {
-            type: 'line',
-            xMin: 5, // June 2023
-            xMax: 5,
-            borderColor: 'rgba(255, 99, 132, 0.7)',
-            borderWidth: 2,
-            label: {
-                enabled: true,
-                content: 'First Subsidy Change',
-                position: 'top'
-            }
-        },
-        line2: {
-            type: 'line',
-            xMin: 12, // January 2024
-            xMax: 12,
-            borderColor: 'rgba(255, 99, 132, 0.7)',
-            borderWidth: 2,
-            label: {
-                enabled: true,
-                content: 'Targeted Implementation',
-                position: 'top'
-            }
-        }
-    };
-    
-    new Chart(chartCtx, {
+    const chart = new Chart(chartCtx, {
         type: 'line',
         data: {
             labels: labels,
@@ -130,6 +100,16 @@ function initializeOverallTrendChart() {
                     tension: 0.3,
                     pointRadius: 2,
                     pointHoverRadius: 5
+                },
+                {
+                    label: 'Policy Implementation',
+                    data: Array(labels.length).fill(null),  
+                    borderColor: 'rgba(255, 99, 132, 0.7)',
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    pointHoverRadius: 0,
+                    fill: false
                 }
             ]
         },
@@ -138,14 +118,33 @@ function initializeOverallTrendChart() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    display: false
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'line',
+                        generateLabels: function(chart) {
+                            // get default legend
+                            const original = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+                            
+                            // set label for policy implementation
+                            original.forEach(label => {
+                                if (label.text === 'Policy Implementation') {
+                                    label.lineDash = [5, 5];
+                                    label.lineWidth = 2;
+                                }
+                            });
+                            
+                            return original;
+                        } 
+                    }
                 },
                 tooltip: {
                     mode: 'index',
-                    intersect: false
-                },
-                annotation: {
-                    annotations: annotations
+                    intersect: false,
+                    filter: function(tooltipItem) {
+                        return tooltipItem.datasetIndex !== 2;
+                    }
                 }
             },
             scales: {
@@ -165,263 +164,356 @@ function initializeOverallTrendChart() {
             }
         }
     });
+    
+    // Add policy implementation line 
+    chart.canvas.onclick = null; // Prevent any conflicts with event handlers
+    
+    // Draw policy implementation line directly
+    chart.options.animation.onComplete = function() {
+        const xAxis = chart.scales.x;
+        const yAxis = chart.scales.y;
+        const ctx = chart.ctx;
+        
+        // Get June position (index 5)
+        const xPos = xAxis.getPixelForValue(5);
+        
+        // Draw vertical line
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(xPos, yAxis.top);
+        ctx.lineTo(xPos, yAxis.bottom);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'rgba(255, 99, 132, 0.7)';
+        ctx.setLineDash([5, 5]);
+        ctx.stroke();
+        ctx.restore();
+    };
 }
 
+
 /**
- * Sector impact chart with filter functionality
+ * Impact on Fuel-Sensitive Manufacturing Sectors
  */
 function initializeSectorImpactChart() {
     const ctx = document.getElementById('sectorImpactChart');
     if (!ctx) return;
     
+    // set height
+    ctx.height = 1000;
+    
     const chartCtx = ctx.getContext('2d');
     
-    // Sector data by period
-    const data = {
-        labels: ['Jun 2023', 'Jul 2023', 'Aug 2023', 'Jan 2024', 'Feb 2024', 'Mar 2024'],
-        datasets: [
-            {
-                label: 'Food Products',
-                data: [-0.8, -1.5, -1.2, -1.4, -0.9, -0.5],
-                backgroundColor: 'rgba(59, 130, 246, 0.7)',
-                borderColor: 'rgb(59, 130, 246)', 
-                borderWidth: 1  
-            },
-            {
-                label: 'Chemicals & Chemical Products',
-                data: [-1.6, -2.1, -1.8, -2.0, -1.6, -1.1],
-                backgroundColor: 'rgba(16, 185, 129, 0.7)',
-                borderColor: 'rgb(16, 185, 129)',
-                borderWidth: 1
-            },
-            {
-                label: 'Rubber & Plastics',
-                data: [-1.3, -1.9, -1.6, -1.7, -1.3, -0.8],
-                backgroundColor: 'rgba(245, 158, 11, 0.7)',
-                borderColor: 'rgb(245, 158, 11)',
-                borderWidth: 1
-            },
-            {
-                label: 'Basic Metals',
-                data: [-1.9, -2.5, -2.3, -2.2, -1.8, -1.5],
-                backgroundColor: 'rgba(239, 68, 68, 0.7)',
-                borderColor: 'rgb(239, 68, 68)',
-                borderWidth: 1
-            },
-            {
-                label: 'Motor Vehicles',
-                data: [-0.5, -1.2, -1.0, -1.1, -0.8, -0.4],
-                backgroundColor: 'rgba(139, 92, 246, 0.7)',
-                borderColor: 'rgb(139, 92, 246)',
-                borderWidth: 1
-            },
-            {
-                label: 'Other Transport Equipment',
-                data: [-0.7, -1.4, -1.3, -1.2, -0.9, -0.6],
-                backgroundColor: 'rgba(236, 72, 153, 0.7)',
-                borderColor: 'rgb(236, 72, 153)',
-                borderWidth: 1
-            }
-        ]
+    // sector datas
+    const sectorLabels = [
+        'Computer, Electronic, and Optical Products',
+        'Machinery Repair and Installation',
+        'Fabricated Metal Products',
+        'Chemicals and Chemical Products',
+        'Wearing Apparel',
+        'Rubber and Plastics Products',
+        'Food Products',
+        'Paper and Paper Products',
+        'Coke and Refined Petroleum Products',
+        'Other Transport Equipment'
+    ];
+    
+    const sectorData = [8.4, 7.9, 6.4, 5.7, 5.1, 4.7, 2.3, 1.2, -0.8, -2.0];
+    
+    // define three levels
+    const impactCategories = sectorData.map(value => {
+        if (value > 6.0) return 'high';
+        if (value >= 2.0 && value <= 6.0) return 'medium';
+        return 'low';
+    });
+    
+    // define level with colors
+    const getBackgroundColor = (category) => {
+        switch(category) {
+            case 'high': return 'rgb(96, 189, 246)';   
+            case 'medium': return 'rgb(96, 189, 246)'; 
+            case 'low': return 'rgb(96, 189, 246)';    
+        }
     };
     
+    const backgroundColors = impactCategories.map(getBackgroundColor);
+    const borderColors = impactCategories.map(category => getBackgroundColor(category).replace('0.7', '1'));
+    
+    // create chart
     const sectorImpactChart = new Chart(chartCtx, {
         type: 'bar',
-        data: data,
+        data: {
+            labels: sectorLabels,
+            datasets: [
+                {
+                    label: 'Division',
+                    data: sectorData,
+                    backgroundColor: backgroundColors,
+                    borderColor: borderColors,
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    barPercentage: 0.8 
+                }
+            ]
+        },
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            height: 800, 
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 15,
+                    top: 15,
+                    bottom: 15
+                }
+            },
             plugins: {
                 legend: {
+                    display: false,
                     position: 'top',
                 },
                 tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleFont: {
+                        size: 14,
+                        weight: 'bold'
+                    },
+                    bodyFont: {
+                        size: 13
+                    },
+                    padding: 12,
+                    cornerRadius: 6,
+                    displayColors: false,
                     callbacks: {
+                        title: function(tooltipItems) {
+                            return tooltipItems[0].label;
+                        },
                         label: function(context) {
-                            return context.dataset.label + ': ' + context.raw + '% MoM change';
+                            let label = '';
+                            
+                            // display rate
+                            label += context.raw + '% YoY growth';
+                            
+                            // display labels
+                            const impactLevel = impactCategories[context.dataIndex];
+                            if (impactLevel === 'high') {
+                                label += ' (High Impact)';
+                            } else if (impactLevel === 'medium') {
+                                label += ' (Medium Impact)';
+                            } else if (impactLevel === 'low') {
+                                label += ' (Low Impact)';
+                            }
+                            
+                            return label;
                         }
                     }
-                }
+                },
+                title: {
+                    display: true,
+                    text: 'Impact on Fuel-Sensitive Manufacturing Sectors',
+                    font: {
+                        size: 16,
+                        weight: 'bold'
+                    },
+                    padding: {
+                        bottom: 20
+                    }
+                },
             },
             scales: {
                 y: {
                     title: {
                         display: true,
-                        text: 'Month-on-Month Change (%)'
+                        text: 'Year-on-Year Growth Rate (%)',
+                        font: {
+                            size: 13,
+                            weight: 'bold'
+                        },
+                        padding: {
+                            bottom: 10
+                        }
                     },
-                    suggestedMin: -2.5,
-                    suggestedMax: 0
+                    border: {
+                        dash: [10, 10]
+                    },
+                    ticks: {
+                        font: {
+                            size: 12
+                        },
+                        padding: 8
+                    },
+                    suggestedMin: -3,  
+                    suggestedMax: 10   
                 },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Manufacturing Sector'
-                    }
-                }
-            }
+
+            },
+            animation: {
+                duration: 1000,
+                easing: 'easeOutQuart'
+            },
+
         }
     });
     
-    // Period filter functionality
-    const periodSelect = document.getElementById('periodSelect');
-    if (periodSelect) {
-        periodSelect.addEventListener('change', function(e) {
-            const selectedPeriod = e.target.value;
-            let visibleDatasets;
-            
-            if (selectedPeriod === 'All Periods') {
-                visibleDatasets = [0, 1, 2]; // Show all datasets
-            } else if (selectedPeriod === 'Initial Policy (Jun-Aug 2023)') {
-                visibleDatasets = [0]; // Show only first dataset
-            } else if (selectedPeriod === 'Targeted Implementation (Jan-Mar 2024)') {
-                visibleDatasets = [2]; // Show only third dataset
-            }
-            
-            sectorImpactChart.data.datasets.forEach((dataset, index) => {
-                dataset.hidden = !visibleDatasets.includes(index);
-            });
-            
-            sectorImpactChart.update();
-        });
-    }
 }
 
-/**
- * Export vs Domestic comparison chart
- */
-function initializeExportDomesticChart() {
-    const ctx = document.getElementById('exportDomesticChart');
+function initializeSectorSensitivityChart() {
+    const ctx = document.getElementById('sectorSensitivityChart');
     if (!ctx) return;
+    
+    // set height
+    ctx.height = 1000;
     
     const chartCtx = ctx.getContext('2d');
     
-    // 从API获取数据
-    fetch('/api/diesel-impact-chart/')
-        .then(response => response.json())
-        .then(data => {
-            const chartData = {
-                labels: data.labels,
-                datasets: [
-                    {
-                        label: 'Manufacturing Growth (YoY %)',
-                        data: data.manufacturing_growth,
-                        borderColor: 'rgb(59, 130, 246)',
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                        fill: false,
-                        tension: 0.3,
-                        pointRadius: 3,
-                        pointHoverRadius: 6,
-                        borderWidth: 2,
-                        yAxisID: 'y'
+    // sector datas
+    const sectorLabels = [
+        'Non-metallic Mineral Products',
+        'Wearing Apparel',
+        'Paper and Paper Products',
+        'Fabricated Metal Products(excl. Machinery)',
+        'Machinery Repair and Installation',
+        'Chemicals and Chemical Products',
+        'Other Transport Equipment',
+        'Coke and Refined Petroleum Products',
+        'Rubber and Plastics Products',
+        'Computer, Electronic, and Optical Products'
+    ];
+    
+    const sectorData = [147.90, 138.82, 91.56, 84.04, 64.52, 58.06, 54.81, 53.52, 21.87, 15.09];
+    
+    // define three levels
+    const senCategories = sectorData.map(value => {
+        if (value > 6.0) return 'high';
+        if (value >= 2.0 && value <= 6.0) return 'medium';
+        return 'low';
+    });
+    
+    // define level with colors
+    const getBackgroundColor = (category) => {
+        switch(category) {
+            case 'high': return 'rgb(233, 157, 6)';   
+            case 'medium': return 'rgb(233, 157, 6)'; 
+            case 'low': return 'rgba(233, 157, 6)';    
+        }
+    };
+    
+    const backgroundColors = senCategories.map(getBackgroundColor);
+    const borderColors = senCategories.map(category => getBackgroundColor(category).replace('0.7', '1'));
+    
+    // create chart
+    const sectorSensitivityChart = new Chart(chartCtx, {
+        type: 'bar',
+        data: {
+            labels: sectorLabels,
+            datasets: [
+                {
+                    label: 'Division',
+                    data: sectorData,
+                    backgroundColor: backgroundColors,
+                    borderColor: borderColors,
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    barPercentage: 0.8 
+                }
+            ]
+        },
+        options: {
+            indexAxis: 'y',  // This makes the chart horizontal
+            responsive: true,
+            maintainAspectRatio: false,
+            height: 800, 
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 15,
+                    top: 15,
+                    bottom: 15
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleFont: {
+                        size: 14,
+                        weight: 'bold'
                     },
-                    {
-                        label: 'Diesel Price (RM/L)',
-                        data: data.diesel_prices,
-                        borderColor: 'rgb(249, 115, 22)',
-                        backgroundColor: 'rgba(249, 115, 22, 0.1)',
-                        fill: false,
-                        tension: 0.3,
-                        pointRadius: 3,
-                        pointHoverRadius: 6,
-                        borderWidth: 2,
-                        yAxisID: 'y1'
-                    }
-                ]
-            };
-            
-            // Policy implementation annotations
-            const annotations = {
-                line1: {
-                    type: 'line',
-                    xMin: 3, // June 2024
-                    xMax: 3,
-                    borderColor: 'rgba(255, 99, 132, 0.7)',
-                    borderWidth: 2,
-                    label: {
-                        enabled: true,
-                        content: 'First Subsidy Change',
-                        position: 'top'
+                    bodyFont: {
+                        size: 13
+                    },
+                    padding: 12,
+                    cornerRadius: 6,
+                    displayColors: false,
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            return tooltipItems[0].label;
+                        },
+                        label: function(context) {
+                            let label = '';
+                            
+                            // display rate
+                            label += context.raw;
+                            
+                            return label;
+                        }
                     }
                 },
-                line2: {
-                    type: 'line',
-                    xMin: 10, // January 2025
-                    xMax: 10,
-                    borderColor: 'rgba(255, 99, 132, 0.7)',
-                    borderWidth: 2,
-                    label: {
-                        enabled: true,
-                        content: 'Targeted Implementation',
-                        position: 'top'
+                title: {
+                    display: true,
+                    text: 'Division Sensitivity Analysis',
+                    font: {
+                        size: 16,
+                        weight: 'bold'
+                    },
+                    padding: {
+                        bottom: 20
                     }
-                }
-            };
-            
-            new Chart(chartCtx, {
-                type: 'line',
-                data: chartData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'top',
+                },
+            },
+            scales: {
+                x: {  // This was y-axis before
+                    title: {
+                        display: true,
+                        text: 'FuelSensitivity Score',
+                        font: {
+                            size: 13,
+                            weight: 'bold'
                         },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const datasetLabel = context.dataset.label;
-                                    const value = context.raw;
-                                    if (datasetLabel === 'Manufacturing Growth (YoY %)') {
-                                        return datasetLabel + ': ' + value + '%';
-                                    } else {
-                                        return datasetLabel + ': RM ' + value;
-                                    }
-                                }
-                            }
-                        },
-                        annotation: {
-                            annotations: annotations
+                        padding: {
+                            bottom: 10
                         }
                     },
-                    scales: {
-                        y: {
-                            type: 'linear',
-                            display: true,
-                            position: 'left',
-                            title: {
-                                display: true,
-                                text: 'Growth Rate (%)'
-                            },
-                            min: -20,
-                            max: 20
+                    border: {
+                        dash: [10, 10]
+                    },
+                    ticks: {
+                        font: {
+                            size: 12
                         },
-                        y1: {
-                            type: 'linear',
-                            display: true,
-                            position: 'right',
-                            title: {
-                                display: true,
-                                text: 'Diesel Price (RM/L)'
-                            },
-                            min: 0,
-                            max: 10,
-                            grid: {
-                                drawOnChartArea: false
-                            }
+                        padding: 8
+                    },
+                    suggestedMin: 0,  
+                    suggestedMax: 200   
+                },
+                y: {  // New configuration for y-axis (labels)
+                    ticks: {
+                        font: {
+                            size: 12
                         },
-                        x: {
-                            title: {
-                                display: true,
-                            }
-                        }
+                        padding: 8
                     }
                 }
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching diesel impact data:', error);
-        });
+            },
+            animation: {
+                duration: 1000,
+                easing: 'easeOutQuart'
+            },
+        }
+    });
+
 }
 
 /**
