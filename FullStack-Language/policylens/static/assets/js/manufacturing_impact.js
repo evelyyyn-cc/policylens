@@ -16,44 +16,68 @@ document.addEventListener('DOMContentLoaded', function() {
  * Tab navigation functionality
  */
 function initializeTabs() {
-    const tabLinks = document.querySelectorAll('.tab-link');
+    const tabLinks = document.querySelectorAll('.main-tabs .tab-link');
     const tabContents = document.querySelectorAll('.tab-content');
     const tabIndicator = document.querySelector('.tab-indicator');
     
-    tabLinks.forEach(link => {
+    // First, ensure all tabs except the first one are hidden initially
+    tabContents.forEach((content, index) => {
+        if (index === 0) {
+            content.classList.add('active');
+        } else {
+            content.classList.remove('active');
+        }
+    });
+    
+    tabLinks.forEach((link, index) => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Remove active class from all tabs
+            // Remove active class from all links
             tabLinks.forEach(tab => tab.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
             
-            // Add active class to current tab
+            // Add active class to clicked link
             this.classList.add('active');
             
-            // Show corresponding content
+            // Move the indicator
+            const rect = this.getBoundingClientRect();
+            const parentRect = this.parentElement.getBoundingClientRect();
+            if (tabIndicator) {
+                tabIndicator.style.width = `${rect.width}px`;
+                tabIndicator.style.left = `${rect.left - parentRect.left}px`;
+            }
+            
+            // Hide all tab contents
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Show the selected tab content
             const tabId = this.getAttribute('data-tab');
-            document.getElementById(tabId).classList.add('active');
+            const targetTab = document.getElementById(tabId);
             
-            // Move tab indicator
-            const linkPosition = this.getBoundingClientRect();
-            const navPosition = document.querySelector('.main-tabs').getBoundingClientRect();
+            console.log("Attempting to show tab:", tabId);
+            console.log("Target tab element:", targetTab);
             
-            tabIndicator.style.width = `${linkPosition.width}px`;
-            tabIndicator.style.left = `${linkPosition.left - navPosition.left}px`;
+            if (targetTab) {
+                targetTab.classList.add('active');
+                console.log("Tab activated:", tabId);
+                
+                // Refresh charts if needed to fix rendering issues
+                setTimeout(() => {
+                    if (window.charts) {
+                        Object.values(window.charts).forEach(chart => {
+                            if (chart && typeof chart.resize === 'function') {
+                                chart.resize();
+                            }
+                        });
+                    }
+                }, 100);
+            } else {
+                console.error("Tab content not found for:", tabId);
+            }
         });
     });
-    
-    // Initialize tab indicator position for the active tab
-    if (tabLinks.length > 0) {
-        const activeTab = document.querySelector('.tab-link.active') || tabLinks[0];
-        const activePosition = activeTab.getBoundingClientRect();
-        const navPosition = document.querySelector('.main-tabs').getBoundingClientRect();
-        
-        tabIndicator.style.width = `${activePosition.width}px`;
-        tabIndicator.style.left = `${activePosition.left - navPosition.left}px`;
-    }
 }
+
 
 /**
  * Overall manufacturing trend chart
@@ -517,248 +541,139 @@ function initializeSectorSensitivityChart() {
 }
 
 /**
- * Regional manufacturing map initialization
+ * Diesel Price Impact Analysis
  */
-function initializeManufacturingMap() {
-    const mapContainer = document.getElementById('malaysiaManufacturingMap');
-    if (!mapContainer) return;
+function initializeExportDomesticChart() {
+    const ctx = document.getElementById('exportDomesticChart');
+    if (!ctx) return;
     
-    // Initialize map centered on Malaysia
-    const map = L.map('malaysiaManufacturingMap').setView([4.2105, 108.9758], 5);
+    const chartCtx = ctx.getContext('2d');
     
-    // Add base map tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-    
-    // Sample GeoJSON data for Malaysian states (simplified for this example)
-    const statesData = {
-        "type": "FeatureCollection",
-        "features": [
-            {
-                "type": "Feature",
-                "properties": {
-                    "name": "Selangor",
-                    "impact": -1.2,
-                    "foodImpact": -0.9,
-                    "chemicalsImpact": -1.5,
-                    "rubberImpact": -1.3,
-                    "metalsImpact": -1.8
-                },
-                "geometry": {
-                    "type": "Polygon",
-                    "coordinates": [[[101.30, 2.70], [102.00, 2.70], [102.00, 3.30], [101.30, 3.30], [101.30, 2.70]]]
-                }
-            },
-            {
-                "type": "Feature",
-                "properties": {
-                    "name": "Penang",
-                    "impact": -1.5,
-                    "foodImpact": -1.1,
-                    "chemicalsImpact": -1.7,
-                    "rubberImpact": -1.5,
-                    "metalsImpact": -2.0
-                },
-                "geometry": {
-                    "type": "Polygon",
-                    "coordinates": [[[100.15, 5.20], [100.55, 5.20], [100.55, 5.50], [100.15, 5.50], [100.15, 5.20]]]
-                }
-            },
-            {
-                "type": "Feature",
-                "properties": {
-                    "name": "Johor",
-                    "impact": -1.3,
-                    "foodImpact": -1.0,
-                    "chemicalsImpact": -1.6,
-                    "rubberImpact": -1.4,
-                    "metalsImpact": -1.9
-                },
-                "geometry": {
-                    "type": "Polygon",
-                    "coordinates": [[[102.40, 1.30], [104.20, 1.30], [104.20, 2.50], [102.40, 2.50], [102.40, 1.30]]]
-                }
-            },
-            {
-                "type": "Feature",
-                "properties": {
-                    "name": "Sabah",
-                    "impact": -1.8,
-                    "foodImpact": -1.5,
-                    "chemicalsImpact": -2.2,
-                    "rubberImpact": -2.0,
-                    "metalsImpact": -2.5
-                },
-                "geometry": {
-                    "type": "Polygon",
-                    "coordinates": [[[115.50, 4.00], [119.30, 4.00], [119.30, 7.30], [115.50, 7.30], [115.50, 4.00]]]
-                }
-            },
-            {
-                "type": "Feature",
-                "properties": {
-                    "name": "Sarawak",
-                    "impact": -1.7,
-                    "foodImpact": -1.4,
-                    "chemicalsImpact": -2.1,
-                    "rubberImpact": -1.9,
-                    "metalsImpact": -2.4
-                },
-                "geometry": {
-                    "type": "Polygon",
-                    "coordinates": [[[109.50, 0.80], [115.40, 0.80], [115.40, 5.00], [109.50, 5.00], [109.50, 0.80]]]
-                }
-            }
-        ]
-    };
-    
-    // Color function based on impact value
-    function getColor(impact) {
-        return impact <= -2.0 ? '#d73027' :
-               impact <= -1.6 ? '#fc8d59' :
-               impact <= -1.2 ? '#fee08b' :
-               impact <= -0.8 ? '#d9ef8b' :
-                              '#91cf60';
-    }
-    
-    // State style function
-    function style(feature) {
-        return {
-            fillColor: getColor(feature.properties.impact),
-            weight: 2,
-            opacity: 1,
-            color: 'white',
-            dashArray: '3',
-            fillOpacity: 0.7
-        };
-    }
-    
-    // Highlight state on mouseover
-    function highlightFeature(e) {
-        const layer = e.target;
-        
-        layer.setStyle({
-            weight: 3,
-            color: '#666',
-            dashArray: '',
-            fillOpacity: 0.8
-        });
-        
-        layer.bringToFront();
-    }
-    
-    // Reset state highlight on mouseout
-    function resetHighlight(e) {
-        geojsonLayer.resetStyle(e.target);
-    }
-    
-    // Show region details on click
-    function showRegionDetails(e) {
-        const properties = e.target.feature.properties;
-        
-        // Update region name
-        document.getElementById('selectedRegionName').textContent = properties.name;
-        
-        // Update overall impact
-        const overallImpactElement = document.getElementById('overallManufacturingImpactValue');
-        overallImpactElement.textContent = properties.impact + '%';
-        
-        // Set impact level class
-        overallImpactElement.className = 'summary-value';
-        if (properties.impact <= -2.0) {
-            overallImpactElement.classList.add('impact-very-high');
-        } else if (properties.impact <= -1.5) {
-            overallImpactElement.classList.add('impact-high');
-        } else if (properties.impact <= -1.0) {
-            overallImpactElement.classList.add('impact-medium');
-        } else {
-            overallImpactElement.classList.add('impact-low');
-        }
-        
-        // Update sector-specific impacts
-        updateSectorBar('foodManufacturingImpactValue', 'foodManufacturingImpactBar', properties.foodImpact);
-        updateSectorBar('chemicalsManufacturingImpactValue', 'chemicalsManufacturingImpactBar', properties.chemicalsImpact);
-        updateSectorBar('rubberManufacturingImpactValue', 'rubberManufacturingImpactBar', properties.rubberImpact);
-        updateSectorBar('metalsManufacturingImpactValue', 'metalsManufacturingImpactBar', properties.metalsImpact);
-    }
-    
-    // Update sector impact bar
-    function updateSectorBar(valueId, barId, impact) {
-        // Update text value
-        document.getElementById(valueId).textContent = impact + '%';
-        
-        // Update bar width and color
-        const bar = document.getElementById(barId);
-        const absImpact = Math.abs(impact);
-        // Scale to percentage (assuming max impact is -3.0%)
-        const barWidth = (absImpact / 3.0) * 100;
-        bar.style.width = barWidth + '%';
-        
-        // Set bar color based on impact
-        if (impact <= -2.0) {
-            bar.style.backgroundColor = '#d73027';
-        } else if (impact <= -1.5) {
-            bar.style.backgroundColor = '#fc8d59';
-        } else if (impact <= -1.0) {
-            bar.style.backgroundColor = '#fee08b';
-        } else {
-            bar.style.backgroundColor = '#91cf60';
-        }
-    }
-    
-    // Attach events to GeoJSON features
-    function onEachFeature(feature, layer) {
-        layer.on({
-            mouseover: highlightFeature,
-            mouseout: resetHighlight,
-            click: showRegionDetails
-        });
-    }
-    
-    // Create and add GeoJSON layer
-    const geojsonLayer = L.geoJSON(statesData, {
-        style: style,
-        onEachFeature: onEachFeature
-    }).addTo(map);
-    
-    // Sector selection functionality
-    const sectorSelect = document.getElementById('manufacturingSectorSelect');
-    if (sectorSelect) {
-        sectorSelect.addEventListener('change', function(e) {
-            const selectedSector = e.target.value;
+    // 从API获取数据
+    fetch('/api/diesel-impact-chart/')
+        .then(response => response.json())
+        .then(data => {
+            const chartData = {
+                labels: data.labels,
+                datasets: [
+                    {
+                        label: 'Manufacturing Growth (YoY %)',
+                        data: data.manufacturing_growth,
+                        borderColor: 'rgb(59, 130, 246)',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 3,
+                        pointHoverRadius: 6,
+                        borderWidth: 2,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Diesel Price (RM/L)',
+                        data: data.diesel_prices,
+                        borderColor: 'rgb(249, 115, 22)',
+                        backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 3,
+                        pointHoverRadius: 6,
+                        borderWidth: 2,
+                        yAxisID: 'y1'
+                    }
+                ]
+            };
             
-            // Update map colors based on selected sector impact
-            geojsonLayer.setStyle(function(feature) {
-                let impactValue;
-                
-                switch(selectedSector) {
-                    case 'food':
-                        impactValue = feature.properties.foodImpact;
-                        break;
-                    case 'chemicals':
-                        impactValue = feature.properties.chemicalsImpact;
-                        break;
-                    case 'rubber':
-                        impactValue = feature.properties.rubberImpact;
-                        break;
-                    case 'metals':
-                        impactValue = feature.properties.metalsImpact;
-                        break;
-                    case 'overall':
-                    default:
-                        impactValue = feature.properties.impact;
+            // Policy implementation annotations
+            const annotations = {
+                line1: {
+                    type: 'line',
+                    xMin: 3, // June 2024
+                    xMax: 3,
+                    borderColor: 'rgba(255, 99, 132, 0.7)',
+                    borderWidth: 2,
+                    label: {
+                        enabled: true,
+                        content: 'First Subsidy Change',
+                        position: 'top'
+                    }
+                },
+                line2: {
+                    type: 'line',
+                    xMin: 10, // January 2025
+                    xMax: 10,
+                    borderColor: 'rgba(255, 99, 132, 0.7)',
+                    borderWidth: 2,
+                    label: {
+                        enabled: true,
+                        content: 'Targeted Implementation',
+                        position: 'top'
+                    }
                 }
-                
-                return {
-                    fillColor: getColor(impactValue),
-                    weight: 2,
-                    opacity: 1,
-                    color: 'white',
-                    dashArray: '3',
-                    fillOpacity: 0.7
-                };
+            };
+            
+            new Chart(chartCtx, {
+                type: 'line',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const datasetLabel = context.dataset.label;
+                                    const value = context.raw;
+                                    if (datasetLabel === 'Manufacturing Growth (YoY %)') {
+                                        return datasetLabel + ': ' + value + '%';
+                                    } else {
+                                        return datasetLabel + ': RM ' + value;
+                                    }
+                                }
+                            }
+                        },
+                        annotation: {
+                            annotations: annotations
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Growth Rate (%)'
+                            },
+                            min: -20,
+                            max: 20
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'Diesel Price (RM/L)'
+                            },
+                            min: 0,
+                            max: 10,
+                            grid: {
+                                drawOnChartArea: false
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                            }
+                        }
+                    }
+                }
             });
+        })
+        .catch(error => {
+            console.error('Error fetching diesel impact data:', error);
         });
-    }
 }
