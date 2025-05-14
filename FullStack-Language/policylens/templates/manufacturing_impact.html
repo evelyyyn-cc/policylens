@@ -110,7 +110,7 @@
                         </li>
                         <li>
                             <strong>{% trans "Slower Output in Late 2024: " %}</strong>
-                            {% trans "Short-term boost after policy" %}
+                            {% trans "Short-term boost after policy,followed by a mild decline" %}
                         </li>
                         <li>
                             <strong>{% trans "Push for Modernization:" %}</strong> 
@@ -256,7 +256,7 @@
             <div class="card-content">
                 <p class="section-description">
                     {% blocktrans %}
-                    This chart shows the relationship between manufacturing growth (blue line, % change month-on-month) and diesel prices (orange line, RM/L) in Malaysia throughout 2024.
+                    This chart shows the monthly Manufacturing Production Index (blue line, base year 2015=100) and average diesel price (orange line, RM/L) from January to December 2024. The IPI reflects actual manufacturing output, while diesel prices capture fuel cost changes across the same period.
                     {% endblocktrans %}
                 </p>
                 
@@ -265,30 +265,44 @@
                 </div>
                 
                 <div class="highlight-box">
-                    <h3>{% trans "Economic Implications" %}</h3>
-                    <p>
-                        {% blocktrans %}
-                        The different responses between export and domestic-oriented manufacturing have important implications:
-                        {% endblocktrans %}
-                    </p>
+                    <h3>{% trans "What Citizens Should Know:" %}</h3>
                     <ul>
                         <li>
-                            <strong>{% trans "International Competitiveness:" %}</strong> {% trans "Export sectors face greater challenges as they cannot easily pass increased costs to international buyers in competitive markets" %}
+                            <strong>{% trans "Output Stayed Strong Despite Higher Diesel Prices:" %}</strong> {% trans "Even after diesel prices rose in June, the manufacturing sector continued expanding through August — showing short-term resilience and possible preparation ahead of the reform." %}
                         </li>
                         <li>
-                            <strong>{% trans "Consumer Prices:" %}</strong> {% trans "Domestic manufacturing sectors can partially pass costs to local consumers, contributing to inflationary pressure" %}
+                            <strong>{% trans "Slowdown in Late 2024:" %}</strong> {% trans "After peaking in August, the manufacturing index declined moderately from September to December. This suggests that higher fuel costs may have gradually impacted industrial output, particularly for fuel-intensive sectors." %}
                         </li>
                         <li>
-                            <strong>{% trans "Employment Effects:" %}</strong> {% trans "Export sectors typically employ more workers, so their volatility can have larger employment impacts" %}
+                            <strong>{% trans "Why Diesel Prices Matter:" %}</strong> {% trans "Diesel is widely used in transportation, logistics, and factory operations. A rise in diesel prices typically increases production costs, which may later affect consumer prices, job stability, or SME performance." %}
                         </li>
                         <li>
-                            <strong>{% trans "Policy Considerations:" %}</strong> {% trans "Targeted support mechanisms may be needed for export sectors to maintain international competitiveness" %}
+                            <strong>{% trans "Big vs Small Businesses:" %}</strong> {% trans "Large manufacturers may absorb cost increases better, while small and medium enterprises (SMEs) could feel the squeeze first — possibly leading to slower growth or reduced activity in some sectors." %}
+                        </li>
+                         <li>
+                            <strong>{% trans "Policy Effects Take Time:" %}</strong> {% trans "The data suggests that policy changes don’t cause immediate disruption, but effects can build up over time — making it important to monitor both production trends and price movements together." %}
                         </li>
                     </ul>
                 </div>
                 
                 <div class="data-citation">
-                    {% trans "Source: Department of Statistics Malaysia, IPI for Export-Oriented Divisions and IPI for Domestic-Oriented Divisions Data, Feb 2025" %}
+
+                <strong>{% trans "Data Source:" %}</strong> {% trans "Department of Statistics Malaysia (DOSM), 2024" %}<br>
+
+                <strong>{% trans "Dataset:" %}</strong> {% trans "IPI by Division (2-digit)" %}<br>
+
+                <strong>{% trans "URL:" %}</strong> <a href="https://open.dosm.gov.my/data-catalogue/ipi_2d" target="_blank">https://open.dosm.gov.my/data-catalogue/ipi_2d</a ><br>
+
+                <strong>{% trans "Methodology:" %}</strong> {% trans "Monthly manufacturing production index data collected by division (10–33), using Month-on-Month growth values from November 2023 to January 2025. " %}
+
+                <strong>{% trans "Data Source:" %}</strong> {% trans "Official Fuel Prices – Government of Malaysia" %}<br>
+
+                <strong>{% trans "Dataset:" %}</strong> {% trans "Price of Petroleum & Diesel (CSV)" %}<br>
+
+                <strong>{% trans "URL:" %}</strong> <a href="https://data.gov.my/data-catalogue/fuelprice" target="_blank">https://data.gov.my/data-catalogue/fuelprice</a ><br>
+
+                <strong>{% trans "Methodology:" %}</strong> {% trans "Monthly average retail diesel prices collected for 2024 from official fuel pricing database." %}
+
                 </div>
             </div>
         </div>

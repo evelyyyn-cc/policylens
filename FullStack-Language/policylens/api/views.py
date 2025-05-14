@@ -665,7 +665,7 @@ class DieselImpactChartAPI(APIView):
         
         # 3. Query IPI1DRecord data
         manufacturing_data = IPI1DRecord.objects.filter(
-            series='growth_mom',
+            series='abs',
             date__gte=start_date,
             date__lte=end_date
         ).annotate(

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeExportDomesticChart();
     
     // Initialize map
-    initializeManufacturingMap();
+    // initializeManufacturingMap();
 });
 
 /**
@@ -561,7 +561,7 @@ function initializeExportDomesticChart() {
                 labels: data.labels,
                 datasets: [
                     {
-                        label: 'Manufacturing Growth (YoY %)',
+                        label: 'Manufacturing Index',
                         data: data.manufacturing_growth,
                         borderColor: 'rgb(59, 130, 246)',
                         backgroundColor: 'rgba(59, 130, 246, 0.1)',
@@ -630,8 +630,8 @@ function initializeExportDomesticChart() {
                                 label: function(context) {
                                     const datasetLabel = context.dataset.label;
                                     const value = context.raw;
-                                    if (datasetLabel === 'Manufacturing Growth (YoY %)') {
-                                        return datasetLabel + ': ' + value + '%';
+                                    if (datasetLabel === 'Manufacturing Index') {
+                                        return datasetLabel + ': ' + value;
                                     } else {
                                         return datasetLabel + ': RM ' + value;
                                     }
@@ -649,10 +649,10 @@ function initializeExportDomesticChart() {
                             position: 'left',
                             title: {
                                 display: true,
-                                text: 'Growth Rate (%)'
+                                text: 'Manufacturing Index（2015=100）'
                             },
-                            min: -20,
-                            max: 20
+                            min: 130,
+                            max: 160,
                         },
                         y1: {
                             type: 'linear',
