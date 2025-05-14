@@ -70,14 +70,14 @@ def ingest_pdf(path: str, collection_name: str = "website_vectors"):
     docs = load_pdfs_from_folder(path) # load pdf data
     print("PDF Data Loaded")
 
-    clean_docs = clean_documents(docs) # clean pdf data
-    print("Data Cleaned")
+    # clean_docs = clean_documents(docs) # clean pdf data
+    # print("Data Cleaned")
 
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=500,
         chunk_overlap=50
     )
-    chunks = splitter.split_documents(clean_docs)
+    chunks = splitter.split_documents(docs)
     print("Data Chunked")
 
     chroma.add_documents(chunks)
