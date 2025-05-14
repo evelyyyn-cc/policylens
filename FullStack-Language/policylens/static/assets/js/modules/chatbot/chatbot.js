@@ -16,7 +16,7 @@ export function initChatbot() {
   
   // Send message when form is submitted
   if (chatForm) {
-    chatForm.addEventListener('submit', function(e) {
+    chatForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       
       const message = userInput.value.trim();
@@ -26,15 +26,63 @@ export function initChatbot() {
         
         // Clear input
         userInput.value = '';
+
+        // Show a typing indicator (optional)
+        addBotMessage("<p><em>PolicyBot is thinking...</em></p>");
         
-        // Simulate bot response after a short delay
-        setTimeout(() => {
-          // In a real implementation, this would be replaced with an API call
-          simulateBotResponse(message);
-        }, 750);
+        try {
+          const response = await fetch('/chat/', { // API call
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              // If you're using Django's CSRF protection, you'll need to include the CSRF token
+              // 'X-CSRFToken': getCookie('csrftoken') // You'll need a getCookie function
+            },
+            body: JSON.stringify({ question: message })
+          });
+
+          if (!response.ok) {
+            // Handle HTTP errors
+            const errorData = await response.json();
+            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          
+          // Remove typing indicator if you added one
+          const typingIndicator = chatWindow.querySelector('.bot-message:last-child');
+          if (typingIndicator && typingIndicator.innerHTML.includes("PolicyBot is thinking...")) {
+            typingIndicator.remove();
+          }
+
+          // Display the actual bot response
+          // You might want to format the sources as well if you plan to display them
+          let botResponseHtml = `<p>${escapeHTML(data.answer)}</p>`;
+          if (data.sources && data.sources.length > 0) {
+            botResponseHtml += "<p><strong>Sources:</strong></p><ul>";
+            data.sources.forEach(source => {
+              // Assuming source.Title and a snippet of source.text might be relevant
+              // Adjust based on what metadata you have and want to show
+              const title = source.Title ? escapeHTML(source.Title) : "Unknown Source";
+              botResponseHtml += `<li>${title}</li>`; 
+            });
+            botResponseHtml += "</ul>";
+          }
+          addBotMessage(botResponseHtml);
+
+        } catch (error) {
+          console.error('Error fetching bot response:', error);
+          // Remove typing indicator if it exists
+          const typingIndicator = chatWindow.querySelector('.bot-message:last-child');
+          if (typingIndicator && typingIndicator.innerHTML.includes("PolicyBot is thinking...")) {
+            typingIndicator.remove();
+          }
+          addBotMessage("<p>Sorry, I encountered an error. Please try again.</p>");
+        }
       }
     });
   }
+
   
   // Function to add user message to chat
   function addUserMessage(message) {
@@ -98,69 +146,85 @@ export function initChatbot() {
         '"': '&quot;'
       }[tag]));
   }
+
+  // function to get the CSRF token if you're using Django's CSRF protection
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
   
   // Simulate bot response (placeholder for actual API integration)
-  function simulateBotResponse(userMessage) {
-    // This is where you would normally call your actual chatbot API
-    // For now, we'll just simulate some responses
+  // function simulateBotResponse(userMessage) {
+  //   // This is where you would normally call your actual chatbot API
+  //   // For now, we'll just simulate some responses
     
-    const lowerMessage = userMessage.toLowerCase();
-    let response = '';
+  //   const lowerMessage = userMessage.toLowerCase();
+  //   let response = '';
     
-    if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
-      response = `<p>Hello! How can I help you understand Malaysia's diesel subsidy policy today?</p>`;
-    } 
-    else if (lowerMessage.includes('subsidy') && lowerMessage.includes('policy')) {
-      response = `
-        <p>Malaysia's diesel subsidy policy was reformed in June 2024, moving from a blanket subsidy to a targeted approach.</p>
-        <p>Here are some key points:</p>
-        <ul>
-          <li>The price increased from RM2.15 to RM3.35 per liter in Peninsular Malaysia</li>
-          <li>Sabah, Sarawak & Labuan maintained the subsidized price of RM2.15</li>
-          <li>Eligible low-income individuals can apply for cash assistance of RM200 monthly</li>
-          <li>The reform aims to save the government approximately RM4 billion annually</li>
-        </ul>
-        <p>Would you like more specific information about any aspect of the policy?</p>
-      `;
-    }
-    else if (lowerMessage.includes('eligibility') || lowerMessage.includes('qualify')) {
-      response = `
-        <p>To be eligible for the targeted diesel subsidy in Malaysia, you need to meet these criteria:</p>
-        <ul>
-          <li>Valid Malaysian citizenship</li>
-          <li>Meet the individual or household income threshold</li>
-          <li>Own a private diesel vehicle registered with JPJ</li>
-          <li>Vehicle should be non-luxury and under 10 years old</li>
-        </ul>
-        <p>Applications can be submitted through the official portal at budimadani.gov.my</p>
-      `;
-    }
-    else if (lowerMessage.includes('price') || lowerMessage.includes('cost')) {
-      response = `
-        <p>Current diesel prices in Malaysia (as of June 2024):</p>
-        <ul>
-          <li>Peninsular Malaysia: RM3.35 per liter (market price)</li>
-          <li>Sabah, Sarawak & Labuan: RM2.15 per liter (subsidized)</li>
-        </ul>
-        <p>This represents a 56% increase for Peninsular Malaysia from the previous subsidized price of RM2.15 per liter.</p>
-      `;
-    }
-    else {
-      response = `
-        <p>I'm here to help you understand Malaysia's diesel subsidy policy. You can ask me about:</p>
-        <ul>
-          <li>The details and objectives of the current policy</li>
-          <li>How this policy might affect your personal finances</li>
-          <li>The broader economic impacts on prices and industries</li>
-          <li>Eligibility criteria for targeted assistance</li>
-          <li>Regional price differences</li>
-        </ul>
-        <p>What specific aspect would you like to know more about?</p>
-      `;
-    }
+  //   if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
+  //     response = `<p>Hello! How can I help you understand Malaysia's diesel subsidy policy today?</p>`;
+  //   } 
+  //   else if (lowerMessage.includes('subsidy') && lowerMessage.includes('policy')) {
+  //     response = `
+  //       <p>Malaysia's diesel subsidy policy was reformed in June 2024, moving from a blanket subsidy to a targeted approach.</p>
+  //       <p>Here are some key points:</p>
+  //       <ul>
+  //         <li>The price increased from RM2.15 to RM3.35 per liter in Peninsular Malaysia</li>
+  //         <li>Sabah, Sarawak & Labuan maintained the subsidized price of RM2.15</li>
+  //         <li>Eligible low-income individuals can apply for cash assistance of RM200 monthly</li>
+  //         <li>The reform aims to save the government approximately RM4 billion annually</li>
+  //       </ul>
+  //       <p>Would you like more specific information about any aspect of the policy?</p>
+  //     `;
+  //   }
+  //   else if (lowerMessage.includes('eligibility') || lowerMessage.includes('qualify')) {
+  //     response = `
+  //       <p>To be eligible for the targeted diesel subsidy in Malaysia, you need to meet these criteria:</p>
+  //       <ul>
+  //         <li>Valid Malaysian citizenship</li>
+  //         <li>Meet the individual or household income threshold</li>
+  //         <li>Own a private diesel vehicle registered with JPJ</li>
+  //         <li>Vehicle should be non-luxury and under 10 years old</li>
+  //       </ul>
+  //       <p>Applications can be submitted through the official portal at budimadani.gov.my</p>
+  //     `;
+  //   }
+  //   else if (lowerMessage.includes('price') || lowerMessage.includes('cost')) {
+  //     response = `
+  //       <p>Current diesel prices in Malaysia (as of June 2024):</p>
+  //       <ul>
+  //         <li>Peninsular Malaysia: RM3.35 per liter (market price)</li>
+  //         <li>Sabah, Sarawak & Labuan: RM2.15 per liter (subsidized)</li>
+  //       </ul>
+  //       <p>This represents a 56% increase for Peninsular Malaysia from the previous subsidized price of RM2.15 per liter.</p>
+  //     `;
+  //   }
+  //   else {
+  //     response = `
+  //       <p>I'm here to help you understand Malaysia's diesel subsidy policy. You can ask me about:</p>
+  //       <ul>
+  //         <li>The details and objectives of the current policy</li>
+  //         <li>How this policy might affect your personal finances</li>
+  //         <li>The broader economic impacts on prices and industries</li>
+  //         <li>Eligibility criteria for targeted assistance</li>
+  //         <li>Regional price differences</li>
+  //       </ul>
+  //       <p>What specific aspect would you like to know more about?</p>
+  //     `;
+  //   }
     
-    addBotMessage(response);
-  }
+  //   addBotMessage(response);
+  // }
 }
 
 /**
