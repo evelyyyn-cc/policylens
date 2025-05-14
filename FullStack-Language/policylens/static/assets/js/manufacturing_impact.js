@@ -147,6 +147,10 @@ function initializeOverallTrendChart() {
                     labels: {
                         usePointStyle: true,
                         pointStyle: 'line',
+                        font: {
+                            size: 14,
+                        },
+                        padding: 15,
                         generateLabels: function(chart) {
                             // get default legend
                             const original = Chart.defaults.plugins.legend.labels.generateLabels(chart);
