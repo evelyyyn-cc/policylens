@@ -75,11 +75,11 @@ def ingest_pdf(path: str, collection_name: str = "website_vectors"):
 
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=500,
-        chunk_overlap=50
+        chunk_overlap=20
     )
     chunks = splitter.split_documents(docs)
     print("Data Chunked")
-    print(str(chunks[0]))
+    # print(str(chunks[0]))
 
     chroma.add_documents(chunks)
     print("Data Stored In ChromaDB")
