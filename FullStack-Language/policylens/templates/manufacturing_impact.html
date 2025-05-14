@@ -50,7 +50,7 @@
         </div>
     </section>
 
-            <!-- Sector Information Section -->
+    <!-- Sector Information Section -->
     <section class="policy-info">
         <div class="container">
             <h2 class="section-title">{% trans "What is Industrial Production Index (IPI)?" %}</h2>
@@ -86,9 +86,11 @@
             
             <div class="card-content">
                 <p class="section-description">
+                    {% blocktrans %}
                     The chart below shows Malaysia's manufacturing performance from 2023 to early 2025, 
                     highlighting the periods before and after major diesel subsidy policy implementations. 
                     The absolute index values (2015=100) illustrate the sector's overall performance trajectory.
+                    {% endblocktrans %}
                 </p>
                 
                 <div class="chart-container">
@@ -96,31 +98,31 @@
                 </div>
                 
                 <div class="highlight-box">
-                    <h3>How the Diesel Subsidy Reform Affects Manufacturing</h3>
+                    <h3>{% trans "How the Diesel Subsidy Reform Affects Manufacturing" %}</h3>
                     <ul class="observation-list">
                         <li>
-                            <strong>Higher Costs:</strong> 
-                            Diesel prices went up, making production and transport more expensive
+                            <strong>{% trans "Higher Costs:" %}</strong> 
+                            {% trans "Diesel prices went up, making production and transport more expensive" %}
                         </li>
                         <li>
-                            <strong>SMEs Hit Harder:</strong> 
-                            Small and medium factories feel the impact more than large ones
+                            <strong>{% trans "SMEs Hit Harder:" %}</strong> 
+                            {% trans "Small and medium factories feel the impact more than large ones" %}
                         </li>
                         <li>
-                            <strong>Slower Output in Late 2024: </strong>
-                            Short-term boost after policy
+                            <strong>{% trans "Slower Output in Late 2024: " %}</strong>
+                            {% trans "Short-term boost after policy" %}
                         </li>
                         <li>
-                            <strong>Push for Modernization:</strong> 
-                            Encourages cleaner, more fuel-efficient technology
+                            <strong>{% trans "Push for Modernization:" %}</strong> 
+                            {% trans "Encourages cleaner, more fuel-efficient technology" %}
                         </li>
                         <li>
-                            <strong>Ripple Effects on Jobs & Prices:</strong> 
-                            Higher costs may affect employment and product prices
+                            <strong>{% trans "Ripple Effects on Jobs & Prices:" %}</strong> 
+                            {% trans "Higher costs may affect employment and product prices" %}
                         </li>
                         <li>
-                            <strong>Goal of the Policy:</strong> 
-                            Target subsidies to those who need them, improve long-term efficiency
+                            <strong>{% trans "Goal of the Policy:" %}</strong> 
+                            {% trans "Target subsidies to those who need them, improve long-term efficiency" %}
                         </li>
                     </ul>
                 </div>
@@ -138,15 +140,16 @@
         <!-- Impact Analysis on Fuel-Sensitive Manufacturing Sectors -->
         <div class="tab-content" id="sectors" >
             <div class="page-header">
-                <h1 class = “page-title"> Impact on Fuel-Sensitive Manufacturing Sectors</h1>
+                <h1 class = "page-title">{% trans "Impact on Fuel-Sensitive Manufacturing Sectors" %}</h1>
             </div>
             
             <div class="card-content">
-                <div style="margin-bottom: 2rem;"></div>
-                <p>
-                    This chart shows Malaysia’s monthly Manufacturing Index (blue) and seasonally adjusted index (green) for 2024.  
+                <p class="section-description">
+                    {% blocktrans %}
+                    This chart shows Malaysia's monthly Manufacturing Index (blue) and seasonally adjusted index (green) for 2024.  
                     The blue line reflects actual industrial output, while the green line smooths out seasonal patterns.  
                     A red line in June 2024 marks the start of the diesel subsidy reform, a major policy change affecting fuel costs in manufacturing.
+                    {% endblocktrans %}
                 </p>
                 
                 <div class="chart-container">
@@ -156,38 +159,105 @@
                 <div class="chart-container">
                     <canvas id="sectorSensitivityChart"></canvas>
                 </div>
-                
+            
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Manufacturing Sector" %}</th>
+                            <th>{% trans "Year-on-year Growth(%)" %}</th>
+                            <th>{% trans "Sensitivity score" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{% trans "Non-metallic Mineral Products" %}</td>
+                            <td>2.3</td>
+                            <td>147.9</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>{% trans "Wearing Apparel" %}</td>
+                            <td>5.1</td>
+                            <td>138.82</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>{% trans "Paper and Paper Products" %}</td>
+                            <td>1.2</td>
+                            <td>91.56</td>
+                           
+                        </tr>
+                        <tr>
+                            <td>{% trans "Fabricated Metal Products (excl. Machinery)" %}</td>
+                            <td>6.4</td>
+                            <td>84.04</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>{% trans "Machinery Repair and Installation" %}</td>
+                            <td>7.9</td>
+                            <td>64.52</td>
+                           
+                        </tr>
+                        <tr>
+                            <td>{% trans "Chemicals and Chemical Products" %}</td>
+                            <td>5.7</td>
+                            <td>58.06</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Other Transport Equipment" %}</td>
+                            <td>-2</td>
+                            <td>54.81</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Coke and Refined Petroleum Products" %}</td>
+                            <td>-0.8</td>
+                            <td>53.52</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Rubber and Plastics Products" %}</td>
+                            <td>4.7</td>
+                            <td>21.87</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Computer, Electronic, and Optical Products" %}</td>
+                            <td>8.4</td>
+                            <td>15.09</td>
+                        </tr>
+                    </tbody>
+                </table>
                 
                 <div class="highlight-box">
-                    <h3>Why These Sectors Are More Affected</h3>
+                    <h3>{% trans "Why These Sectors Are More Affected" %}</h3>
                     <p>
-                        The sectors most impacted by the diesel subsidy policy changes share key characteristics:
+                        {% trans "The sectors most impacted by the diesel subsidy policy changes share key characteristics:" %}
                     </p>
                     <ul>
-                        <li><strong>High energy intensity:</strong> Industries like Fabricated Metal Products and Chemicals and Chemical Products require large amounts of fuel for manufacturing processes.</li>
-                        <li><strong>Dependence on diesel-powered machinery:</strong> Sectors such as Machinery Repair and Installation rely directly on diesel for operational equipment.</li>
-                        <li><strong>Reliance on road transport:</strong> Industries like Wearing Apparel and Rubber and Plastics Products depend on logistics networks powered by diesel for raw materials and product delivery.</li>
-                        <li><strong>Fuel-sensitive supply chains:</strong> Sectors such as Computer, Electronic, and Optical Products are part of global supply chains where fuel costs can significantly impact competitiveness.</li>
-                        <li><strong>Limited alternatives to diesel:</strong> For sectors like Coke and Refined Petroleum Products, diesel is not just a cost but also a core input, leaving little flexibility in adapting to price shocks.</li>    
+                        <li><strong>{% trans "High energy intensity:" %}</strong> {% trans "Industries like Fabricated Metal Products and Chemicals and Chemical Products require large amounts of fuel for manufacturing processes." %}</li>
+                        <li><strong>{% trans "Dependence on diesel-powered machinery:" %}</strong> {% trans "Sectors such as Machinery Repair and Installation rely directly on diesel for operational equipment." %}</li>
+                        <li><strong>{% trans "Reliance on road transport:" %}</strong> {% trans "Industries like Wearing Apparel and Rubber and Plastics Products depend on logistics networks powered by diesel for raw materials and product delivery." %}</li>
+                        <li><strong>{% trans "Fuel-sensitive supply chains:" %}</strong> {% trans "Sectors such as Computer, Electronic, and Optical Products are part of global supply chains where fuel costs can significantly impact competitiveness." %}</li>
+                        <li><strong>{% trans "Limited alternatives to diesel:" %}</strong> {% trans "For sectors like Coke and Refined Petroleum Products, diesel is not just a cost but also a core input, leaving little flexibility in adapting to price shocks." %}</li>    
                     </ul>
                 </div>
                 
                 <div class="data-citation">
-                    Source: Department of Statistics Malaysia, IPI by Division (2 digit) Data, Feb 2025
+                    {% trans "Source: Department of Statistics Malaysia, IPI by Division (2 digit) Data, Feb 2025" %}
                 </div>
             </div>
         </div>
 
         <!-- Comparison Between Export-Oriented and Domestic-Oriented Manufacturing -->
         <div class="tab-content" id="comparison" >
-            <div class="card-header">
-                <h2>Diesel Price Impact Analysis</h2>
+            <div class="page-header">
+                <h1 class = "page-title">{% trans "Diesel Price Impact Analysis" %}</h1>
             </div>
             
             <div class="card-content">
-                <div style="margin-bottom: 2rem;"></div>
-                <p>
+                <p class="section-description">
+                    {% blocktrans %}
                     This chart shows the relationship between manufacturing growth (blue line, % change month-on-month) and diesel prices (orange line, RM/L) in Malaysia throughout 2024.
+                    {% endblocktrans %}
                 </p>
                 
                 <div class="chart-container">
@@ -195,28 +265,30 @@
                 </div>
                 
                 <div class="highlight-box">
-                    <h3>Economic Implications</h3>
+                    <h3>{% trans "Economic Implications" %}</h3>
                     <p>
+                        {% blocktrans %}
                         The different responses between export and domestic-oriented manufacturing have important implications:
+                        {% endblocktrans %}
                     </p>
                     <ul>
                         <li>
-                            <strong>International Competitiveness:</strong> Export sectors face greater challenges as they cannot easily pass increased costs to international buyers in competitive markets
+                            <strong>{% trans "International Competitiveness:" %}</strong> {% trans "Export sectors face greater challenges as they cannot easily pass increased costs to international buyers in competitive markets" %}
                         </li>
                         <li>
-                            <strong>Consumer Prices:</strong> Domestic manufacturing sectors can partially pass costs to local consumers, contributing to inflationary pressure
+                            <strong>{% trans "Consumer Prices:" %}</strong> {% trans "Domestic manufacturing sectors can partially pass costs to local consumers, contributing to inflationary pressure" %}
                         </li>
                         <li>
-                            <strong>Employment Effects:</strong> Export sectors typically employ more workers, so their volatility can have larger employment impacts
+                            <strong>{% trans "Employment Effects:" %}</strong> {% trans "Export sectors typically employ more workers, so their volatility can have larger employment impacts" %}
                         </li>
                         <li>
-                            <strong>Policy Considerations:</strong> Targeted support mechanisms may be needed for export sectors to maintain international competitiveness
+                            <strong>{% trans "Policy Considerations:" %}</strong> {% trans "Targeted support mechanisms may be needed for export sectors to maintain international competitiveness" %}
                         </li>
                     </ul>
                 </div>
                 
                 <div class="data-citation">
-                    Source: Department of Statistics Malaysia, IPI for Export-Oriented Divisions and IPI for Domestic-Oriented Divisions Data, Feb 2025
+                    {% trans "Source: Department of Statistics Malaysia, IPI for Export-Oriented Divisions and IPI for Domestic-Oriented Divisions Data, Feb 2025" %}
                 </div>
             </div>
         </div>

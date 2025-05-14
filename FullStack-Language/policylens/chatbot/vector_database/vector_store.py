@@ -48,20 +48,20 @@ def load_pdfs_from_folder(folder_path: str) -> list[Document]:
     return all_docs
 
 # cleans string by removing "/n" , extra spaces and line breaks
-def clean_page(text: str) -> str:
-    # Remove artificial newlines that break up sentences or words
-    text = re.sub(r'\n+', ' ', text)             # Merge multiple newlines into one space
-    text = re.sub(r'(?<=\w)-\s+(?=\w)', '', text) # Fix hyphenated line breaks (e.g., "subsi-\ndy" → "subsidy")
-    text = re.sub(r'\s+', ' ', text)             # Normalize extra spaces
-    return text.strip()
+# def clean_page(text: str) -> str:
+#     # Remove artificial newlines that break up sentences or words
+#     text = re.sub(r'\n+', ' ', text)             # Merge multiple newlines into one space
+#     text = re.sub(r'(?<=\w)-\s+(?=\w)', '', text) # Fix hyphenated line breaks (e.g., "subsi-\ndy" → "subsidy")
+#     text = re.sub(r'\s+', ' ', text)             # Normalize extra spaces
+#     return text.strip()
 
-# loop cleaning pipeline through all pdfs
-def clean_documents(docs: list[Document]) -> list[Document]:
-    cleaned_docs = []
-    for doc in docs:
-        cleaned_text = clean_page(doc.page_content)
-        cleaned_docs.append(Document(page_content=cleaned_text, metadata=doc.metadata))
-    return cleaned_docs
+# # loop cleaning pipeline through all pdfs
+# def clean_documents(docs: list[Document]) -> list[Document]:
+#     cleaned_docs = []
+#     for doc in docs:
+#         cleaned_text = clean_page(doc.page_content)
+#         cleaned_docs.append(Document(page_content=cleaned_text, metadata=doc.metadata))
+#     return cleaned_docs
 
 # load pdf into vector database
 def ingest_pdf(path: str, collection_name: str = "website_vectors"):
@@ -70,15 +70,16 @@ def ingest_pdf(path: str, collection_name: str = "website_vectors"):
     docs = load_pdfs_from_folder(path) # load pdf data
     print("PDF Data Loaded")
 
-    clean_docs = clean_documents(docs) # clean pdf data
-    print("Data Cleaned")
+    # clean_docs = clean_documents(docs) # clean pdf data
+    # print("Data Cleaned")
 
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=500,
         chunk_overlap=50
     )
-    chunks = splitter.split_documents(clean_docs)
+    chunks = splitter.split_documents(docs)
     print("Data Chunked")
+    print(str(chunks[0]))
 
     chroma.add_documents(chunks)
     print("Data Stored In ChromaDB")

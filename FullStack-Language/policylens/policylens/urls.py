@@ -18,10 +18,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from django.views.generic import TemplateView
-from api.views import FuelPriceFilterView, CarFuelStatsView, index, diesel_policy, datasets_page, policies, CPIReportAPI, cpi_impact, cpi_dataset,set_language,ai_chatbot, manufacturing_impact, IPI1DDataView, IPIDataView, ManufacturingDivisionsDataView, DieselImpactChartAPI
+from api.views import FuelPriceFilterView, CarFuelStatsView, index, diesel_policy, datasets_page, policies, CPIReportAPI, cpi_impact, cpi_dataset,set_language,ai_chatbot, manufacturing_impact, IPI1DDataView, IPIDataView, ManufacturingDivisionsDataView, DieselImpactChartAPI, ChatAPIView
 from django.conf.urls.i18n import i18n_patterns
 from django.views.i18n import JavaScriptCatalog
 from django.views.i18n import JavaScriptCatalog
+
 
 urlpatterns = [
     path("index/", index),
@@ -41,5 +42,6 @@ urlpatterns = [
     path("api/ipi1ddata/", IPI1DDataView.as_view(), name="ipi1ddata"),
     path('api/ipi2ddata/', IPIDataView.as_view(), name='ipi2d-data'),
     path("api/manufacturing_data/", ManufacturingDivisionsDataView.as_view(), name="manufacturing-data"),
-    path("api/diesel-impact-chart/", DieselImpactChartAPI.as_view(), name="diesel-impact-chart")
+    path("api/diesel-impact-chart/", DieselImpactChartAPI.as_view(), name="diesel-impact-chart"),
+    path("chat/", ChatAPIView.as_view(), name="chatbot")
 ]

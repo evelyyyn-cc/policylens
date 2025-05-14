@@ -20,6 +20,7 @@ from django.shortcuts import redirect
 from datetime import datetime, timedelta
 import calendar
 import pandas as pd
+from chatbot.vector_database.vector_store import get_qa_chain
 
 
 from django.shortcuts import render
@@ -686,3 +687,25 @@ class DieselImpactChartAPI(APIView):
             "manufacturing_growth": manufacturing_growth
         }, status=status.HTTP_200_OK)
 
+
+class ChatAPIView(APIView):
+    """User Chatbot query"""
+    
+    def post(self, request):
+        user_q = request.data.get("question", "")
+        qa = get_qa_chain()
+        result = qa({"query": user_q})
+        
+        # result["result"] is the answer string
+        # result["source_documents"] is a List[Document] with .page_content and .metadata
+
+        # Format sources if you like:
+        sources = [
+            {"text": doc.page_content, **doc.metadata}
+            for doc in result["source_documents"]
+        ]
+
+        return Response({
+            "answer": result["result"],
+            "sources": sources
+        })
