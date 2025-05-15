@@ -31,9 +31,6 @@ QUERY_REWRITES = {
 ENHANCED_PROMPTS = {
     "What is the diesel subsidy policy?": """
 
-If the provided context doesn't contain sufficient information to answer accurately, respond with:
-"I'm sorry, I don't have that specific information in my knowledge base. The question you've asked is outside the context of the information available to me. Please try asking about the diesel subsidy policy details, eligibility criteria, or implementation timeline."
-
 You are an expert on Malaysia's diesel subsidy policy. Explain the June 2024 reform clearly and concisely, focusing on:
 1. The shift from blanket to targeted subsidies
 2. The price change from RM2.15 to RM3.35 per liter in Peninsular Malaysia
@@ -47,9 +44,6 @@ Use simple language suitable for the average Malaysian citizen. Be informative b
 """,
 
     "Why was the policy necessary?": """
-
-If the provided context doesn't contain sufficient information to answer accurately, respond with:
-"I'm sorry, I don't have that specific information in my knowledge base. The question you've asked is outside the context of the information available to me. Please try asking about the diesel subsidy policy details, eligibility criteria, or implementation timeline."
 
 You are explaining why Malaysia's diesel subsidy reform was necessary. Focus on these key points:
 1. The dramatic increase in subsidy costs (from RM1.4 billion in 2019 to RM14.3 billion in 2023)
@@ -65,9 +59,6 @@ End your answer with: "The reform aimed to create a more sustainable financial m
 
     "Who benefits from the policy?": """
 
-If the provided context doesn't contain sufficient information to answer accurately, respond with:
-"I'm sorry, I don't have that specific information in my knowledge base. The question you've asked is outside the context of the information available to me. Please try asking about the diesel subsidy policy details, eligibility criteria, or implementation timeline."
-    
 You are explaining who benefits from Malaysia's targeted diesel subsidy policy. Focus on these key points:
 1. The specific beneficiary categories: private vehicle owners, farmers, livestock breeders, fishers, and transport operators
 2. The income thresholds that qualify individuals (household income below RM5,000)
@@ -81,9 +72,6 @@ End your answer with: "For detailed eligibility information and to check if you 
 """,
 
     "What is the eligibility criteria?": """
-
-If the provided context doesn't contain sufficient information to answer accurately, respond with:
-"I'm sorry, I don't have that specific information in my knowledge base. The question you've asked is outside the context of the information available to me. Please try asking about the diesel subsidy policy details, eligibility criteria, or implementation timeline."
 
 You are providing detailed information about eligibility criteria for Malaysia's diesel subsidy program. Organize your answer with these specific requirements:
 1. Citizenship: Must be a Malaysian citizen with valid MyKad
@@ -102,9 +90,6 @@ End your answer with: "Applications can be submitted through the MADANI portal a
 
     "What is the application process?": """
 
-If the provided context doesn't contain sufficient information to answer accurately, respond with:
-"I'm sorry, I don't have that specific information in my knowledge base. The question you've asked is outside the context of the information available to me. Please try asking about the diesel subsidy policy details, eligibility criteria, or implementation timeline."
-
 You are explaining the step-by-step application process for Malaysia's diesel subsidy program. Present this as a clear, chronological process:
 1. Pre-application: List the documents applicants should prepare beforehand (MyKad, income statements, vehicle registration, bank details)
 2. Online application: Detailed steps for completing the application on the MADANI portal
@@ -119,9 +104,6 @@ End your answer with: "For assistance with your application or to check your app
 """,
 
     "What are the benefits of this policy?": """
-
-If the provided context doesn't contain sufficient information to answer accurately, respond with:
-"I'm sorry, I don't have that specific information in my knowledge base. The question you've asked is outside the context of the information available to me. Please try asking about the diesel subsidy policy details, eligibility criteria, or implementation timeline."
 
 You are explaining the benefits of Malaysia's diesel subsidy reform implemented in June 2024. Focus on these distinct advantage categories:
 1. Fiscal sustainability:
