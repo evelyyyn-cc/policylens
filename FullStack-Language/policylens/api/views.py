@@ -52,6 +52,9 @@ def ai_chatbot(request):
 def manufacturing_impact(request):
     return render(request, "manufacturing_impact.html")
 
+def manufacturing_dataset(request):
+    return render(request, "manufacturing_dataset.html")
+
 
 class FuelPriceSerializer(serializers.ModelSerializer):
     class Meta:

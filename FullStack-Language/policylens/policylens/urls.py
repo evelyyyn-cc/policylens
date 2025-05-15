@@ -18,7 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from django.views.generic import TemplateView
-from api.views import FuelPriceFilterView, CarFuelStatsView, index, diesel_policy, datasets_page, policies, CPIReportAPI, cpi_impact, cpi_dataset,set_language,ai_chatbot, manufacturing_impact, IPI1DDataView, IPIDataView, ManufacturingDivisionsDataView, DieselImpactChartAPI, ChatAPIView
+from api.views import FuelPriceFilterView, CarFuelStatsView, index, diesel_policy, datasets_page, policies, CPIReportAPI, cpi_impact, cpi_dataset,set_language,ai_chatbot, manufacturing_impact, IPI1DDataView, IPIDataView, ManufacturingDivisionsDataView, DieselImpactChartAPI, ChatAPIView, manufacturing_dataset
 from django.conf.urls.i18n import i18n_patterns
 from django.views.i18n import JavaScriptCatalog
 from django.views.i18n import JavaScriptCatalog
@@ -39,9 +39,10 @@ urlpatterns = [
     path("cpi_dataset/", cpi_dataset),
     path("manufacturing_impact/", manufacturing_impact),
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
+    path("api/diesel-impact-chart/", DieselImpactChartAPI.as_view(), name="diesel-impact-chart"),
+    path("manufacturing_dataset/", manufacturing_dataset),
     path("api/ipi1ddata/", IPI1DDataView.as_view(), name="ipi1ddata"),
     path('api/ipi2ddata/', IPIDataView.as_view(), name='ipi2d-data'),
     path("api/manufacturing_data/", ManufacturingDivisionsDataView.as_view(), name="manufacturing-data"),
-    path("api/diesel-impact-chart/", DieselImpactChartAPI.as_view(), name="diesel-impact-chart"),
     path("chat/", ChatAPIView.as_view(), name="chatbot")
 ]
