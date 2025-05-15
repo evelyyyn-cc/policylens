@@ -10,7 +10,7 @@ import re
 import openai
 
 from langchain.prompts import PromptTemplate
-from query_handlers import get_optimized_query, get_enhanced_prompt
+# from query_handlers import get_optimized_query, get_enhanced_prompt
 # get API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -103,7 +103,7 @@ def get_qa_chain(use_custom_prompt=False, custom_prompt=None):
     )
     retriever = get_retriever()
 
-        # Updated default prompt template with clear instructions for missing information
+    # Updated default prompt template with clear instructions for missing information
     default_template = """
     You are a helpful assistant that specializes in explaining Malaysia's diesel subsidy policy.
     Use the following pieces of retrieved context to answer the user's question.
@@ -124,26 +124,38 @@ def get_qa_chain(use_custom_prompt=False, custom_prompt=None):
     """
 
     if use_custom_prompt and custom_prompt:
-    # Custom prompt doesn't need the standard template
-    # It will directly be used as a system message
-    
-    # For custom prompts, we'll use a different chain construction
-    # This will be handled in the ChatAPIView
+        # For custom prompts, return a dictionary with components that can be used
+        # to construct a personalized chain in ChatAPIView
+        prompt_template = """
+        {context}
+
+        Question: {question}
+        """
+        
+        PROMPT = PromptTemplate(
+            template=prompt_template,
+            input_variables=["context", "question"]
+        )
+        
+        # We'll construct the chain in ChatAPIView using these components
         return {
             "llm": llm,
             "retriever": retriever,
-            "default_prompt": default_template
+            "prompt": PROMPT,
+            "custom_prompt": custom_prompt
         }
-    
-    PROMPT = PromptTemplate(
-        template=default_template,
-        input_variables=["context", "question"]
-    )
-
-    return RetrievalQA.from_chain_type(
-        llm=llm,
-        chain_type="stuff",    # or "map_rerank", "refine" etc.
-        retriever=retriever,
-        return_source_documents=True,
-        chain_type_kwargs = {"prompt": PROMPT}
-    )
+    else:
+        # For normal queries, use a standard RetrievalQA chain
+        PROMPT = PromptTemplate(
+            template=default_template,
+            input_variables=["context", "question"]
+        )
+        
+        # Return a complete RetrievalQA chain
+        return RetrievalQA.from_chain_type(
+            llm=llm,
+            chain_type="stuff",    # or "map_rerank", "refine" etc.
+            retriever=retriever,
+            return_source_documents=True,
+            chain_type_kwargs={"prompt": PROMPT}
+        )
