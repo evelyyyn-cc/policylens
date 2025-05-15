@@ -72,6 +72,73 @@
         </div>
     </section>
     <!-- </div> -->
+    <!-- Quick Questions Section -->
+    <section class="quick-questions">
+        <div class="container">
+            <h2>{% trans "Quick Questions" %}</h2>
+            <p>{% trans "Click on any category to view common questions, or click directly on a question to ask it." %}</p>
+            
+            <div class="question-categories-list">
+                <!-- Category 1 -->
+                <div class="question-category">
+                    <button class="collapsible">
+                        <span class="category-title">{% trans "About The Policy" %}</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="content" style="max-height: 0; overflow: hidden;">
+                        <button class="question-button">{% trans "What is the diesel subsidy policy?" %}</button>
+                        <button class="question-button">{% trans "Why was the policy necessary?" %}</button>
+                        <button class="question-button">{% trans "Who benefits from the policy?" %}</button>
+                        <button class="question-button">{% trans "What is the eligibility criteria?" %}</button>
+                        <button class="question-button">{% trans "What is the application process?" %}</button>
+                        <button class="question-button">{% trans "What are the benefits of this policy?" %}</button>
+                    </div>
+                </div>
+                
+                <!-- Category 2 -->
+                <!-- <div class="question-category">
+                    <button class="collapsible">
+                        <span class="category-title">{% trans "Eligibility Criteria" %}</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="content" style="max-height: 0; overflow: hidden;">
+                        <button class="question-button">{% trans "Who is eligible for diesel subsidies?" %}</button>
+                        <button class="question-button">{% trans "How do I apply for diesel subsidies?" %}</button>
+                        <button class="question-button">{% trans "What documents are needed for subsidy application?" %}</button>
+                        <button class="question-button">{% trans "Can foreigners apply for diesel subsidies?" %}</button>
+                    </div>
+                </div> -->
+                
+                <!-- Category 3 -->
+                <!-- <div class="question-category">
+                    <button class="collapsible">
+                        <span class="category-title">{% trans "Economic Impact" %}</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="content" style="max-height: 0; overflow: hidden;">
+                        <button class="question-button">{% trans "How does diesel policy affect inflation?" %}</button>
+                        <button class="question-button">{% trans "What is the impact on manufacturing?" %}</button>
+                        <button class="question-button">{% trans "How much does the government save from the reform?" %}</button>
+                        <button class="question-button">{% trans "Will food prices increase due to diesel subsidy removal?" %}</button>
+                    </div>
+                </div> -->
+                
+                <!-- Category 4 -->
+                <!-- <div class="question-category">
+                    <button class="collapsible">
+                        <span class="category-title">{% trans "Personal Finance" %}</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="content" style="max-height: 0; overflow: hidden;">
+                        <button class="question-button">{% trans "How can I calculate the impact on my budget?" %}</button>
+                        <button class="question-button">{% trans "What is the monthly subsidy amount?" %}</button>
+                        <button class="question-button">{% trans "How do I get the subsidy if I'm eligible?" %}</button>
+                        <button class="question-button">{% trans "Are there other subsidies available?" %}</button>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     {% include "footer.html" %}

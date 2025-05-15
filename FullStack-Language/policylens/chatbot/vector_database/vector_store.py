@@ -9,6 +9,8 @@ import os
 import re
 import openai
 
+from langchain.prompts import PromptTemplate
+# from query_handlers import get_optimized_query, get_enhanced_prompt
 # get API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -93,16 +95,67 @@ def get_retriever(collection_name: str = "website_vectors", k: int = 5):
     )
 
 # function to setup LLM query chain
-def get_qa_chain():
+def get_qa_chain(use_custom_prompt=False, custom_prompt=None):
     """Assemble a RetrievalQA chain with GPT-4.1 as the LLM."""
     llm = ChatOpenAI(
         model="gpt-4.1-nano",
         temperature=0.0
     )
     retriever = get_retriever()
-    return RetrievalQA.from_chain_type(
-        llm=llm,
-        chain_type="stuff",    # or "map_rerank", "refine" etc.
-        retriever=retriever,
-        return_source_documents=True
-    )
+
+    # Updated default prompt template with clear instructions for missing information
+    default_template = """
+    You are a helpful assistant that specializes in explaining Malaysia's diesel subsidy policy.
+    Use the following pieces of retrieved context to answer the user's question.
+    
+    If the necessary information to answer the question is not contained in the context below,
+    respond with: "I'm sorry, I don't have that specific information in my knowledge base. 
+    The question you've asked is outside the context of the information available to me. 
+    Please try asking about the diesel subsidy policy details, eligibility criteria, 
+    or implementation timeline."
+    
+    Do not make up or infer information that is not directly supported by the context.
+    
+    Context: {context}
+    
+    Question: {question}
+    
+    Answer:
+    """
+
+    if use_custom_prompt and custom_prompt:
+        # For custom prompts, return a dictionary with components that can be used
+        # to construct a personalized chain in ChatAPIView
+        prompt_template = """
+        {context}
+
+        Question: {question}
+        """
+        
+        PROMPT = PromptTemplate(
+            template=prompt_template,
+            input_variables=["context", "question"]
+        )
+        
+        # We'll construct the chain in ChatAPIView using these components
+        return {
+            "llm": llm,
+            "retriever": retriever,
+            "prompt": PROMPT,
+            "custom_prompt": custom_prompt
+        }
+    else:
+        # For normal queries, use a standard RetrievalQA chain
+        PROMPT = PromptTemplate(
+            template=default_template,
+            input_variables=["context", "question"]
+        )
+        
+        # Return a complete RetrievalQA chain
+        return RetrievalQA.from_chain_type(
+            llm=llm,
+            chain_type="stuff",    # or "map_rerank", "refine" etc.
+            retriever=retriever,
+            return_source_documents=True,
+            chain_type_kwargs={"prompt": PROMPT}
+        )
