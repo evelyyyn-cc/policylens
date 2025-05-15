@@ -7,9 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeSectorImpactChart();
     initializeSectorSensitivityChart();
     initializeExportDomesticChart();
-    
-    // Initialize map
-    // initializeManufacturingMap();
 });
 
 /**
@@ -505,13 +502,13 @@ function initializeSectorSensitivityChart() {
                 x: {  // This was y-axis before
                     title: {
                         display: true,
-                        text: 'FuelSensitivity Score',
+                        text: 'Fuel Sensitivity Score',
                         font: {
                             size: 13,
                             weight: 'bold'
                         },
                         padding: {
-                            bottom: 10
+                            bottom: 20
                         }
                     },
                     border: {
@@ -544,56 +541,61 @@ function initializeSectorSensitivityChart() {
 
 }
 
+
 /**
- * Diesel Price Impact Analysis
+ * Diesel Price Impact Analysis Chart Initialization
+ * This function creates a dual-axis line chart showing the relationship between diesel prices and manufacturing index
  */
 function initializeExportDomesticChart() {
+    // Get the canvas element
     const ctx = document.getElementById('exportDomesticChart');
     if (!ctx) return;
-    
+
+    // Get 2D rendering context for the canvas
     const chartCtx = ctx.getContext('2d');
-    
-    // 从API获取数据
+
+    // Fetch data from API endpoint
     fetch('/api/diesel-impact-chart/')
         .then(response => response.json())
         .then(data => {
+            // Prepare chart data structure
             const chartData = {
-                labels: data.labels,
+                labels: data.labels, // X-axis labels (typically dates/months)
                 datasets: [
                     {
                         label: 'Manufacturing Index',
                         data: data.manufacturing_growth,
-                        borderColor: 'rgb(59, 130, 246)',
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderColor: 'rgb(59, 130, 246)', // Blue line
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)', // Light blue fill
                         fill: false,
-                        tension: 0.3,
+                        tension: 0.3, // Smooth line curvature
                         pointRadius: 3,
-                        pointHoverRadius: 6,
+                        pointHoverRadius: 6, // Larger points on hover
                         borderWidth: 2,
-                        yAxisID: 'y'
+                        yAxisID: 'y' // Primary Y-axis
                     },
                     {
                         label: 'Diesel Price (RM/L)',
                         data: data.diesel_prices,
-                        borderColor: 'rgb(249, 115, 22)',
-                        backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                        borderColor: 'rgb(249, 115, 22)', // Orange line
+                        backgroundColor: 'rgba(249, 115, 22, 0.1)', // Light orange fill
                         fill: false,
                         tension: 0.3,
                         pointRadius: 3,
                         pointHoverRadius: 6,
                         borderWidth: 2,
-                        yAxisID: 'y1'
+                        yAxisID: 'y1' // Secondary Y-axis
                     }
                 ]
             };
-            
-            // Policy implementation annotations
+
+            // Policy implementation annotations (vertical lines with labels)
             const annotations = {
                 line1: {
                     type: 'line',
-                    xMin: 3, // June 2024
+                    xMin: 3, // June 2024 (3rd data point)
                     xMax: 3,
-                    borderColor: 'rgba(255, 99, 132, 0.7)',
+                    borderColor: 'rgba(255, 99, 132, 0.7)', // Red line
                     borderWidth: 2,
                     label: {
                         enabled: true,
@@ -603,9 +605,9 @@ function initializeExportDomesticChart() {
                 },
                 line2: {
                     type: 'line',
-                    xMin: 10, // January 2025
+                    xMin: 10, // January 2025 (10th data point)
                     xMax: 10,
-                    borderColor: 'rgba(255, 99, 132, 0.7)',
+                    borderColor: 'rgba(255, 99, 132, 0.7)', // Red line
                     borderWidth: 2,
                     label: {
                         enabled: true,
@@ -614,7 +616,8 @@ function initializeExportDomesticChart() {
                     }
                 }
             };
-            
+
+            // Create and render the chart
             new Chart(chartCtx, {
                 type: 'line',
                 data: chartData,
@@ -627,6 +630,7 @@ function initializeExportDomesticChart() {
                         },
                         tooltip: {
                             callbacks: {
+                                // Custom tooltip formatting
                                 label: function(context) {
                                     const datasetLabel = context.dataset.label;
                                     const value = context.raw;
@@ -643,6 +647,7 @@ function initializeExportDomesticChart() {
                         }
                     },
                     scales: {
+                        // Primary Y-axis (left) for Manufacturing Index
                         y: {
                             type: 'linear',
                             display: true,
@@ -651,9 +656,10 @@ function initializeExportDomesticChart() {
                                 display: true,
                                 text: 'Manufacturing Index（2015=100）'
                             },
-                            min: 130,
-                            max: 160,
+                            min: 130, // Fixed scale minimum
+                            max: 160, // Fixed scale maximum
                         },
+                        // Secondary Y-axis (right) for Diesel Prices
                         y1: {
                             type: 'linear',
                             display: true,
@@ -665,7 +671,7 @@ function initializeExportDomesticChart() {
                             min: 0,
                             max: 10,
                             grid: {
-                                drawOnChartArea: false
+                                drawOnChartArea: false // Don't show grid lines for this axis
                             }
                         },
                         x: {

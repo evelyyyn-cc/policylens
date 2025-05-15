@@ -146,9 +146,7 @@
             <div class="card-content">
                 <p class="section-description">
                     {% blocktrans %}
-                    This chart shows Malaysia's monthly Manufacturing Index (blue) and seasonally adjusted index (green) for 2024.  
-                    The blue line reflects actual industrial output, while the green line smooths out seasonal patterns.  
-                    A red line in June 2024 marks the start of the diesel subsidy reform, a major policy change affecting fuel costs in manufacturing.
+                    This analysis visualizes the impact of Malaysia’s diesel subsidy reform on fuel-sensitive manufacturing divisions. It helps identify which sectors are most vulnerable to rising diesel prices by combining industrial production data with fuel price trends.
                     {% endblocktrans %}
                 </p>
                 
@@ -159,7 +157,7 @@
                 <div class="chart-container">
                     <canvas id="sectorSensitivityChart"></canvas>
                 </div>
-            
+
                 <table class="data-table">
                     <thead>
                         <tr>
@@ -226,6 +224,14 @@
                         </tr>
                     </tbody>
                 </table>
+
+                <div class="highlight-box">
+                    <h3>{% trans "Methodology Overview:" %}</h3>
+                    <ul>
+                        <li><strong>{% trans "Fuel Sensitivity Score:" %}</strong> {% trans "The fuel sensitivity score is calculated to assess how much a manufacturing sector's output responds to diesel price changes. First, for each month in 2024, the average difference in industrial production growth (IPI growth) between the before and after policy periods is computed for each industry. Then, this growth difference is divided by the percentage change in diesel prices for the same month. This gives a monthly “sensitivity contribution.” Finally, these monthly values are averaged across the year to produce the sector’s fuel sensitivity score — a higher score indicates a stronger response of output to diesel price fluctuations." %}</li>
+                        <li><strong>{% trans "Impact Ranking:" %}</strong> {% trans "The divisions shown here represent the top 10 fuel-sensitive sectors based on their calculated sensitivity scores. " %}</li>
+                    </ul>
+                </div>
                 
                 <div class="highlight-box">
                     <h3>{% trans "Why These Sectors Are More Affected" %}</h3>
@@ -293,7 +299,7 @@
 
                 <strong>{% trans "URL:" %}</strong> <a href="https://open.dosm.gov.my/data-catalogue/ipi_2d" target="_blank">https://open.dosm.gov.my/data-catalogue/ipi_2d</a ><br>
 
-                <strong>{% trans "Methodology:" %}</strong> {% trans "Monthly manufacturing production index data collected by division (10–33), using Month-on-Month growth values from November 2023 to January 2025. " %}
+                <strong>{% trans "Methodology:" %}</strong> {% trans "Monthly manufacturing index (absolute values) from January to December 2024, categorized under Section C (Manufacturing), base year 2015 = 100." %}<br>
 
                 <strong>{% trans "Data Source:" %}</strong> {% trans "Official Fuel Prices – Government of Malaysia" %}<br>
 
@@ -301,7 +307,7 @@
 
                 <strong>{% trans "URL:" %}</strong> <a href="https://data.gov.my/data-catalogue/fuelprice" target="_blank">https://data.gov.my/data-catalogue/fuelprice</a ><br>
 
-                <strong>{% trans "Methodology:" %}</strong> {% trans "Monthly average retail diesel prices collected for 2024 from official fuel pricing database." %}
+                <strong>{% trans "Methodology:" %}</strong> {% trans "Monthly average diesel prices collected for 2024, based on official level pricing records." %}<br>
 
                 </div>
             </div>
