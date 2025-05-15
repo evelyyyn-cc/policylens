@@ -176,17 +176,70 @@ export function initPredefinedQuestions() {
   // Handle predefined question buttons
   if (questionButtons && chatWindow) {
     questionButtons.forEach(button => {
-      button.addEventListener('click', function() {
+      button.addEventListener('click', async function() {
         const question = this.textContent.trim();
+        console.log("Predefined question clicked:", question);
         
         // Add user message to chat
         addUserMessageDirectly(question);
         
-        // Simulate bot response after a short delay
-        setTimeout(() => {
-          // For now, add a simulated response since backend is not implemented
-          addBotResponseDirectly("I'm sorry, I'm still being implemented and can't respond to your question yet. The backend for processing your question about \"" + question + "\" will be added soon.");
-        }, 1000);
+        // Show typing indicator
+        addBotResponseDirectly("<em>PolicyBot is thinking...</em>");
+        
+        try {
+          // Call the backend API with isPredefined flag
+          const response = await fetch('/chat/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              // If you're using Django's CSRF protection, uncomment the line below
+              // 'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({ 
+              question: question,
+              isPredefined: true  // Flag to indicate this is a predefined question
+            })
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          
+          // Remove typing indicator
+          const typingIndicator = chatWindow.querySelector('.bot-message:last-child');
+          if (typingIndicator && typingIndicator.innerHTML.includes("PolicyBot is thinking")) {
+            typingIndicator.remove();
+          }
+
+          // Format the response with sources
+          let botResponseHtml = data.answer;
+          if (data.sources && data.sources.length > 0) {
+            botResponseHtml += "<p><strong>Sources:</strong></p><ul>";
+            data.sources.forEach(source => {
+              const title = source.Title ? escapeHTML(source.Title) : "Unknown Source";
+              botResponseHtml += `<li>${title}</li>`; 
+            });
+            botResponseHtml += "</ul>";
+          }
+          
+          // Add the bot's response
+          addBotResponseDirectly(botResponseHtml);
+
+        } catch (error) {
+          console.error('Error fetching bot response:', error);
+          
+          // Remove typing indicator
+          const typingIndicator = chatWindow.querySelector('.bot-message:last-child');
+          if (typingIndicator && typingIndicator.innerHTML.includes("PolicyBot is thinking")) {
+            typingIndicator.remove();
+          }
+          
+          // Show error message
+          addBotResponseDirectly("I'm sorry, I encountered an error. Please try again later.");
+        }
       });
     });
   }
@@ -226,7 +279,7 @@ export function initPredefinedQuestions() {
           <span class="bot-badge">🤖</span>
         </div>
         <div class="message-text">
-          <p>${message}</p>
+          ${message}
         </div>
       </div>
     `;
@@ -252,6 +305,22 @@ export function initPredefinedQuestions() {
         "'": '&#39;',
         '"': '&quot;'
       }[tag]));
+  }
+  
+  // Function to get CSRF token
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
   }
 }
 
