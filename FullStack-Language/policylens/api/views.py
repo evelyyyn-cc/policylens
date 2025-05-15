@@ -693,6 +693,60 @@ class ChatAPIView(APIView):
     
     def post(self, request):
         user_q = request.data.get("question", "")
+
+        from chatbot.vector_database.query_handlers import get_optimized_query, get_enhanced_prompt
+        optimized_query = get_optimized_query(user_q)
+        enhanced_prompt = get_enhanced_prompt(user_q)
+
+        if enhanced_prompt:
+            chain_components = get_qa_chain(use_custom_prompt=True,custom_prompt=enhanced_prompt)
+            llm = chain_components["llm"]
+            retriever = chain_components["retriever"]
+            
+            # Get relevant documents using optimized query
+            docs = retriever.get_relevant_documents(optimized_query)
+            
+            # Format context
+            context = "\n\n".join([doc.page_content for doc in docs])
+            
+            # Create custom messages with enhanced prompt
+            messages = [
+                {"role": "system", "content": enhanced_prompt},
+                {"role": "user", "content": f"Context: {context}\n\nQuestion: {user_q}"}
+            ]
+            
+            # Get response
+            response = llm.generate([messages])
+            answer = response.generations[0][0].text
+            
+            # Return with sources
+            sources = [
+                {"Title": doc.metadata.get("Title", "Unknown Source"), 
+                 "text": doc.page_content[:200] + "..." if len(doc.page_content) > 200 else doc.page_content}
+                for doc in docs
+            ]
+            
+            return Response({
+                "answer": answer,
+                "sources": sources
+            })
+        else:
+            # No enhanced prompt, use standard QA chain
+            qa = get_qa_chain()
+            result = qa({"query": optimized_query if optimized_query else user_q})
+            
+            # Format sources
+            sources = [
+                {"Title": doc.metadata.get("Title", "Unknown Source"), 
+                 "text": doc.page_content[:200] + "..." if len(doc.page_content) > 200 else doc.page_content}
+                for doc in result["source_documents"]
+            ]
+            
+            return Response({
+                "answer": result["result"],
+                "sources": sources
+            })
+
         qa = get_qa_chain()
         result = qa({"query": user_q})
         
