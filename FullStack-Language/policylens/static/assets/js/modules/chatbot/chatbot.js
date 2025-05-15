@@ -77,7 +77,8 @@ export function initChatbot() {
           if (typingIndicator && typingIndicator.innerHTML.includes("PolicyBot is thinking...")) {
             typingIndicator.remove();
           }
-          addBotMessage("<p>Sorry, I encountered an error. Please try again.</p>");
+          // For now, simulate a response since the backend isn't implemented
+          addBotMessage("<p>I'm sorry, I encountered an error or the backend is not available yet. This is a frontend simulation.</p>");
         }
       }
     });
@@ -162,69 +163,6 @@ export function initChatbot() {
     }
     return cookieValue;
   }
-  
-  // Simulate bot response (placeholder for actual API integration)
-  // function simulateBotResponse(userMessage) {
-  //   // This is where you would normally call your actual chatbot API
-  //   // For now, we'll just simulate some responses
-    
-  //   const lowerMessage = userMessage.toLowerCase();
-  //   let response = '';
-    
-  //   if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
-  //     response = `<p>Hello! How can I help you understand Malaysia's diesel subsidy policy today?</p>`;
-  //   } 
-  //   else if (lowerMessage.includes('subsidy') && lowerMessage.includes('policy')) {
-  //     response = `
-  //       <p>Malaysia's diesel subsidy policy was reformed in June 2024, moving from a blanket subsidy to a targeted approach.</p>
-  //       <p>Here are some key points:</p>
-  //       <ul>
-  //         <li>The price increased from RM2.15 to RM3.35 per liter in Peninsular Malaysia</li>
-  //         <li>Sabah, Sarawak & Labuan maintained the subsidized price of RM2.15</li>
-  //         <li>Eligible low-income individuals can apply for cash assistance of RM200 monthly</li>
-  //         <li>The reform aims to save the government approximately RM4 billion annually</li>
-  //       </ul>
-  //       <p>Would you like more specific information about any aspect of the policy?</p>
-  //     `;
-  //   }
-  //   else if (lowerMessage.includes('eligibility') || lowerMessage.includes('qualify')) {
-  //     response = `
-  //       <p>To be eligible for the targeted diesel subsidy in Malaysia, you need to meet these criteria:</p>
-  //       <ul>
-  //         <li>Valid Malaysian citizenship</li>
-  //         <li>Meet the individual or household income threshold</li>
-  //         <li>Own a private diesel vehicle registered with JPJ</li>
-  //         <li>Vehicle should be non-luxury and under 10 years old</li>
-  //       </ul>
-  //       <p>Applications can be submitted through the official portal at budimadani.gov.my</p>
-  //     `;
-  //   }
-  //   else if (lowerMessage.includes('price') || lowerMessage.includes('cost')) {
-  //     response = `
-  //       <p>Current diesel prices in Malaysia (as of June 2024):</p>
-  //       <ul>
-  //         <li>Peninsular Malaysia: RM3.35 per liter (market price)</li>
-  //         <li>Sabah, Sarawak & Labuan: RM2.15 per liter (subsidized)</li>
-  //       </ul>
-  //       <p>This represents a 56% increase for Peninsular Malaysia from the previous subsidized price of RM2.15 per liter.</p>
-  //     `;
-  //   }
-  //   else {
-  //     response = `
-  //       <p>I'm here to help you understand Malaysia's diesel subsidy policy. You can ask me about:</p>
-  //       <ul>
-  //         <li>The details and objectives of the current policy</li>
-  //         <li>How this policy might affect your personal finances</li>
-  //         <li>The broader economic impacts on prices and industries</li>
-  //         <li>Eligibility criteria for targeted assistance</li>
-  //         <li>Regional price differences</li>
-  //       </ul>
-  //       <p>What specific aspect would you like to know more about?</p>
-  //     `;
-  //   }
-    
-  //   addBotMessage(response);
-  // }
 }
 
 /**
@@ -233,24 +171,156 @@ export function initChatbot() {
  */
 export function initPredefinedQuestions() {
   const questionButtons = document.querySelectorAll('.question-button');
-  const userInput = document.getElementById('userInput');
+  const chatWindow = document.getElementById('chatWindow');
   
   // Handle predefined question buttons
-  if (questionButtons && userInput) {
+  if (questionButtons && chatWindow) {
     questionButtons.forEach(button => {
-      button.addEventListener('click', function() {
+      button.addEventListener('click', async function() {
         const question = this.textContent.trim();
-        userInput.value = question;
+        console.log("Predefined question clicked:", question);
         
-        // Focus on input and trigger input event for any listeners
-        userInput.focus();
-        userInput.dispatchEvent(new Event('input'));
+        // Add user message to chat
+        addUserMessageDirectly(question);
         
-        // Optional: automatically submit the form
-        // const chatForm = document.getElementById('chatForm');
-        // if (chatForm) chatForm.dispatchEvent(new Event('submit'));
+        // Show typing indicator
+        addBotResponseDirectly("<em>PolicyBot is thinking...</em>");
+        
+        try {
+          // Call the backend API with isPredefined flag
+          const response = await fetch('/chat/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              // If you're using Django's CSRF protection, uncomment the line below
+              // 'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({ 
+              question: question,
+              isPredefined: true  // Flag to indicate this is a predefined question
+            })
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          
+          // Remove typing indicator
+          const typingIndicator = chatWindow.querySelector('.bot-message:last-child');
+          if (typingIndicator && typingIndicator.innerHTML.includes("PolicyBot is thinking")) {
+            typingIndicator.remove();
+          }
+
+          // Format the response with sources
+          let botResponseHtml = data.answer;
+          if (data.sources && data.sources.length > 0) {
+            botResponseHtml += "<p><strong>Sources:</strong></p><ul>";
+            data.sources.forEach(source => {
+              const title = source.Title ? escapeHTML(source.Title) : "Unknown Source";
+              botResponseHtml += `<li>${title}</li>`; 
+            });
+            botResponseHtml += "</ul>";
+          }
+          
+          // Add the bot's response
+          addBotResponseDirectly(botResponseHtml);
+
+        } catch (error) {
+          console.error('Error fetching bot response:', error);
+          
+          // Remove typing indicator
+          const typingIndicator = chatWindow.querySelector('.bot-message:last-child');
+          if (typingIndicator && typingIndicator.innerHTML.includes("PolicyBot is thinking")) {
+            typingIndicator.remove();
+          }
+          
+          // Show error message
+          addBotResponseDirectly("I'm sorry, I encountered an error. Please try again later.");
+        }
       });
     });
+  }
+  
+  // Function to directly add user message to chat
+  function addUserMessageDirectly(message) {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('chat-message', 'user-message');
+    
+    messageElement.innerHTML = `
+      <div class="message-avatar">
+        <img src="/static/assets/images/user-avatar.svg" alt="User">
+      </div>
+      <div class="message-content">
+        <div class="message-text">
+          <p>${escapeHTML(message)}</p>
+        </div>
+      </div>
+    `;
+    
+    chatWindow.appendChild(messageElement);
+    scrollToBottom();
+  }
+  
+  // Function to directly add bot response to chat
+  function addBotResponseDirectly(message) {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('chat-message', 'bot-message');
+    
+    messageElement.innerHTML = `
+      <div class="message-avatar">
+        <img src="/static/assets/images/bot-avatar.svg" alt="PolicyBot">
+      </div>
+      <div class="message-content">
+        <div class="message-sender">
+          <span class="bot-name">PolicyBot</span>
+          <span class="bot-badge">🤖</span>
+        </div>
+        <div class="message-text">
+          ${message}
+        </div>
+      </div>
+    `;
+    
+    chatWindow.appendChild(messageElement);
+    scrollToBottom();
+  }
+  
+  // Function to scroll chat to bottom
+  function scrollToBottom() {
+    if (chatWindow) {
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+  }
+  
+  // Helper function to escape HTML to prevent XSS
+  function escapeHTML(str) {
+    return str.replace(/[&<>'"]/g, 
+      tag => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;'
+      }[tag]));
+  }
+  
+  // Function to get CSRF token
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
   }
 }
 
@@ -296,6 +366,54 @@ export function initCategoryTabs() {
 }
 
 /**
+ * Function to handle collapsible question categories
+ */
+export function initCollapsibleCategories() {
+  const collapsibles = document.querySelectorAll('.collapsible');
+  
+  collapsibles.forEach(collapsible => {
+    collapsible.addEventListener('click', function() {
+      // Toggle active class on this button
+      this.classList.toggle('active');
+      
+      // Get the next element (the content panel)
+      const content = this.nextElementSibling;
+      
+      // Toggle icon
+      const icon = this.querySelector('i');
+      
+      // If the panel is already open, close it
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+        content.classList.remove('active');
+        if (icon) icon.className = 'fas fa-chevron-down';
+      } else {
+        // Close all other panels first
+        document.querySelectorAll('.content').forEach(panel => {
+          panel.style.maxHeight = null;
+          panel.classList.remove('active');
+        });
+        
+        // Reset all other icons
+        document.querySelectorAll('.collapsible i').forEach(i => {
+          i.className = 'fas fa-chevron-down';
+        });
+        
+        // Remove active class from all other collapsibles
+        document.querySelectorAll('.collapsible').forEach(coll => {
+          if (coll !== this) coll.classList.remove('active');
+        });
+        
+        // Then open this one
+        content.classList.add('active');
+        content.style.maxHeight = content.scrollHeight + "px";
+        if (icon) icon.className = 'fas fa-chevron-up';
+      }
+    });
+  });
+}
+
+/**
  * Main initialization function for the chatbot page
  */
 export function initChatbotPage() {
@@ -307,6 +425,7 @@ export function initChatbotPage() {
     initChatbot();
     initPredefinedQuestions();
     initCategoryTabs();
+    initCollapsibleCategories(); // Add this new function call
     
     console.log('Chatbot initialized successfully');
   }
