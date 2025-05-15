@@ -21,7 +21,7 @@ from datetime import datetime, timedelta
 import calendar
 import pandas as pd
 from chatbot.vector_database.vector_store import get_qa_chain
-
+from langchain.schema import SystemMessage, HumanMessage
 
 from django.shortcuts import render
 
@@ -693,33 +693,77 @@ class ChatAPIView(APIView):
     
     def post(self, request):
         user_q = request.data.get("question", "")
-
+        is_predefined = request.data.get("isPredefined", False)
+        
         from chatbot.vector_database.query_handlers import get_optimized_query, get_enhanced_prompt
-        optimized_query = get_optimized_query(user_q)
-        enhanced_prompt = get_enhanced_prompt(user_q)
+        
+        # Direct lookup for predefined questions to ensure exact matching
+        if is_predefined:
+            from chatbot.vector_database.query_handlers import QUERY_REWRITES, ENHANCED_PROMPTS
+            print(f"Received predefined question: '{user_q}'")
+            print(f"Available predefined questions: {list(ENHANCED_PROMPTS.keys())}")
+            
+            # Check if the question exists in our predefined list
+            if user_q in ENHANCED_PROMPTS:
+                print(f"Found matching predefined question")
+                optimized_query = QUERY_REWRITES.get(user_q, user_q)
+                enhanced_prompt = ENHANCED_PROMPTS.get(user_q)
+            else:
+                # Fallback if question not found in predefined list despite being marked as such
+                print(f"Warning: Question marked as predefined but not found in dictionary: '{user_q}'")
+                optimized_query = get_optimized_query(user_q)
+                enhanced_prompt = get_enhanced_prompt(user_q)
+        else:
+            # Regular questions - standard lookup
+            optimized_query = get_optimized_query(user_q)
+            enhanced_prompt = get_enhanced_prompt(user_q)
+        formatting_suffix = """
+        Format your answer with proper HTML:
+        - Use <p> tags for paragraphs
+        - Use <ol> and <li> tags for numbered lists
+        - Use <ul> and <li> tags for bullet points
+        - Use <strong> tags for emphasis
+        
+        Ensure numbers and formatting in your answer are represented with HTML tags.
+        """
+        
+        print(f"Using query: '{optimized_query}'")
+        print(f"Enhanced prompt available: {enhanced_prompt is not None}")
 
         if enhanced_prompt:
-            chain_components = get_qa_chain(use_custom_prompt=True,custom_prompt=enhanced_prompt)
+            # Get the chain components for custom prompt handling
+            enhanced_prompt_with_formatting = enhanced_prompt + "\n\n" + formatting_suffix
+            chain_components = get_qa_chain(use_custom_prompt=True, custom_prompt=enhanced_prompt)
             llm = chain_components["llm"]
             retriever = chain_components["retriever"]
+            prompt = chain_components["prompt"]
+            custom_prompt = chain_components["custom_prompt"]
             
             # Get relevant documents using optimized query
             docs = retriever.get_relevant_documents(optimized_query)
             
-            # Format context
+            # Format context from retrieved documents
             context = "\n\n".join([doc.page_content for doc in docs])
             
-            # Create custom messages with enhanced prompt
+            # Process with the standard prompt to format the context and question
+            formatted_input = prompt.format(context=context, question=user_q)
+            
+            # Create messages for the LLM - the system message contains the custom prompt
             messages = [
-                {"role": "system", "content": enhanced_prompt},
-                {"role": "user", "content": f"Context: {context}\n\nQuestion: {user_q}"}
+                SystemMessage(content=custom_prompt),
+                HumanMessage(content=f'Context: {context}\n\nQuestion: {user_q}')
             ]
             
-            # Get response
-            response = llm.generate([messages])
-            answer = response.generations[0][0].text
+            # Get response from the LLM
+            try:
+                response = llm.generate([[msg for msg in messages]])
+                answer = response.generations[0][0].text
+                print("Answer generated in line 761 of views.py. Reverse from here to debug")
+            except Exception as e:
+                print(f"Error generating response: {str(e)}")
+                answer = "I'm sorry, I encountered an error processing your question. Please try again."
             
-            # Return with sources
+            # Format sources for the response
             sources = [
                 {"Title": doc.metadata.get("Title", "Unknown Source"), 
                  "text": doc.page_content[:200] + "..." if len(doc.page_content) > 200 else doc.page_content}
@@ -731,9 +775,19 @@ class ChatAPIView(APIView):
                 "sources": sources
             })
         else:
-            # No enhanced prompt, use standard QA chain
+            # Use standard QA chain for general questions
+            print(f"Using standard QA chain")
             qa = get_qa_chain()
-            result = qa({"query": optimized_query if optimized_query else user_q})
+            
+            try:
+                result = qa({"query": optimized_query if optimized_query else user_q})
+                print(f"Generated response using standard chain")
+            except Exception as e:
+                print(f"Error with standard chain: {str(e)}")
+                return Response({
+                    "answer": "I'm sorry, I encountered an error processing your question. Please try again.",
+                    "sources": []
+                })
             
             # Format sources
             sources = [
@@ -746,20 +800,3 @@ class ChatAPIView(APIView):
                 "answer": result["result"],
                 "sources": sources
             })
-
-        qa = get_qa_chain()
-        result = qa({"query": user_q})
-        
-        # result["result"] is the answer string
-        # result["source_documents"] is a List[Document] with .page_content and .metadata
-
-        # Format sources if you like:
-        sources = [
-            {"text": doc.page_content, **doc.metadata}
-            for doc in result["source_documents"]
-        ]
-
-        return Response({
-            "answer": result["result"],
-            "sources": sources
-        })
