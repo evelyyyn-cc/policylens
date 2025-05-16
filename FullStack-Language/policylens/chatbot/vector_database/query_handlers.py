@@ -31,30 +31,20 @@ QUERY_REWRITES = {
 ENHANCED_PROMPTS = {
     "What is the diesel subsidy policy?": """
 
-You are an expert on Malaysia's diesel subsidy policy. Explain the June 2024 reform clearly and concisely, focusing on:
-1. The shift from blanket to targeted subsidies
-2. The price change from RM2.15 to RM3.35 per liter in Peninsular Malaysia
-3. The fact that Sabah, Sarawak, and Labuan maintained the RM2.15 subsidized price
-4. The RM200 monthly cash assistance for eligible individuals
-5. The goal of reducing government expenditure while protecting vulnerable groups
+Provide a brief overview of 2 to 3 sentences of Malaysia's 2024 Diesel Subsidy Policy reform and include:
+1. The shift from a blanket subsidy to targeted subsidies
+2. The key diesel price change.
 
-End your answer with this link to the official information: "For more information, visit the Ministry of Finance Announcement: https://www.mof.gov.my/portal/en/news/press-release/government-implements-targeted-diesel-subsidy-for-peninsular-malaysia-effective-10-june-2024"
-
-Use simple language suitable for the average Malaysian citizen. Be informative but concise.
+Use simple language suitable for the average Malaysian citizen. Be informative, factual and concise. 
 """,
 
     "Why was the policy necessary?": """
 
-You are explaining why Malaysia's diesel subsidy reform was necessary. Focus on these key points:
-1. The dramatic increase in subsidy costs (from RM1.4 billion in 2019 to RM14.3 billion in 2023)
-2. The fiscal burden on government finances and how it crowded out other essential spending
-3. The problem of cross-border leakage and arbitrage due to price differentials with neighboring countries
-4. The disparity between diesel consumption growth and vehicle registration suggesting inefficiencies
-5. The need for more targeted welfare distribution that benefits those who truly need assistance
+Provide a brief 2-3 sentence explanation focusing only on:
+1. The dramatic increase in subsidy costs (mention the 2019 vs 2023 figures)
+2. The main problem this caused (fiscal burden OR cross-border leakage)
 
-Use specific figures and percentages when available. Be factual and objective while explaining the economic rationale.
-
-End your answer with: "The reform aimed to create a more sustainable financial model while ensuring subsidies reach those who need them most."
+Keep your response under 50 words. Be informative and factual.
 """,
 
     "Who benefits from the policy?": """
