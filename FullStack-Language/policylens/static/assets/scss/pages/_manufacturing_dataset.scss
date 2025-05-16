@@ -1,0 +1,149 @@
+.hero-manu-dataset {
+  @include banners($image-url:'/static/assets/images/manufacturing_dashboard.svg',$overlay-color: rgba(0, 0, 0, 0.3));
+  height: 20rem;
+}
+
+.manu-datasets-section {
+    .main-tabs {
+        display: flex;
+        justify-content: center;
+        border-bottom: 1px solid #dee2e6;
+        padding: 0;
+        margin: 20px auto 30px;
+        position: relative;
+        max-width: 400px;
+        
+        .tab-link {
+            padding: 0.8rem 3rem;
+            text-decoration: none;
+            color: $text-light;
+            font-weight: $font-weight-medium;
+            position: relative;
+            transition: color 0.3s;
+            text-align: center;
+            flex: 1;
+            white-space: nowrap;     
+            font-size: 1.2rem; 
+            
+            &:hover {
+                color: $primary-color-diesel;
+            }
+            
+            &.active {
+                color: $primary-color-diesel;
+            }
+        }
+        
+        .tab-indicator {
+            position: absolute;
+            bottom: -1px;
+            height: 3px;
+            width: 33.33%;
+            background-color: $primary-color-diesel;
+            transition: left 0.3s ease, width 0.3s ease;
+            left: 0;
+            width: 0;
+            // transform: translateX(0%);;
+        }
+    }
+
+    .manu-filter-row {
+        display: flex;
+        gap: 2rem;
+        margin: 1rem 1.5rem;
+        align-items: center; // Vertically align items if height differs
+        // padding: 15px 20px; // Add some padding
+        
+        @include responsive-md {
+        flex-direction: column;
+        gap: 10px;
+        }
+    }
+
+    .filter-controls {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+        padding: 0 10px;
+        
+        // For Manufacturing Divisions tab, adjust layout
+        #divisions-panel & {
+            flex-wrap: wrap;
+            gap: 15px;
+            
+            .filter-group {
+            flex: 1 1 45%;
+            min-width: 200px;
+            margin-right: 0;
+            }
+        }
+        .filter-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            margin-right: 15px;
+            label {
+                margin-right: 10px;
+                font-weight: 500;
+                color: #555;
+            }
+            .filter-select {
+                padding: 8px 12px;
+                border: 1px solid $border-color;
+                border-radius: 4px;
+                background-color: #fff;
+                min-width: 150px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .manu-dashboard-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-bottom: 1px solid #dee2e6;
+        padding: 0;
+        margin: 20px auto 30px; // Center section
+        position: relative;
+        width: 77%;
+        max-width: 1200px; // Max width for larger screens
+        
+        background-color: $white;
+        border-radius: $border-radius;
+        box-shadow: $shadow-md;
+        margin-bottom: 30px;
+        overflow: hidden;
+
+        .section-header {
+            background-color: $secondary-color-data;
+            color: $white;
+            padding: 15px 20px;
+            font-weight: $font-weight-medium;
+            @include flex-between;
+            
+            &.manu-header {
+                background-color: #001e64; // Darker blue for diesel section
+            }
+            
+            .title {
+                font-size: 1rem;
+                letter-spacing: 0.01em;
+            }
+            
+            .external-link-icon {
+                cursor: pointer;
+                
+                &:hover {
+                opacity: 0.8;
+                }
+            }
+        }
+        
+    }
+
+
+
+}
