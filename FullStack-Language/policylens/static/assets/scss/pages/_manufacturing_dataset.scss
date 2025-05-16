@@ -63,22 +63,36 @@
     .filter-controls {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 20px;
-        margin-top: 20px;
+        margin-bottom: 0.5rem; //
+        margin-top: 1.2rem;
         flex-wrap: wrap;
-        padding: 0 10px;
-        
-        // For Manufacturing Divisions tab, adjust layout
-        #divisions-panel & {
-            flex-wrap: wrap;
-            gap: 15px;
+        padding: 0 1.5rem;
+
+        .filter-group-container {
+            display: flex;
+            flex: 1;
+            
+            &.time-period {
+                justify-content: flex-start;
+            }
+            
+            &.display-options {
+                justify-content: flex-end;
+            }
             
             .filter-group {
-            flex: 1 1 45%;
-            min-width: 200px;
-            margin-right: 0;
+                margin-right: 15px;
+                flex: 0 0 auto;  // Don't grow or shrink
+                min-width: auto;  // Remove fixed width
             }
         }
+        
+        // For Manufacturing Divisions tab, adjust layout
+        #bar-divisions & {
+            flex-wrap: nowrap;  // Changed from wrap to nowrap
+            gap: 1rem;
+        }
+        
         .filter-group {
             display: flex;
             align-items: center;
@@ -96,6 +110,15 @@
                 background-color: #fff;
                 min-width: 150px;
                 cursor: pointer;
+                font-size: 0.9rem;
+            }
+        }
+
+        &.table {
+            justify-content: flex-start;
+
+            .filter-group {
+                margin-right: 3.5rem;
             }
         }
     }
@@ -141,9 +164,116 @@
                 }
             }
         }
+
+        .section-content {
+            padding: 1rem 2rem 2rem 2rem;
+            width: 100%; // Ensure content takes full width of section
+        }
+
+        .chart-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            // margin-bottom: 1rem;
+        }
         
     }
+}
 
+.ipi-chart-container {
+  position: relative; // Crucial for overlay positioning
+  // height: 400px; // Set height via JS or here
+  width: 100%; // Take full width of content area
+  margin-top: 20px; // Space above chart
+  height: 30rem;
 
+  // Loading Overlay Styles
+  &.loading {
+    .loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+        border-radius: $border-radius;
 
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: $primary-blue; // Use your theme color
+            animation: spin 1s ease infinite;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 0.9rem;
+            color: #333;
+          }
+      }
+  }
+
+  // Error Message Style
+  .error-message {
+    text-align: center;
+    padding: 50px 20px;
+    color: $danger-color; // Use your theme's error color
+    font-weight: $font-weight-medium;
+    background-color: lighten($danger-color, 45%);
+    border: 1px solid lighten($danger-color, 30%);
+    border-radius: $border-radius;
+  }
+}
+
+// Data table styles
+#divisionsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+  
+  th {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid $border-color;
+    background-color: #f2f2f2;
+    
+    &:nth-child(3), &:nth-child(4), &:nth-child(5) {
+      text-align: right;
+    }
+  }
+  
+  td {
+    padding: 10px;
+    border-bottom: 1px solid $border-color;
+    
+    &:nth-child(3), &:nth-child(4), &:nth-child(5) {
+      text-align: right;
+    }
+  }
+
+  tbody tr:nth-child(even) { // Target even rows in the table body
+    background-color: #f8f8f8; // A light grey color.
+
+  }
+  
+  tr:hover, tbody tr:nth-child(even):hover {
+    background-color: $text-section; // Adjusted hover to be slightly different from even rows, or choose another color
+  }
+  
+  .positive-change {
+    color: #27ae60;
+    font-weight: 500;
+  }
+  
+  .negative-change {
+    color: #e74c3c;
+    font-weight: 500;
+  }
 }

@@ -4839,164 +4839,6 @@ canvas {
   font-size: 14px;
 }
 
-<<<<<<< HEAD
-.hero-manu-dataset {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/static/assets/images/manufacturing_dashboard.svg");
-  background-size: cover;
-  background-position: center;
-  height: 180px;
-  flex-direction: column;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-  height: 20rem;
-}
-.hero-manu-dataset::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, transparent 20%, rgba(0, 0, 0, 0.2) 90%);
-  z-index: 1;
-}
-.hero-manu-dataset h1 {
-  color: #ffffff;
-  font-size: 2.2rem;
-  z-index: 2;
-  position: relative;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.manu-datasets-section .main-tabs {
-  display: flex;
-  justify-content: center;
-  border-bottom: 1px solid #dee2e6;
-  padding: 0;
-  margin: 20px auto 30px;
-  position: relative;
-  max-width: 400px;
-}
-.manu-datasets-section .main-tabs .tab-link {
-  padding: 0.8rem 3rem;
-  text-decoration: none;
-  color: #666;
-  font-weight: 500;
-  position: relative;
-  transition: color 0.3s;
-  text-align: center;
-  flex: 1;
-  white-space: nowrap;
-  font-size: 1.2rem;
-}
-.manu-datasets-section .main-tabs .tab-link:hover {
-  color: #0066cc;
-}
-.manu-datasets-section .main-tabs .tab-link.active {
-  color: #0066cc;
-}
-.manu-datasets-section .main-tabs .tab-indicator {
-  position: absolute;
-  bottom: -1px;
-  height: 3px;
-  width: 33.33%;
-  background-color: #0066cc;
-  transition: left 0.3s ease, width 0.3s ease;
-  left: 0;
-  width: 0;
-}
-.manu-datasets-section .manu-filter-row {
-  display: flex;
-  gap: 2rem;
-  margin: 1rem 1.5rem;
-  align-items: center;
-}
-@media (max-width: 768px) {
-  .manu-datasets-section .manu-filter-row {
-    flex-direction: column;
-    gap: 10px;
-  }
-}
-.manu-datasets-section .filter-controls {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-  padding: 0 10px;
-}
-#divisions-panel .manu-datasets-section .filter-controls {
-  flex-wrap: wrap;
-  gap: 15px;
-}
-#divisions-panel .manu-datasets-section .filter-controls .filter-group {
-  flex: 1 1 45%;
-  min-width: 200px;
-  margin-right: 0;
-}
-.manu-datasets-section .filter-controls .filter-group {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  margin-right: 15px;
-}
-.manu-datasets-section .filter-controls .filter-group label {
-  margin-right: 10px;
-  font-weight: 500;
-  color: #555;
-}
-.manu-datasets-section .filter-controls .filter-group .filter-select {
-  padding: 8px 12px;
-  border: 1px solid #E5E7EB;
-  border-radius: 4px;
-  background-color: #fff;
-  min-width: 150px;
-  cursor: pointer;
-}
-.manu-datasets-section .manu-dashboard-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-bottom: 1px solid #dee2e6;
-  padding: 0;
-  margin: 20px auto 30px;
-  position: relative;
-  width: 77%;
-  max-width: 1200px;
-  background-color: #ffffff;
-  border-radius: 0.375rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
-  overflow: hidden;
-}
-.manu-datasets-section .manu-dashboard-section .section-header {
-  background-color: #1a3f66;
-  color: #ffffff;
-  padding: 15px 20px;
-  font-weight: 500;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.manu-datasets-section .manu-dashboard-section .section-header.manu-header {
-  background-color: #001e64;
-}
-.manu-datasets-section .manu-dashboard-section .section-header .title {
-  font-size: 1rem;
-  letter-spacing: 0.01em;
-}
-.manu-datasets-section .manu-dashboard-section .section-header .external-link-icon {
-  cursor: pointer;
-}
-.manu-datasets-section .manu-dashboard-section .section-header .external-link-icon:hover {
-  opacity: 0.8;
-=======
 .manufacturing-impact-section {
   /* Tab Content */
 }
@@ -5104,7 +4946,269 @@ canvas {
 }
 .manufacturing-impact-section .citations-grid .data-citation a:hover {
   text-decoration: underline;
->>>>>>> 2458086016fe8362231aae05600df29f8aee6028
+}
+
+.hero-manu-dataset {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/static/assets/images/manufacturing_dashboard.svg");
+  background-size: cover;
+  background-position: center;
+  height: 180px;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  height: 20rem;
+}
+.hero-manu-dataset::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, transparent 20%, rgba(0, 0, 0, 0.2) 90%);
+  z-index: 1;
+}
+.hero-manu-dataset h1 {
+  color: #ffffff;
+  font-size: 2.2rem;
+  z-index: 2;
+  position: relative;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.manu-datasets-section .main-tabs {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #dee2e6;
+  padding: 0;
+  margin: 20px auto 30px;
+  position: relative;
+  max-width: 400px;
+}
+.manu-datasets-section .main-tabs .tab-link {
+  padding: 0.8rem 3rem;
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s;
+  text-align: center;
+  flex: 1;
+  white-space: nowrap;
+  font-size: 1.2rem;
+}
+.manu-datasets-section .main-tabs .tab-link:hover {
+  color: #0066cc;
+}
+.manu-datasets-section .main-tabs .tab-link.active {
+  color: #0066cc;
+}
+.manu-datasets-section .main-tabs .tab-indicator {
+  position: absolute;
+  bottom: -1px;
+  height: 3px;
+  width: 33.33%;
+  background-color: #0066cc;
+  transition: left 0.3s ease, width 0.3s ease;
+  left: 0;
+  width: 0;
+}
+.manu-datasets-section .manu-filter-row {
+  display: flex;
+  gap: 2rem;
+  margin: 1rem 1.5rem;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .manu-datasets-section .manu-filter-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+.manu-datasets-section .filter-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  margin-top: 1.2rem;
+  flex-wrap: wrap;
+  padding: 0 1.5rem;
+}
+.manu-datasets-section .filter-controls .filter-group-container {
+  display: flex;
+  flex: 1;
+}
+.manu-datasets-section .filter-controls .filter-group-container.time-period {
+  justify-content: flex-start;
+}
+.manu-datasets-section .filter-controls .filter-group-container.display-options {
+  justify-content: flex-end;
+}
+.manu-datasets-section .filter-controls .filter-group-container .filter-group {
+  margin-right: 15px;
+  flex: 0 0 auto;
+  min-width: auto;
+}
+#bar-divisions .manu-datasets-section .filter-controls {
+  flex-wrap: nowrap;
+  gap: 1rem;
+}
+.manu-datasets-section .filter-controls .filter-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-right: 15px;
+}
+.manu-datasets-section .filter-controls .filter-group label {
+  margin-right: 10px;
+  font-weight: 500;
+  color: #555;
+}
+.manu-datasets-section .filter-controls .filter-group .filter-select {
+  padding: 8px 12px;
+  border: 1px solid #E5E7EB;
+  border-radius: 4px;
+  background-color: #fff;
+  min-width: 150px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.manu-datasets-section .filter-controls.table {
+  justify-content: flex-start;
+}
+.manu-datasets-section .filter-controls.table .filter-group {
+  margin-right: 3.5rem;
+}
+.manu-datasets-section .manu-dashboard-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid #dee2e6;
+  padding: 0;
+  margin: 20px auto 30px;
+  position: relative;
+  width: 77%;
+  max-width: 1200px;
+  background-color: #ffffff;
+  border-radius: 0.375rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+.manu-datasets-section .manu-dashboard-section .section-header {
+  background-color: #1a3f66;
+  color: #ffffff;
+  padding: 15px 20px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.manu-datasets-section .manu-dashboard-section .section-header.manu-header {
+  background-color: #001e64;
+}
+.manu-datasets-section .manu-dashboard-section .section-header .title {
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
+.manu-datasets-section .manu-dashboard-section .section-header .external-link-icon {
+  cursor: pointer;
+}
+.manu-datasets-section .manu-dashboard-section .section-header .external-link-icon:hover {
+  opacity: 0.8;
+}
+.manu-datasets-section .manu-dashboard-section .section-content {
+  padding: 1rem 2rem 2rem 2rem;
+  width: 100%;
+}
+.manu-datasets-section .manu-dashboard-section .chart-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.ipi-chart-container {
+  position: relative;
+  width: 100%;
+  margin-top: 20px;
+  height: 30rem;
+}
+.ipi-chart-container.loading .loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  border-radius: 0.375rem;
+}
+.ipi-chart-container.loading .loading-overlay .spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border-left-color: #1a3a72;
+  animation: spin 1s ease infinite;
+  margin-bottom: 10px;
+}
+.ipi-chart-container.loading .loading-overlay p {
+  font-size: 0.9rem;
+  color: #333;
+}
+.ipi-chart-container .error-message {
+  text-align: center;
+  padding: 50px 20px;
+  color: #d41b1b;
+  font-weight: 500;
+  background-color: #fadada;
+  border: 1px solid #f29696;
+  border-radius: 0.375rem;
+}
+
+#divisionsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+}
+#divisionsTable th {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid #E5E7EB;
+  background-color: #f2f2f2;
+}
+#divisionsTable th:nth-child(3), #divisionsTable th:nth-child(4), #divisionsTable th:nth-child(5) {
+  text-align: right;
+}
+#divisionsTable td {
+  padding: 10px;
+  border-bottom: 1px solid #E5E7EB;
+}
+#divisionsTable td:nth-child(3), #divisionsTable td:nth-child(4), #divisionsTable td:nth-child(5) {
+  text-align: right;
+}
+#divisionsTable tbody tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+#divisionsTable tr:hover, #divisionsTable tbody tr:nth-child(even):hover {
+  background-color: #e1f1fd;
+}
+#divisionsTable .positive-change {
+  color: #27ae60;
+  font-weight: 500;
+}
+#divisionsTable .negative-change {
+  color: #e74c3c;
+  font-weight: 500;
 }
 
 /*

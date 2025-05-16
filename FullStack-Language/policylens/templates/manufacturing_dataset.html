@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/static/assets/scss/main.css">
     <title>Manufacturing Datasets</title>
 </head>
-<body class="cpi-datasets-page">
+<body class="manufacturing-datasets-page">
     {% include "header.html" %}
 
     <div class="breadcrumb-container">
@@ -65,10 +65,9 @@
                     <span class="title">Manufacturing Production Index (IPI)</span>
                 </div>
 
-                <div class="manu-filter-row">
+                <!-- <div class="manu-filter-row">
                     <div class="filter-dropdown">
-                        <!-- <label>{% trans "Year" %}</label> -->
-                        <label>Year</label>
+                        <label>{% trans "Year" %}</label>
                         <div class="dropdown-select">
                             <span>2024</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -77,7 +76,6 @@
                         </div>
                     </div>
                     <div class="filter-dropdown">
-                        <!-- <label>{% trans "Region" %}</label> -->
                         <label>Series Type</label>
                         <div class="dropdown-select">
                             <span>Absolute Values</span>
@@ -86,9 +84,9 @@
                             </svg>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <!-- <div class="filter-controls">
+                <div class="filter-controls">
                     <div class="filter-group">
                         <label for="time-period">Time Period:</label>
                         <select id="time-period" class="filter-select">
@@ -114,7 +112,25 @@
                             <option value="growth_mom">Month on Month Growth</option>
                         </select>
                     </div>
-                </div> -->
+                </div>
+
+                <div class="section-content">
+                    <div class="chart-title">
+                        Manufacturing Production Index (IPI)
+                    </div>
+
+                    <div class="ipi-chart-container">
+                        <canvas class="ipi-chart" id="ipiChart"></canvas>
+                    </div>
+
+                    <div class="citations-grid">
+                        <div class="data-citation">
+                            <strong>{% trans "Data Source:" %}</strong> {% trans "data.gov.my, 2010-2025" %}<br>
+                            <strong>{% trans "URL:" %}</strong> <a href="https://data.gov.my/data-catalogue/ipi_1d?series=abs&section=c&visual=table" target="_blank">https://data.gov.my/data-catalogue/ipi_1d?series=abs&section=c&visual=table</a ><br>
+                            <strong>{% trans "Methodology:" %}</strong> IPI by section values were collected from official goverment data centers.
+                        </div>
+                    </div>
+                </div>
 
             </section>
 
@@ -126,10 +142,79 @@
                     <span class="title">Manufacturing Divisions</span>
                 </div>
 
-                
-        
-            </section>
+                <div class="filter-controls" id="bar-divisions">
+                    <div class="filter-group-container time-period">
+                        <div class="filter-group">
+                            <label for="division-month">Month:</label>
+                            <select id="division-month" class="filter-select">
+                            <option value="1">January</option>
+                            <option value="2" selected>February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="division-year">Year:</label>
+                            <select id="division-year" class="filter-select">
+                            <option value="2025">2025</option>
+                            <option value="2024" selected>2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
+                            <option value="2017">2017</option>
+                            <option value="2016">2016</option>
+                            <option value="2015">2015</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filter-group-container display-options">
+                        <div class="filter-group">
+                            <label for="series-type-division">Series Type:</label>
+                            <select id="series-type-division" class="filter-select">
+                            <option value="abs">Absolute Values</option>
+                            <option value="growth_yoy">Year on Year Growth</option>
+                            <option value="growth_mom">Month on Month Growth</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="display-options">Display Options:</label>
+                            <select id="display-options" class="filter-select">
+                            <option value="top" selected>Top 10 Divisions</option>
+                            <option value="all">All Divisions</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="section-content">
+                    <div class="chart-title">
+                        Manufacturing Divisions Index
+                    </div>
+
+                    <div class="divisions-chart-container">
+                        <canvas class="divisions-chart" id="divisionsChart"></canvas>
+                    </div>
+
+                    <div class="citations-grid">
+                        <div class="data-citation">
+                            <strong>{% trans "Data Source:" %}</strong> {% trans "data.gov.my, 2010-2025" %}<br>
+                            <strong>{% trans "URL:" %}</strong> <a href="https://data.gov.my/data-catalogue/ipi_2d?series=abs&visual=table" target="_blank">https://data.gov.my/data-catalogue/ipi_2d?series=abs&visual=table</a ><br>
+                            <strong>{% trans "Methodology:" %}</strong> IPI by division values were collected from official goverment data centers.
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
 
         <div class="tab-content" id="manu-table-tab">
@@ -138,6 +223,88 @@
                     <span class="title">Manufacturing Divisions Table</span>
                 </div>
 
+                <div class="filter-controls table">
+                    <div class="filter-group">
+                        <label for="table-month">Month:</label>
+                        <select id="table-month" class="filter-select">
+                            <option value="1">January</option>
+                            <option value="2" selected>February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="table-year">Year:</label>
+                        <select id="table-year" class="filter-select">
+                            <option value="2025">2025</option>
+                            <option value="2024" selected>2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
+                            <option value="2017">2017</option>
+                            <option value="2016">2016</option>
+                            <option value="2015">2015</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="section-content">
+                    <div class="chart-title">
+                        Manufacturing Divisions Table
+                    </div>
+
+                    <table id="divisionsTable">
+                        <thread>
+                            <tr>
+                                <th>
+                                    Division
+                                </th>
+
+                                <th>
+                                    Division Name
+                                </th>
+
+                                <th>
+                                    Index Value
+                                </th>
+
+                                <th>
+                                    YoY Change (%)
+                                </th>
+
+                                <th>
+                                    MoM Change (%)
+                                </th>
+                            </tr>
+
+                        </thread>
+
+                        <tbody id="divisionsTableBody">
+                            <!-- Table rows will be inserted here by JavaScript -->
+                        </tbody>
+
+                    </table>
+
+
+                    <div class="citations-grid">
+                        <div class="data-citation">
+                            <strong>{% trans "Data Source:" %}</strong> {% trans "data.gov.my, 2010-2025" %}<br>
+                            <strong>{% trans "URL:" %}</strong> <a href="https://data.gov.my/data-catalogue/ipi_2d?series=abs&visual=table" target="_blank">https://data.gov.my/data-catalogue/ipi_2d?series=abs&visual=table</a ><br>
+                            <strong>{% trans "Methodology:" %}</strong> IPI by division values were collected from official goverment data centers.
+                        </div>
+                    </div>
+                </div>
 
             </section>
 
