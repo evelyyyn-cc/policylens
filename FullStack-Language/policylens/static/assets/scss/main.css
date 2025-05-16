@@ -4683,13 +4683,6 @@ canvas {
   margin-bottom: 0.5rem;
 }
 
-.chart-container {
-  position: relative;
-  height: 350px;
-  width: 100%;
-  margin-bottom: 1.5rem;
-}
-
 .data-table {
   width: 100%;
   border-collapse: collapse;
@@ -4797,14 +4790,14 @@ canvas {
 }
 #overview .card-content .section-description {
   font-size: 1rem;
-  color: #1F2937;
+  color: #1f2937;
   margin-bottom: 1.5rem;
   line-height: 1.6;
 }
 #overview .card-content .key-observations h3 {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #1F2937;
+  color: #1f2937;
   margin-bottom: 1rem;
 }
 #overview .card-content .key-observations .observation-list {
@@ -4821,7 +4814,7 @@ canvas {
 #overview .card-content .data-source {
   margin-top: 1.5rem;
   font-size: 0.875rem;
-  color: #6B7280;
+  color: #6b7280;
   font-style: italic;
 }
 
@@ -4846,6 +4839,7 @@ canvas {
   font-size: 14px;
 }
 
+<<<<<<< HEAD
 .hero-manu-dataset {
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/static/assets/images/manufacturing_dashboard.svg");
   background-size: cover;
@@ -5002,6 +4996,115 @@ canvas {
 }
 .manu-datasets-section .manu-dashboard-section .section-header .external-link-icon:hover {
   opacity: 0.8;
+=======
+.manufacturing-impact-section {
+  /* Tab Content */
+}
+.manufacturing-impact-section .tab-content {
+  display: none !important; /* 强制隐藏所有标签内容 */
+  background-color: #ffffff;
+  padding: 1.5rem;
+  margin: 0 auto !important; /* 强制居中显示 */
+  width: 100% !important; /* 强制宽度为80% */
+  min-height: 600px; /* 确保至少有足够的高度显示图表 */
+  /* 确保图表容器的大小适当 */
+}
+@media (min-width: 768px) {
+  .manufacturing-impact-section .tab-content {
+    padding: 1.5rem 2rem;
+  }
+}
+@media (min-width: 992px) {
+  .manufacturing-impact-section .tab-content {
+    padding: 1.5rem 4rem;
+  }
+}
+@media (min-width: 1200px) {
+  .manufacturing-impact-section .tab-content {
+    padding: 1.5rem 6rem;
+  }
+}
+@media (min-width: 1400px) {
+  .manufacturing-impact-section .tab-content {
+    padding: 1.5rem 8rem;
+  }
+}
+.manufacturing-impact-section .tab-content.active {
+  display: block !important; /* 强制显示激活的标签内容 */
+}
+.manufacturing-impact-section .tab-content .chart-container {
+  position: relative;
+  height: 350px;
+  width: 100% !important; /* 图表容器宽度100%，相对于父容器的80% */
+  margin: 0 auto !important; /* 图表容器居中 */
+  margin-bottom: 2.5rem !important;
+  /* 在小屏幕上调整高度 */
+  /* 特定图表的调整 */
+}
+@media (max-width: 767px) {
+  .manufacturing-impact-section .tab-content .chart-container {
+    height: 300px;
+  }
+}
+@media (min-width: 768px) {
+  .manufacturing-impact-section .tab-content .chart-container {
+    height: 350px;
+  }
+}
+@media (min-width: 992px) {
+  .manufacturing-impact-section .tab-content .chart-container {
+    height: 400px;
+  }
+}
+.manufacturing-impact-section .tab-content .chart-container#sectorSensitivityChart {
+  height: 500px; /* 水平条形图需要更高一些 */
+}
+.manufacturing-impact-section .page-header {
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
+.manufacturing-impact-section .page-header .page-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.4rem;
+}
+.manufacturing-impact-section .page-header .page-subtitle {
+  color: #4B5563;
+  font-size: 1rem;
+}
+.manufacturing-impact-section .disclaimer {
+  color: orange;
+  margin-bottom: 1rem;
+}
+.manufacturing-impact-section .citations-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  .manufacturing-impact-section .citations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.manufacturing-impact-section .citations-grid .data-citation {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  line-height: 1.4;
+}
+.manufacturing-impact-section .citations-grid .data-citation strong {
+  font-weight: 600;
+}
+.manufacturing-impact-section .citations-grid .data-citation a {
+  color: #0066cc;
+  text-decoration: none;
+}
+.manufacturing-impact-section .citations-grid .data-citation a:hover {
+  text-decoration: underline;
+>>>>>>> 2458086016fe8362231aae05600df29f8aee6028
 }
 
 /*

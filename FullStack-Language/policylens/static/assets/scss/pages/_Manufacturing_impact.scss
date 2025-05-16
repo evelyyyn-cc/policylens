@@ -70,7 +70,6 @@
   }
 }
 
-
 // Navigation buttons
 .navigation-buttons {
   margin-top: -1.5rem;
@@ -128,8 +127,8 @@
     position: relative;
 
     h2 {
-        font-size: $font-size-2xl; // Adjusted font size
-        font-weight: $font-weight-bold; // Bold weight
+        font-size: 1.5rem; // Adjusted font size (替换变量)
+        font-weight: 700; // Bold weight (替换变量)
         margin: 0;
     }
 
@@ -177,8 +176,7 @@
             opacity: 1;
         }
     }
-}
-
+  }
   
   .card-content {
     color: #4b5563;
@@ -214,14 +212,6 @@
   }
 }
 
-// Charts
-.chart-container {
-  position: relative;
-  height: 350px;
-  width: 100%;
-  margin-bottom: 1.5rem;
-}
-
 // Data tables
 .data-table {
   width: 100%;
@@ -243,9 +233,6 @@
     background-color: #F9FAFB;
   }
 }
-
-
-
 
 // Tooltip
 .tooltip {
@@ -292,8 +279,8 @@
         position: relative;
 
         h2 {
-            font-size: $font-size-2xl; // Adjusted font size
-            font-weight: $font-weight-bold; // Bold weight
+            font-size: 1.5rem; // Adjusted font size (替换变量)
+            font-weight: 700; // Bold weight (替换变量)
             margin: 0;
         }
 
@@ -350,17 +337,17 @@
         border-radius: 0 0 0.5rem 0.5rem; // Rounded corners
 
         .section-description {
-            font-size: $font-size-base; // Standard font size
-            color: $gray-800; // Dark gray text
+            font-size: 1rem; // Standard font size (替换变量)
+            color: #1f2937; // Dark gray text (替换变量)
             margin-bottom: 1.5rem; // Spacing below
             line-height: 1.6; // Improved line height for readability
         }
 
         .key-observations {
             h3 {
-                font-size: $font-size-xl; // Consistent with other headers
-                font-weight: $font-weight-semibold; // Semibold weight
-                color: $gray-800; // Dark gray text
+                font-size: 1.25rem; // Consistent with other headers (替换变量)
+                font-weight: 600; // Semibold weight (替换变量)
+                color: #1f2937; // Dark gray text (替换变量)
                 margin-bottom: 1rem; // Spacing below
             }
 
@@ -370,10 +357,10 @@
 
                 li {
                     margin-bottom: 0.5rem; // Spacing between list items
-                    font-size: $font-size-base; // Standard font size
+                    font-size: 1rem; // Standard font size (替换变量)
 
                     .font-medium {
-                        font-weight: $font-weight-semibold; // Emphasized text
+                        font-weight: 600; // Emphasized text (替换变量)
                     }
                 }
             }
@@ -381,8 +368,8 @@
 
         .data-source {
             margin-top: 1.5rem; // Spacing above
-            font-size: $font-size-sm; // Smaller font size for citations
-            color: $gray-500; // Lighter gray color for citations
+            font-size: 0.875rem; // Smaller font size for citations (替换变量)
+            color: #6b7280; // Lighter gray color for citations (替换变量)
             font-style: italic; // Italicized text for differentiation
         }
     }
@@ -410,3 +397,116 @@
   }
 }
 
+// 新增的 manufacturing-impact-section 样式，用于覆盖之前的样式
+.manufacturing-impact-section {
+  /* Tab Content */
+  .tab-content {
+    display: none !important; /* 强制隐藏所有标签内容 */
+    background-color: #ffffff;
+    padding: 1.5rem;
+    margin: 0 auto !important; /* 强制居中显示 */
+    width: 100% !important; /* 强制宽度为80% */
+    min-height: 600px; /* 确保至少有足够的高度显示图表 */
+    /* 确保图表容器的大小适当 */
+    
+    @media (min-width: 768px) {
+      padding: 1.5rem 2rem;
+    }
+    
+    @media (min-width: 992px) {
+      padding: 1.5rem 4rem;
+    }
+    
+    @media (min-width: 1200px) {
+      padding: 1.5rem 6rem;
+    }
+    
+    @media (min-width: 1400px) {
+      padding: 1.5rem 8rem;
+    }
+    
+    &.active {
+      display: block !important; /* 强制显示激活的标签内容 */
+    }
+    
+    .chart-container {
+      position: relative;
+      height: 350px;
+      width: 100% !important; /* 图表容器宽度100%，相对于父容器的80% */
+      margin: 0 auto !important; /* 图表容器居中 */
+      margin-bottom: 2.5rem !important;
+      
+      /* 在小屏幕上调整高度 */
+      @media (max-width: 767px) {
+        height: 300px;
+      }
+      
+      @media (min-width: 768px) {
+        height: 350px;
+      }
+      
+      @media (min-width: 992px) {
+        height: 400px;
+      }
+      
+      /* 特定图表的调整 */
+      &#sectorSensitivityChart {
+        height: 500px; /* 水平条形图需要更高一些 */
+      }
+    }
+  }
+  
+  .page-header {
+    margin-bottom: 1.2rem;
+    text-align: center;
+    
+    .page-title {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 0.4rem;
+    }
+    
+    .page-subtitle {
+      color: #4B5563;
+      font-size: 1rem;
+    }
+  }
+  
+  .disclaimer {
+    color: orange;
+    margin-bottom: 1rem;
+  }
+  
+  .citations-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .data-citation {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #eee;
+      line-height: 1.4;
+      
+      strong {
+        font-weight: 600;
+      }
+      
+      a {
+        color: #0066cc;
+        text-decoration: none;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
