@@ -22,6 +22,7 @@ import calendar
 import pandas as pd
 from chatbot.vector_database.vector_store import get_qa_chain
 from langchain.schema import SystemMessage, HumanMessage
+from chatbot.vector_database.query_handlers import get_optimized_query, get_enhanced_prompt_template,get_default_prompt_template
 
 from django.shortcuts import render
 
@@ -698,108 +699,66 @@ class ChatAPIView(APIView):
         user_q = request.data.get("question", "")
         is_predefined = request.data.get("isPredefined", False)
         
-        from chatbot.vector_database.query_handlers import get_optimized_query, get_enhanced_prompt
+        
         
         # Direct lookup for predefined questions to ensure exact matching
         if is_predefined:
-            from chatbot.vector_database.query_handlers import QUERY_REWRITES, ENHANCED_PROMPTS
-            print(f"Received predefined question: '{user_q}'")
-            print(f"Available predefined questions: {list(ENHANCED_PROMPTS.keys())}")
+            # This is a question from the predefined list
+            print(f"Handling predefined question: '{user_q}'")
             
-            # Check if the question exists in our predefined list
-            if user_q in ENHANCED_PROMPTS:
-                print(f"Found matching predefined question")
-                optimized_query = QUERY_REWRITES.get(user_q, user_q)
-                enhanced_prompt = ENHANCED_PROMPTS.get(user_q)
-            else:
-                # Fallback if question not found in predefined list despite being marked as such
-                print(f"Warning: Question marked as predefined but not found in dictionary: '{user_q}'")
-                optimized_query = get_optimized_query(user_q)
-                enhanced_prompt = get_enhanced_prompt(user_q)
-        else:
-            # Regular questions - standard lookup
+            # Get optimized query
             optimized_query = get_optimized_query(user_q)
-            enhanced_prompt = get_enhanced_prompt(user_q)
-        formatting_suffix = """
-        Format your answer with proper HTML:
-        - Use <p> tags for paragraphs
-        - Use <ol> and <li> tags for numbered lists
-        - Use <ul> and <li> tags for bullet points
-        - Use <strong> tags for emphasis
-        
-        Ensure numbers and formatting in your answer are represented with HTML tags.
-        """
-        
-        print(f"Using query: '{optimized_query}'")
-        print(f"Enhanced prompt available: {enhanced_prompt is not None}")
-
-        if enhanced_prompt:
-            # Get the chain components for custom prompt handling
-            enhanced_prompt_with_formatting = enhanced_prompt + "\n\n" + formatting_suffix
-            chain_components = get_qa_chain(use_custom_prompt=True, custom_prompt=enhanced_prompt)
-            llm = chain_components["llm"]
-            retriever = chain_components["retriever"]
-            prompt = chain_components["prompt"]
-            custom_prompt = chain_components["custom_prompt"]
             
-            # Get relevant documents using optimized query
-            docs = retriever.get_relevant_documents(optimized_query)
-            
-            # Format context from retrieved documents
-            context = "\n\n".join([doc.page_content for doc in docs])
-            
-            # Process with the standard prompt to format the context and question
-            formatted_input = prompt.format(context=context, question=user_q)
-            
-            # Create messages for the LLM - the system message contains the custom prompt
-            messages = [
-                SystemMessage(content=custom_prompt),
-                HumanMessage(content=f'Context: {context}\n\nQuestion: {user_q}')
-            ]
-            
-            # Get response from the LLM
-            try:
-                response = llm.generate([[msg for msg in messages]])
-                answer = response.generations[0][0].text
-                print("Answer generated in line 761 of views.py. Reverse from here to debug")
-            except Exception as e:
-                print(f"Error generating response: {str(e)}")
-                answer = "I'm sorry, I encountered an error processing your question. Please try again."
-            
-            # Format sources for the response
-            sources = [
-                {"Title": doc.metadata.get("Title", "Unknown Source"), 
-                 "text": doc.page_content[:200] + "..." if len(doc.page_content) > 200 else doc.page_content}
-                for doc in docs
-            ]
-            
-            return Response({
-                "answer": answer,
-                "sources": sources
-            })
+            # Get enhanced prompt templates if available
+            prompt_templates = get_enhanced_prompt_template(user_q)
         else:
-            # Use standard QA chain for general questions
-            print(f"Using standard QA chain")
-            qa = get_qa_chain()
+            # This is a free-form question typed by the user
+            print(f"Handling user-typed question: '{user_q}'")
+            optimized_query = user_q  # Use original query for free-form questions
+            prompt_templates = get_default_prompt_template()  # No enhanced templates for free-form
+        chain_components = get_qa_chain()
+        
+        llm = chain_components["llm"]
+        retriever = chain_components["retriever"]
+        
+        # Step 3: Retrieve relevant documents
+        print(f"Searching with query: '{optimized_query}'")
+        docs = retriever.get_relevant_documents(optimized_query)
+        
+        # Format context from retrieved documents
+        context = "\n\n".join([doc.page_content for doc in docs])
+        
+        # Step 4: Generate the response using the appropriate templates
+        try:
+            # Format the human message with context and question
+            human_content = prompt_templates["human_template"].format(
+                context=context,
+                question=user_q
+            )
             
-            try:
-                result = qa({"query": optimized_query if optimized_query else user_q})
-                print(f"Generated response using standard chain")
-            except Exception as e:
-                print(f"Error with standard chain: {str(e)}")
-                return Response({
-                    "answer": "I'm sorry, I encountered an error processing your question. Please try again.",
-                    "sources": []
-                })
-            
-            # Format sources
-            sources = [
-                {"Title": doc.metadata.get("Title", "Unknown Source"), 
-                 "text": doc.page_content[:200] + "..." if len(doc.page_content) > 200 else doc.page_content}
-                for doc in result["source_documents"]
+            # Create the messages
+            messages = [
+                SystemMessage(content=prompt_templates["system_content"]),
+                HumanMessage(content=human_content)
             ]
             
-            return Response({
-                "answer": result["result"],
-                "sources": sources
-            })
+            # Generate the response
+            response = llm.generate([[msg for msg in messages]])
+            answer = response.generations[0][0].text
+                
+        except Exception as e:
+            print(f"Error generating response: {str(e)}")
+            answer = "I'm sorry, I encountered an error processing your question. Please try again."
+        
+        # Step 5: Format the sources
+        sources = [
+            {"Title": doc.metadata.get("Title", "Unknown Source"), 
+            "text": doc.page_content[:200] + "..." if len(doc.page_content) > 200 else doc.page_content}
+            for doc in docs
+        ]
+        
+        # Step 6: Return the response
+        return Response({
+            "answer": answer,
+            "sources": sources
+        })

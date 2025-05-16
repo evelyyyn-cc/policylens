@@ -5,11 +5,157 @@
  * Handles all chatbot interaction functionality
  */
 
+// Shared utility functions
+function scrollToBottom() {
+  const chatWindow = document.getElementById('chatWindow');
+  if (chatWindow) {
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+  }
+}
+
+function escapeHTML(str) {
+  return str.replace(/[&<>'"]/g, 
+    tag => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;'
+    }[tag]));
+}
+
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+// Shared message functions
+function addUserMessage(message) {
+  const chatWindow = document.getElementById('chatWindow');
+  const messageElement = document.createElement('div');
+  messageElement.classList.add('chat-message', 'user-message');
+  
+  messageElement.innerHTML = `
+    <div class="message-avatar">
+      <img src="/static/assets/images/user-avatar.svg" alt="User">
+    </div>
+    <div class="message-content">
+      <div class="message-text">
+        <p>${escapeHTML(message)}</p>
+      </div>
+    </div>
+  `;
+  
+  chatWindow.appendChild(messageElement);
+  scrollToBottom();
+}
+
+function addBotMessage(message, isHTML = true) {
+  const chatWindow = document.getElementById('chatWindow');
+  const messageElement = document.createElement('div');
+  messageElement.classList.add('chat-message', 'bot-message');
+  
+  // If the message isn't already HTML and isn't meant to be treated as HTML, escape it
+  const messageContent = isHTML ? message : `<p>${escapeHTML(message)}</p>`;
+  
+  messageElement.innerHTML = `
+    <div class="message-avatar">
+      <img src="/static/assets/images/bot-avatar.svg" alt="PolicyBot">
+    </div>
+    <div class="message-content">
+      <div class="message-sender">
+        <span class="bot-name">PolicyBot</span>
+        <span class="bot-badge">🤖</span>
+      </div>
+      <div class="message-text">
+        ${messageContent}
+      </div>
+    </div>
+  `;
+  
+  chatWindow.appendChild(messageElement);
+  scrollToBottom();
+}
+
+// Remove typing indicator if present
+function removeTypingIndicator() {
+  const chatWindow = document.getElementById('chatWindow');
+  const typingIndicator = chatWindow.querySelector('.bot-message:last-child');
+  if (typingIndicator && typingIndicator.innerHTML.includes("PolicyBot is thinking")) {
+    typingIndicator.remove();
+  }
+}
+
+// Shared API call function
+async function fetchBotResponse(question, isPredefined = false) {
+  try {
+    const response = await fetch('/chat/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Uncomment if using CSRF protection
+        // 'X-CSRFToken': getCookie('csrftoken')
+      },
+      body: JSON.stringify({ 
+        question: question,
+        isPredefined: isPredefined
+      })
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    // Remove typing indicator
+    removeTypingIndicator();
+
+    // Format the response with sources
+    let botResponseHtml = data.answer;
+    console.log("Raw answer from API:", data.answer);
+    if (data.sources && data.sources.length > 0) {
+      botResponseHtml += "<p><strong>Sources:</strong></p><ul>";
+      data.sources.forEach(source => {
+        const title = source.Title ? escapeHTML(source.Title) : "Unknown Source";
+        botResponseHtml += `<li>${title}</li>`; 
+      });
+      botResponseHtml += "</ul>";
+    }
+    
+    // Add the bot's response
+    addBotMessage(botResponseHtml);
+    console.log("Formatted HTML:", botResponseHtml);
+    
+    return true;
+  } catch (error) {
+    console.error('Error fetching bot response:', error);
+    
+    // Remove typing indicator
+    removeTypingIndicator();
+    
+    // Show error message
+    addBotMessage("I'm sorry, I encountered an error. Please try again later.");
+    
+    return false;
+  }
+}
+
 // Core chatbot functionality
 export function initChatbot() {
   const chatForm = document.getElementById('chatForm');
   const userInput = document.getElementById('userInput');
-  const chatWindow = document.getElementById('chatWindow');
   
   // Initialize - scroll to bottom of chat
   scrollToBottom();
@@ -27,141 +173,13 @@ export function initChatbot() {
         // Clear input
         userInput.value = '';
 
-        // Show a typing indicator (optional)
+        // Show a typing indicator
         addBotMessage("<p><em>PolicyBot is thinking...</em></p>");
         
-        try {
-          const response = await fetch('/chat/', { // API call
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              // If you're using Django's CSRF protection, you'll need to include the CSRF token
-              // 'X-CSRFToken': getCookie('csrftoken') // You'll need a getCookie function
-            },
-            body: JSON.stringify({ question: message })
-          });
-
-          if (!response.ok) {
-            // Handle HTTP errors
-            const errorData = await response.json();
-            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
-          }
-
-          const data = await response.json();
-          
-          // Remove typing indicator if you added one
-          const typingIndicator = chatWindow.querySelector('.bot-message:last-child');
-          if (typingIndicator && typingIndicator.innerHTML.includes("PolicyBot is thinking...")) {
-            typingIndicator.remove();
-          }
-
-          // Display the actual bot response
-          // You might want to format the sources as well if you plan to display them
-          let botResponseHtml = `<p>${escapeHTML(data.answer)}</p>`;
-          if (data.sources && data.sources.length > 0) {
-            botResponseHtml += "<p><strong>Sources:</strong></p><ul>";
-            data.sources.forEach(source => {
-              // Assuming source.Title and a snippet of source.text might be relevant
-              // Adjust based on what metadata you have and want to show
-              const title = source.Title ? escapeHTML(source.Title) : "Unknown Source";
-              botResponseHtml += `<li>${title}</li>`; 
-            });
-            botResponseHtml += "</ul>";
-          }
-          addBotMessage(botResponseHtml);
-
-        } catch (error) {
-          console.error('Error fetching bot response:', error);
-          // Remove typing indicator if it exists
-          const typingIndicator = chatWindow.querySelector('.bot-message:last-child');
-          if (typingIndicator && typingIndicator.innerHTML.includes("PolicyBot is thinking...")) {
-            typingIndicator.remove();
-          }
-          // For now, simulate a response since the backend isn't implemented
-          addBotMessage("<p>I'm sorry, I encountered an error or the backend is not available yet. This is a frontend simulation.</p>");
-        }
+        // Call API to get bot response
+        await fetchBotResponse(message, false);
       }
     });
-  }
-
-  
-  // Function to add user message to chat
-  function addUserMessage(message) {
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('chat-message', 'user-message');
-    
-    messageElement.innerHTML = `
-      <div class="message-avatar">
-        <img src="/static/assets/images/user-avatar.svg" alt="User">
-      </div>
-      <div class="message-content">
-        <div class="message-text">
-          <p>${escapeHTML(message)}</p>
-        </div>
-      </div>
-    `;
-    
-    chatWindow.appendChild(messageElement);
-    scrollToBottom();
-  }
-  
-  // Function to add bot message to chat
-  function addBotMessage(message) {
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('chat-message', 'bot-message');
-    
-    messageElement.innerHTML = `
-      <div class="message-avatar">
-        <img src="/static/assets/images/bot-avatar.svg" alt="PolicyBot">
-      </div>
-      <div class="message-content">
-        <div class="message-sender">
-          <span class="bot-name">PolicyBot</span>
-          <span class="bot-badge">🤖</span>
-        </div>
-        <div class="message-text">
-          ${message}
-        </div>
-      </div>
-    `;
-    
-    chatWindow.appendChild(messageElement);
-    scrollToBottom();
-  }
-  
-  // Function to scroll chat to bottom
-  function scrollToBottom() {
-    if (chatWindow) {
-      chatWindow.scrollTop = chatWindow.scrollHeight;
-    }
-  }
-  
-  // Helper function to escape HTML to prevent XSS
-  function escapeHTML(str) {
-    return str.replace(/[&<>'"]/g, 
-      tag => ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        "'": '&#39;',
-        '"': '&quot;'
-      }[tag]));
-  }
-
-  // function to get the CSRF token if you're using Django's CSRF protection
-  function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-          break;
-        }
-      }
-    }
-    return cookieValue;
   }
 }
 
@@ -171,156 +189,24 @@ export function initChatbot() {
  */
 export function initPredefinedQuestions() {
   const questionButtons = document.querySelectorAll('.question-button');
-  const chatWindow = document.getElementById('chatWindow');
   
   // Handle predefined question buttons
-  if (questionButtons && chatWindow) {
+  if (questionButtons) {
     questionButtons.forEach(button => {
       button.addEventListener('click', async function() {
         const question = this.textContent.trim();
         console.log("Predefined question clicked:", question);
         
         // Add user message to chat
-        addUserMessageDirectly(question);
+        addUserMessage(question);
         
         // Show typing indicator
-        addBotResponseDirectly("<em>PolicyBot is thinking...</em>");
+        addBotMessage("<p><em>PolicyBot is thinking...</em></p>");
         
-        try {
-          // Call the backend API with isPredefined flag
-          const response = await fetch('/chat/', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              // If you're using Django's CSRF protection, uncomment the line below
-              // 'X-CSRFToken': getCookie('csrftoken')
-            },
-            body: JSON.stringify({ 
-              question: question,
-              isPredefined: true  // Flag to indicate this is a predefined question
-            })
-          });
-
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
-          }
-
-          const data = await response.json();
-          
-          // Remove typing indicator
-          const typingIndicator = chatWindow.querySelector('.bot-message:last-child');
-          if (typingIndicator && typingIndicator.innerHTML.includes("PolicyBot is thinking")) {
-            typingIndicator.remove();
-          }
-
-          // Format the response with sources
-          let botResponseHtml = data.answer;
-          if (data.sources && data.sources.length > 0) {
-            botResponseHtml += "<p><strong>Sources:</strong></p><ul>";
-            data.sources.forEach(source => {
-              const title = source.Title ? escapeHTML(source.Title) : "Unknown Source";
-              botResponseHtml += `<li>${title}</li>`; 
-            });
-            botResponseHtml += "</ul>";
-          }
-          
-          // Add the bot's response
-          addBotResponseDirectly(botResponseHtml);
-
-        } catch (error) {
-          console.error('Error fetching bot response:', error);
-          
-          // Remove typing indicator
-          const typingIndicator = chatWindow.querySelector('.bot-message:last-child');
-          if (typingIndicator && typingIndicator.innerHTML.includes("PolicyBot is thinking")) {
-            typingIndicator.remove();
-          }
-          
-          // Show error message
-          addBotResponseDirectly("I'm sorry, I encountered an error. Please try again later.");
-        }
+        // Call API to get bot response
+        await fetchBotResponse(question, true);
       });
     });
-  }
-  
-  // Function to directly add user message to chat
-  function addUserMessageDirectly(message) {
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('chat-message', 'user-message');
-    
-    messageElement.innerHTML = `
-      <div class="message-avatar">
-        <img src="/static/assets/images/user-avatar.svg" alt="User">
-      </div>
-      <div class="message-content">
-        <div class="message-text">
-          <p>${escapeHTML(message)}</p>
-        </div>
-      </div>
-    `;
-    
-    chatWindow.appendChild(messageElement);
-    scrollToBottom();
-  }
-  
-  // Function to directly add bot response to chat
-  function addBotResponseDirectly(message) {
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('chat-message', 'bot-message');
-    
-    messageElement.innerHTML = `
-      <div class="message-avatar">
-        <img src="/static/assets/images/bot-avatar.svg" alt="PolicyBot">
-      </div>
-      <div class="message-content">
-        <div class="message-sender">
-          <span class="bot-name">PolicyBot</span>
-          <span class="bot-badge">🤖</span>
-        </div>
-        <div class="message-text">
-          ${message}
-        </div>
-      </div>
-    `;
-    
-    chatWindow.appendChild(messageElement);
-    scrollToBottom();
-  }
-  
-  // Function to scroll chat to bottom
-  function scrollToBottom() {
-    if (chatWindow) {
-      chatWindow.scrollTop = chatWindow.scrollHeight;
-    }
-  }
-  
-  // Helper function to escape HTML to prevent XSS
-  function escapeHTML(str) {
-    return str.replace(/[&<>'"]/g, 
-      tag => ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        "'": '&#39;',
-        '"': '&quot;'
-      }[tag]));
-  }
-  
-  // Function to get CSRF token
-  function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-          break;
-        }
-      }
-    }
-    return cookieValue;
   }
 }
 
@@ -425,7 +311,7 @@ export function initChatbotPage() {
     initChatbot();
     initPredefinedQuestions();
     initCategoryTabs();
-    initCollapsibleCategories(); // Add this new function call
+    initCollapsibleCategories();
     
     console.log('Chatbot initialized successfully');
   }
