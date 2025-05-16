@@ -751,14 +751,14 @@ class ChatAPIView(APIView):
             answer = "I'm sorry, I encountered an error processing your question. Please try again."
         
         # Step 5: Format the sources
-        sources = [
-            {"Title": doc.metadata.get("Title", "Unknown Source"), 
-            "text": doc.page_content[:200] + "..." if len(doc.page_content) > 200 else doc.page_content}
-            for doc in docs
-        ]
+        # sources = [
+        #     {"Title": doc.metadata.get("Title", "Unknown Source"), 
+        #     "text": doc.page_content[:200] + "..." if len(doc.page_content) > 200 else doc.page_content}
+        #     for doc in docs
+        # ]
         
         # Step 6: Return the response
         return Response({
-            "answer": answer,
-            "sources": sources
+            "answer": answer
+            # "sources": sources
         })

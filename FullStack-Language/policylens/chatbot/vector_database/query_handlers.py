@@ -13,9 +13,10 @@ QUERY_REWRITES = {
     "What is the application process?": "Malaysia diesel subsidy application process steps MADANI portal documents verification timeline disbursement",
     "What are the benefits of this policy?": "Malaysia diesel subsidy reform benefits advantages fiscal savings targeted welfare reduced leakage environmental sustainability",
     "What is Consumer Price Index?": "Malaysia Consumer Price Index CPI definition explanation calculation impact inflation",
-    # "How much did diesel price increase?": "Malaysia diesel price increase RM2.15 RM3.35 peninsula Sabah Sarawak",
-    # "When was the diesel subsidy reform implemented?": "Malaysia diesel subsidy reform implementation date June 2024",
-    # "Why was the diesel subsidy reformed?": "Malaysia diesel subsidy reform reasons cost fiscal burden cross-border leakage",
+    "What are the most commonly affected sectors?": "Malaysia diesel subsidy removal impact CPI sectors food beverages restaurant accommodation transport utilities percentage affected categories",
+    "How does the policy impact consumer price index?": "Malaysia diesel subsidy removal impact CPI consumer price index inflation categories food beverages restaurant accommodation transport utilities state regional differences percentage change",
+    "Which state is the most affected?": "Malaysia diesel subsidy removal highest impact CPI state regional differences Sabah Sarawak Kedah Kelantan Pahang Labuan Johor percentage comparison",
+    "How is the policy going to impact me?": "Malaysia diesel subsidy personal budget calculator household impact expenses transport food housing utilities monthly costs calculator",
     # "Who is eligible for diesel subsidies?": "Malaysia diesel subsidy eligibility criteria targeted beneficiaries",
     # "How do I apply for diesel subsidies?": "Malaysia diesel subsidy application process MADANI portal requirements",
     # "What documents are needed for subsidy application?": "Malaysia diesel subsidy application documents requirements MyKad income proof vehicle",
@@ -114,6 +115,50 @@ Provide a clear, concise 2-3 sentence explanation of what the Consumer Price Ind
 
 Use straightforward language suitable for the average citizen. Avoid technical economic jargon where possible. Be informative, factual and concise.
 """,
+    "What are the most commonly affected sectors?": """
+Provide a clear, structured response about the sectors most impacted by Malaysia's diesel subsidy reform, focusing on:
+
+1. Identify the top 4 most affected CPI categories based on percentage impact
+2. Explain in 1-2 sentences WHY each sector was heavily impacted (e.g., reliance on diesel for logistics)
+
+
+Present your response as a ranked list from most affected to least affected. Use clear, direct language that a non-economist would understand. Be specific about the causal relationships between diesel prices and sector impacts.
+""",
+
+    "How does the policy impact consumer price index?": """
+Provide a concise, informative explanation of how Malaysia's diesel subsidy reform affects the Consumer Price Index (CPI). Your response should:
+
+1. Start with a brief 1-2 sentence overview of the general impact on CPI (average percentage increase)
+2. Mention any regional variations in CPI impact (differences between states or urban/rural areas)
+3. Briefly explain the causal mechanism (how diesel price increases flow through to consumer prices)
+
+Use clear, straightforward language focused on concrete impacts rather than technical economic terminology. Include at least one specific statistic to illustrate the magnitude of change. Avoid overly detailed breakdowns - focus on the big picture impact that would be most relevant to average citizens.
+""",
+    "Which state is the most affected?": """
+Provide a clear, direct answer about which Malaysian states were most affected by the diesel subsidy reform. Your response should:
+
+1. Identify the most heavily impacted state by name with the specific overall CPI percentage increase
+2. Mention 2-3 additional highly affected states with their percentage impacts for comparison
+3. Briefly explain in 1-2 sentences WHY these states were disproportionately affected (e.g., geographic factors, economic structure, logistics dependencies)
+4. Note which CPI category saw the largest increase in the most affected state
+
+Present this information in a straightforward, factual manner with specific figures. If East Malaysian states (Sabah, Sarawak) or East Coast states show different patterns than West Malaysian states, briefly highlight this regional pattern.
+
+At the end of your response, include this exact HTML link: '<p><strong>Source: <a href="/cpi_impact/#regional-map-tab">Regional CPI Impact Map</a></strong></p>'""",
+
+    "How is the policy going to impact me?": """
+Output this exact response without any modifications:
+
+The impact of Malaysia's diesel subsidy reform on you can vary depending on your personal spending habits and location. To help you understand how it specifically affects your finances, we offer an **interactive calculator tool**.
+
+To get a personalized estimate, please visit the <p><strong>Tool: <a href="/cpi_impact/#price-calc-tab">Personal Price Impact Calculator</a></strong></p>. Once there, follow these steps:
+1. Input your typical monthly expenditure on transportation, food, and accommodation.
+2. Select your region or location in Malaysia.
+3. Review the personalized estimate of how the subsidy reform might influence your monthly expenses.
+
+This tool is designed to give you a clearer picture of the financial impact based on your unique situation.
+
+"""
 }
 
 FORMATTING_SUFFIX = """
@@ -171,16 +216,8 @@ def get_default_prompt_template():
     
     # Human template with context and question
     human_template = """
-    Use the following pieces of retrieved context to answer the user's question.
-    
-    If the necessary information to answer the question is not contained in the context below,
-    respond with: "I'm sorry, I don't have that specific information in my knowledge base. 
-    The question you've asked is outside the context of the information available to me. 
-    Please try asking about the diesel subsidy policy details, eligibility criteria, 
-    or implementation timeline."
-    
+    Use the following pieces of retrieved context to answer the user's question.    
     Do not make up or infer information that is not directly supported by the context.
-    
     Context: {context}
     
     Question: {question}
