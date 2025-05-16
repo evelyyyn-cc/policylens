@@ -1,5 +1,5 @@
 asgiref==3.8.1
-Django==5.2
+Django==5.2.1
 django-cors-headers==4.7.0
 djangorestframework==3.16.0
 numpy==2.2.4
@@ -10,9 +10,9 @@ six==1.17.0
 sqlparse==0.5.3
 tzdata==2025.2
 celery==5.3.6
-django-celery-beat==2.5.0
+django-celery-beat==2.8.1
 redis==5.0.2
-pyarrow==15.0.0
+pyarrow==20.0.0
 langchain==0.3.25
 chromadb==1.0.9
 openai==1.78.1
@@ -20,4 +20,4 @@ PyMuPDF==1.25.5
 langchain-community==0.3.24
 python-dotenv==1.1.0
 langchain-openai==0.3.16
-langchain-chroma==0.2.3
+langchain-chroma==0.2.4
