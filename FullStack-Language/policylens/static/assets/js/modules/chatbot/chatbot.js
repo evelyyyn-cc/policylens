@@ -18,12 +18,12 @@ function trimConversation() {
 }
 
 function saveConversation() {
-  localStorage.setItem('policyLensChatHistory', JSON.stringify(conversation));
+  sessionStorage.setItem('policyLensChatHistory', JSON.stringify(conversation));
 }
 
 // Load conversation from localStorage
 function loadConversation() {
-  const savedConversation = localStorage.getItem('policyLensChatHistory');
+  const savedConversation = sessionStorage.getItem('policyLensChatHistory');
   if (savedConversation) {
     conversation = JSON.parse(savedConversation);
     return true;
@@ -267,16 +267,6 @@ export function initChatbot() {
       }
     });
   }
-  // Add initial messages to conversation history
-  // const initialBotMessage = document.querySelector('.bot-message .message-text');
-  // if (initialBotMessage) {
-  //   // Extract text content (simplified, this won't include formatting but good enough for context)
-  //   const initialContent = initialBotMessage.textContent || "";
-  //   if (initialContent) {
-  //     conversation.push({role: 'assistant', content: initialContent});
-  //     promptCount++;
-  //   }
-  // }
 }
 
 
