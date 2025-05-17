@@ -17,6 +17,26 @@ function trimConversation() {
   }
 }
 
+function saveConversation() {
+  localStorage.setItem('policyLensChatHistory', JSON.stringify(conversation));
+}
+
+// Load conversation from localStorage
+function loadConversation() {
+  const savedConversation = localStorage.getItem('policyLensChatHistory');
+  if (savedConversation) {
+    conversation = JSON.parse(savedConversation);
+    return true;
+  }
+  return false;
+}
+
+function clearConversation() {
+  localStorage.removeItem('policyLensChatHistory');
+  conversation = [];
+  promptCount = 0;
+}
+
 function scrollToBottom() {
   const chatWindow = document.getElementById('chatWindow');
   if (chatWindow) {
@@ -95,6 +115,7 @@ function addBotMessage(message, isHTML = true) {
   `;
   
   chatWindow.appendChild(messageElement);
+  setupChatbotLinks(messageElement);
   scrollToBottom();
 }
 
@@ -174,7 +195,8 @@ async function fetchBotResponse(question, isPredefined = false) {
     conversation.push({role:'assistant',content:data.answer})
     promptCount++;
     trimConversation();
-    
+    saveConversation();
+
     return true;
   } catch (error) {
     console.error('Error fetching bot response:', error);
@@ -193,7 +215,30 @@ async function fetchBotResponse(question, isPredefined = false) {
 export function initChatbot() {
   const chatForm = document.getElementById('chatForm');
   const userInput = document.getElementById('userInput');
+  const chatWindow = document.getElementById('chatWindow');
+
+  const hasSavedConversation = loadConversation();
   
+  if (hasSavedConversation) {
+    chatWindow.innerHTML = '';
+
+    conversation.forEach(msg => {
+      if(msg.role == 'user'){
+        addUserMessage(msg.content);
+      } else if (msg.role == 'assistant'){
+        addBotMessage(msg.content)
+      }
+    });
+  } else {
+    const initialBotMessage = document.querySelector('.bot-message .message-text');
+    if (initialBotMessage){
+      const initialContent = initialBotMessage.textContent || "";
+      if (initialContent){
+        conversation.push({role:'assistant',content:initialContent});
+        promptCount++;
+      }
+    }
+  }
   // Initialize - scroll to bottom of chat
   scrollToBottom();
   
@@ -209,6 +254,7 @@ export function initChatbot() {
         conversation.push({role:'user',content:message})
         promptCount++;
         trimConversation();
+        saveConversation();
         
         // Clear input
         userInput.value = '';
@@ -222,15 +268,15 @@ export function initChatbot() {
     });
   }
   // Add initial messages to conversation history
-  const initialBotMessage = document.querySelector('.bot-message .message-text');
-  if (initialBotMessage) {
-    // Extract text content (simplified, this won't include formatting but good enough for context)
-    const initialContent = initialBotMessage.textContent || "";
-    if (initialContent) {
-      conversation.push({role: 'assistant', content: initialContent});
-      promptCount++;
-    }
-  }
+  // const initialBotMessage = document.querySelector('.bot-message .message-text');
+  // if (initialBotMessage) {
+  //   // Extract text content (simplified, this won't include formatting but good enough for context)
+  //   const initialContent = initialBotMessage.textContent || "";
+  //   if (initialContent) {
+  //     conversation.push({role: 'assistant', content: initialContent});
+  //     promptCount++;
+  //   }
+  // }
 }
 
 
@@ -254,6 +300,7 @@ export function initPredefinedQuestions() {
         conversation.push({role:'user',content: question});
         promptCount++;
         trimConversation();
+        saveConversation();
         // Show typing indicator
         addBotMessage("<p><em>PolicyBot is thinking...</em></p>");
         
