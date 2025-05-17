@@ -6,6 +6,17 @@
  */
 
 // Shared utility functions
+
+let conversation = [];
+let promptCount = 0;
+
+function trimConversation() {
+  if (promptCount >= 5) {
+    conversation = [];
+    promptCount = 0;
+  }
+}
+
 function scrollToBottom() {
   const chatWindow = document.getElementById('chatWindow');
   if (chatWindow) {
@@ -87,6 +98,28 @@ function addBotMessage(message, isHTML = true) {
   scrollToBottom();
 }
 
+// Set up internal link handling for chatbot responses
+function setupChatbotLinks(messageElement) {
+  // Find all links in the message
+  const links = messageElement.querySelectorAll('a');
+  
+  links.forEach(link => {
+    // Check if it's an internal link (starts with /)
+    if (link.getAttribute('href') && link.getAttribute('href').startsWith('/')) {
+      // Add click handler to prevent default behavior for internal links
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Get the URL
+        const url = this.getAttribute('href');
+        
+        // Navigate to the URL
+        window.location.href = url;
+      });
+    }
+  });
+}
+
 // Remove typing indicator if present
 function removeTypingIndicator() {
   const chatWindow = document.getElementById('chatWindow');
@@ -108,7 +141,8 @@ async function fetchBotResponse(question, isPredefined = false) {
       },
       body: JSON.stringify({ 
         question: question,
-        isPredefined: isPredefined
+        isPredefined: isPredefined,
+        conversation: conversation
       })
     });
 
@@ -137,6 +171,9 @@ async function fetchBotResponse(question, isPredefined = false) {
     // Add the bot's response
     addBotMessage(botResponseHtml);
     console.log("Formatted HTML:", botResponseHtml);
+    conversation.push({role:'assistant',content:data.answer})
+    promptCount++;
+    trimConversation();
     
     return true;
   } catch (error) {
@@ -169,6 +206,9 @@ export function initChatbot() {
       if (message !== '') {
         // Add user message to chat
         addUserMessage(message);
+        conversation.push({role:'user',content:message})
+        promptCount++;
+        trimConversation();
         
         // Clear input
         userInput.value = '';
@@ -181,7 +221,19 @@ export function initChatbot() {
       }
     });
   }
+  // Add initial messages to conversation history
+  const initialBotMessage = document.querySelector('.bot-message .message-text');
+  if (initialBotMessage) {
+    // Extract text content (simplified, this won't include formatting but good enough for context)
+    const initialContent = initialBotMessage.textContent || "";
+    if (initialContent) {
+      conversation.push({role: 'assistant', content: initialContent});
+      promptCount++;
+    }
+  }
 }
+
+
 
 /**
  * Predefined Questions Module
@@ -199,7 +251,9 @@ export function initPredefinedQuestions() {
         
         // Add user message to chat
         addUserMessage(question);
-        
+        conversation.push({role:'user',content: question});
+        promptCount++;
+        trimConversation();
         // Show typing indicator
         addBotMessage("<p><em>PolicyBot is thinking...</em></p>");
         
@@ -307,6 +361,7 @@ export function initChatbotPage() {
   const isChatbotPage = document.querySelector('.chatbot-page') !== null;
   
   if (isChatbotPage) {
+    addChatbotStyles();
     // Initialize all chatbot components
     initChatbot();
     initPredefinedQuestions();
@@ -315,4 +370,66 @@ export function initChatbotPage() {
     
     console.log('Chatbot initialized successfully');
   }
+}
+
+/**
+ * Add custom CSS styles for chatbot links
+ */
+function addChatbotStyles() {
+  const styleElement = document.createElement('style');
+  styleElement.textContent = `
+    /* Button-style links */
+    .chat-message .btn-link {
+        display: inline-block;
+        padding: 10px 16px;
+        background-color: #0073e6;
+        color: white !important;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: bold;
+        margin: 10px 0;
+        transition: background-color 0.3s ease;
+    }
+
+    .chat-message .btn-link:hover {
+        background-color: #0056b3;
+        text-decoration: none;
+    }
+
+    /* Standard text links */
+    .chat-message a:not(.btn-link) {
+        color: #0073e6;
+        text-decoration: underline;
+        font-weight: 500;
+    }
+
+    .chat-message a:not(.btn-link):hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+    /* Sources section styling */
+    .chat-message .sources-section {
+        margin-top: 15px;
+        padding-top: 10px;
+        border-top: 1px solid #e0e0e0;
+        font-size: 0.9em;
+        color: #666;
+    }
+
+    .chat-message .sources-section p {
+        margin-bottom: 5px;
+    }
+
+    .chat-message .sources-section ul {
+        margin-top: 5px;
+        padding-left: 20px;
+    }
+
+    .chat-message .sources-section li {
+        margin-bottom: 3px;
+    }
+  `;
+  
+  document.head.appendChild(styleElement);
 }
