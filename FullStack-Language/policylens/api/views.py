@@ -22,7 +22,9 @@ import calendar
 import pandas as pd
 from chatbot.vector_database.vector_store import get_qa_chain
 from langchain.schema import SystemMessage, HumanMessage
-from chatbot.vector_database.query_handlers import get_optimized_query, get_enhanced_prompt_template,get_default_prompt_template
+from chatbot.vector_database.query_handlers import get_optimized_query, get_enhanced_prompt_template, get_default_prompt_template, create_link_response
+
+from langchain.schema import SystemMessage, HumanMessage,AIMessage
 
 from django.shortcuts import render
 
@@ -692,30 +694,68 @@ class DieselImpactChartAPI(APIView):
         }, status=status.HTTP_200_OK)
 
 
+"""
+Updated ChatAPIView that handles conversation context
+"""
+
 class ChatAPIView(APIView):
-    """User Chatbot query"""
+    """User Chatbot query with conversation context support"""
     
     def post(self, request):
         user_q = request.data.get("question", "")
         is_predefined = request.data.get("isPredefined", False)
+        conversation = request.data.get("conversation", [])
+
+        print(f"Processing {'predefined' if is_predefined else 'free-form'} question: '{user_q}'")
+
+        query_result = get_optimized_query(
+            original_question=user_q,
+            conversation=conversation,
+            is_predefined=is_predefined
+        )
+
+        # Check if this is a link request
+        if isinstance(query_result, tuple) and len(query_result) == 2:
+            optimized_query, page_url = query_result
+            
+            # Handle link request specially
+            if optimized_query == '__LINK_REQUEST__' and page_url:
+                # Create a response with a link to the requested page
+                link_response = create_link_response(page_url, user_q)
+                
+                return Response({
+                    "answer": link_response,
+                    "sources": []  # No sources needed for link responses
+                })
+        else:
+            optimized_query = query_result
         
-        
-        
-        # Direct lookup for predefined questions to ensure exact matching
+        print(f"Optimized query: '{optimized_query}'")
+
         if is_predefined:
-            # This is a question from the predefined list
-            print(f"Handling predefined question: '{user_q}'")
-            
-            # Get optimized query
-            optimized_query = get_optimized_query(user_q)
-            
-            # Get enhanced prompt templates if available
             prompt_templates = get_enhanced_prompt_template(user_q)
         else:
-            # This is a free-form question typed by the user
-            print(f"Handling user-typed question: '{user_q}'")
-            optimized_query = user_q  # Use original query for free-form questions
-            prompt_templates = get_default_prompt_template()  # No enhanced templates for free-form
+            # Use default templates for free-form questions
+            prompt_templates = get_default_prompt_template()
+        
+        # # Direct lookup for predefined questions to ensure exact matching
+        # if is_predefined:
+        #     # This is a question from the predefined list
+        #     print(f"Handling predefined question: '{user_q}'")
+            
+        #     # Get optimized query
+        #     optimized_query = get_optimized_query(user_q)
+            
+        #     # Get enhanced prompt templates if available
+        #     prompt_templates = get_enhanced_prompt_template(user_q)
+        # else:
+        #     # This is a free-form question typed by the user
+        #     print(f"Handling user-typed question: '{user_q}'")
+        #     # recent = conversation[-6:] if len(conversation) > 6 else conversation
+        #     # history = "\n".join(f"{m['role']}: {m['content']}" for m in recent)
+        #     optimized_query = user_q# Use original query for free-form questions
+        #     prompt_templates = get_default_prompt_template()  # No enhanced templates for free-form
+        
         chain_components = get_qa_chain()
         
         llm = chain_components["llm"]
@@ -727,20 +767,38 @@ class ChatAPIView(APIView):
         
         # Format context from retrieved documents
         context = "\n\n".join([doc.page_content for doc in docs])
+
+        messages = [
+                SystemMessage(content=prompt_templates["system_content"]),
+        ]
+
+        if conversation:
+            max_history = 10
+            recent_conv = (conversation[-max_history:]if len(conversation) > max_history else conversation)
+            for msg in recent_conv:
+                if msg["role"] == "user":
+                    messages.append(HumanMessage(content=msg["content"]))
+                elif msg['role'] == 'assistant':
+                    messages.append(AIMessage(content=msg['content']))
+        
+        human_content = prompt_templates["human_template"].format(context=context,question=user_q)
+        messages.append(HumanMessage(content=human_content))
         
         # Step 4: Generate the response using the appropriate templates
         try:
             # Format the human message with context and question
-            human_content = prompt_templates["human_template"].format(
-                context=context,
-                question=user_q
-            )
+
             
-            # Create the messages
-            messages = [
-                SystemMessage(content=prompt_templates["system_content"]),
-                HumanMessage(content=human_content)
-            ]
+            # # Create the messages
+            # messages = [
+            #     SystemMessage(content=prompt_templates["system_content"]),
+            # ]
+            
+            # # Add conversation history if available
+
+            
+            # # Add the current question
+            # messages.append(HumanMessage(content=human_content))
             
             # Generate the response
             response = llm.generate([[msg for msg in messages]])
