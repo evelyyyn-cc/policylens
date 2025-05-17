@@ -335,7 +335,7 @@ function initializeSectorImpactChart() {
                 },
                 title: {
                     display: true,
-                    text: 'Impact on Fuel-Sensitive Manufacturing Sectors',
+                    text: gettext('Impact on Fuel-Sensitive Manufacturing Sectors'),
                     font: {
                         size: 16,
                         weight: 'bold'
@@ -349,7 +349,7 @@ function initializeSectorImpactChart() {
                 y: {
                     title: {
                         display: true,
-                        text: 'Year-on-Year Growth Rate (%)',
+                        text: gettext('Year-on-Year Growth Rate (%)'),
                         font: {
                             size: 13,
                             weight: 'bold'
@@ -488,7 +488,7 @@ function initializeSectorSensitivityChart() {
                 },
                 title: {
                     display: true,
-                    text: 'Division Sensitivity Analysis',
+                    text: gettext('Division Sensitivity Analysis'),
                     font: {
                         size: 16,
                         weight: 'bold'
@@ -502,7 +502,7 @@ function initializeSectorSensitivityChart() {
                 x: {  // This was y-axis before
                     title: {
                         display: true,
-                        text: 'Fuel Sensitivity Score',
+                        text: gettext('Fuel Sensitivity Score'),
                         font: {
                             size: 13,
                             weight: 'bold'
