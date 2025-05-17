@@ -1,10 +1,10 @@
 """
-Specialized handlers for predefined questions in the chatbot.
+Specialized handlers for predefined questions and dynamic query rewriting in the chatbot.
 """
-
 from langchain.prompts import PromptTemplate
+from langchain_openai import ChatOpenAI
 
-# Dictionary mapping predefined questions to optimized search queries
+# Existing dictionary mapping predefined questions to optimized search queries
 QUERY_REWRITES = {
     "What is the diesel subsidy policy?": "Malaysia diesel subsidy policy reform targeted 2024 explanation",
     "Why was the policy necessary?": "Malaysia diesel subsidy reform reasons justification fiscal burden subsidy cost cross-border leakage 2019 2023",
@@ -15,20 +15,60 @@ QUERY_REWRITES = {
     "What is Consumer Price Index?": "Malaysia Consumer Price Index CPI definition explanation calculation impact inflation",
     "What are the most commonly affected sectors?": "Malaysia diesel subsidy removal impact CPI sectors food beverages restaurant accommodation transport utilities percentage affected categories",
     "How does the policy impact consumer price index?": "Malaysia diesel subsidy removal impact CPI consumer price index inflation categories food beverages restaurant accommodation transport utilities state regional differences percentage change",
-    "Which state is the most affected?": "Malaysia diesel subsidy removal highest impact CPI state regional differences Sabah Sarawak Kedah Kelantan Pahang Labuan Johor percentage comparison",
+    "What are the latest CPI values of states?": "Malaysia latest CPI Consumer Price Index values by state regional comparison Johor Kedah Kelantan Melaka Negeri Sembilan Pahang Perak Perlis Pulau Pinang Sabah Sarawak Selangor Kuala Lumpur Labuan Putrajaya",
     "How is the policy going to impact me?": "Malaysia diesel subsidy personal budget calculator household impact expenses transport food housing utilities monthly costs calculator",
-    # "Who is eligible for diesel subsidies?": "Malaysia diesel subsidy eligibility criteria targeted beneficiaries",
-    # "How do I apply for diesel subsidies?": "Malaysia diesel subsidy application process MADANI portal requirements",
-    # "What documents are needed for subsidy application?": "Malaysia diesel subsidy application documents requirements MyKad income proof vehicle",
-    # "Can foreigners apply for diesel subsidies?": "Malaysia diesel subsidy eligibility citizenship requirements foreigners",
-    # "How does diesel policy affect inflation?": "Malaysia diesel subsidy inflation impact CPI consumer prices",
-    # "What is the impact on manufacturing?": "Malaysia diesel subsidy manufacturing industry production cost impact",
-    # "How much does the government save from the reform?": "Malaysia diesel subsidy reform government savings RM4 billion fiscal",
-    # "Will food prices increase due to diesel subsidy removal?": "Malaysia diesel subsidy food prices impact transportation logistics costs",
-    # "How can I calculate the impact on my budget?": "Malaysia diesel price increase personal budget impact calculation",
-    # "What is the monthly subsidy amount?": "Malaysia diesel subsidy amount RM200 monthly cash assistance",
-    # "How do I get the subsidy if I'm eligible?": "Malaysia diesel subsidy disbursement process bank transfer",
-    # "Are there other subsidies available?": "Malaysia other subsidies programs besides diesel MADANI assistance"
+    # Add more predefined queries as needed
+}
+
+# Internal page mapping for dataset and information pages
+INTERNAL_PAGE_MAPPING = {
+    # Fuel and Diesel Data
+    "fuel data": "/datasets_page/",
+    "diesel data": "/datasets_page/",
+    "fuel price": "/datasets_page/#diesel-price-tab",
+    "diesel price": "/datasets_page/#diesel-price-tab",
+    "vehicle data": "/datasets_page/#diesel-vehicles-tab",
+    "registered vehicles": "/datasets_page/#diesel-vehicles-tab",
+    
+    # CPI Data
+    "cpi data": "/cpi_dataset/",
+    "consumer price index data": "/cpi_dataset/",
+    "cpi state map": "/cpi_dataset/#state-data-map-tab",
+    "state cpi map": "/cpi_dataset/#state-data-map-tab",
+    "mcoicop data": "/cpi_dataset/#mcoicop-tab",
+    
+    # CPI Impact
+    "cpi impact": "/cpi_impact/",
+    "price impact calculator": "/cpi_impact/#price-calc-tab",
+    "personal price calculator": "/cpi_impact/#price-calc-tab",
+    "regional impact": "/cpi_impact/#regional-impact-tab",
+    "cpi categories": "/cpi_impact/#regional-impact-tab",
+    "regional map": "/cpi_impact/#regional-map-tab",
+    
+    # Manufacturing Data
+    "manufacturing data": "/manufacturing_dataset/",
+    "production index": "/manufacturing_dataset/#manu-line-tab",
+    "manufacturing divisions": "/manufacturing_dataset/#manu-bar-tab",
+    "manufacturing table": "/manufacturing_dataset/#manu-table-tab",
+    
+    # Manufacturing Impact
+    "manufacturing impact": "/manufacturing_impact/",
+    "performance trend": "/manufacturing_impact/#overview",
+    "fuel-sensitive sectors": "/manufacturing_impact/#sectors",
+    "diesel impact analysis": "/manufacturing_impact/#comparison",
+    
+    # Policy Pages
+    "diesel policy": "/diesel_policy/",
+    "diesel dilemma": "/diesel_policy/",
+    "policy challenge": "/diesel_policy/#challenge-tab",
+    "targeted approach": "/diesel_policy/#targeted-tab",
+    "financial perspective": "/diesel_policy/#financial-perspective-tab",
+    "future outlook": "/diesel_policy/#future-outlook-tab",
+    
+    # General Pages
+    "policies": "/policies/",
+    "home": "/index/",
+    "chatbot": "/ai_chatbot/"
 }
 
 # Enhanced system prompts for specific questions
@@ -134,29 +174,28 @@ Provide a concise, informative explanation of how Malaysia's diesel subsidy refo
 
 Use clear, straightforward language focused on concrete impacts rather than technical economic terminology. Include at least one specific statistic to illustrate the magnitude of change. Avoid overly detailed breakdowns - focus on the big picture impact that would be most relevant to average citizens.
 """,
-    "Which state is the most affected?": """
-Provide a clear, direct answer about which Malaysian states were most affected by the diesel subsidy reform. Your response should:
+    "What are the latest CPI values of states?": """
+Provide current information about the latest Overall Consumer Price Index (CPI) values across Malaysian states using the latest data from 2025. Your response should:
 
-1. Identify the most heavily impacted state by name with the specific overall CPI percentage increase
-2. Mention 2-3 additional highly affected states with their percentage impacts for comparison
-3. Briefly explain in 1-2 sentences WHY these states were disproportionately affected (e.g., geographic factors, economic structure, logistics dependencies)
-4. Note which CPI category saw the largest increase in the most affected state
+1. Identify the 3 states with the highest CPI values and identify their CPI values
+2. Identify the 3 states with the lowest CPI values and identify their CPI values
 
-Present this information in a straightforward, factual manner with specific figures. If East Malaysian states (Sabah, Sarawak) or East Coast states show different patterns than West Malaysian states, briefly highlight this regional pattern.
+Present this information in a clear, organized manner that helps users quickly understand the geographic distribution of consumer prices across Malaysia.
 
-At the end of your response, include this exact HTML link: '<p><strong>Source: <a href="/cpi_impact/#regional-map-tab">Regional CPI Impact Map</a></strong></p>'""",
+Insert this text after the list "For more information, you can visit our Interactive map showing detailed CPI values for all Malaysian states"
+
+At the end of your response, include this exact HTML link: '<p><strong><a href="/cpi_dataset/#state-data-map-tab">State CPI Map</a></strong></p>'
+""",
 
     "How is the policy going to impact me?": """
 Output this exact response without any modifications:
 
 The impact of Malaysia's diesel subsidy reform on you can vary depending on your personal spending habits and location. To help you understand how it specifically affects your finances, we offer an **interactive calculator tool**.
 
-To get a personalized estimate, please visit the <p><strong>Tool: <a href="/cpi_impact/#price-calc-tab">Personal Price Impact Calculator</a></strong></p>. Once there, follow these steps:
+To get a personalized estimate, please visit the <p><strong><a href="/cpi_impact/#price-calc-tab">Personal Price Impact Calculator.</a></strong></p> Once there, follow these steps:
 1. Input your typical monthly expenditure on transportation, food, and accommodation.
 2. Select your region or location in Malaysia.
 3. Review the personalized estimate of how the subsidy reform might influence your monthly expenses.
-
-This tool is designed to give you a clearer picture of the financial impact based on your unique situation.
 
 """
 }
@@ -171,13 +210,349 @@ Format your answer with proper HTML:
 Ensure numbers and formatting in your answer are represented with HTML tags.
 """
 
-def get_optimized_query(original_question):
+# Initialize the LLM for query rewriting
+llm = ChatOpenAI(model="gpt-4.1-nano", temperature=0)
+
+# Template for rewriting free-form queries with enhanced context understanding
+FREEFORM_REWRITE_TEMPLATE = """
+You are a policy-search query optimizer for a Malaysian policy chatbot. 
+The chatbot focuses on Malaysia's diesel subsidy policy, CPI impact, and manufacturing effects.
+
+Rewrite the user's question into an optimized search query that:
+1. Is focused on retrieving the most relevant information
+2. Includes key entities and specific terms
+3. Adds relevant context keywords about Malaysia's diesel subsidy policy
+4. Is expanded with synonyms and related terms
+5. Is concise (under 15 words if possible)
+
+Current topic being discussed: {topic}
+
+User context:
+- Question is about Malaysia's diesel subsidy policy implemented in 2024
+- Or about CPI (Consumer Price Index) impacts
+- Or about manufacturing sector effects
+
+Conversation history:
+{history}
+
+Original question: "{question}"
+
+Return ONLY the rewritten search query with no explanation or other text.
+"""
+
+# Create the query rewriter chain
+query_rewriter_prompt = PromptTemplate(
+    input_variables=["question", "history", "topic"],
+    template=FREEFORM_REWRITE_TEMPLATE
+)
+
+# Template for detecting link requests
+LINK_DETECTION_TEMPLATE = """
+You are analyzing a user question to determine if they're asking for a link to a dataset or page.
+
+Determine if the user is asking for:
+1. A link to a specific dataset
+2. A link to view data visualizations
+3. A link to a specific page or section on the website
+4. Access to any data, charts, or interactive elements
+
+User's question: "{question}"
+
+Respond with only "YES" or "NO".
+"""
+
+link_detection_prompt = PromptTemplate(
+    input_variables=["question"],
+    template=LINK_DETECTION_TEMPLATE
+)
+
+# Template for identifying which dataset or page the user is requesting
+DATASET_IDENTIFIER_TEMPLATE = """
+The user is asking for a link to a dataset or page. Determine which specific dataset or page they want.
+
+Available dataset/page categories:
+- Fuel data (fuel prices, diesel prices, vehicle data)
+- CPI data (consumer price index, state maps, MCOICOP)
+- CPI impact (price calculator, regional impact, categories, maps)
+- Manufacturing data (production index, divisions, tables)
+- Manufacturing impact (performance trends, sectors, impact analysis)
+- Policy pages (diesel policy, challenges, approach, financial, outlook)
+- General pages (home, policies, chatbot)
+
+User's question: "{question}"
+Conversation history: "{history}"
+
+Respond with only the most specific category name that matches their request. 
+Use lowercase and simple terms like "fuel data", "cpi impact", "manufacturing divisions", etc.
+If unclear, respond with the general category like "fuel data" or "cpi data".
+"""
+
+dataset_identifier_prompt = PromptTemplate(
+    input_variables=["question", "history"],
+    template=DATASET_IDENTIFIER_TEMPLATE
+)
+
+# Enhanced default system prompt with context handling for links and datasets
+DEFAULT_SYSTEM_PROMPT = """
+You are a helpful assistant that specializes in explaining Malaysia's diesel subsidy policy.
+Use the information from the context to provide accurate, clear answers.
+
+Focus on:
+1. Explaining the policy details, implementation, and impacts
+2. Providing information about eligibility, application process, and benefits
+3. Explaining economic impacts including CPI and manufacturing effects
+4. Giving helpful guidance related to the policy questions
+
+When the user asks for links, data, charts, or visualizations:
+- Direct them to the appropriate page on the website
+- Explain what information they can find on that page
+- Offer to answer any specific questions they have about the data
+
+If you don't have enough information from the context, acknowledge this limitation
+rather than making up information.
+""" + FORMATTING_SUFFIX
+
+def get_default_prompt_template():
     """
-    Returns an optimized search query for predefined questions,
-    or the original question if no optimization is available.
+    Returns the default prompt template for regular queries.
     """
-    # return QUERY_REWRITES.get(original_question, original_question)
-    return QUERY_REWRITES.get(original_question, original_question)
+    # System content for default prompt
+    system_content = DEFAULT_SYSTEM_PROMPT
+    
+    # Human template with context and question
+    human_template = """
+    Use the following pieces of retrieved context to answer the user's question.    
+    Do not make up or infer information that is not directly supported by the context.
+    
+    Context: {context}
+    
+    Question: {question}
+    """
+    
+    return {
+        "system_content": system_content,
+        "human_template": human_template
+    }
+
+# def extract_topic_from_conversation(conversation):
+#     """
+#     Analyzes conversation history to identify the main topic being discussed.
+    
+#     Args:
+#         conversation (list): The conversation history
+        
+#     Returns:
+#         str: The identified topic or None if not found
+#     """
+#     if not conversation or len(conversation) == 0:
+#         return None
+    
+#     # Topic keywords to look for
+#     topics = {
+#         "diesel": ["diesel", "fuel", "subsidy", "policy", "price", "rm3.35", "reform"],
+#         "cpi": ["cpi", "consumer price", "inflation", "price impact", "categories"],
+#         "manufacturing": ["manufacturing", "industry", "production", "ipi", "factory"],
+#         "calculator": ["calculator", "personal impact", "budget", "estimate", "household"],
+#         "eligibility": ["eligibility", "criteria", "qualify", "application", "madani"],
+#         "data": ["data", "dataset", "chart", "visualization", "graph", "map"]
+#     }
+    
+#     # Count occurrences of each topic's keywords
+#     topic_counts = {topic: 0 for topic in topics}
+    
+#     # Analyze the last 5 messages (more recent messages carry more weight)
+#     recent_messages = conversation[-5:] if len(conversation) >= 5 else conversation
+    
+#     for msg in recent_messages:
+#         content = msg.get("content", "").lower()
+        
+#         for topic, keywords in topics.items():
+#             for keyword in keywords:
+#                 if keyword in content:
+#                     topic_counts[topic] += 1
+    
+#     # Find the most frequently mentioned topic
+#     max_count = 0
+#     main_topic = None
+    
+#     for topic, count in topic_counts.items():
+#         if count > max_count:
+#             max_count = count
+#             main_topic = topic
+    
+#     # Only return if there's a clear topic (mentioned at least twice)
+#     return main_topic if max_count >= 2 else None
+
+def is_link_request(question):
+    """
+    Determines if a user question is asking for a link to a dataset or page.
+    
+    Args:
+        question (str): The user's question
+        
+    Returns:
+        bool: True if the question is asking for a link, False otherwise
+    """
+    try:
+        # Simple keyword-based detection first (faster)
+        question_lower = question.lower()
+        link_keywords = ["link", "url", "website", "page", "dataset", "data", "dashboard", 
+                        "show me", "view", "where can i find", "where can i see",
+                        "take me to", "go to", "navigate to", "direct me to", "chart", 
+                        "visualization", "calculator"]
+        
+        # Check for basic link request patterns
+        for keyword in link_keywords:
+            if keyword in question_lower:
+                # For more complex cases, use the LLM to double-check
+                response = llm.invoke(
+                    link_detection_prompt.format(question=question)
+                )
+                return response.content.strip().upper() == "YES"
+        
+        return False
+    except Exception as e:
+        print(f"Error in link request detection: {str(e)}")
+        return False
+
+def get_requested_dataset(question, conversation=None):
+    """
+    Identifies which dataset or page the user is requesting a link to.
+    
+    Args:
+        question (str): The user's question
+        conversation (list): Optional conversation history
+        
+    Returns:
+        str: The URL of the requested page, or None if not identified
+    """
+    try:
+        # Format conversation history if available
+        history_text = ""
+        if conversation and len(conversation) > 0:
+            # Take the last 3 exchanges maximum
+            recent_history = conversation[-6:] if len(conversation) > 6 else conversation
+            history_text = "\n".join([f"{msg['role']}: {msg['content']}" for msg in recent_history])
+        
+        # Quick shortcut detection based on exact phrases
+        question_lower = question.lower()
+        
+        # Direct phrases that clearly indicate specific datasets
+        if any(phrase in question_lower for phrase in ["fuel price", "diesel price"]):
+            return "/datasets_page/#diesel-price-tab"
+        elif any(phrase in question_lower for phrase in ["vehicle", "registration", "car"]):
+            return "/datasets_page/#diesel-vehicles-tab"
+        elif any(phrase in question_lower for phrase in ["price calculator", "personal calculator", "budget calculator"]):
+            return "/cpi_impact/#price-calc-tab"
+        elif any(phrase in question_lower for phrase in ["cpi map", "state map"]):
+            return "/cpi_dataset/#state-data-map-tab"
+        elif any(phrase in question_lower for phrase in ["manufacturing division", "manufacturing sector"]):
+            return "/manufacturing_dataset/#manu-bar-tab"
+        
+        # Use the LLM to identify the dataset category for more complex requests
+        response = llm.invoke(
+            dataset_identifier_prompt.format(
+                question=question,
+                history=history_text
+            )
+        )
+        
+        dataset_category = response.content.strip().lower()
+        print(f"Identified dataset category: {dataset_category}")
+        
+        # Find the best matching URL from our mappings
+        best_match = None
+        best_match_length = 0
+        
+        for key, url in INTERNAL_PAGE_MAPPING.items():
+            if dataset_category in key or key in dataset_category:
+                # Prefer longer matches (more specific)
+                if len(key) > best_match_length:
+                    best_match = url
+                    best_match_length = len(key)
+        
+        # If no specific match found, look for partial matches
+        if not best_match:
+            for key, url in INTERNAL_PAGE_MAPPING.items():
+                key_parts = key.split()
+                for part in key_parts:
+                    if part in dataset_category and len(part) > 3:  # Only match on meaningful words
+                        if len(part) > best_match_length:
+                            best_match = url
+                            best_match_length = len(part)
+        
+        # Extract topic context from conversation if available
+        if not best_match and conversation and len(conversation) > 0:
+            # Check recent conversation for topic mentions
+            topic_keywords = {
+                "fuel": "/datasets_page/",
+                "diesel": "/diesel_policy/",
+                "cpi": "/cpi_dataset/",
+                "consumer price": "/cpi_impact/",
+                "manufacturing": "/manufacturing_dataset/",
+                "policy": "/policies/"
+            }
+            
+            for msg in conversation[-5:]:  # Check last 5 messages
+                content = msg.get("content", "").lower()
+                for keyword, url in topic_keywords.items():
+                    if keyword in content:
+                        best_match = url
+                        break
+                if best_match:
+                    break
+        
+        # Default to a general page if no match found
+        return best_match or "/index/"
+    
+    except Exception as e:
+        print(f"Error in dataset identification: {str(e)}")
+        return "/index/"  # Return home page as safe default
+
+def create_link_response(page_url, question):
+    """
+    Creates an HTML response with a link to the requested page.
+    
+    Args:
+        page_url (str): The URL of the page to link to
+        question (str): The original user question
+        
+    Returns:
+        str: HTML formatted response with a link
+    """
+    # Extract the page name from the URL for a more natural response
+    page_name = page_url.split('/')[-2] if page_url.split('/')[-1] == '' else page_url.split('/')[-1]
+    page_name = page_name.replace('_', ' ').replace('-', ' ').title()
+    
+    # Handle hash fragments for specific tabs
+    if '#' in page_url:
+        tab_name = page_url.split('#')[1].replace('-', ' ').replace('tab', '').title()
+        page_name = f"{page_name} - {tab_name}"
+    
+    # Create specific descriptions based on the page type
+    description = "This page contains datasets and visualizations related to your query."
+    
+    if "datasets_page" in page_url:
+        description = "This page shows historical diesel prices and vehicle registration data. You can view trends and compare different fuel types."
+    elif "diesel_policy" in page_url:
+        description = "This page explains Malaysia's 2024 diesel subsidy reform policy, including the challenges, approach, financial impact, and future outlook."
+    elif "cpi_dataset" in page_url:
+        description = "This page contains CPI (Consumer Price Index) data across different states and categories, with interactive visualizations."
+    elif "cpi_impact" in page_url:
+        description = "This page shows how the diesel policy impacts consumer prices, with an interactive calculator to estimate personal budget effects."
+    elif "manufacturing" in page_url:
+        description = "This page provides data on how the diesel subsidy reform affects the manufacturing sector, with industry-specific analysis."
+    
+    # Create a nicely formatted response with the link
+    response = f"""<p>I can help you access that information. Here's a direct link to the relevant page:</p>
+
+<p><a href="{page_url}" class="btn-link" target="_self"><strong>View {page_name}</strong></a></p>
+
+<p>{description}</p>
+
+<p>Is there any specific aspect of the data you'd like me to explain before you visit the page?</p>"""
+    
+    return response
 
 def get_enhanced_prompt_template(question):
     """
@@ -198,35 +573,71 @@ def get_enhanced_prompt_template(question):
         
         return {
             "system_content": system_prompt,
-            "human_template": PromptTemplate(
-                template=human_template,
-                input_variables=["context", "question"]
-            )
+            "human_template": human_template
         }
     return None
 
-def get_default_prompt_template():
+def get_optimized_query(original_question, conversation=None, is_predefined=True):
     """
-    Returns the default prompt template for regular queries.
+    Returns an optimized search query or handles special request types:
+    - For predefined questions, uses the static mapping
+    - For link requests, returns a special flag and the page URL
+    - For free-form questions, uses the LLM to dynamically rewrite the query
+    
+    Args:
+        original_question (str): The original user question
+        conversation (list): Optional conversation history
+        is_predefined (bool): Whether this is a predefined question
+        
+    Returns:
+        tuple or str: Either (query, None) for normal queries or 
+                      ('__LINK_REQUEST__', url) for link requests
     """
-    # System content for default prompt
-    system_content = """
-    You are a helpful assistant that specializes in explaining Malaysia's diesel subsidy policy.
-    """ + FORMATTING_SUFFIX
+    # For predefined questions, use the static mapping
+    if is_predefined:
+        return (QUERY_REWRITES.get(original_question, original_question), None)
     
-    # Human template with context and question
-    human_template = """
-    Use the following pieces of retrieved context to answer the user's question.    
-    Do not make up or infer information that is not directly supported by the context.
-    Context: {context}
+    # Check if this is a link request
+    if is_link_request(original_question):
+        page_url = get_requested_dataset(original_question, conversation)
+        if page_url:
+            return ('__LINK_REQUEST__', page_url)
+    return (original_question,None)
     
-    Question: {question}
-    """
-    
-    return {
-        "system_content": system_content,
-        "human_template": PromptTemplate(
-            template=human_template,
-            input_variables=["context", "question"]
-        )
-    }
+    # For all other free-form questions, use the LLM to rewrite
+    # try:
+    #     # Format conversation history if available
+    #     history_text = ""
+    #     if conversation and len(conversation) > 0:
+    #         # Take the last 3 exchanges maximum
+    #         recent_history = conversation[-6:] if len(conversation) > 6 else conversation
+    #         history_text = "\n".join([f"{msg['role']}: {msg['content']}" for msg in recent_history])
+        
+    #     # Extract topic from conversation to provide better context
+    #     # topic = extract_topic_from_conversation(conversation) or "general"
+
+    #     # Define a simpler rewrite template that just focuses on the core query
+    #     BASIC_REWRITE_TEMPLATE = """
+    #     Rewrite this question into a more specific search query for retrieving information.
+    #     Add relevant keywords related to Malaysia's diesel policy, CPI data, or manufacturing impacts.
+    #     Keep it concise and focused (5-10 words).
+
+    #     Original question: "{question}"
+
+    #     Search query:
+    #     """
+
+    #     basic_rewrite_prompt = PromptTemplate(
+    #                             input_variables=["question"],
+    #                             template=BASIC_REWRITE_TEMPLATE
+    #                             )
+        
+    #     # Call the LLM to rewrite the query
+    #     rewritten_query = llm.invoke(basic_rewrite_prompt.format(question = original_question))
+        
+    #     # Extract and return the rewritten query
+    #     return (rewritten_query.content.strip(), None)
+    # except Exception as e:
+    #     print(f"Error in query rewriting: {str(e)}")
+    #     # Fall back to original question if rewriting fails
+    #     return (original_question, None)
