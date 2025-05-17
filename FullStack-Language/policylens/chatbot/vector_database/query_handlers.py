@@ -17,7 +17,11 @@ QUERY_REWRITES = {
     "How does the policy impact consumer price index?": "Malaysia diesel subsidy removal impact CPI consumer price index inflation categories food beverages restaurant accommodation transport utilities state regional differences percentage change",
     "What are the latest CPI values of states?": "Malaysia latest CPI Consumer Price Index values by state regional comparison Johor Kedah Kelantan Melaka Negeri Sembilan Pahang Perak Perlis Pulau Pinang Sabah Sarawak Selangor Kuala Lumpur Labuan Putrajaya",
     "How is the policy going to impact me?": "Malaysia diesel subsidy personal budget calculator household impact expenses transport food housing utilities monthly costs calculator",
-    # Add more predefined queries as needed
+    "What is Industrial Production Index?": "Malaysia Industrial Production Index IPI definition explanation DOSM measurement manufacturing mining electricity volume-based gauge economic indicator",
+    "How did the policy impact Industrial Production Index?": "Malaysia diesel subsidy reform impact IPI Industrial Production Index June 2024 manufacturing performance trend phases pre-reform immediate-impact medium-term",
+    "Which manufacturing industries were most affected?": "Malaysia manufacturing industries sectors most affected diesel price increase subsidy reform fuel sensitivity score non-metallic mineral products wearing apparel paper products",
+    "How did companies respond to the policy?": "Malaysia companies manufacturers respond adapt diesel subsidy reform June 2024 stockpiling efficiency measures cost pass-through SME vulnerability",
+    "What are the long-term effects on the manufacturing output?": "Malaysia manufacturing output long-term effects diesel subsidy reform 2024 quarterly IPI trends adaptation recovery strategies modernization efficiency"
 }
 
 # Internal page mapping for dataset and information pages
@@ -197,6 +201,64 @@ To get a personalized estimate, please visit the <p><strong><a href="/cpi_impact
 2. Select your region or location in Malaysia.
 3. Review the personalized estimate of how the subsidy reform might influence your monthly expenses.
 
+""",
+    "What is Industrial Production Index?": """
+Provide a brief 2-3 sentence explanation of the Industrial Production Index (IPI) that includes:
+1. A simple definition that a non-economist would understand
+2. What it measures (physical production from mining, manufacturing, electricity)
+3. Why it's important as an economic indicator (leading GDP by several months)
+
+Keep your response under 75 words. Use straightforward language accessible to the average citizen. Avoid technical economic jargon where possible.
+
+End with a single sentence mentioning that the Department of Statistics Malaysia (DOSM) surveys over 5,000 establishments monthly to collect this data.
+""",
+
+    "How did the policy impact Industrial Production Index?": """
+Explain the impact of Malaysia's diesel subsidy reform on the Industrial Production Index in three distinct periods:
+
+1. Pre-reform period (January-May 2024): mention specific index values
+2. Immediate impact (June-August 2024): describe the spike and initial response 
+3. Medium-term adjustment (September-December 2024): explain the gradual decline
+
+Include actual numerical values from the IPI data for each period. Use 1-2 sentences per period maximum.
+
+Format your answer with <p> tags for paragraphs and <strong> tags for key data points and dates.
+""",
+
+    "Which manufacturing industries were most affected?": """
+List only the 4 most fuel-sensitive manufacturing sectors based on their Fuel Sensitivity Scores, in order of impact. For each sector:
+
+1. State the sector name and its sensitivity score (e.g., "Non-metallic Mineral Products (147.9)")
+2. Provide a one-sentence explanation of why this sector was particularly vulnerable
+
+Present this as a numbered list of the top 4 sectors. Use simple, direct language that explains why each sector was vulnerable to diesel price changes in terms anyone can understand.
+
+End with one sentence explaining the common factors that made these sectors vulnerable (energy intensity, transportation dependency, etc.).
+""",
+
+    "How did companies respond to the policy?": """
+Describe the 4 main ways Malaysian manufacturing companies responded to the diesel subsidy reform, focusing on:
+
+1. Initial responses (June-July 2024): stockpiling and production adjustments
+2. Cost management strategies: efficiency measures vs. cost pass-through 
+3. Differences between large companies and SMEs in their adaptation approaches
+4. Technology and logistics adaptations (if applicable)
+
+Keep each point to 1-2 concise sentences. Use clear, practical language focusing on concrete business responses rather than theoretical impacts.
+
+Format with <p> tags for paragraphs and <strong> tags for key strategy categories.
+""",
+
+    "What are the long-term effects on the manufacturing output?": """
+Provide a concise explanation of the 3-4 main long-term effects of the diesel subsidy reform on Malaysia's manufacturing output through the end of 2024. Include:
+
+1. The final stabilization level of the IPI compared to pre-reform (with specific numbers)
+2. Two significant structural adjustments in the manufacturing sector
+3. One unexpected outcome or trend that emerged by December 2024
+
+Use specific data points where available. Avoid vague statements - focus on concrete, measurable impacts that can be directly attributed to the policy change.
+
+End with one forward-looking sentence about what these effects suggest for Malaysia's manufacturing competitiveness in 2025.
 """
 }
 
