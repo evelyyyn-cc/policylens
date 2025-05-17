@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-14 08:59+0000\n"
+"POT-Creation-Date: 2025-05-17 07:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,8 +23,8 @@ msgstr ""
 
 #: templates/ai_chatbot.html:20 templates/cpi_datasets.html:26
 #: templates/cpi_impact.html:22 templates/datasets_page.html:54
-#: templates/diesel_policy.html:20 templates/manufacturing_impact.html:22
-#: templates/policies.html:19
+#: templates/diesel_policy.html:20 templates/manufacturing_dataset.html:21
+#: templates/manufacturing_impact.html:22 templates/policies.html:19
 msgid "Home"
 msgstr "Laman Utama"
 
@@ -51,8 +51,6 @@ msgid "The details and objectives of the current diesel subsidy policy"
 msgstr ""
 
 #: templates/ai_chatbot.html:53
-#, fuzzy
-#| msgid "Understand how the policy changes affect your personal expenditure"
 msgid "How this policy might affect your personal finances"
 msgstr ""
 "Fahami bagaimana perubahan dasar mempengaruhi perbelanjaan peribadi anda"
@@ -83,12 +81,111 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
+#: templates/ai_chatbot.html:78
+msgid "Quick Questions"
+msgstr "Pautan Pantas"
+
+#: templates/ai_chatbot.html:79
+msgid ""
+"Click on any category to view common questions, or click directly on a "
+"question to ask it."
+msgstr ""
+
+#: templates/ai_chatbot.html:85
+msgid "About The Policy"
+msgstr "Selepas Dasar:"
+
+#: templates/ai_chatbot.html:89
+msgid "What is the diesel subsidy policy?"
+msgstr "Apakah Dasar Subsidi Diesel?"
+
+#: templates/ai_chatbot.html:90
+msgid "Why was the policy necessary?"
+msgstr ""
+
+#: templates/ai_chatbot.html:91
+msgid "Who benefits from the policy?"
+msgstr ""
+
+#: templates/ai_chatbot.html:92
+msgid "What is the eligibility criteria?"
+msgstr "Kriteria Kelayakan"
+
+#: templates/ai_chatbot.html:93
+msgid "What is the application process?"
+msgstr "Proses Permohonan"
+
+#: templates/ai_chatbot.html:94
+msgid "What are the benefits of this policy?"
+msgstr ""
+
+#: templates/ai_chatbot.html:101 templates/diesel_policy.html:250
+msgid "Eligibility Criteria"
+msgstr "Kriteria Kelayakan"
+
+#: templates/ai_chatbot.html:105
+msgid "Who is eligible for diesel subsidies?"
+msgstr ""
+
+#: templates/ai_chatbot.html:106
+msgid "How do I apply for diesel subsidies?"
+msgstr ""
+
+#: templates/ai_chatbot.html:107
+msgid "What documents are needed for subsidy application?"
+msgstr ""
+
+#: templates/ai_chatbot.html:108
+msgid "Can foreigners apply for diesel subsidies?"
+msgstr ""
+
+#: templates/ai_chatbot.html:115
+msgid "Economic Impact"
+msgstr "Permohonan Dalam Talian"
+
+#: templates/ai_chatbot.html:119
+msgid "How does diesel policy affect inflation?"
+msgstr ""
+
+#: templates/ai_chatbot.html:120
+msgid "What is the impact on manufacturing?"
+msgstr ""
+
+#: templates/ai_chatbot.html:121
+msgid "How much does the government save from the reform?"
+msgstr ""
+
+#: templates/ai_chatbot.html:122
+msgid "Will food prices increase due to diesel subsidy removal?"
+msgstr ""
+
+#: templates/ai_chatbot.html:129
+msgid "Personal Finance"
+msgstr "Perbelanjaan Peribadi"
+
+#: templates/ai_chatbot.html:133
+msgid "How can I calculate the impact on my budget?"
+msgstr ""
+
+#: templates/ai_chatbot.html:134
+msgid "What is the monthly subsidy amount?"
+msgstr "Apakah Dasar Subsidi Diesel?"
+
+#: templates/ai_chatbot.html:135
+msgid "How do I get the subsidy if I'm eligible?"
+msgstr ""
+
+#: templates/ai_chatbot.html:136
+msgid "Are there other subsidies available?"
+msgstr ""
+
 #: templates/cpi_datasets.html:13
 msgid "CPI Datasets"
 msgstr "Set Data IHP"
 
 #: templates/cpi_datasets.html:27 templates/cpi_impact.html:23
 #: templates/datasets_page.html:54 templates/diesel_policy.html:20
+#: templates/manufacturing_dataset.html:22
 #: templates/manufacturing_impact.html:23 templates/policies.html:19
 #: templates/policies.html:27
 msgid "Policies"
@@ -96,7 +193,8 @@ msgstr "Dasar"
 
 #: templates/cpi_datasets.html:28 templates/cpi_impact.html:24
 #: templates/datasets_page.html:54 templates/diesel_policy.html:20
-#: templates/diesel_policy.html:28 templates/manufacturing_impact.html:24
+#: templates/diesel_policy.html:28 templates/manufacturing_dataset.html:23
+#: templates/manufacturing_impact.html:24
 msgid "The Diesel Dilemma"
 msgstr "Dilema Diesel"
 
@@ -107,13 +205,14 @@ msgstr "Kesan IHP"
 
 #: templates/cpi_datasets.html:30 templates/cpi_datasets.html:37
 #: templates/cpi_impact.html:44 templates/datasets_page.html:82
+#: templates/manufacturing_dataset.html:44
 #: templates/manufacturing_impact.html:44
 msgid "CPI Data Dashboard"
 msgstr "Papan Pemuka Data IHP"
 
 #: templates/cpi_datasets.html:45 templates/datasets_page.html:54
 #: templates/datasets_page.html:61 templates/datasets_page.html:65
-#: templates/diesel_policy.html:38
+#: templates/diesel_policy.html:38 templates/manufacturing_dataset.html:40
 msgid "Fuel Data Dashboard"
 msgstr "Papan Pemuka Data Bahan Api"
 
@@ -123,6 +222,8 @@ msgid "Consumer Price Impact"
 msgstr "Kesan Harga Pengguna"
 
 #: templates/cpi_datasets.html:53 templates/datasets_page.html:86
+#: templates/manufacturing_dataset.html:25
+#: templates/manufacturing_dataset.html:32
 #: templates/manufacturing_impact.html:48
 msgid "Manufacturing Data Dashboard"
 msgstr "Papan Pemuka Data Pembuatan"
@@ -143,7 +244,7 @@ msgstr "MCOICOP"
 msgid "CPI Dataset Chart"
 msgstr "Carta Set Data IHP"
 
-#: templates/cpi_datasets.html:75
+#: templates/cpi_datasets.html:75 templates/manufacturing_dataset.html:70
 msgid "Year"
 msgstr "Tahun"
 
@@ -161,7 +262,12 @@ msgstr "Set Data IHP mengikut Negeri & Bahagian"
 #: templates/cpi_impact.html:370 templates/cpi_impact.html:376
 #: templates/cpi_impact.html:527 templates/cpi_impact.html:533
 #: templates/datasets_page.html:184 templates/datasets_page.html:262
+#: templates/manufacturing_dataset.html:128
+#: templates/manufacturing_dataset.html:211
+#: templates/manufacturing_dataset.html:302
 #: templates/manufacturing_impact.html:131
+#: templates/manufacturing_impact.html:296
+#: templates/manufacturing_impact.html:304
 msgid "Data Source:"
 msgstr "Sumber Data:"
 
@@ -169,7 +275,9 @@ msgstr "Sumber Data:"
 #: templates/cpi_datasets.html:229 templates/cpi_datasets.html:235
 #: templates/cpi_impact.html:272 templates/cpi_impact.html:370
 #: templates/cpi_impact.html:376 templates/cpi_impact.html:527
-#: templates/cpi_impact.html:533
+#: templates/cpi_impact.html:533 templates/manufacturing_dataset.html:128
+#: templates/manufacturing_dataset.html:211
+#: templates/manufacturing_dataset.html:302
 msgid "data.gov.my, 2010-2025"
 msgstr "data.gov.my, 2010-2025"
 
@@ -179,7 +287,12 @@ msgstr "data.gov.my, 2010-2025"
 #: templates/cpi_impact.html:371 templates/cpi_impact.html:377
 #: templates/cpi_impact.html:528 templates/cpi_impact.html:534
 #: templates/datasets_page.html:185 templates/datasets_page.html:263
+#: templates/manufacturing_dataset.html:129
+#: templates/manufacturing_dataset.html:212
+#: templates/manufacturing_dataset.html:303
 #: templates/manufacturing_impact.html:133
+#: templates/manufacturing_impact.html:300
+#: templates/manufacturing_impact.html:308
 msgid "URL:"
 msgstr "URL:"
 
@@ -189,14 +302,17 @@ msgstr "URL:"
 #: templates/cpi_impact.html:372 templates/cpi_impact.html:378
 #: templates/cpi_impact.html:529 templates/cpi_impact.html:535
 #: templates/datasets_page.html:186 templates/datasets_page.html:264
+#: templates/manufacturing_dataset.html:130
+#: templates/manufacturing_dataset.html:213
+#: templates/manufacturing_dataset.html:304
 #: templates/manufacturing_impact.html:135
+#: templates/manufacturing_impact.html:302
+#: templates/manufacturing_impact.html:310
 msgid "Methodology:"
 msgstr "Metodologi:"
 
 #: templates/cpi_datasets.html:109 templates/cpi_datasets.html:231
 #: templates/cpi_impact.html:372 templates/cpi_impact.html:529
-#, fuzzy
-#| msgid ""
 #| "Montly CPI values were collected from official goverment data centers."
 msgid ""
 "Monthly Country CPI values were collected from official goverment data "
@@ -206,8 +322,6 @@ msgstr "Nilai IHP bulanan dikumpulkan dari pusat data rasmi kerajaan."
 #: templates/cpi_datasets.html:115 templates/cpi_datasets.html:237
 #: templates/cpi_impact.html:274 templates/cpi_impact.html:378
 #: templates/cpi_impact.html:535
-#, fuzzy
-#| msgid ""
 #| "Montly CPI values were collected from official goverment data centers."
 msgid ""
 "Monthly State CPI values were collected from official goverment data centers."
@@ -386,6 +500,8 @@ msgid "Diesel Dilemma"
 msgstr "Dilema Diesel"
 
 #: templates/cpi_impact.html:48 templates/diesel_policy.html:46
+#: templates/manufacturing_dataset.html:24
+#: templates/manufacturing_dataset.html:48
 #: templates/manufacturing_impact.html:13
 #: templates/manufacturing_impact.html:25
 #: templates/manufacturing_impact.html:32
@@ -1011,20 +1127,14 @@ msgid "The Challenge"
 msgstr "Cabaran"
 
 #: templates/diesel_policy.html:71
-#, fuzzy
-#| msgid "The Targeted Approach"
 msgid "Targeted Approach "
 msgstr "Pendekatan Bersasar"
 
 #: templates/diesel_policy.html:72
-#, fuzzy
-#| msgid "The Financial Perspective"
 msgid "Financial Perspective"
 msgstr "Perspektif Kewangan"
 
 #: templates/diesel_policy.html:73
-#, fuzzy
-#| msgid "The Future Outlook"
 msgid "Future Outlook"
 msgstr "Tinjauan Masa Depan"
 
@@ -1068,8 +1178,6 @@ msgid "14.3 billion MYR"
 msgstr "14.3 bilion MYR"
 
 #: templates/diesel_policy.html:108
-#, fuzzy, python-format
-#| msgid "A staggering 920%% increase in just four years"
 msgid "A staggering 1021%% increase in just four years"
 msgstr "Peningkatan mendadak sebanyak 920%% dalam tempoh empat tahun sahaja"
 
@@ -1086,18 +1194,6 @@ msgid "Yearly View"
 msgstr "Paparan Tahunan"
 
 #: templates/diesel_policy.html:125
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "                          The solid blue line shows how much total diesel "
-#| "use has grown since 2021. \n"
-#| "                          The gold dashed line shows how much the number "
-#| "of diesel vehicles has grown. \n"
-#| "                          By 2023, diesel use has risen much more than "
-#| "vehicle numbers, so it’s the same trucks \n"
-#| "                          and cars using more fuel, not just more "
-#| "vehicles on the road.\n"
-#| "                          "
 msgid ""
 "\n"
 "                                  The solid blue line shows how much total "
@@ -1122,19 +1218,6 @@ msgstr ""
 " "
 
 #: templates/diesel_policy.html:136
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "                          In this view, the blue line tracks total diesel "
-#| "burned each year, \n"
-#| "                          and the gold dashed line tracks how many diesel "
-#| "vehicles were added each year. \n"
-#| "                          Even when fewer new vehicles were registered in "
-#| "2023, fuel use kept climbing. \n"
-#| "                          That means the existing vehicles are driving "
-#| "farther or hauling heavier loads, \n"
-#| "                          using more diesel per vehicle.\n"
-#| "                          "
 msgid ""
 "\n"
 "                                  In this view, the blue line tracks total "
@@ -1205,17 +1288,6 @@ msgid "Diesel Price Comparison with Neighbouring Countries (June 2024)"
 msgstr "Perbandingan Harga Diesel dengan Negara Jiran (Jun 2024)"
 
 #: templates/diesel_policy.html:183
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                        The diesel price increased from RM2.15 per liter "
-#| "to RM3.35 per liter, a\n"
-#| "                        56%% increase. This adjustment aligns the price "
-#| "more closely with market\n"
-#| "                        rates while targeted assistance programs help "
-#| "mitigate the impact on\n"
-#| "                        vulnerable groups.\n"
-#| "                        "
 msgid ""
 "\n"
 "                                The diesel price increased from RM2.15 per "
@@ -1238,14 +1310,6 @@ msgstr ""
 "                        "
 
 #: templates/diesel_policy.html:193
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "                            Source: Ministry of Finance Malaysia. (2024, "
-#| "June 9). Government Implements Targeted Diesel Subsidy for\n"
-#| "                            Peninsular Malaysia Effective 10 June 2024. "
-#| "Retrieved from\n"
-#| "                            "
 msgid ""
 "\n"
 "                                    Source: Ministry of Finance Malaysia. "
@@ -1296,10 +1360,6 @@ msgstr "Penternak Haiwan"
 #: templates/diesel_policy.html:239
 msgid "Aquaculture Farmers"
 msgstr "Penternak Akuakultur"
-
-#: templates/diesel_policy.html:250
-msgid "Eligibility Criteria"
-msgstr "Kriteria Kelayakan"
 
 #: templates/diesel_policy.html:256
 msgid "Valid Malaysian citizenship required"
@@ -1374,13 +1434,6 @@ msgid "Applications Approved"
 msgstr "Permohonan Diluluskan"
 
 #: templates/diesel_policy.html:322
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "                            Source: Ministry of Finance Malaysia. (2024, "
-#| "Mar 22). Program Bantuan Subsidi MADANI Open For Application. Retrieved "
-#| "from\n"
-#| "                            "
 msgid ""
 "\n"
 "                                    Source: Ministry of Finance Malaysia. "
@@ -1427,17 +1480,6 @@ msgid "Approximately USD 852 million"
 msgstr "Kira-kira USD 852 juta"
 
 #: templates/diesel_policy.html:355
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "                    The diesel subsidy reform is expected to generate "
-#| "significant savings for the Malaysian government, which can be redirected "
-#| "to other priority areas.\n"
-#| "                    The implementation also varies by region. The "
-#| "targeted diesel subsidy policy is expected to save the government "
-#| "approximately RM4 billion (USD 852\n"
-#| "                    million) annually.\n"
-#| "                    "
 msgid ""
 "\n"
 "                            The diesel subsidy reform is expected to "
@@ -1555,13 +1597,6 @@ msgstr ""
 "dan Malaysia Timur."
 
 #: templates/diesel_policy.html:427
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "                        Source: Ministry of Finance Malaysia. (2024, June "
-#| "9). Government Implements Targeted Diesel Subsidy for Peninsular Malaysia "
-#| "Effective 10 June 2024. Retrieved from\n"
-#| "                        "
 msgid ""
 "\n"
 "                                Source: Ministry of Finance Malaysia. (2024, "
@@ -2038,9 +2073,178 @@ msgstr ""
 msgid "Malaysian Flags"
 msgstr "Bendera Malaysia"
 
+#: templates/manufacturing_dataset.html:13
+msgid "Manufacturing Datasets"
+msgstr "Kesan Terhadap Sektor Pembuatan"
+
+#: templates/manufacturing_dataset.html:56
+#: templates/manufacturing_dataset.html:65
+#: templates/manufacturing_dataset.html:119
+msgid "Manufacturing Production Index (IPI)"
+msgstr "Apakah Indeks Harga Pengguna (IHP)?"
+
+#: templates/manufacturing_dataset.html:57
+#: templates/manufacturing_dataset.html:142
+msgid "Manufacturing Divisions"
+msgstr "Kesan Terhadap Sektor Pembuatan"
+
+#: templates/manufacturing_dataset.html:58
+#: templates/manufacturing_dataset.html:223
+#: templates/manufacturing_dataset.html:264
+msgid "Manufacturing Divisions Table"
+msgstr "Papan Pemuka Data Pembuatan"
+
+#: templates/manufacturing_dataset.html:79
+msgid "Series Type"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:81
+#: templates/manufacturing_dataset.html:110
+#: templates/manufacturing_dataset.html:185
+msgid "Absolute Values"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:91
+msgid "Time Period:"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:93
+msgid "All Years"
+msgstr "Tahun"
+
+#: templates/manufacturing_dataset.html:108
+#: templates/manufacturing_dataset.html:183
+msgid "Series Type:"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:111
+#: templates/manufacturing_dataset.html:186
+msgid "Year on Year Growth"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:112
+#: templates/manufacturing_dataset.html:187
+msgid "Month on Month Growth"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:130
+msgid ""
+"IPI by section values were collected from official goverment data centers."
+msgstr "Nilai IHP bulanan dikumpulkan dari pusat data rasmi kerajaan."
+
+#: templates/manufacturing_dataset.html:148
+#: templates/manufacturing_dataset.html:228
+msgid "Month:"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:150
+#: templates/manufacturing_dataset.html:230
+msgid "January"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:151
+#: templates/manufacturing_dataset.html:231
+msgid "February"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:152
+#: templates/manufacturing_dataset.html:232
+msgid "March"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:153
+#: templates/manufacturing_dataset.html:233
+msgid "April"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:154
+#: templates/manufacturing_dataset.html:234
+msgid "May"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:155
+#: templates/manufacturing_dataset.html:235
+msgid "June"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:156
+#: templates/manufacturing_dataset.html:236
+msgid "July"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:157
+#: templates/manufacturing_dataset.html:237
+msgid "August"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:158
+#: templates/manufacturing_dataset.html:238
+msgid "September"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:159
+#: templates/manufacturing_dataset.html:239
+msgid "October"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:160
+#: templates/manufacturing_dataset.html:240
+msgid "November"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:161
+#: templates/manufacturing_dataset.html:241
+msgid "December"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:165
+#: templates/manufacturing_dataset.html:245
+msgid "Year:"
+msgstr "Tahun"
+
+#: templates/manufacturing_dataset.html:191
+msgid "Display Options:"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:193
+msgid "Top 10 Divisions"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:194
+msgid "All Divisions"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:202
+msgid "Manufacturing Divisions Index"
+msgstr "Papan Pemuka Data Pembuatan"
+
+#: templates/manufacturing_dataset.html:213
+#: templates/manufacturing_dataset.html:304
+msgid ""
+"IPI by division values were collected from official goverment data centers."
+msgstr "Nilai IHP bulanan dikumpulkan dari pusat data rasmi kerajaan."
+
+#: templates/manufacturing_dataset.html:271
+msgid "Division"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:275
+msgid "Division Name"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:279
+msgid "Index Value"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:283
+msgid "YoY Change (%%)"
+msgstr ""
+
+#: templates/manufacturing_dataset.html:287
+msgid "MoM Change (%%)"
+msgstr ""
+
 #: templates/manufacturing_impact.html:56
-#, fuzzy
-#| msgid "What is Consumer Price Index (CPI)?"
 msgid "What is Industrial Production Index (IPI)?"
 msgstr "Apakah Indeks Harga Pengguna (IHP)?"
 
@@ -2055,7 +2259,6 @@ msgid ""
 msgstr ""
 
 #: templates/manufacturing_impact.html:64
-#, python-format
 msgid ""
 "\n"
 "                For this analysis, we focus on how Malaysia's diesel subsidy "
@@ -2075,9 +2278,7 @@ msgid "Impact on Fuel-Sensitive Manufacturing Sectors "
 msgstr ""
 
 #: templates/manufacturing_impact.html:77
-#: templates/manufacturing_impact.html:253
-#, fuzzy
-#| msgid "Policy Impact Analysis"
+#: templates/manufacturing_impact.html:259
 msgid "Diesel Price Impact Analysis"
 msgstr "Analisis Kesan Dasar"
 
@@ -2098,8 +2299,6 @@ msgid "How the Diesel Subsidy Reform Affects Manufacturing"
 msgstr ""
 
 #: templates/manufacturing_impact.html:104
-#, fuzzy
-#| msgid "Higher"
 msgid "Higher Costs:"
 msgstr "Kesan Tinggi"
 
@@ -2120,7 +2319,7 @@ msgid "Slower Output in Late 2024: "
 msgstr ""
 
 #: templates/manufacturing_impact.html:113
-msgid "Short-term boost after policy"
+msgid "Short-term boost after policy,followed by a mild decline"
 msgstr ""
 
 #: templates/manufacturing_impact.html:116
@@ -2140,8 +2339,6 @@ msgid "Higher costs may affect employment and product prices"
 msgstr ""
 
 #: templates/manufacturing_impact.html:124
-#, fuzzy
-#| msgid "Explore the Policy"
 msgid "Goal of the Policy:"
 msgstr "Terokai Dasar Ini"
 
@@ -2150,6 +2347,7 @@ msgid "Target subsidies to those who need them, improve long-term efficiency"
 msgstr ""
 
 #: templates/manufacturing_impact.html:131
+#: templates/manufacturing_impact.html:296
 msgid "Department of Statistics Malaysia (DOSM), 2024"
 msgstr ""
 
@@ -2167,209 +2365,262 @@ msgstr ""
 #: templates/manufacturing_impact.html:148
 msgid ""
 "\n"
-"                    This chart shows Malaysia's monthly Manufacturing Index "
-"(blue) and seasonally adjusted index (green) for 2024.  \n"
-"                    The blue line reflects actual industrial output, while "
-"the green line smooths out seasonal patterns.  \n"
-"                    A red line in June 2024 marks the start of the diesel "
-"subsidy reform, a major policy change affecting fuel costs in "
-"manufacturing.\n"
+"                    This analysis visualizes the impact of Malaysia’s diesel "
+"subsidy reform on fuel-sensitive manufacturing divisions. It helps identify "
+"which sectors are most vulnerable to rising diesel prices by combining "
+"industrial production data with fuel price trends.\n"
 "                    "
 msgstr ""
 
-#: templates/manufacturing_impact.html:166
-#, fuzzy
-#| msgid "Manufacturing Impact"
+#: templates/manufacturing_impact.html:164
 msgid "Manufacturing Sector"
 msgstr "Kesan Terhadap Sektor Pembuatan"
 
-#: templates/manufacturing_impact.html:167
-#, python-format
+#: templates/manufacturing_impact.html:165
 msgid "Year-on-year Growth(%%)"
 msgstr ""
 
-#: templates/manufacturing_impact.html:168
+#: templates/manufacturing_impact.html:166
 msgid "Sensitivity score"
 msgstr ""
 
-#: templates/manufacturing_impact.html:173
+#: templates/manufacturing_impact.html:171
 msgid "Non-metallic Mineral Products"
 msgstr ""
 
-#: templates/manufacturing_impact.html:179
+#: templates/manufacturing_impact.html:177
 msgid "Wearing Apparel"
 msgstr ""
 
-#: templates/manufacturing_impact.html:185
+#: templates/manufacturing_impact.html:183
 msgid "Paper and Paper Products"
 msgstr ""
 
-#: templates/manufacturing_impact.html:191
+#: templates/manufacturing_impact.html:189
 msgid "Fabricated Metal Products (excl. Machinery)"
 msgstr ""
 
-#: templates/manufacturing_impact.html:197
+#: templates/manufacturing_impact.html:195
 msgid "Machinery Repair and Installation"
 msgstr ""
 
-#: templates/manufacturing_impact.html:203
+#: templates/manufacturing_impact.html:201
 msgid "Chemicals and Chemical Products"
 msgstr ""
 
-#: templates/manufacturing_impact.html:208
+#: templates/manufacturing_impact.html:206
 msgid "Other Transport Equipment"
 msgstr ""
 
-#: templates/manufacturing_impact.html:213
+#: templates/manufacturing_impact.html:211
 msgid "Coke and Refined Petroleum Products"
 msgstr ""
 
-#: templates/manufacturing_impact.html:218
+#: templates/manufacturing_impact.html:216
 msgid "Rubber and Plastics Products"
 msgstr ""
 
-#: templates/manufacturing_impact.html:223
+#: templates/manufacturing_impact.html:221
 msgid "Computer, Electronic, and Optical Products"
 msgstr ""
 
+#: templates/manufacturing_impact.html:229
+msgid "Methodology Overview:"
+msgstr "Metodologi:"
+
 #: templates/manufacturing_impact.html:231
+msgid "Fuel Sensitivity Score:"
+msgstr ""
+
+#: templates/manufacturing_impact.html:231
+msgid ""
+"The fuel sensitivity score is calculated to assess how much a manufacturing "
+"sector's output responds to diesel price changes. First, for each month in "
+"2024, the average difference in industrial production growth (IPI growth) "
+"between the before and after policy periods is computed for each industry. "
+"Then, this growth difference is divided by the percentage change in diesel "
+"prices for the same month. This gives a monthly “sensitivity contribution.” "
+"Finally, these monthly values are averaged across the year to produce the "
+"sector’s fuel sensitivity score — a higher score indicates a stronger "
+"response of output to diesel price fluctuations."
+msgstr ""
+
+#: templates/manufacturing_impact.html:232
+msgid "Impact Ranking:"
+msgstr "Perincian Kesan"
+
+#: templates/manufacturing_impact.html:232
+msgid ""
+"The divisions shown here represent the top 10 fuel-sensitive sectors based "
+"on their calculated sensitivity scores. "
+msgstr ""
+
+#: templates/manufacturing_impact.html:237
 msgid "Why These Sectors Are More Affected"
 msgstr ""
 
-#: templates/manufacturing_impact.html:233
+#: templates/manufacturing_impact.html:239
 msgid ""
 "The sectors most impacted by the diesel subsidy policy changes share key "
 "characteristics:"
 msgstr ""
 
-#: templates/manufacturing_impact.html:236
+#: templates/manufacturing_impact.html:242
 msgid "High energy intensity:"
 msgstr ""
 
-#: templates/manufacturing_impact.html:236
+#: templates/manufacturing_impact.html:242
 msgid ""
 "Industries like Fabricated Metal Products and Chemicals and Chemical "
 "Products require large amounts of fuel for manufacturing processes."
 msgstr ""
 
-#: templates/manufacturing_impact.html:237
+#: templates/manufacturing_impact.html:243
 msgid "Dependence on diesel-powered machinery:"
 msgstr ""
 
-#: templates/manufacturing_impact.html:237
+#: templates/manufacturing_impact.html:243
 msgid ""
 "Sectors such as Machinery Repair and Installation rely directly on diesel "
 "for operational equipment."
 msgstr ""
 
-#: templates/manufacturing_impact.html:238
+#: templates/manufacturing_impact.html:244
 msgid "Reliance on road transport:"
 msgstr ""
 
-#: templates/manufacturing_impact.html:238
+#: templates/manufacturing_impact.html:244
 msgid ""
 "Industries like Wearing Apparel and Rubber and Plastics Products depend on "
 "logistics networks powered by diesel for raw materials and product delivery."
 msgstr ""
 
-#: templates/manufacturing_impact.html:239
+#: templates/manufacturing_impact.html:245
 msgid "Fuel-sensitive supply chains:"
 msgstr ""
 
-#: templates/manufacturing_impact.html:239
+#: templates/manufacturing_impact.html:245
 msgid ""
 "Sectors such as Computer, Electronic, and Optical Products are part of "
 "global supply chains where fuel costs can significantly impact "
 "competitiveness."
 msgstr ""
 
-#: templates/manufacturing_impact.html:240
+#: templates/manufacturing_impact.html:246
 msgid "Limited alternatives to diesel:"
 msgstr ""
 
-#: templates/manufacturing_impact.html:240
+#: templates/manufacturing_impact.html:246
 msgid ""
 "For sectors like Coke and Refined Petroleum Products, diesel is not just a "
 "cost but also a core input, leaving little flexibility in adapting to price "
 "shocks."
 msgstr ""
 
-#: templates/manufacturing_impact.html:245
+#: templates/manufacturing_impact.html:251
 msgid ""
 "Source: Department of Statistics Malaysia, IPI by Division (2 digit) Data, "
 "Feb 2025"
 msgstr ""
 
-#: templates/manufacturing_impact.html:258
-#, python-format
+#: templates/manufacturing_impact.html:264
 msgid ""
 "\n"
-"                    This chart shows the relationship between manufacturing "
-"growth (blue line, %% change month-on-month) and diesel prices (orange line, "
-"RM/L) in Malaysia throughout 2024.\n"
+"                    This chart shows the monthly Manufacturing Production "
+"Index (blue line, base year 2015=100) and average diesel price (orange line, "
+"RM/L) from January to December 2024. The IPI reflects actual manufacturing "
+"output, while diesel prices capture fuel cost changes across the same "
+"period.\n"
 "                    "
 msgstr ""
 
-#: templates/manufacturing_impact.html:268
-#, fuzzy
-#| msgid "Online Application"
-msgid "Economic Implications"
-msgstr "Permohonan Dalam Talian"
+#: templates/manufacturing_impact.html:274
+msgid "What Citizens Should Know:"
+msgstr ""
 
-#: templates/manufacturing_impact.html:270
+#: templates/manufacturing_impact.html:277
+msgid "Output Stayed Strong Despite Higher Diesel Prices:"
+msgstr ""
+
+#: templates/manufacturing_impact.html:277
 msgid ""
-"\n"
-"                        The different responses between export and domestic-"
-"oriented manufacturing have important implications:\n"
-"                        "
+"Even after diesel prices rose in June, the manufacturing sector continued "
+"expanding through August — showing short-term resilience and possible "
+"preparation ahead of the reform."
 msgstr ""
 
-#: templates/manufacturing_impact.html:276
-msgid "International Competitiveness:"
+#: templates/manufacturing_impact.html:280
+msgid "Slowdown in Late 2024:"
 msgstr ""
 
-#: templates/manufacturing_impact.html:276
+#: templates/manufacturing_impact.html:280
 msgid ""
-"Export sectors face greater challenges as they cannot easily pass increased "
-"costs to international buyers in competitive markets"
+"After peaking in August, the manufacturing index declined moderately from "
+"September to December. This suggests that higher fuel costs may have "
+"gradually impacted industrial output, particularly for fuel-intensive "
+"sectors."
 msgstr ""
 
-#: templates/manufacturing_impact.html:279
-#, fuzzy
-#| msgid "Consumer Price Impact"
-msgid "Consumer Prices:"
-msgstr "Kesan Harga Pengguna"
+#: templates/manufacturing_impact.html:283
+msgid "Why Diesel Prices Matter:"
+msgstr "Harga Diesel"
 
-#: templates/manufacturing_impact.html:279
+#: templates/manufacturing_impact.html:283
 msgid ""
-"Domestic manufacturing sectors can partially pass costs to local consumers, "
-"contributing to inflationary pressure"
+"Diesel is widely used in transportation, logistics, and factory operations. "
+"A rise in diesel prices typically increases production costs, which may "
+"later affect consumer prices, job stability, or SME performance."
 msgstr ""
 
-#: templates/manufacturing_impact.html:282
-msgid "Employment Effects:"
+#: templates/manufacturing_impact.html:286
+msgid "Big vs Small Businesses:"
 msgstr ""
 
-#: templates/manufacturing_impact.html:282
+#: templates/manufacturing_impact.html:286
 msgid ""
-"Export sectors typically employ more workers, so their volatility can have "
-"larger employment impacts"
+"Large manufacturers may absorb cost increases better, while small and medium "
+"enterprises (SMEs) could feel the squeeze first — possibly leading to slower "
+"growth or reduced activity in some sectors."
 msgstr ""
 
-#: templates/manufacturing_impact.html:285
-msgid "Policy Considerations:"
+#: templates/manufacturing_impact.html:289
+msgid "Policy Effects Take Time:"
 msgstr ""
 
-#: templates/manufacturing_impact.html:285
+#: templates/manufacturing_impact.html:289
 msgid ""
-"Targeted support mechanisms may be needed for export sectors to maintain "
-"international competitiveness"
+"The data suggests that policy changes don’t cause immediate disruption, but "
+"effects can build up over time — making it important to monitor both "
+"production trends and price movements together."
 msgstr ""
 
-#: templates/manufacturing_impact.html:291
+#: templates/manufacturing_impact.html:298
+#: templates/manufacturing_impact.html:306
+msgid "Dataset:"
+msgstr "Set Data IHP"
+
+#: templates/manufacturing_impact.html:298
+msgid "IPI by Division (2-digit)"
+msgstr ""
+
+#: templates/manufacturing_impact.html:302
 msgid ""
-"Source: Department of Statistics Malaysia, IPI for Export-Oriented Divisions "
-"and IPI for Domestic-Oriented Divisions Data, Feb 2025"
+"Monthly manufacturing index (absolute values) from January to December 2024, "
+"categorized under Section C (Manufacturing), base year 2015 = 100."
+msgstr ""
+
+#: templates/manufacturing_impact.html:304
+msgid "Official Fuel Prices – Government of Malaysia"
+msgstr ""
+
+#: templates/manufacturing_impact.html:306
+msgid "Price of Petroleum & Diesel (CSV)"
+msgstr ""
+
+#: templates/manufacturing_impact.html:310
+msgid ""
+"Monthly average diesel prices collected for 2024, based on official level "
+"pricing records."
 msgstr ""
 
 #: templates/policies.html:7
@@ -2413,6 +2664,11 @@ msgstr ""
 #: templates/policies.html:68 templates/policies.html:78
 msgid "Read More"
 msgstr "Baca Lagi"
+
+#, fuzzy
+#~| msgid "Consumer Price Impact"
+#~ msgid "Consumer Prices:"
+#~ msgstr "Kesan Harga Pengguna"
 
 #~ msgid "data.gov.my, 2025"
 #~ msgstr "data.gov.my, 2018"

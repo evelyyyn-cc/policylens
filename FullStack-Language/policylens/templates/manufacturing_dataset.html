@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <link rel="stylesheet" href="/static/assets/scss/main.css">
-    <title>Manufacturing Datasets</title>
+    <title>{% trans "Manufacturing Datasets" %}</title>
 </head>
 <body class="manufacturing-datasets-page">
     {% include "header.html" %}
@@ -21,15 +21,15 @@
                 <a href="/index/">{% trans "Home" %}</a > >
                 <a href="/policies/">{% trans "Policies" %}</a > >
                 <a href="/diesel_policy/">{% trans "The Diesel Dilemma" %}</a > >
-                <a href="/manufacturing_impact/">Manufacturing Impact</a > >
-                <span>Manufacturing Data Dashboard</span>
+                <a href="/manufacturing_impact/">{% trans "Manufacturing Impact" %}</a > >
+                <span>{% trans "Manufacturing Data Dashboard" %}</span>
             </div>
         </div>
     </div>
 
     <!-- Hero/Banner section -->
     <div class="hero-manu-dataset">
-        <h1>Manufacturing Data Dashboard</h1>
+        <h1>{% trans "Manufacturing Data Dashboard" %}</h1>
     </div>
 
     <!-- Dashboard Links Section -->
@@ -45,7 +45,7 @@
           </a >
           <a href="/manufacturing_impact/" class="dashboard-link impact-pages">
             <i class="fas fa-industry manufacturing-icon"></i>
-            Manufacturing Impact
+            {% trans "Manufacturing Impact" %}
         </a >
         </div>
     </section>
@@ -53,16 +53,16 @@
     <section class="manu-datasets-section">
         <!-- Tab navigation - Horizontal tabs below hero -->
         <div class="main-tabs">
-            <a href="#" class="tab-link active" data-tab="manu-line-tab">Manufacturing Production Index (IPI)</a >
-            <a href="#" class="tab-link" data-tab="manu-bar-tab">Manufacturing Divisions</a >
-            <a href="#" class="tab-link" data-tab="manu-table-tab">Manufacturing Divisions Table</a >
+            <a href="#" class="tab-link active" data-tab="manu-line-tab">{% trans "Manufacturing Production Index (IPI)" %}</a >
+            <a href="#" class="tab-link" data-tab="manu-bar-tab">{% trans "Manufacturing Divisions" %}</a >
+            <a href="#" class="tab-link" data-tab="manu-table-tab">{% trans "Manufacturing Divisions Table" %}</a >
             <div class="tab-indicator"></div>
         </div>
 
         <div class="tab-content active" id="manu-line-tab">
             <section class="manu-dashboard-section">
                 <div class="section-header manu-header">
-                    <span class="title">Manufacturing Production Index (IPI)</span>
+                    <span class="title">{% trans "Manufacturing Production Index (IPI)" %}</span>
                 </div>
 
                 <!-- <div class="manu-filter-row">
@@ -76,9 +76,9 @@
                         </div>
                     </div>
                     <div class="filter-dropdown">
-                        <label>Series Type</label>
+                        <label>{% trans "Series Type" %}</label>
                         <div class="dropdown-select">
-                            <span>Absolute Values</span>
+                            <span>{% trans "Absolute Values" %}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
@@ -88,9 +88,9 @@
 
                 <div class="filter-controls">
                     <div class="filter-group">
-                        <label for="time-period">Time Period:</label>
+                        <label for="time-period">{% trans "Time Period:" %}</label>
                         <select id="time-period" class="filter-select">
-                            <option value="all">All Years</option>
+                            <option value="all">{% trans "All Years" %}</option>
                             <option value="2025">2025</option>
                             <option value="2024">2024</option>
                             <option value="2023">2023</option>
@@ -105,18 +105,18 @@
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label for="series-type">Series Type:</label>
+                        <label for="series-type">{% trans "Series Type:" %}</label>
                         <select id="series-type" class="filter-select">
-                            <option value="abs">Absolute Values</option>
-                            <option value="growth_yoy">Year on Year Growth</option>
-                            <option value="growth_mom">Month on Month Growth</option>
+                            <option value="abs">{% trans "Absolute Values" %}</option>
+                            <option value="growth_yoy">{% trans "Year on Year Growth" %}</option>
+                            <option value="growth_mom">{% trans "Month on Month Growth" %}</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="section-content">
                     <div class="chart-title">
-                        Manufacturing Production Index (IPI)
+                        {% trans "Manufacturing Production Index (IPI)" %}
                     </div>
 
                     <div class="ipi-chart-container">
@@ -127,7 +127,7 @@
                         <div class="data-citation">
                             <strong>{% trans "Data Source:" %}</strong> {% trans "data.gov.my, 2010-2025" %}<br>
                             <strong>{% trans "URL:" %}</strong> <a href="https://data.gov.my/data-catalogue/ipi_1d?series=abs&section=c&visual=table" target="_blank">https://data.gov.my/data-catalogue/ipi_1d?series=abs&section=c&visual=table</a ><br>
-                            <strong>{% trans "Methodology:" %}</strong> IPI by section values were collected from official goverment data centers.
+                            <strong>{% trans "Methodology:" %}</strong> {% trans "IPI by section values were collected from official goverment data centers." %}
                         </div>
                     </div>
                 </div>
@@ -139,30 +139,30 @@
         <div class="tab-content" id="manu-bar-tab">
             <section class="manu-dashboard-section">
                 <div class="section-header manu-header">
-                    <span class="title">Manufacturing Divisions</span>
+                    <span class="title">{% trans "Manufacturing Divisions" %}</span>
                 </div>
 
                 <div class="filter-controls" id="bar-divisions">
                     <div class="filter-group-container time-period">
                         <div class="filter-group">
-                            <label for="division-month">Month:</label>
+                            <label for="division-month">{% trans "Month:" %}</label>
                             <select id="division-month" class="filter-select">
-                            <option value="1">January</option>
-                            <option value="2" selected>February</option>
-                            <option value="3">March</option>
-                            <option value="4">April</option>
-                            <option value="5">May</option>
-                            <option value="6">June</option>
-                            <option value="7">July</option>
-                            <option value="8">August</option>
-                            <option value="9">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
+                            <option value="1">{% trans "January" %}</option>
+                            <option value="2" selected>{% trans "February" %}</option>
+                            <option value="3">{% trans "March" %}</option>
+                            <option value="4">{% trans "April" %}</option>
+                            <option value="5">{% trans "May" %}</option>
+                            <option value="6">{% trans "June" %}</option>
+                            <option value="7">{% trans "July" %}</option>
+                            <option value="8">{% trans "August" %}</option>
+                            <option value="9">{% trans "September" %}</option>
+                            <option value="10">{% trans "October" %}</option>
+                            <option value="11">{% trans "November" %}</option>
+                            <option value="12">{% trans "December" %}</option>
                             </select>
                         </div>
                         <div class="filter-group">
-                            <label for="division-year">Year:</label>
+                            <label for="division-year">{% trans "Year:" %}</label>
                             <select id="division-year" class="filter-select">
                             <option value="2025">2025</option>
                             <option value="2024" selected>2024</option>
@@ -180,18 +180,18 @@
                     </div>
                     <div class="filter-group-container display-options">
                         <div class="filter-group">
-                            <label for="series-type-division">Series Type:</label>
+                            <label for="series-type-division">{% trans "Series Type:" %}</label>
                             <select id="series-type-division" class="filter-select">
-                            <option value="abs">Absolute Values</option>
-                            <option value="growth_yoy">Year on Year Growth</option>
-                            <option value="growth_mom">Month on Month Growth</option>
+                            <option value="abs">{% trans "Absolute Values" %}</option>
+                            <option value="growth_yoy">{% trans "Year on Year Growth" %}</option>
+                            <option value="growth_mom">{% trans "Month on Month Growth" %}</option>
                             </select>
                         </div>
                         <div class="filter-group">
-                            <label for="display-options">Display Options:</label>
+                            <label for="display-options">{% trans "Display Options:" %}</label>
                             <select id="display-options" class="filter-select">
-                            <option value="top" selected>Top 10 Divisions</option>
-                            <option value="all">All Divisions</option>
+                            <option value="top" selected>{% trans "Top 10 Divisions" %}</option>
+                            <option value="all">{% trans "All Divisions" %}</option>
                             </select>
                         </div>
                     </div>
@@ -199,7 +199,7 @@
 
                 <div class="section-content">
                     <div class="chart-title">
-                        Manufacturing Divisions Index
+                        {% trans "Manufacturing Divisions Index" %}
                     </div>
 
                     <div class="divisions-chart-container">
@@ -210,7 +210,7 @@
                         <div class="data-citation">
                             <strong>{% trans "Data Source:" %}</strong> {% trans "data.gov.my, 2010-2025" %}<br>
                             <strong>{% trans "URL:" %}</strong> <a href="https://data.gov.my/data-catalogue/ipi_2d?series=abs&visual=table" target="_blank">https://data.gov.my/data-catalogue/ipi_2d?series=abs&visual=table</a ><br>
-                            <strong>{% trans "Methodology:" %}</strong> IPI by division values were collected from official goverment data centers.
+                            <strong>{% trans "Methodology:" %}</strong> {% trans "IPI by division values were collected from official goverment data centers." %}
                         </div>
                     </div>
                 </div>
@@ -220,29 +220,29 @@
         <div class="tab-content" id="manu-table-tab">
             <section class="manu-dashboard-section">
                 <div class="section-header manu-header">
-                    <span class="title">Manufacturing Divisions Table</span>
+                    <span class="title">{% trans "Manufacturing Divisions Table" %}</span>
                 </div>
 
                 <div class="filter-controls table">
                     <div class="filter-group">
-                        <label for="table-month">Month:</label>
+                        <label for="table-month">{% trans "Month:" %}</label>
                         <select id="table-month" class="filter-select">
-                            <option value="1">January</option>
-                            <option value="2" selected>February</option>
-                            <option value="3">March</option>
-                            <option value="4">April</option>
-                            <option value="5">May</option>
-                            <option value="6">June</option>
-                            <option value="7">July</option>
-                            <option value="8">August</option>
-                            <option value="9">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
+                            <option value="1">{% trans "January" %}</option>
+                            <option value="2" selected>{% trans "February" %}</option>
+                            <option value="3">{% trans "March" %}</option>
+                            <option value="4">{% trans "April" %}</option>
+                            <option value="5">{% trans "May" %}</option>
+                            <option value="6">{% trans "June" %}</option>
+                            <option value="7">{% trans "July" %}</option>
+                            <option value="8">{% trans "August" %}</option>
+                            <option value="9">{% trans "September" %}</option>
+                            <option value="10">{% trans "October" %}</option>
+                            <option value="11">{% trans "November" %}</option>
+                            <option value="12">{% trans "December" %}</option>
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label for="table-year">Year:</label>
+                        <label for="table-year">{% trans "Year:" %}</label>
                         <select id="table-year" class="filter-select">
                             <option value="2025">2025</option>
                             <option value="2024" selected>2024</option>
@@ -261,30 +261,30 @@
 
                 <div class="section-content">
                     <div class="chart-title">
-                        Manufacturing Divisions Table
+                        {% trans "Manufacturing Divisions Table" %}
                     </div>
 
                     <table id="divisionsTable">
                         <thread>
                             <tr>
                                 <th>
-                                    Division
+                                    {% trans "Division" %}
                                 </th>
 
                                 <th>
-                                    Division Name
+                                    {% trans "Division Name" %}
                                 </th>
 
                                 <th>
-                                    Index Value
+                                    {% trans "Index Value" %}
                                 </th>
 
                                 <th>
-                                    YoY Change (%)
+                                    {% trans "YoY Change (%)" %}
                                 </th>
 
                                 <th>
-                                    MoM Change (%)
+                                    {% trans "MoM Change (%)" %}
                                 </th>
                             </tr>
 
@@ -301,7 +301,7 @@
                         <div class="data-citation">
                             <strong>{% trans "Data Source:" %}</strong> {% trans "data.gov.my, 2010-2025" %}<br>
                             <strong>{% trans "URL:" %}</strong> <a href="https://data.gov.my/data-catalogue/ipi_2d?series=abs&visual=table" target="_blank">https://data.gov.my/data-catalogue/ipi_2d?series=abs&visual=table</a ><br>
-                            <strong>{% trans "Methodology:" %}</strong> IPI by division values were collected from official goverment data centers.
+                            <strong>{% trans "Methodology:" %}</strong> {% trans "IPI by division values were collected from official goverment data centers." %}
                         </div>
                     </div>
                 </div>
