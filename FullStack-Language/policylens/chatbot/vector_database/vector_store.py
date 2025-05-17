@@ -82,6 +82,7 @@ def ingest_pdf(path: str, collection_name: str = "website_vectors"):
     chunks = splitter.split_documents(docs)
     print("Data Chunked")
     # print(str(chunks[0]))
+    print(f"Number of Chunks: {len(chunks)}")
 
     chroma.add_documents(chunks)
     print("Data Stored In ChromaDB")
