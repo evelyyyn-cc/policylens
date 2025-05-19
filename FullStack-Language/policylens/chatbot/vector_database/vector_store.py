@@ -8,24 +8,30 @@ from langchain.chains import RetrievalQA
 import os
 import re
 import openai
+from django.conf import settings
 
 # from langchain.prompts import PromptTemplate
 
 # from query_handlers import get_optimized_query, get_enhanced_prompt
 # get API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
-
-# 1) Embeddings client (GPT-4.1 uses the same endpoint as GPT-4, just set model name)
+# 1) Embeddings client
 embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
-# 2) File-backed Chroma
-persist_dir = os.path.join(os.path.dirname(__file__), "chroma_db")
+persist_dir = os.path.join(settings.BASE_DIR, "chatbot", "vector_database", "chroma_db")
 collection_name = "website_vectors"
-chroma = Chroma(
-    persist_directory=persist_dir,
-    collection_name=collection_name,
-    embedding_function=embeddings
-)
+
+def get_chroma_client():
+    # 2) File-backed Chroma
+    # persist_dir = os.path.join(os.path.dirname(__file__), "chroma_db")
+    
+    chroma = Chroma(
+        persist_directory=persist_dir,
+        collection_name=collection_name,
+        embedding_function=embeddings
+    )
+
+    return chroma
 
 # Function loads pdfs from folder
 def load_pdfs_from_folder(folder_path: str) -> list[Document]:
@@ -85,13 +91,16 @@ def ingest_pdf(path: str, collection_name: str = "website_vectors"):
     # print(str(chunks[0]))
     print(f"Number of Chunks: {len(chunks)}")
 
+    # load chroma client
+    chroma = get_chroma_client()
+
     chroma.add_documents(chunks)
     print("Data Stored In ChromaDB")
 
 # function to setup query retriever
-def get_retriever(collection_name: str = "website_vectors", k: int = 5):
+def get_retriever(chroma_db, collection_name: str = "website_vectors", k: int = 5):
     """Return a Retriever that will fetch the top-k most relevant chunks."""
-    return chroma.as_retriever(
+    return chroma_db.as_retriever(
         search_kwargs={"k": k}#,
         # collection_name=collection_name
     )
@@ -99,11 +108,13 @@ def get_retriever(collection_name: str = "website_vectors", k: int = 5):
 # function to setup LLM query chain
 def get_qa_chain():
     """Assemble a RetrievalQA chain with GPT-4.1 as the LLM."""
+    chroma = get_chroma_client()
+
     llm = ChatOpenAI(
         model="gpt-4.1-nano",
         temperature=0.0
     )
-    retriever = get_retriever()
+    retriever = get_retriever(chroma_db=chroma)
 
     return {'llm':llm,"retriever":retriever}
 
