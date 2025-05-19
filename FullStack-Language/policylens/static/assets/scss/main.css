@@ -1448,22 +1448,6 @@ body.menu-open {
   }
 }
 
-.dashboard-icon {
-  background: url("icon-dashboard.svg") no-repeat center center;
-}
-
-.household-icon {
-  background: url("icon-household.svg") no-repeat center center;
-}
-
-.price-icon {
-  background: url("icon-price.svg") no-repeat center center;
-}
-
-.manufacturing-icon {
-  background: url("icon-manufacturing.svg") no-repeat center center;
-}
-
 .policy-info .disclaimer {
   color: orange;
   padding-top: 1rem;

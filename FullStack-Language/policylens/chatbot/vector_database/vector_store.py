@@ -9,7 +9,8 @@ import os
 import re
 import openai
 
-from langchain.prompts import PromptTemplate
+# from langchain.prompts import PromptTemplate
+
 # from query_handlers import get_optimized_query, get_enhanced_prompt
 # get API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
