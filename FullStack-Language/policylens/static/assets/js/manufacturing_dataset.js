@@ -263,7 +263,8 @@ async function fetchDivisionsData() {
         const seriesType = seriesTypeDivisionSelect.value;
         const displayOption = displayOptionsSelect.value;
         console.log(`Workspaceing divisions data with year=${year}, month=${month}, series_type=${seriesType}, display=${displayOption}`);
-        let apiUrl = `http://127.0.0.1:8000/api/ipi2ddata/?year=${year}&month=${month}&series_type=${seriesType}`;
+        // let apiUrl = `http://127.0.0.1:8000/api/ipi2ddata/?year=${year}&month=${month}&series_type=${seriesType}`;
+        let apiUrl = `https://mypolicylens.xyz/api/ipi2ddata/?year=${year}&month=${month}&series_type=${seriesType}`;
         if (seriesType === 'abs') apiUrl += `&display=${displayOption}`;
         else apiUrl += `&display=all`;
         
@@ -455,7 +456,8 @@ async function fetchTableData() {
         const month = tableMonthSelect.value;
         const year = tableYearSelect.value;
         console.log(`Workspaceing table data with year=${year}, month=${month}`);
-        const apiUrl = `http://127.0.0.1:8000/api/manufacturing_data/?year=${year}&month=${month}`;
+        // const apiUrl = `http://127.0.0.1:8000/api/manufacturing_data/?year=${year}&month=${month}`;
+        const apiUrl = `https://mypolicylens.xyz/api/manufacturing_data/?year=${year}&month=${month}`;
         const response = await fetch(apiUrl);
         if (!response.ok) throw new Error(`API call failed: ${response.status}`);
         const data = await response.json();
