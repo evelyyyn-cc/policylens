@@ -67,7 +67,8 @@ async function fetchIPIData() {
         const timePeriod = timePeriodSelect.value;
         const seriesType = seriesTypeSelect.value;
         console.log(`Workspaceing IPI data with year=${timePeriod}, series_type=${seriesType}`);
-        const apiUrl = `http://localhost:8000/api/ipi1ddata/?year=${timePeriod}&series_type=${seriesType}`;
+        // const apiUrl = `http://localhost:8000/api/ipi1ddata/?year=${timePeriod}&series_type=${seriesType}`;
+        const apiUrl = `https://mypolicylens.xyz/api/ipi1ddata/?year=${timePeriod}&series_type=${seriesType}`;
         const response = await fetch(apiUrl);
         if (!response.ok) throw new Error(`API call failed with status: ${response.status}`);
         const data = await response.json();
