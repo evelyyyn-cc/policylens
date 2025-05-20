@@ -3,6 +3,7 @@ Specialized handlers for predefined questions and dynamic query rewriting in the
 """
 from langchain.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
+import os
 
 # Existing dictionary mapping predefined questions to optimized search queries
 QUERY_REWRITES = {
@@ -261,6 +262,7 @@ Use specific data points where available. Avoid vague statements - focus on conc
 End with one forward-looking sentence about what these effects suggest for Malaysia's manufacturing competitiveness in 2025.
 """
 }
+dash_key = os.getenv("DASHSCOPE_API_KEY")
 
 FORMATTING_SUFFIX = """
 Format your answer with proper HTML:
@@ -273,7 +275,8 @@ Ensure numbers and formatting in your answer are represented with HTML tags.
 """
 
 # Initialize the LLM for query rewriting
-llm = ChatOpenAI(model="gpt-4.1-nano", temperature=0)
+# llm = ChatOpenAI(model="gpt-4.1-nano", temperature=0)
+llm = ChatOpenAI(model="qwen2.5-7b-instruct",openai_api_base='https://dashscope.aliyuncs.com/compatible-mode/v1',api_key=dash_key)
 
 # Template for rewriting free-form queries with enhanced context understanding
 FREEFORM_REWRITE_TEMPLATE = """

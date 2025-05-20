@@ -5,6 +5,11 @@ from langchain_community.document_loaders import PyMuPDFLoader
 from langchain.schema import Document
 from langchain_openai import ChatOpenAI
 from langchain.chains import RetrievalQA
+
+from langchain_community.embeddings import DashScopeEmbeddings
+# from langchain_community.chat_models.dashscope import ChatDashScope
+# from langchain_community.embeddings.dashscope import DashScopeEmbeddings
+from langchain.chains import RetrievalQA
 import os
 import re
 import openai
@@ -17,11 +22,14 @@ from django.conf import settings
 # openai.api_key = os.getenv("OPENAI_API_KEY")
 # openai.api_base = os.getenv("OPENAI_API_BASE")
 
-os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
-os.environ["OPENAI_API_BASE"] = os.getenv("OPENAI_API_BASE")
+# os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+os.environ["DASHSCOPE_API_KEY"] = os.getenv("DASHSCOPE_API_KEY")
+
+dash_key = os.getenv("DASHSCOPE_API_KEY")
 
 # 1) Embeddings client
-embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+# embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+embeddings = DashScopeEmbeddings(model='text-embedding-v3')
 
 persist_dir = os.path.join(settings.BASE_DIR, "chatbot", "vector_database", "chroma_db")
 collection_name = "website_vectors"
@@ -115,10 +123,9 @@ def get_qa_chain():
     """Assemble a RetrievalQA chain with GPT-4.1 as the LLM."""
     chroma = get_chroma_client()
 
-    llm = ChatOpenAI(
-        model="gpt-4.1-nano",
-        temperature=0.0
-    )
+    # llm = ChatOpenAI(model="gpt-4.1-nano",temperature=0.0)
+    llm = ChatOpenAI(model="qwen2.5-7b-instruct",openai_api_base='https://dashscope.aliyuncs.com/compatible-mode/v1',api_key=dash_key)
+
     retriever = get_retriever(chroma_db=chroma)
 
     return {'llm':llm,"retriever":retriever}
