@@ -14,8 +14,11 @@ from django.conf import settings
 
 # from query_handlers import get_optimized_query, get_enhanced_prompt
 # get API key
-openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_base = os.getenv("OPENAI_API_BASE")
+# openai.api_key = os.getenv("OPENAI_API_KEY")
+# openai.api_base = os.getenv("OPENAI_API_BASE")
+
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+os.environ["OPENAI_API_BASE"] = os.getenv("OPENAI_API_BASE")
 
 # 1) Embeddings client
 embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
