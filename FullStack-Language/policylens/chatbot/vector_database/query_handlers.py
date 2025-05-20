@@ -276,7 +276,9 @@ Ensure numbers and formatting in your answer are represented with HTML tags.
 
 # Initialize the LLM for query rewriting
 # llm = ChatOpenAI(model="gpt-4.1-nano", temperature=0)
-llm = ChatOpenAI(model="qwen2.5-7b-instruct",openai_api_base='https://dashscope.aliyuncs.com/compatible-mode/v1',api_key=dash_key)
+# alternative model: qwen3-8b, qwen2.5-7b-instruct
+# llm = ChatOpenAI(model="qwen2.5-7b-instruct",openai_api_base='https://dashscope.aliyuncs.com/compatible-mode/v1',api_key=dash_key)
+llm = ChatOpenAI(model="qwen3-8b",openai_api_base='https://dashscope.aliyuncs.com/compatible-mode/v1',api_key=dash_key,extra_body={"enable_thinking": False})
 
 # Template for rewriting free-form queries with enhanced context understanding
 FREEFORM_REWRITE_TEMPLATE = """

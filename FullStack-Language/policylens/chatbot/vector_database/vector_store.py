@@ -124,7 +124,9 @@ def get_qa_chain():
     chroma = get_chroma_client()
 
     # llm = ChatOpenAI(model="gpt-4.1-nano",temperature=0.0)
-    llm = ChatOpenAI(model="qwen2.5-7b-instruct",openai_api_base='https://dashscope.aliyuncs.com/compatible-mode/v1',api_key=dash_key)
+    # alternative model: qwen3-8b, qwen2.5-7b-instruct
+    # llm = ChatOpenAI(model="qwen2.5-7b-instruct",openai_api_base='https://dashscope.aliyuncs.com/compatible-mode/v1',api_key=dash_key)
+    llm = ChatOpenAI(model="qwen3-8b",openai_api_base='https://dashscope.aliyuncs.com/compatible-mode/v1',api_key=dash_key,extra_body={"enable_thinking": False})
 
     retriever = get_retriever(chroma_db=chroma)
 

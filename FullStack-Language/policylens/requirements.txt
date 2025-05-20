@@ -21,3 +21,4 @@ langchain-community==0.3.24
 python-dotenv==1.1.0
 langchain-openai==0.3.16
 langchain-chroma==0.2.4
+dashscope==1.23.3
