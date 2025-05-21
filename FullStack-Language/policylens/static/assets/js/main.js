@@ -4,7 +4,7 @@ import { setupVideoPlayer } from './modules/index/videoPlayer.js';
 import { setupLanguageSelector } from './modules/base/languageSelector.js';
 import { setupStatCounters } from './modules/index/statsCounter.js';
 import { setupScrollEffects } from './modules/index/scrollEffects.js';
-import { setupFeaturedPolicySlider } from './modules/index/featuredSlider.js';
+// import { setupFeaturedPolicySlider } from './modules/index/featuredSlider.js';
 import { initializeNavigation } from './modules/base/navLinks.js';
 
 // Initialize everything when the DOM is loaded
