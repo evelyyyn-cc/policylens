@@ -1,5 +1,3 @@
-// Chatbot styles
-
 .chatbot-page {
   background-color: $light-bg;
   
@@ -15,6 +13,7 @@
       display: flex;
       flex-direction: column;
       position: relative;
+      max-width: 800px;
 
       .section-title {
         font-size: 1.8rem;
@@ -29,6 +28,7 @@
         max-width: 800px;
         padding: 0.5rem 1.4rem 0.5rem 1.4rem;
         text-align: justify;
+        margin: 0 auto;
         
         p {
           font-size: 1.1rem;
@@ -50,7 +50,7 @@
     box-shadow: $shadow-md;
     display: flex;
     flex-direction: column;
-    height: 60vh; // Adjust as needed
+    height: 45vh; // Reduced from 60vh to 45vh
     position: relative;
   }
   
@@ -62,7 +62,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    max-height: calc(60vh - 70px); // Adjust based on input area height
+    max-height: calc(45vh - 70px); // Adjusted from 60vh to 45vh
     
     // Styling for the scrollbar
     &::-webkit-scrollbar {
@@ -235,10 +235,11 @@
   }
 }
 
-// Quick Questions Section (updated for vertical stacking)
+// Quick Questions Section
 .quick-questions {
   max-width: 800px;
   margin: 2rem auto;
+  padding: 0 1rem;
   
   h2 {
     font-size: 1.5rem;
@@ -360,14 +361,30 @@
 }
 
 // Responsive adjustments
-@media (max-width: $breakpoint-md) {
+@media (max-width: $breakpoint-lg) {
   .chatbot-page {
+    .chatbot-section {
+      padding: 0 1rem;
+    }
+    
     .chat-container {
-      height: 70vh;
+      height: 50vh;
     }
     
     .chat-window {
-      max-height: calc(70vh - 70px);
+      max-height: calc(50vh - 70px);
+    }
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .chatbot-page {
+    .chat-container {
+      height: 55vh;
+    }
+    
+    .chat-window {
+      max-height: calc(55vh - 70px);
     }
     
     .chat-message {
@@ -386,35 +403,70 @@
   }
   
   .quick-questions {
-    .questions-container {
-      .question-button {
-        font-size: 0.8rem;
-      }
+    .collapsible {
+      font-size: 1.1rem;
+      padding: 1rem;
+    }
+    
+    .question-button {
+      font-size: 0.85rem;
+      padding: 0.7rem 0.9rem;
     }
   }
 }
 
 @media (max-width: $breakpoint-sm) {
   .chatbot-page {
+    .chatbot-info {
+      .section-title {
+        font-size: 1.5rem;
+      }
+      
+      .chatbot-description p {
+        font-size: 0.95rem;
+      }
+    }
+    
     .chat-container {
-      height: 80vh;
+      height: 60vh;
     }
     
     .chat-window {
-      max-height: calc(80vh - 60px);
+      max-height: calc(60vh - 60px);
+      padding: 1rem;
     }
     
     .chat-message {
       max-width: 95%;
+      
+      .message-content {
+        padding: 0.8rem;
+      }
     }
     
     .message-avatar {
       width: 30px;
       height: 30px;
     }
+  }
+  
+  .quick-questions {
+    h2 {
+      font-size: 1.3rem;
+    }
     
-    .message-content {
-      padding: 0.8rem;
+    p {
+      font-size: 0.9rem;
+    }
+    
+    .collapsible {
+      font-size: 1rem;
+      padding: 0.9rem;
+    }
+    
+    .question-button {
+      font-size: 0.8rem;
+      padding: 0.7rem 0.8rem;
     }
   }
 }

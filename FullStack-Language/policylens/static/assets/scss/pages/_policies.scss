@@ -51,6 +51,9 @@
       position: relative;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      max-width: 1200px;
+      margin: 0 auto; // This centers the grid container horizontally
+      width: 90%;
       
       &:hover {
         transform: translateY(-10px);
