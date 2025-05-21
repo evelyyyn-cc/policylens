@@ -318,95 +318,95 @@ body.menu-open {
         }
       }
       
-      .youtube-iframe {
+      .video-player {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         
-        iframe {
-          width: 100%;
-          height: 100%;
-        }
+        // iframe {
+        //   width: 100%;
+        //   height: 100%;
+        // }
       }
       
-      .video-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        @include flex-center;
-        padding: 2rem;
-        color: $white;
-        pointer-events: none; /* Allow clicks to pass through to the video */
+      // .video-overlay {
+      //   position: absolute;
+      //   top: 0;
+      //   left: 0;
+      //   width: 100%;
+      //   height: 100%;
+      //   background-color: rgba(0, 0, 0, 0.7);
+      //   @include flex-center;
+      //   padding: 2rem;
+      //   color: $white;
+      //   pointer-events: none; /* Allow clicks to pass through to the video */
         
-        .video-title {
-          position: absolute;
-          top: 25%;
-          left: 10%;
-          max-width: 60%;
+      //   .video-title {
+      //     position: absolute;
+      //     top: 25%;
+      //     left: 10%;
+      //     max-width: 60%;
           
-          @media (max-width: $breakpoint-md) {
-            top: 10%;
-            left: 5%;
-            max-width: 90%;
-          }
+      //     @media (max-width: $breakpoint-md) {
+      //       top: 10%;
+      //       left: 5%;
+      //       max-width: 90%;
+      //     }
           
-          h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.5rem;
+      //     h3 {
+      //       margin-bottom: 0.5rem;
+      //       font-size: 1.5rem;
             
-            @media (max-width: $breakpoint-md) {
-              font-size: 1.2rem;
-            }
+      //       @media (max-width: $breakpoint-md) {
+      //         font-size: 1.2rem;
+      //       }
             
-            @media (max-width: $breakpoint-sm) {
-              font-size: 1rem;
-              margin-bottom: 0.3rem;
-            }
-          }
+      //       @media (max-width: $breakpoint-sm) {
+      //         font-size: 1rem;
+      //         margin-bottom: 0.3rem;
+      //       }
+      //     }
           
-          p {
-            font-size: 0.9rem;
-            margin: 0.5rem 0;
+      //     p {
+      //       font-size: 0.9rem;
+      //       margin: 0.5rem 0;
             
-            @media (max-width: $breakpoint-sm) {
-              font-size: 0.8rem;
-            }
-          }
+      //       @media (max-width: $breakpoint-sm) {
+      //         font-size: 0.8rem;
+      //       }
+      //     }
           
-          h4 {
-            font-size: 1.2rem;
+      //     h4 {
+      //       font-size: 1.2rem;
             
-            @media (max-width: $breakpoint-sm) {
-              font-size: 0.9rem;
-            }
-          }
-        }
+      //       @media (max-width: $breakpoint-sm) {
+      //         font-size: 0.9rem;
+      //       }
+      //     }
+      //   }
         
-        .video-play-container {
-          display: none; /* Hide the old timer container */
+      //   .video-play-container {
+      //     display: none; /* Hide the old timer container */
           
-          @media (max-width: $breakpoint-md) {
-            right: 5%;
-            bottom: 10%;
-          }
+      //     @media (max-width: $breakpoint-md) {
+      //       right: 5%;
+      //       bottom: 10%;
+      //     }
           
-          @media (max-width: $breakpoint-sm) {
-            .video-play {
-              width: 100px;
-              height: 100px;
+      //     @media (max-width: $breakpoint-sm) {
+      //       .video-play {
+      //         width: 100px;
+      //         height: 100px;
               
-              .timer {
-                font-size: 2rem;
-              }
-            }
-          }
-        }
-      }
+      //         .timer {
+      //           font-size: 2rem;
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
     }
     
     .why-matters-content {
