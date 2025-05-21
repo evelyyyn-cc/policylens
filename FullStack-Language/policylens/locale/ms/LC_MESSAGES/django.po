@@ -1189,7 +1189,7 @@ msgstr "14.3 bilion MYR"
 #: .\templates\diesel_policy.html:108
 #, python-format
 msgid "A staggering 1021%% increase in just four years"
-msgstr "Peningkatan mendadak sebanyak 920%% dalam tempoh empat tahun sahaja"
+msgstr "Peningkatan mendadak sebanyak 1021%% dalam tempoh empat tahun sahaja"
 
 #: .\templates\diesel_policy.html:111 .\templates\diesel_policy.html:600
 msgid "Diesel consumption growth significantly outpaced vehicle registration:"
@@ -1759,10 +1759,6 @@ msgstr ""
 "Sumber: Bernama. (2025, 24 April). Peralihan Besar Malaysia: Mengemudi "
 "Subsidi Sasaran Yang Berisiko Tinggi. Diambil dari "
 
-#: .\templates\diesel_policy.html:597
-#, python-format
-msgid "A staggering 920%% increase in just four years"
-msgstr "Peningkatan mendadak sebanyak 920%% dalam tempoh empat tahun sahaja"
 
 #: .\templates\diesel_policy.html:614
 msgid ""
