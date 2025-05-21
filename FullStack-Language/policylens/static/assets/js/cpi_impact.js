@@ -288,63 +288,6 @@ function updateFinancialDisplay(elementId, valueToDisplay, valueForColoring, isC
     }
     element.textContent = textContent;
 
-    // Update associated percentage text and class
-    // Assumes percentage element ID is derived (e.g., 'monthlyDifference' -> 'monthlyPercentage')
-    // const percentageElementId = elementId.replace('Difference', 'Percentage').replace('Impact', 'Percentage').replace('After', 'Percentage');
-    // const percentageElement = document.getElementById(percentageElementId);
-
-    // if (percentageElement) {
-    //     percentageElement.classList.remove('text--positive', 'text--negative');
-    //     let percentageText = "";
-    //     let percentageChangeForColoring = 0; // This will be the actual % change.
-
-    //     // Calculate base values for percentage calculation
-    //     const transportBase = parseFloat(transportSlider.value);
-    //     const foodBase = parseFloat(foodSlider.value);
-    //     const housingBase = parseFloat(housingSlider.value);
-    //     const otherBase = parseFloat(otherSlider.value);
-    //     const totalMonthlyOriginal = transportBase + foodBase + housingBase + otherBase;
-
-    //     if (elementId.includes('monthly') || elementId.includes('yearly')) { // Covers After and Difference for overall summary
-    //         let changeAmountForPercentage = valueForColoring; // For 'Difference', valueForColoring is the change.
-    //          if (elementId.includes('After')) { // For 'After Policy', valueForColoring is totalImpact/yearlyImpact.
-    //              // The displayed percentage should still be based on this change.
-    //          }
-
-    //         if (totalMonthlyOriginal > 0) {
-    //             percentageChangeForColoring = (changeAmountForPercentage / totalMonthlyOriginal) * 100;
-    //             if (percentageChangeForColoring >= 0) {
-    //                 percentageText = `(${percentageChangeForColoring.toFixed(1)}% increase)`;
-    //                 percentageElement.classList.add('text--positive');
-    //             } else {
-    //                 percentageText = `(${Math.abs(percentageChangeForColoring).toFixed(1)}% decrease)`;
-    //                 percentageElement.classList.add('text--negative');
-    //             }
-    //         } else {
-    //              percentageText = "(N/A)"; // Or empty if preferred
-    //         }
-    //     } else if (element.classList.contains('impact-value')) { // For breakdown items
-    //         let originalItemValue = 0;
-    //         if (elementId === 'transportImpact') originalItemValue = transportBase;
-    //         else if (elementId === 'foodImpact') originalItemValue = foodBase;
-    //         else if (elementId === 'housingImpact') originalItemValue = housingBase;
-    //         else if (elementId === 'otherImpact') originalItemValue = otherBase;
-
-    //         if (originalItemValue > 0) {
-    //             percentageChangeForColoring = (valueForColoring / originalItemValue) * 100; // valueForColoring is the item's impact
-    //             if (percentageChangeForColoring >= 0) {
-    //                 percentageText = `(${percentageChangeForColoring.toFixed(1)}% increase)`;
-    //                 percentageElement.classList.add('text--positive');
-    //             } else {
-    //                 percentageText = `(${Math.abs(percentageChangeForColoring).toFixed(1)}% decrease)`;
-    //                 percentageElement.classList.add('text--negative');
-    //             }
-    //         } else {
-    //             percentageText = "(N/A)"; // Or empty
-    //         }
-    //     }
-    //     percentageElement.textContent = percentageText;
-    // }
 }
 
 function setupCategoryTabs() {
@@ -1199,6 +1142,8 @@ async function loadMalaysiaGeoJson() {
         
         // Add the GeoJSON layer to the map
         addGeoJsonToMap(geojsonData);
+
+        selectDefaultState("Selangor");
         
     } catch (error) {
         console.error('Error loading Malaysia GeoJSON:', error);
@@ -1208,6 +1153,33 @@ async function loadMalaysiaGeoJson() {
             mapElement.innerHTML = '<div class="map-error">Failed to load map data. Please try again later.</div>';
         }
     }
+}
+
+// Function to select a default state by name
+function selectDefaultState(stateName) {
+  // Wait a short time to ensure the map and layers are fully loaded
+  setTimeout(() => {
+    if (!geoJsonLayer) return;
+    
+    // Find the feature for the desired state
+    let targetLayer = null;
+    
+    geoJsonLayer.eachLayer(function(layer) {
+      if (layer.feature && layer.feature.properties && 
+          layer.feature.properties.name === stateName) {
+        targetLayer = layer;
+      }
+    });
+    
+    // If the state was found, simulate a click on it
+    if (targetLayer) {
+      // Call the click handler to select this state
+      selectRegion({ target: targetLayer });
+      
+      // You can also choose to center the map on this state
+      malaysiaMap.setView(targetLayer.getBounds().getCenter(), 6);
+    }
+  }, 300); // Give the map 500ms to fully initialize
 }
 
 // Process GeoJSON to add CPI impact data

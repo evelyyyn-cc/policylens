@@ -747,25 +747,6 @@ function initializeMap() {
     //addLegendToMap();
 }
 
-// function addLegendToMap() {
-//     const legend = L.control({ position: 'bottomleft' });
-    
-//     legend.onAdd = function(map) {
-//         const div = L.DomUtil.create('div', 'map-legend');
-//         div.innerHTML = `
-//             <h6>CPI Value Range</h6>
-//             <div class="legend-gradient">
-//                 <span>Lower</span>
-//                 <div class="gradient-bar"></div>
-//                 <span>Higher</span>
-//             </div>
-//         `;
-//         return div;
-//     };
-    
-//     legend.addTo(malaysiaMap);
-// }
-
 async function loadMalaysiaGeoJson() {
     try {
         // Fetch CPI data from the API
@@ -785,6 +766,8 @@ async function loadMalaysiaGeoJson() {
         
         // Add the GeoJSON layer to the map
         addGeoJsonToMap(geojsonData);
+
+        selectDefaultState("Selangor");
         
     } catch (error) {
         console.error('Error loading Malaysia GeoJSON:', error);
@@ -794,6 +777,32 @@ async function loadMalaysiaGeoJson() {
             mapElement.innerHTML = '<div class="map-error">Failed to load map data. Please try again later.</div>';
         }
     }
+}
+
+function selectDefaultState(stateName) {
+  // Wait a short time to ensure the map and layers are fully loaded
+  setTimeout(() => {
+    if (!geoJsonLayer) return;
+    
+    // Find the feature for the desired state
+    let targetLayer = null;
+    
+    geoJsonLayer.eachLayer(function(layer) {
+      if (layer.feature && layer.feature.properties && 
+          layer.feature.properties.name === stateName) {
+        targetLayer = layer;
+      }
+    });
+    
+    // If the state was found, simulate a click on it
+    if (targetLayer) {
+      // Call the click handler to select this state
+      selectRegion({ target: targetLayer });
+      
+      // You can also choose to center the map on this state
+      malaysiaMap.setView(targetLayer.getBounds().getCenter(), 6);
+    }
+  }, 300); // Give the map 500ms to fully initialize
 }
 
 function processGeoJson(geojsonData, cpiData) {
