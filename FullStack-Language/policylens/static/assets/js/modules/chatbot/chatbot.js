@@ -291,8 +291,17 @@ export function initPredefinedQuestions() {
         promptCount++;
         trimConversation();
         saveConversation();
+
+        const chatbotSection = document.querySelector('.chatbot-section');
+        if (chatbotSection) {
+          chatbotSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        setTimeout(() => {
+          addBotMessage("<p><em>PolicyBot is thinking...</em></p>");
+        })
         // Show typing indicator
-        addBotMessage("<p><em>PolicyBot is thinking...</em></p>");
+        // addBotMessage("<p><em>PolicyBot is thinking...</em></p>");
         
         // Call API to get bot response
         await fetchBotResponse(question, true);
@@ -391,6 +400,39 @@ export function initCollapsibleCategories() {
 }
 
 /**
+ * Function to make the chatbot responsive based on screen size
+ */
+function setupResponsiveChatbot() {
+  // Adjust height based on viewport size
+  function adjustChatHeight() {
+    const windowHeight = window.innerHeight;
+    const chatContainer = document.querySelector('.chat-container');
+    const chatWindow = document.getElementById('chatWindow');
+    
+    if (chatContainer && chatWindow) {
+      // Set chat container height based on screen size
+      if (windowHeight < 700) {
+        // For smaller screens, use a percentage of viewport height
+        chatContainer.style.height = '55vh';
+        chatWindow.style.maxHeight = 'calc(55vh - 70px)';
+      } else if (windowHeight < 900) {
+        // For medium screens
+        chatContainer.style.height = '50vh';
+        chatWindow.style.maxHeight = 'calc(50vh - 70px)';
+      } else {
+        // For larger screens, use default height
+        chatContainer.style.height = '45vh';
+        chatWindow.style.maxHeight = 'calc(45vh - 70px)';
+      }
+    }
+  }
+
+  // Call initially and on window resize
+  adjustChatHeight();
+  window.addEventListener('resize', adjustChatHeight);
+}
+
+/**
  * Main initialization function for the chatbot page
  */
 export function initChatbotPage() {
@@ -404,6 +446,7 @@ export function initChatbotPage() {
     initPredefinedQuestions();
     initCategoryTabs();
     initCollapsibleCategories();
+    setupResponsiveChatbot();
     
     console.log('Chatbot initialized successfully');
   }
