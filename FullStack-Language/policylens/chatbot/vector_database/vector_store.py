@@ -34,15 +34,14 @@ embeddings = DashScopeEmbeddings(model='text-embedding-v3')
 persist_dir = os.path.join(settings.BASE_DIR, "chatbot", "vector_database", "chroma_db")
 collection_name = "website_vectors"
 
-def get_chroma_client(read_only=True):
+def get_chroma_client():
     # 2) File-backed Chroma
     # persist_dir = os.path.join(os.path.dirname(__file__), "chroma_db")
     
     chroma = Chroma(
         persist_directory=persist_dir,
         collection_name=collection_name,
-        embedding_function=embeddings,
-        read_only=read_only  # Set to True for read-only access
+        embedding_function=embeddings
     )
 
     return chroma
@@ -106,7 +105,7 @@ def ingest_pdf(path: str, collection_name: str = "website_vectors"):
     print(f"Number of Chunks: {len(chunks)}")
 
     # load chroma client
-    chroma = get_chroma_client(read_only=False)
+    chroma = get_chroma_client()
 
     chroma.add_documents(chunks)
     print("Data Stored In ChromaDB")
@@ -122,7 +121,7 @@ def get_retriever(chroma_db, collection_name: str = "website_vectors", k: int = 
 # function to setup LLM query chain
 def get_qa_chain():
     """Assemble a RetrievalQA chain with GPT-4.1 as the LLM."""
-    chroma = get_chroma_client(read_only=True)
+    chroma = get_chroma_client()
 
     # llm = ChatOpenAI(model="gpt-4.1-nano",temperature=0.0)
     # llm = ChatOpenAI(model="qwen2.5-7b-instruct",openai_api_base='https://dashscope.aliyuncs.com/compatible-mode/v1',api_key=dash_key)
