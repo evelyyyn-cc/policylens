@@ -1,14 +1,15 @@
 export function setupVideoPlayer() {
     const videoThumbnail = document.getElementById('videoThumbnail');
-    const youtubeIframe = document.getElementById('youtubeIframe');
+    const videoPlayer = document.getElementById('videoPlayer');
+    const localVideo = document.getElementById('localVideo');
 
-    if (videoThumbnail && youtubeIframe){
-        videoThumbnail.addEventListener('click',function(){
-            const iframe = youtubeIframe.querySelector('iframe');
-            iframe.src = iframe.getAttribute('data-src');
-
+    if (videoThumbnail && videoPlayer && localVideo) {
+        videoThumbnail.addEventListener('click', function() {
             videoThumbnail.style.display = 'none';
-            youtubeIframe.style.display = 'block';
+            videoPlayer.style.display = 'block';
+            
+            // Start playing the video
+            localVideo.play();
 
             const videoTitle = document.querySelector('.video-title');
             if (videoTitle) {

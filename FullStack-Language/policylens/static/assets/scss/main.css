@@ -951,93 +951,12 @@ body.menu-open {
     font-size: 1.2rem;
   }
 }
-#why-matters .video-container .youtube-iframe {
+#why-matters .video-container .video-player {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-}
-#why-matters .video-container .youtube-iframe iframe {
-  width: 100%;
-  height: 100%;
-}
-#why-matters .video-container .video-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  color: #ffffff;
-  pointer-events: none; /* Allow clicks to pass through to the video */
-}
-#why-matters .video-container .video-overlay .video-title {
-  position: absolute;
-  top: 25%;
-  left: 10%;
-  max-width: 60%;
-}
-@media (max-width: 768px) {
-  #why-matters .video-container .video-overlay .video-title {
-    top: 10%;
-    left: 5%;
-    max-width: 90%;
-  }
-}
-#why-matters .video-container .video-overlay .video-title h3 {
-  margin-bottom: 0.5rem;
-  font-size: 1.5rem;
-}
-@media (max-width: 768px) {
-  #why-matters .video-container .video-overlay .video-title h3 {
-    font-size: 1.2rem;
-  }
-}
-@media (max-width: 576px) {
-  #why-matters .video-container .video-overlay .video-title h3 {
-    font-size: 1rem;
-    margin-bottom: 0.3rem;
-  }
-}
-#why-matters .video-container .video-overlay .video-title p {
-  font-size: 0.9rem;
-  margin: 0.5rem 0;
-}
-@media (max-width: 576px) {
-  #why-matters .video-container .video-overlay .video-title p {
-    font-size: 0.8rem;
-  }
-}
-#why-matters .video-container .video-overlay .video-title h4 {
-  font-size: 1.2rem;
-}
-@media (max-width: 576px) {
-  #why-matters .video-container .video-overlay .video-title h4 {
-    font-size: 0.9rem;
-  }
-}
-#why-matters .video-container .video-overlay .video-play-container {
-  display: none; /* Hide the old timer container */
-}
-@media (max-width: 768px) {
-  #why-matters .video-container .video-overlay .video-play-container {
-    right: 5%;
-    bottom: 10%;
-  }
-}
-@media (max-width: 576px) {
-  #why-matters .video-container .video-overlay .video-play-container .video-play {
-    width: 100px;
-    height: 100px;
-  }
-  #why-matters .video-container .video-overlay .video-play-container .video-play .timer {
-    font-size: 2rem;
-  }
 }
 #why-matters .why-matters-content {
   flex: 1;

@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Home page specific components
   if (isHomePage) {
     setupScrollEffects();
-    setupFeaturedPolicySlider();
+    // setupFeaturedPolicySlider();
     setupStatCounters();
     setupVideoPlayer();
   }
