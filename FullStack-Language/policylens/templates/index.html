@@ -96,18 +96,22 @@
             <div class="youtube-video-wrapper">
                 <!-- YouTube thumbnail with play button overlay -->
                 <div class="video-thumbnail" id="videoThumbnail">
-                    <img src="/static/assets/images/video-thumbnail.svg" alt="{% trans "Video Thumbnail" %}">
+                    <img src="https://img.youtube.com/vi/94MH1V5_dtQ/maxresdefault.jpg" alt="{% trans "Video Thumbnail" %}">
                     <div class="play-button">
                         <i class="fas fa-play"></i>
                     </div>
                 </div>
                 <!-- YouTube iframe (hidden initially) -->
-                <div class="video-player" id="videoPlayer" style="display: none;">
-                    <video id="localVideo" width="100%" height="100%" controls>
-                        <!-- Replace with the path to your local video file -->
-                        <source src="/static/assets/Product_Video.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                <div class="youtube-iframe" id="youtubeIframe" style="display: none;">
+                    <iframe
+                        width="100%"
+                        height="100%"
+                        src="about:blank"
+                        data-src="https://www.youtube.com/embed/94MH1V5_dtQ?autoplay=1"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
                 </div>
             </div>
 
