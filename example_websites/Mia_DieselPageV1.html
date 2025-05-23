@@ -1,0 +1,2751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malaysia's Diesel Subsidy Reform: The 2024 Policy Story</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.0.8/dist/countUp.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intersection-observer@0.12.0/intersection-observer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <style>
+        :root {
+            --primary-blue: #1a365d;
+            --secondary-blue: #2c5282;
+            --light-blue: #4299e1;
+            --accent-blue: #63b3ed;
+            --highlight: #f6ad55;
+            --chart-blue-1: rgba(26, 54, 93, 0.8);
+            --chart-blue-2: rgba(44, 82, 130, 0.8);
+            --chart-blue-3: rgba(66, 153, 225, 0.8);
+            --chart-blue-4: rgba(99, 179, 237, 0.8);
+            --chart-highlight: rgba(246, 173, 85, 0.8);
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #2d3748;
+            background-color: #f7fafc;
+            scroll-behavior: smooth;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .hero-section {
+            background-image: linear-gradient(rgba(26, 54, 93, 0.7), rgba(26, 54, 93, 0.7)), url('https://images.unsplash.com/photo-1596422846543-75c6fc197f32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .chapter {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .chapter:nth-child(odd) {
+            background-color: #ffffff;
+        }
+        
+        .chapter:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        
+        .chapter-content {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .chapter-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .number-counter {
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(26, 54, 93, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(26, 54, 93, 0.15);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: var(--light-blue);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            height: 14px;
+            width: 14px;
+            border-radius: 50%;
+            background: var(--light-blue);
+        }
+        
+        .cta-button {
+            background: linear-gradient(to right, var(--primary-blue), var(--light-blue));
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4);
+        }
+        
+        .section-divider {
+            height: 4px;
+            width: 100px;
+            background: linear-gradient(to right, var(--primary-blue), var(--light-blue));
+            margin: 30px auto;
+            border-radius: 2px;
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--primary-blue);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .nav-dot {
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            background-color: #cbd5e0;
+            margin: 8px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .nav-dot.active {
+            background-color: var(--light-blue);
+            transform: scale(1.3);
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+        
+        .icon-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .icon-container {
+            background: linear-gradient(135deg, var(--light-blue), var(--primary-blue));
+            color: white;
+            border-radius: 50%;
+            height: 50px;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .eligibility-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--light-blue));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(66, 153, 225, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .eligibility-circle:hover {
+            transform: scale(1.05);
+        }
+        
+        .chapter-indicator {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .chart-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .chart-filter-button {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            padding: 5px 10px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .chart-filter-button.active {
+            background: var(--light-blue);
+            color: white;
+        }
+        
+        .zoom-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 3px 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .zoom-button:hover {
+            background: var(--light-blue);
+            color: white;
+        }
+        
+        /* Modal styles */
+        .chart-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .chart-modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            height: 80%;
+            position: relative;
+        }
+        
+        .chart-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+        }
+        
+        .chart-modal-chart {
+            width: 100%;
+            height: 90%;
+        }
+        
+        /* Sankey diagram styles */
+        .node rect {
+            fill-opacity: 0.9;
+            shape-rendering: crispEdges;
+        }
+        
+        .node text {
+            font-size: 12px;
+            fill: #333;
+        }
+        
+        .link {
+            fill: none;
+            stroke-opacity: 0.4;
+        }
+        
+        /* Radar chart styles */
+        .radar-chart-container {
+            height: 350px;
+            width: 100%;
+        }
+        
+        /* Flow chart styles */
+        .flow-chart-container {
+            height: 250px;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        /* Timeline styles with animation */
+        .animated-timeline {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .animated-timeline.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Fade in animation for charts */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animated-chart {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 250px;
+            }
+            
+            .eligibility-circle {
+                width: 90px;
+                height: 90px;
+                font-size: 0.9em;
+            }
+            
+            .icon-container {
+                height: 40px;
+                width: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Dots -->
+    <div class="chapter-indicator hidden md:flex">
+        <a href="#chapter1" class="nav-dot active" data-target="chapter1"></a>
+        <a href="#chapter2" class="nav-dot" data-target="chapter2"></a>
+        <a href="#chapter3" class="nav-dot" data-target="chapter3"></a>
+        <a href="#chapter4" class="nav-dot" data-target="chapter4"></a>
+        <a href="#chapter5" class="nav-dot" data-target="chapter5"></a>
+    </div>
+
+    <!-- Chart Modal for Zoomed View -->
+    <div id="chartModal" class="chart-modal">
+        <div class="chart-modal-content">
+            <span class="chart-modal-close">&times;</span>
+            <h3 id="modalChartTitle" class="text-2xl font-bold mb-4 text-center text-primary-blue"></h3>
+            <div id="modalChartContainer" class="chart-modal-chart"></div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section h-screen flex items-center justify-center">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight animate-fadeIn">
+                Malaysia's Diesel Subsidy Reform:<br>The 2024 Policy Story
+            </h1>
+            <p class="text-xl md:text-2xl text-white mb-12 max-w-3xl mx-auto">
+                A visual journey through Malaysia's transformative approach to fuel subsidies
+            </p>
+            <a href="#chapter1" class="cta-button inline-block animate-bounce">
+                Explore the Story
+            </a>
+        </div>
+    </section>
+
+    <!-- Chapter 1: The Challenge -->
+    <section id="chapter1" class="chapter">
+        <div class="container mx-auto px-4">
+            <div class="chapter-content">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-3 text-primary-blue">The Challenge</h2>
+                <h3 class="text-xl md:text-2xl text-center mb-8 text-gray-600">Why Reform Was Necessary</h3>
+                <div class="section-divider"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-16">
+                    <div>
+                        <p class="text-lg mb-6 leading-relaxed">
+                            Malaysia's diesel subsidy program had become financially unsustainable, with costs spiraling out of control. The government faced mounting pressure to address this growing fiscal burden while ensuring that assistance reached those who truly needed it.
+                        </p>
+                        
+                        <div class="card p-6 mb-8">
+                            <h4 class="text-xl font-semibold mb-3 text-primary-blue">Subsidy Cost Explosion</h4>
+                            <p class="mb-4">The annual cost of diesel subsidies skyrocketed from:</p>
+                            <div class="flex items-end mb-4">
+                                <div class="text-right mr-6">
+                                    <span class="block text-gray-600">2019</span>
+                                    <span class="number-counter text-2xl font-bold" data-target="1.4">0</span>
+                                    <span class="text-xl font-bold">billion MYR</span>
+                                </div>
+                                <i class="fas fa-arrow-right text-2xl text-light-blue mx-4"></i>
+                                <div>
+                                    <span class="block text-gray-600">2023</span>
+                                    <span class="number-counter text-4xl font-bold text-primary-blue" data-target="14.3">0</span>
+                                    <span class="text-xl font-bold">billion MYR</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-700">
+                                <i class="fas fa-exclamation-circle text-yellow-500 mr-2"></i>
+                                A staggering <strong>920% increase</strong> in just four years
+                            </p>
+                            
+                            <div class="chart-container mt-8 animated-chart">
+                                <canvas id="subsidyGrowthChart"></canvas>
+                                <button class="zoom-button" data-chart="subsidyGrowthChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-6">
+                            <h4 class="text-xl font-semibold mb-3 text-primary-blue">Distribution Inequity</h4>
+                            <p class="mb-4">The benefits of fuel subsidies were disproportionately distributed:</p>
+                            <div class="mb-4">
+                                <div class="flex justify-between mb-1">
+                                    <span>Top 20% income earners (T20)</span>
+                                    <span class="font-semibold">35%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-red-500 h-2 rounded-full" style="width: 35%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="flex justify-between mb-1">
+                                    <span>Middle 40% income earners (M40)</span>
+                                    <span class="font-semibold">41%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-yellow-500 h-2 rounded-full" style="width: 41%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>Bottom 40% income earners (B40)</span>
+                                    <span class="font-semibold">24%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-green-500 h-2 rounded-full" style="width: 24%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-container mt-8 animated-chart">
+                                <canvas id="subsidyDistributionChart"></canvas>
+                                <button class="zoom-button" data-chart="subsidyDistributionChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="card p-6 mb-8">
+                            <h4 class="text-xl font-semibold mb-3 text-primary-blue">Diesel Consumption Anomaly</h4>
+                            <p class="mb-6">Diesel consumption growth significantly outpaced vehicle registration:</p>
+                            <div class="chart-filter">
+                                <button class="chart-filter-button active" data-view="yearly">Yearly View</button>
+                                <button class="chart-filter-button" data-view="cumulative">Cumulative Growth</button>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="consumptionChart"></canvas>
+                                <button class="zoom-button" data-chart="consumptionChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                            <p class="mt-4 text-sm text-gray-600">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                Consumption increased from 6.1 billion liters (2019) to 10.8 billion liters (2023)
+                            </p>
+                        </div>
+                        
+                        <div class="card p-6">
+                            <h4 class="text-xl font-semibold mb-3 text-primary-blue">Cross-Border Leakage</h4>
+                            <div class="flex items-center justify-center mb-6">
+                                <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Fuel smuggling conceptual image" class="rounded-lg w-full h-40 object-cover">
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 mb-4">
+                                <div class="text-center p-3 bg-blue-50 rounded-lg">
+                                    <div class="text-primary-blue font-bold">Malaysia</div>
+                                    <div class="text-2xl font-bold text-primary-blue">RM 2.15</div>
+                                    <div class="text-sm text-gray-500">per liter</div>
+                                </div>
+                                <div class="text-center p-3 bg-blue-50 rounded-lg">
+                                    <div class="text-primary-blue font-bold">Thailand</div>
+                                    <div class="text-2xl font-bold text-primary-blue">RM 4.00</div>
+                                    <div class="text-sm text-gray-500">per liter</div>
+                                </div>
+                                <div class="text-center p-3 bg-blue-50 rounded-lg">
+                                    <div class="text-primary-blue font-bold">Indonesia</div>
+                                    <div class="text-2xl font-bold text-primary-blue">RM 4.50</div>
+                                    <div class="text-sm text-gray-500">per liter</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 mb-6">
+                                <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
+                                Significant price differences led to widespread smuggling, costing Malaysia an estimated RM 4.5 million daily
+                            </p>
+                            <div class="chart-container animated-chart">
+                                <canvas id="regionalPriceChart"></canvas>
+                                <button class="zoom-button" data-chart="regionalPriceChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter 2: The Policy Reform -->
+    <section id="chapter2" class="chapter">
+        <div class="container mx-auto px-4">
+            <div class="chapter-content">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-3 text-primary-blue">The Policy Reform</h2>
+                <h3 class="text-xl md:text-2xl text-center mb-8 text-gray-600">What Changed on June 10, 2024</h3>
+                <div class="section-divider"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-16">
+                    <div>
+                        <div class="card p-6 mb-8">
+                            <h4 class="text-xl font-semibold mb-3 text-primary-blue">New Pricing Structure</h4>
+                            <div class="flex justify-between items-center mb-8">
+                                <div class="text-center">
+                                    <div class="text-gray-600 mb-1">Before Reform</div>
+                                    <div class="text-3xl font-bold text-gray-700">RM 2.15</div>
+                                    <div class="text-sm text-gray-500">per liter</div>
+                                </div>
+                                <div class="flex flex-col items-center px-4">
+                                    <i class="fas fa-arrow-right text-3xl text-light-blue"></i>
+                                    <div class="mt-2 text-center">
+                                        <span class="text-lg font-semibold text-red-500">+56%</span>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-gray-600 mb-1">After Reform</div>
+                                    <div class="text-4xl font-bold text-primary-blue">RM 3.35</div>
+                                    <div class="text-sm text-gray-500">per liter</div>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="priceChart"></canvas>
+                                <button class="zoom-button" data-chart="priceChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-6">
+                            <h4 class="text-xl font-semibold mb-4 text-primary-blue">Regional Implementation</h4>
+                            <div class="flex items-center justify-center mb-6">
+                                <img src="https://images.unsplash.com/photo-1599074914978-2946b69e5a7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Map of Malaysia" class="rounded-lg w-full h-48 object-cover mb-4">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold mb-2">Peninsular Malaysia</h5>
+                                    <p><i class="fas fa-check-circle text-green-500 mr-2"></i> Full implementation</p>
+                                    <p><i class="fas fa-gas-pump text-blue-500 mr-2"></i> Floating price: RM 3.35</p>
+                                </div>
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold mb-2">East Malaysia</h5>
+                                    <p><i class="fas fa-clock text-yellow-500 mr-2"></i> Deferred implementation</p>
+                                    <p><i class="fas fa-gas-pump text-blue-500 mr-2"></i> Maintained at: RM 2.15</p>
+                                </div>
+                            </div>
+                            <div class="chart-container animated-chart">
+                                <canvas id="regionalImplementationChart"></canvas>
+                                <button class="zoom-button" data-chart="regionalImplementationChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="mb-8">
+                            <h4 class="text-xl font-semibold mb-4 text-primary-blue">Implementation Timeline</h4>
+                            <div class="chart-container animated-chart mb-4">
+                                <canvas id="policyTimelineChart"></canvas>
+                                <button class="zoom-button" data-chart="policyTimelineChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                            <div class="timeline-item pl-8">
+                                <div class="text-gray-600 mb-1">May 21, 2024</div>
+                                <h5 class="font-semibold mb-1">Cabinet Approval</h5>
+                                <p class="text-gray-700">Cabinet approves targeted diesel subsidy measures</p>
+                            </div>
+                            <div class="timeline-item pl-8">
+                                <div class="text-gray-600 mb-1">May 27, 2024</div>
+                                <h5 class="font-semibold mb-1">Official Announcement</h5>
+                                <p class="text-gray-700">Ministry of Finance announces BUDI MADANI program</p>
+                            </div>
+                            <div class="timeline-item pl-8">
+                                <div class="text-gray-600 mb-1">May 28, 2024</div>
+                                <h5 class="font-semibold mb-1">Application Portal Launch</h5>
+                                <p class="text-gray-700">Online application portal opens for eligible individuals</p>
+                            </div>
+                            <div class="timeline-item pl-8">
+                                <div class="text-gray-600 mb-1 font-bold">June 10, 2024</div>
+                                <h5 class="font-semibold text-primary-blue mb-1">Implementation Day</h5>
+                                <p class="text-gray-700">New pricing structure takes effect at 12:00 AM</p>
+                            </div>
+                            <div class="timeline-item pl-8">
+                                <div class="text-gray-600 mb-1">June 10, 2024</div>
+                                <h5 class="font-semibold mb-1">First Subsidies Disbursed</h5>
+                                <p class="text-gray-700">First batch of cash subsidies transferred to approved applicants</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-6">
+                            <h4 class="text-xl font-semibold mb-4 text-primary-blue">Key Policy Components</h4>
+                            
+                            <div class="icon-card">
+                                <div class="icon-container">
+                                    <i class="fas fa-hand-holding-dollar"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold">Market-Based Pricing</h5>
+                                    <p class="text-gray-700">Diesel prices now float according to global market rates</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-card">
+                                <div class="icon-container">
+                                    <i class="fas fa-bullseye"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold">Targeted Cash Assistance</h5>
+                                    <p class="text-gray-700">RM 200 monthly cash subsidy for eligible individuals</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-card">
+                                <div class="icon-container">
+                                    <i class="fas fa-truck"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold">Fleet Subsidy Program</h5>
+                                    <p class="text-gray-700">Continuation of subsidized pricing for logistics vehicles</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-card">
+                                <div class="icon-container">
+                                    <i class="fas fa-bus"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold">Public Transport Support</h5>
+                                    <p class="text-gray-700">Special provisions for public transportation operators</p>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-container mt-6 animated-chart">
+                                <canvas id="policyComponentsChart"></canvas>
+                                <button class="zoom-button" data-chart="policyComponentsChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter 3: The Targeted Approach -->
+    <section id="chapter3" class="chapter">
+        <div class="container mx-auto px-4">
+            <div class="chapter-content">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-3 text-primary-blue">The Targeted Approach</h2>
+                <h3 class="text-xl md:text-2xl text-center mb-8 text-gray-600">Ensuring Support Reaches the Right People</h3>
+                <div class="section-divider"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-16">
+                    <div>
+                        <div class="card p-6 mb-8">
+                            <h4 class="text-xl font-semibold mb-4 text-primary-blue">Beneficiary Groups</h4>
+                            <div class="chart-container mb-4">
+                                <canvas id="beneficiaryChart"></canvas>
+                                <button class="zoom-button" data-chart="beneficiaryChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 mt-6">
+                                <div class="bg-blue-50 p-3 rounded-lg">
+                                    <div class="text-sm text-gray-600">Private Vehicle Owners</div>
+                                    <div class="text-xl font-bold text-primary-blue">300,000</div>
+                                </div>
+                                <div class="bg-blue-50 p-3 rounded-lg">
+                                    <div class="text-sm text-gray-600">Farmers</div>
+                                    <div class="text-xl font-bold text-primary-blue">68,000</div>
+                                </div>
+                                <div class="bg-blue-50 p-3 rounded-lg">
+                                    <div class="text-sm text-gray-600">Livestock Breeders</div>
+                                    <div class="text-xl font-bold text-primary-blue">8,000</div>
+                                </div>
+                                <div class="bg-blue-50 p-3 rounded-lg">
+                                    <div class="text-sm text-gray-600">Aquaculture Farmers</div>
+                                    <div class="text-xl font-bold text-primary-blue">34,000</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-6">
+                            <h4 class="text-xl font-semibold mb-4 text-primary-blue">Application Process</h4>
+                            
+                            <div class="chart-container mb-8 animated-chart">
+                                <canvas id="applicationFlowChart"></canvas>
+                                <button class="zoom-button" data-chart="applicationFlowChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="relative mb-10">
+                                <div class="absolute left-8 top-0 h-full w-0.5 bg-blue-200"></div>
+                                
+                                <div class="relative flex items-start mb-8">
+                                    <div class="flex items-center justify-center min-w-16 h-16 bg-light-blue rounded-full z-10 text-white">
+                                        <i class="fas fa-user-check text-xl"></i>
+                                    </div>
+                                    <div class="ml-6">
+                                        <h5 class="font-semibold text-lg">Check Eligibility</h5>
+                                        <p class="text-gray-700">Verify if you meet the income and vehicle requirements</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="relative flex items-start mb-8">
+                                    <div class="flex items-center justify-center min-w-16 h-16 bg-light-blue rounded-full z-10 text-white">
+                                        <i class="fas fa-laptop text-xl"></i>
+                                    </div>
+                                    <div class="ml-6">
+                                        <h5 class="font-semibold text-lg">Online Application</h5>
+                                        <p class="text-gray-700">Complete application at <a href="#" class="text-blue-600">budimadani.gov.my</a></p>
+                                    </div>
+                                </div>
+                                
+                                <div class="relative flex items-start mb-8">
+                                    <div class="flex items-center justify-center min-w-16 h-16 bg-light-blue rounded-full z-10 text-white">
+                                        <i class="fas fa-clock text-xl"></i>
+                                    </div>
+                                    <div class="ml-6">
+                                        <h5 class="font-semibold text-lg">Verification Period</h5>
+                                        <p class="text-gray-700">Application verified against LHDNM records</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="relative flex items-start">
+                                    <div class="flex items-center justify-center min-w-16 h-16 bg-light-blue rounded-full z-10 text-white">
+                                        <i class="fas fa-money-bill-wave text-xl"></i>
+                                    </div>
+                                    <div class="ml-6">
+                                        <h5 class="font-semibold text-lg">Monthly Disbursement</h5>
+                                        <p class="text-gray-700">RM 200 transferred to approved applicants' bank accounts</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="card p-6 mb-8">
+                            <h4 class="text-xl font-semibold mb-4 text-primary-blue">Eligibility Criteria</h4>
+                            
+                            <div class="chart-container mb-6 animated-chart">
+                                <canvas id="eligibilityFlowChart"></canvas>
+                                <button class="zoom-button" data-chart="eligibilityFlowChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-8 mb-8">
+                                <div class="flex flex-col items-center">
+                                    <div class="eligibility-circle mb-4">
+                                        <i class="fas fa-id-card text-2xl mb-1"></i>
+                                        <div class="text-sm">Must be</div>
+                                        <div class="font-semibold">Malaysian Citizen</div>
+                                    </div>
+                                    <p class="text-center text-gray-700">Valid Malaysian citizenship required</p>
+                                </div>
+                                
+                                <div class="flex flex-col items-center">
+                                    <div class="eligibility-circle mb-4">
+                                        <i class="fas fa-money-bill-wave text-2xl mb-1"></i>
+                                        <div class="text-sm">Annual Income</div>
+                                        <div class="font-semibold">Below RM 100K</div>
+                                    </div>
+                                    <p class="text-center text-gray-700">Individual or household income threshold</p>
+                                </div>
+                                
+                                <div class="flex flex-col items-center">
+                                    <div class="eligibility-circle mb-4">
+                                        <i class="fas fa-car text-2xl mb-1"></i>
+                                        <div class="text-sm">Registered</div>
+                                        <div class="font-semibold">Diesel Vehicle</div>
+                                    </div>
+                                    <p class="text-center text-gray-700">Private diesel vehicle registered with JPJ</p>
+                                </div>
+                                
+                                <div class="flex flex-col items-center">
+                                    <div class="eligibility-circle mb-4">
+                                        <i class="fas fa-calendar-alt text-2xl mb-1"></i>
+                                        <div class="text-sm">Vehicle Age</div>
+                                        <div class="font-semibold">Under 10 Years</div>
+                                    </div>
+                                    <p class="text-center text-gray-700">Non-luxury vehicles under 10 years old</p>
+                                </div>
+                            </div>
+                            
+                            <div class="tooltip text-center">
+                                <button class="text-sm text-blue-600 flex items-center justify-center mx-auto">
+                                    <i class="fas fa-info-circle mr-1"></i> More eligibility details
+                                </button>
+                                <span class="tooltiptext">
+                                    Small farmers must be registered with the Ministry of Agriculture and Food Security (KPKM) and have annual sales between RM 50,000 and RM 300,000.
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-6">
+                            <h4 class="text-xl font-semibold mb-4 text-primary-blue">Current Implementation Status</h4>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg mb-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div>
+                                        <h5 class="font-semibold">Application Progress</h5>
+                                        <p class="text-gray-700">As of October 31, 2024</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="number-counter text-3xl font-bold text-primary-blue" data-target="200000">0</span>
+                                        <span class="block text-sm text-gray-600">approved applications</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-2">
+                                    <div class="flex justify-between mb-1">
+                                        <span>Progress towards estimated eligible population</span>
+                                        <span class="font-semibold">49%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-3">
+                                        <div class="bg-light-blue h-3 rounded-full" style="width: 49%"></div>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-600">
+                                    <i class="fas fa-info-circle mr-1"></i>
+                                    Based on estimated 410,000 eligible individuals across all categories
+                                </p>
+                            </div>
+                            
+                            <div class="chart-container mb-6 animated-chart">
+                                <canvas id="applicationStatusChart"></canvas>
+                                <button class="zoom-button" data-chart="applicationStatusChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div class="bg-blue-50 p-4 rounded-lg text-center">
+                                    <i class="fas fa-money-bill-wave text-2xl text-light-blue mb-2"></i>
+                                    <div class="text-sm text-gray-600">Disbursed Amount</div>
+                                    <div class="text-xl font-bold text-primary-blue">RM 160 million</div>
+                                </div>
+                                <div class="bg-blue-50 p-4 rounded-lg text-center">
+                                    <i class="fas fa-phone-alt text-2xl text-light-blue mb-2"></i>
+                                    <div class="text-sm text-gray-600">Helpline Inquiries</div>
+                                    <div class="text-xl font-bold text-primary-blue">75,000+</div>
+                                </div>
+                            </div>
+                            
+                            <p class="text-center text-sm text-gray-600">
+                                For assistance, call 1-800-88-2747 or email
+                                <a href="mailto:info@budimadani.gov.my" class="text-blue-600">info@budimadani.gov.my</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter 4: The Financial Perspective -->
+    <section id="chapter4" class="chapter">
+        <div class="container mx-auto px-4">
+            <div class="chapter-content">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-3 text-primary-blue">The Financial Perspective</h2>
+                <h3 class="text-xl md:text-2xl text-center mb-8 text-gray-600">Fiscal Impact and Resource Allocation</h3>
+                <div class="section-divider"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-16">
+                    <div>
+                        <div class="card p-6 mb-8">
+                            <h4 class="text-xl font-semibold mb-4 text-primary-blue">Annual Savings</h4>
+                            
+                            <div class="flex items-center justify-center mb-8">
+                                <div class="text-center">
+                                    <div class="text-gray-600 mb-1">Projected Annual Savings</div>
+                                    <div class="flex items-center justify-center">
+                                        <span class="text-5xl font-bold text-primary-blue mr-2">RM</span>
+                                        <span class="number-counter text-6xl font-bold text-primary-blue" data-target="4">0</span>
+                                        <span class="text-3xl font-bold text-primary-blue self-end mb-2">.0 billion</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h5 class="font-semibold mb-3">Projected Allocation of Savings</h5>
+                            <div class="chart-container">
+                                <canvas id="savingsChart"></canvas>
+                                <button class="zoom-button" data-chart="savingsChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-6">
+                            <h4 class="text-xl font-semibold mb-4 text-primary-blue">Budget Reallocation</h4>
+                            
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold mb-2">Before Reform</h5>
+                                    <p class="mb-2"><i class="fas fa-gas-pump text-blue-500 mr-2"></i> Broad-based subsidies</p>
+                                    <p class="mb-2"><i class="fas fa-users text-blue-500 mr-2"></i> Universal benefit</p>
+                                    <p><i class="fas fa-chart-line text-red-500 mr-2"></i> Escalating costs</p>
+                                </div>
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold mb-2">After Reform</h5>
+                                    <p class="mb-2"><i class="fas fa-bullseye text-green-500 mr-2"></i> Targeted assistance</p>
+                                    <p class="mb-2"><i class="fas fa-hand-holding-medical text-green-500 mr-2"></i> Enhanced social services</p>
+                                    <p><i class="fas fa-road text-green-500 mr-2"></i> Infrastructure investment</p>
+                                </div>
+                            </div>
+                            
+                            <div id="sankey-chart" class="chart-container mb-4 animated-chart">
+                                <button class="zoom-button" data-chart="sankey-chart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h5 class="font-semibold mb-2">2023 Total Subsidy Expenditure</h5>
+                                <div class="flex items-center">
+                                    <div class="text-3xl font-bold text-primary-blue mr-2">RM 81 billion</div>
+                                    <div class="text-sm text-gray-600">(5.7% of GDP)</div>
+                                </div>
+                                <div class="mt-2">
+                                    <div class="flex justify-between mb-1">
+                                        <span>Fuel Subsidies</span>
+                                        <span class="font-semibold">62%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-primary-blue h-2 rounded-full" style="width: 62%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="card p-6 mb-8">
+                            <h4 class="text-xl font-semibold mb-4 text-primary-blue">Fiscal Impact</h4>
+                            
+                            <div class="mb-6">
+                                <h5 class="font-semibold mb-3">Budget Deficit Projection</h5>
+                                <div class="chart-container">
+                                    <canvas id="deficitChart"></canvas>
+                                    <button class="zoom-button" data-chart="deficitChart">
+                                        <i class="fas fa-search-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="bg-blue-50 p-3 rounded-lg text-center">
+                                    <div class="text-sm text-gray-600">2023 Deficit</div>
+                                    <div class="text-xl font-bold text-red-500">5.8%</div>
+                                    <div class="text-sm text-gray-500">of GDP</div>
+                                </div>
+                                <div class="bg-blue-50 p-3 rounded-lg text-center">
+                                    <div class="text-sm text-gray-600">2024 Projection</div>
+                                    <div class="text-xl font-bold text-yellow-500">4.3%</div>
+                                    <div class="text-sm text-gray-500">of GDP</div>
+                                </div>
+                                <div class="bg-blue-50 p-3 rounded-lg text-center">
+                                    <div class="text-sm text-gray-600">2025 Target</div>
+                                    <div class="text-xl font-bold text-green-500">3.8%</div>
+                                    <div class="text-sm text-gray-500">of GDP</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-6">
+                            <h4 class="text-xl font-semibold mb-4 text-primary-blue">Economic Impact Assessment</h4>
+                            
+                            <div class="chart-container mb-6 animated-chart">
+                                <canvas id="economicImpactChart"></canvas>
+                                <button class="zoom-button" data-chart="economicImpactChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <h5 class="font-semibold mb-2">Inflation Outlook</h5>
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <p class="text-gray-700 mb-1">Finance Ministry Projection:</p>
+                                        <p class="text-lg font-semibold">2.0% - 3.5%</p>
+                                    </div>
+                                    <div class="h-16 w-1 bg-gray-200"></div>
+                                    <div>
+                                        <p class="text-gray-700 mb-1">Independent Analysis:</p>
+                                        <p class="text-lg font-semibold">2.5% - 3.7%</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <h5 class="font-semibold mb-2">GDP Growth Forecast</h5>
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <p class="text-gray-700 mb-1">Finance Ministry Projection:</p>
+                                        <p class="text-lg font-semibold">4.0% - 5.0%</p>
+                                    </div>
+                                    <div class="h-16 w-1 bg-gray-200"></div>
+                                    <div>
+                                        <p class="text-gray-700 mb-1">World Bank Estimation:</p>
+                                        <p class="text-lg font-semibold">4.3%</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h5 class="font-semibold mb-2">Expert Assessment</h5>
+                                <p class="text-gray-700 mb-3">
+                                    <i class="fas fa-quote-left text-light-blue mr-2"></i>
+                                    If well implemented, the targeted subsidy approach will have limited impact on inflation, while significantly improving fiscal sustainability.
+                                    <i class="fas fa-quote-right text-light-blue ml-2"></i>
+                                </p>
+                                <p class="text-right text-sm text-gray-600">
+                                    - Malaysian Economic Research Institute
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter 5: The Future Outlook -->
+    <section id="chapter5" class="chapter">
+        <div class="container mx-auto px-4">
+            <div class="chapter-content">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-3 text-primary-blue">The Future Outlook</h2>
+                <h3 class="text-xl md:text-2xl text-center mb-8 text-gray-600">What Comes Next and Long-Term Benefits</h3>
+                <div class="section-divider"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-16">
+                    <div>
+                        <div class="card p-6 mb-8">
+                            <h4 class="text-xl font-semibold mb-4 text-primary-blue">Future Policy Roadmap</h4>
+                            
+                            <div class="chart-container mb-6 animated-chart">
+                                <canvas id="policyRoadmapChart"></canvas>
+                                <button class="zoom-button" data-chart="policyRoadmapChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="timeline-item pl-8 mb-6">
+                                <div class="text-gray-600 mb-1">Phase 1 (Completed)</div>
+                                <h5 class="font-semibold mb-1">Diesel Subsidy Reform</h5>
+                                <p class="text-gray-700">Implementation of market pricing for diesel with targeted cash assistance</p>
+                            </div>
+                            
+                            <div class="timeline-item pl-8 mb-6">
+                                <div class="text-gray-600 mb-1">Phase 2 (Late 2024)</div>
+                                <h5 class="font-semibold mb-1">RON95 Petrol Subsidy Reform</h5>
+                                <p class="text-gray-700">Similar targeted approach for RON95 petrol, currently priced at RM 2.05 per liter</p>
+                            </div>
+                            
+                            <div class="timeline-item pl-8 mb-6">
+                                <div class="text-gray-600 mb-1">Phase 3 (2025)</div>
+                                <h5 class="font-semibold mb-1">Comprehensive Subsidy Rationalization</h5>
+                                <p class="text-gray-700">Review and optimization of other subsidy programs</p>
+                            </div>
+                            
+                            <div class="timeline-item pl-8">
+                                <div class="text-gray-600 mb-1">Phase 4 (2025-2026)</div>
+                                <h5 class="font-semibold mb-1">Sustainable Energy Transition</h5>
+                                <p class="text-gray-700">Incentives for renewable energy and sustainable transportation</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-6">
+                            <h4 class="text-xl font-semibold mb-4 text-primary-blue">Public Feedback Mechanism</h4>
+                            
+                            <div class="flex items-center justify-center mb-6">
+                                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Public consultation" class="rounded-lg w-full h-48 object-cover">
+                            </div>
+                            
+                            <div class="chart-container mb-6 animated-chart">
+                                <canvas id="publicFeedbackChart"></canvas>
+                                <button class="zoom-button" data-chart="publicFeedbackChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold mb-2">Feedback Channels</h5>
+                                    <p class="mb-2"><i class="fas fa-globe text-blue-500 mr-2"></i> Online Portal</p>
+                                    <p class="mb-2"><i class="fas fa-phone text-blue-500 mr-2"></i> Dedicated Hotline</p>
+                                    <p><i class="fas fa-building text-blue-500 mr-2"></i> Service Centers</p>
+                                </div>
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold mb-2">Continuous Improvement</h5>
+                                    <p class="mb-2"><i class="fas fa-chart-bar text-green-500 mr-2"></i> Data Analysis</p>
+                                    <p class="mb-2"><i class="fas fa-comments text-green-500 mr-2"></i> Public Consultation</p>
+                                    <p><i class="fas fa-sync text-green-500 mr-2"></i> Policy Refinement</p>
+                                </div>
+                            </div>
+                            
+                            <p class="text-center text-gray-700">
+                                Share your feedback at 
+                                <a href="#" class="text-blue-600">feedback.treasury.gov.my</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="card p-6 mb-8">
+                            <h4 class="text-xl font-semibold mb-4 text-primary-blue">Expected Long-Term Benefits</h4>
+                            
+                            <div class="radar-chart-container mb-6">
+                                <canvas id="benefitsRadarChart"></canvas>
+                                <button class="zoom-button" data-chart="benefitsRadarChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="icon-card mb-6">
+                                <div class="icon-container">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold">Fiscal Sustainability</h5>
+                                    <p class="text-gray-700">Projected reduction in fiscal deficit from 5.8% to 3.8% of GDP by 2025</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-card mb-6">
+                                <div class="icon-container">
+                                    <i class="fas fa-hospital"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold">Enhanced Social Services</h5>
+                                    <p class="text-gray-700">Reallocation of funds to healthcare, education, and social protection</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-card mb-6">
+                                <div class="icon-container">
+                                    <i class="fas fa-road"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold">Infrastructure Development</h5>
+                                    <p class="text-gray-700">Increased investment in critical infrastructure projects</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-card mb-6">
+                                <div class="icon-container">
+                                    <i class="fas fa-leaf"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold">Environmental Impact</h5>
+                                    <p class="text-gray-700">Reduced fuel consumption and related environmental benefits</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-card">
+                                <div class="icon-container">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold">Economic Resilience</h5>
+                                    <p class="text-gray-700">Better protection against global energy price volatility</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card p-6">
+                            <h4 class="text-xl font-semibold mb-4 text-primary-blue">Market Response and Monitoring</h4>
+                            
+                            <div class="mb-6">
+                                <h5 class="font-semibold mb-3">Initial Market Response</h5>
+                                <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                                    <div class="flex justify-between items-center">
+                                        <div>
+                                            <p class="text-gray-600 mb-1">Daily Diesel Sales</p>
+                                            <div class="flex items-end">
+                                                <span class="text-xl font-semibold text-red-500">-25%</span>
+                                                <span class="text-sm text-gray-500 ml-1">(7 million liters)</span>
+                                            </div>
+                                        </div>
+                                        <i class="fas fa-arrow-down text-2xl text-red-500"></i>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 mb-4">
+                                    <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                                    The significant reduction in diesel sales indicates success in curbing smuggling and wastage.
+                                </p>
+                            </div>
+                            
+                            <div class="chart-container mb-6 animated-chart">
+                                <canvas id="marketResponseChart"></canvas>
+                                <button class="zoom-button" data-chart="marketResponseChart">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-semibold mb-3">Ongoing Monitoring Measures</h5>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="bg-blue-50 p-3 rounded-lg">
+                                        <i class="fas fa-chart-bar text-center block text-light-blue text-xl mb-2"></i>
+                                        <div class="text-sm font-semibold text-center">Consumption Patterns</div>
+                                    </div>
+                                    <div class="bg-blue-50 p-3 rounded-lg">
+                                        <i class="fas fa-tags text-center block text-light-blue text-xl mb-2"></i>
+                                        <div class="text-sm font-semibold text-center">Price Impact</div>
+                                    </div>
+                                    <div class="bg-blue-50 p-3 rounded-lg">
+                                        <i class="fas fa-users text-center block text-light-blue text-xl mb-2"></i>
+                                        <div class="text-sm font-semibold text-center">Social Welfare</div>
+                                    </div>
+                                    <div class="bg-blue-50 p-3 rounded-lg">
+                                        <i class="fas fa-truck text-center block text-light-blue text-xl mb-2"></i>
+                                        <div class="text-sm font-semibold text-center">Logistics Sector</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-16 text-center">
+                    <p class="text-xl mb-8">
+                        Explore detailed data and statistics on the diesel subsidy policy implementation
+                    </p>
+                    <a href="#" class="cta-button inline-block" id="viewDashboardBtn">
+                        View Data Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary-blue text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-6">
+                <h4 class="text-xl font-semibold mb-2">Malaysia's Diesel Subsidy Reform: The 2024 Policy Story</h4>
+                <p>A comprehensive analysis of the policy change and its implications</p>
+            </div>
+            <div class="text-center text-sm">
+                <p class="mb-2">Data sources: Ministry of Finance Malaysia, Department of Statistics Malaysia, World Bank</p>
+                <p>Last updated: November 15, 2024</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize charts when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Chart.js global configuration
+            Chart.defaults.font.family = "'Open Sans', sans-serif";
+            Chart.defaults.color = '#4a5568';
+            Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(26, 54, 93, 0.8)';
+            Chart.defaults.plugins.tooltip.titleColor = '#ffffff';
+            Chart.defaults.plugins.tooltip.bodyColor = '#ffffff';
+            Chart.defaults.plugins.tooltip.borderColor = 'rgba(26, 54, 93, 1)';
+            Chart.defaults.plugins.tooltip.borderWidth = 1;
+            Chart.defaults.plugins.tooltip.padding = 10;
+            Chart.defaults.plugins.tooltip.cornerRadius = 6;
+            
+            const chartColors = {
+                blue: ['rgba(26, 54, 93, 0.8)', 'rgba(44, 82, 130, 0.8)', 'rgba(66, 153, 225, 0.8)', 'rgba(99, 179, 237, 0.8)'],
+                accent: 'rgba(246, 173, 85, 0.8)',
+                green: 'rgba(72, 187, 120, 0.7)',
+                red: 'rgba(229, 62, 62, 0.7)',
+                yellow: 'rgba(246, 173, 85, 0.7)',
+                gray: 'rgba(113, 128, 150, 0.7)'
+            };
+            
+            // Subsidy Growth Chart
+            const subsidyGrowthChartCtx = document.getElementById('subsidyGrowthChart').getContext('2d');
+            const subsidyGrowthChart = new Chart(subsidyGrowthChartCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['2019', '2020', '2021', '2022', '2023'],
+                    datasets: [{
+                        label: 'Diesel Subsidy Expenditure (Billion MYR)',
+                        data: [1.4, 2.8, 6.5, 11.2, 14.3],
+                        backgroundColor: chartColors.blue[0],
+                        hoverBackgroundColor: chartColors.blue[2],
+                        borderColor: chartColors.blue[0],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeOutQuart'
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `RM ${context.parsed.y.toFixed(1)} billion`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Billion MYR'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return 'RM ' + value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Subsidy Distribution Chart
+            const subsidyDistributionChartCtx = document.getElementById('subsidyDistributionChart').getContext('2d');
+            const subsidyDistributionChart = new Chart(subsidyDistributionChartCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Top 20% income earners (T20)', 'Middle 40% income earners (M40)', 'Bottom 40% income earners (B40)'],
+                    datasets: [{
+                        data: [35, 41, 24],
+                        backgroundColor: [chartColors.red, chartColors.yellow, chartColors.green],
+                        borderColor: ['#fff', '#fff', '#fff'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.parsed}% of subsidies`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Consumption Chart - Base Data
+            const consumptionData = {
+                yearly: {
+                    labels: ['2021', '2022', '2023'],
+                    datasets: [{
+                        label: 'Diesel Consumption (Billion Liters)',
+                        data: [7.2, 8.4, 10.8],
+                        borderColor: chartColors.blue[2],
+                        backgroundColor: 'rgba(66, 153, 225, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Registered Diesel Vehicles (Growth Index)',
+                        // data: [2238, 4148, 5235],
+                        data: [100, 185, 234],
+                        borderColor: chartColors.accent,
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0.3,
+                        yAxisID: 'y1'
+                    }]
+                },
+                cumulative: {
+                    labels: ['2021', '2022', '2023'],
+                    datasets: [{
+                        label: 'Cumulative Consumption Growth (%)',
+                        data: [0, 16.67, 50],
+                        borderColor: chartColors.blue[2],
+                        backgroundColor: 'rgba(66, 153, 225, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Cumulative Vehicle Growth (%)',
+                        // data: [0, 85.34, 133.91],
+                        data: [0, 1.85, 2.34],
+                        borderColor: chartColors.accent,
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0.3,
+                        yAxisID: 'y'
+                    }]
+                }
+            };
+            
+            // Consumption Chart
+            const consumptionCtx = document.getElementById('consumptionChart').getContext('2d');
+            const consumptionChart = new Chart(consumptionCtx, {
+                type: 'line',
+                data: consumptionData.yearly,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 1500
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Billion Liters'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: {
+                                drawOnChartArea: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Vehicle Index (2021=100)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Chart filter buttons functionality
+            document.querySelectorAll('.chart-filter-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const view = this.getAttribute('data-view');
+                    document.querySelectorAll('.chart-filter-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    if (view === 'yearly') {
+                        consumptionChart.data = consumptionData.yearly;
+                        consumptionChart.options.scales.y1.display = true;
+                    } else {
+                        consumptionChart.data = consumptionData.cumulative;
+                        consumptionChart.options.scales.y1.display = false;
+                    }
+                    consumptionChart.update();
+                });
+            });
+            
+            // Regional Price Chart
+            const regionalPriceCtx = document.getElementById('regionalPriceChart').getContext('2d');
+            const regionalPriceChart = new Chart(regionalPriceCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Malaysia (Pre-Reform)', 'Malaysia (Post-Reform)', 'Thailand', 'Indonesia', 'Singapore'],
+                    datasets: [{
+                        label: 'Diesel Price (RM per liter)',
+                        data: [2.15, 3.35, 4.0, 4.5, 7.2],
+                        backgroundColor: [
+                            chartColors.green,
+                            chartColors.blue[2],
+                            chartColors.gray,
+                            chartColors.gray,
+                            chartColors.gray
+                        ],
+                        borderColor: [
+                            'rgba(72, 187, 120, 1)',
+                            'rgba(66, 153, 225, 1)',
+                            'rgba(113, 128, 150, 1)',
+                            'rgba(113, 128, 150, 1)',
+                            'rgba(113, 128, 150, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 1500
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `RM ${context.parsed.y.toFixed(2)} per liter`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Price (RM)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Price Chart
+            const priceCtx = document.getElementById('priceChart').getContext('2d');
+            const priceChart = new Chart(priceCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pre-Reform Price', 'Post-Reform Price'],
+                    datasets: [{
+                        label: 'Diesel Price (RM per liter)',
+                        data: [2.15, 3.35],
+                        backgroundColor: [chartColors.green, chartColors.blue[2]],
+                        borderColor: ['rgba(72, 187, 120, 1)', 'rgba(66, 153, 225, 1)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 1500
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `RM ${context.parsed.y.toFixed(2)} per liter`;
+                                },
+                                afterLabel: function(context) {
+                                    if (context.dataIndex === 1) {
+                                        return '+56% increase';
+                                    }
+                                    return '';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Price (RM)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Regional Implementation Chart
+            const regionalImplementationCtx = document.getElementById('regionalImplementationChart').getContext('2d');
+            const regionalImplementationChart = new Chart(regionalImplementationCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Peninsular Malaysia', 'East Malaysia (Sabah & Sarawak)'],
+                    datasets: [{
+                        label: 'Current Diesel Price (RM per liter)',
+                        data: [3.35, 2.15],
+                        backgroundColor: [chartColors.blue[2], chartColors.green],
+                        borderColor: ['rgba(66, 153, 225, 1)', 'rgba(72, 187, 120, 1)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    animation: {
+                        duration: 1500
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `RM ${context.parsed.x.toFixed(2)} per liter`;
+                                },
+                                afterLabel: function(context) {
+                                    if (context.dataIndex === 0) {
+                                        return 'Market-based pricing';
+                                    } else {
+                                        return 'Subsidized price maintained';
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Price (RM)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Policy Timeline Chart
+            const policyTimelineCtx = document.getElementById('policyTimelineChart').getContext('2d');
+            const policyTimelineChart = new Chart(policyTimelineCtx, {
+                type: 'line',
+                data: {
+                    labels: ['May 21', 'May 27', 'May 28', 'June 3', 'June 10'],
+                    datasets: [{
+                        label: 'Implementation Progress',
+                        data: [10, 25, 40, 75, 100],
+                        borderColor: chartColors.blue[2],
+                        backgroundColor: 'rgba(66, 153, 225, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 8,
+                        pointBackgroundColor: [
+                            chartColors.blue[0],
+                            chartColors.blue[1],
+                            chartColors.blue[2],
+                            chartColors.blue[3],
+                            chartColors.accent
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 2000
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const events = [
+                                        'Cabinet Approval',
+                                        'Official Announcement',
+                                        'Application Portal Launch',
+                                        'Application Deadline for First Batch',
+                                        'Implementation Day'
+                                    ];
+                                    return events[context.dataIndex];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Implementation Progress (%)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Policy Components Chart
+            const policyComponentsCtx = document.getElementById('policyComponentsChart').getContext('2d');
+            const policyComponentsChart = new Chart(policyComponentsCtx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Market-Based Pricing',
+                        'Targeted Cash Assistance',
+                        'Fleet Subsidy Program',
+                        'Public Transport Support',
+                        'Cross-Border Controls'
+                    ],
+                    datasets: [{
+                        label: 'Component Importance',
+                        data: [90, 85, 70, 65, 75],
+                        backgroundColor: 'rgba(66, 153, 225, 0.2)',
+                        borderColor: 'rgba(66, 153, 225, 0.8)',
+                        pointBackgroundColor: 'rgba(66, 153, 225, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(66, 153, 225, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    elements: {
+                        line: {
+                            borderWidth: 3
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+            
+            // Beneficiary Chart
+            const beneficiaryCtx = document.getElementById('beneficiaryChart').getContext('2d');
+            const beneficiaryChart = new Chart(beneficiaryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Private Vehicle Owners', 'Farmers', 'Livestock Breeders', 'Aquaculture Farmers'],
+                    datasets: [{
+                        data: [300000, 68000, 8000, 34000],
+                        backgroundColor: [
+                            chartColors.blue[0],
+                            chartColors.blue[1],
+                            chartColors.blue[2],
+                            chartColors.blue[3]
+                        ],
+                        borderColor: ['#fff', '#fff', '#fff', '#fff'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '60%',
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.parsed;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    return `${context.label}: ${value.toLocaleString()} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Application Flow Chart (Horizontal Bar for step visualization)
+            const applicationFlowCtx = document.getElementById('applicationFlowChart').getContext('2d');
+            const applicationFlowChart = new Chart(applicationFlowCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Check Eligibility', 'Online Application', 'Verification', 'Approval', 'Disbursement'],
+                    datasets: [{
+                        axis: 'y',
+                        label: 'Process Flow',
+                        data: [100, 85, 70, 55, 40],
+                        backgroundColor: [
+                            chartColors.blue[0],
+                            chartColors.blue[1],
+                            chartColors.blue[2],
+                            chartColors.blue[3],
+                            chartColors.accent
+                        ],
+                        borderColor: [
+                            'rgba(26, 54, 93, 1)',
+                            'rgba(44, 82, 130, 1)',
+                            'rgba(66, 153, 225, 1)',
+                            'rgba(99, 179, 237, 1)',
+                            'rgba(246, 173, 85, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const descriptions = [
+                                        'Verify income and vehicle eligibility',
+                                        'Complete online form at budimadani.gov.my',
+                                        'Application reviewed by LHDNM',
+                                        'Successful applications approved',
+                                        'RM 200 monthly subsidy transferred'
+                                    ];
+                                    return descriptions[context.dataIndex];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: false
+                        }
+                    }
+                }
+            });
+            
+            // Eligibility Flow Chart (Simple visual representation)
+            const eligibilityFlowCtx = document.getElementById('eligibilityFlowChart').getContext('2d');
+            const eligibilityFlowChart = new Chart(eligibilityFlowCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Malaysian Citizen', 'Income ≤ RM 100K', 'Diesel Vehicle', 'Vehicle < 10 years'],
+                    datasets: [{
+                        label: 'Eligibility Criteria',
+                        data: [100, 100, 100, 100],
+                        backgroundColor: [
+                            chartColors.blue[0],
+                            chartColors.blue[1],
+                            chartColors.blue[2],
+                            chartColors.blue[3]
+                        ],
+                        borderColor: [
+                            'rgba(26, 54, 93, 1)',
+                            'rgba(44, 82, 130, 1)',
+                            'rgba(66, 153, 225, 1)',
+                            'rgba(99, 179, 237, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const descriptions = [
+                                        'Must be a Malaysian citizen',
+                                        'Individual or household income not exceeding RM 100,000 annually',
+                                        'Must own a registered diesel vehicle',
+                                        'Vehicle must be less than 10 years old and non-luxury'
+                                    ];
+                                    return descriptions[context.dataIndex];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            display: false
+                        }
+                    }
+                }
+            });
+            
+            // Application Status Chart
+            const applicationStatusCtx = document.getElementById('applicationStatusChart').getContext('2d');
+            const applicationStatusChart = new Chart(applicationStatusCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Estimated Eligible', 'Applications Received', 'Applications Approved', 'Pending Review'],
+                    datasets: [{
+                        label: 'Number of Applications',
+                        data: [410000, 280000, 200000, 80000],
+                        backgroundColor: [
+                            chartColors.gray,
+                            chartColors.blue[1],
+                            chartColors.green,
+                            chartColors.yellow
+                        ],
+                        borderColor: [
+                            'rgba(113, 128, 150, 1)',
+                            'rgba(44, 82, 130, 1)',
+                            'rgba(72, 187, 120, 1)',
+                            'rgba(246, 173, 85, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.raw.toLocaleString()} applications`;
+                                },
+                                afterLabel: function(context) {
+                                    const percentages = [
+                                        'Total estimated eligible population',
+                                        `${(280000/410000*100).toFixed(1)}% of estimated eligible population`,
+                                        `${(200000/280000*100).toFixed(1)}% approval rate`,
+                                        `${(80000/280000*100).toFixed(1)}% pending review`
+                                    ];
+                                    return percentages[context.dataIndex];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Applications'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Savings Chart
+            const savingsCtx = document.getElementById('savingsChart').getContext('2d');
+            const savingsChart = new Chart(savingsCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Healthcare', 'Education', 'Infrastructure', 'Social Protection', 'Debt Reduction'],
+                    datasets: [{
+                        data: [25, 20, 30, 15, 10],
+                        backgroundColor: [
+                            chartColors.blue[0],
+                            chartColors.blue[1],
+                            chartColors.blue[2],
+                            chartColors.blue[3],
+                            chartColors.accent
+                        ],
+                        borderColor: ['#fff', '#fff', '#fff', '#fff', '#fff'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.parsed;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    const amount = (4 * value / 100).toFixed(2); // 4 billion * percentage
+                                    return `${context.label}: RM ${amount} billion (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Create Sankey Diagram with D3.js
+            function createSankeyDiagram() {
+                const container = document.getElementById('sankey-chart');
+                container.innerHTML = '';
+                
+                const width = container.clientWidth;
+                const height = 300;
+                
+                const svg = d3.select('#sankey-chart')
+                    .append('svg')
+                    .attr('width', width)
+                    .attr('height', height);
+                    
+                const margin = {top: 10, right: 10, bottom: 10, left: 10};
+                const innerWidth = width - margin.left - margin.right;
+                const innerHeight = height - margin.top - margin.bottom;
+                
+                const g = svg.append('g')
+                    .attr('transform', `translate(${margin.left},${margin.top})`);
+                    
+                // Define nodes
+                const nodes = [
+                    {name: "Fuel Subsidies", category: "source"},
+                    {name: "Other Subsidies", category: "source"},
+                    
+                    {name: "Healthcare", category: "target"},
+                    {name: "Education", category: "target"},
+                    {name: "Infrastructure", category: "target"},
+                    {name: "Social Protection", category: "target"},
+                    {name: "Debt Reduction", category: "target"}
+                ];
+                
+                // Define links
+                const links = [
+                    {source: 0, target: 2, value: 25},
+                    {source: 0, target: 3, value: 20},
+                    {source: 0, target: 4, value: 30},
+                    {source: 0, target: 5, value: 15},
+                    {source: 0, target: 6, value: 10},
+                    {source: 1, target: 2, value: 10},
+                    {source: 1, target: 3, value: 15},
+                    {source: 1, target: 5, value: 20}
+                ];
+                
+                // Create a simple manual sankey diagram
+                const sourceX = 10;
+                const targetX = innerWidth - 100;
+                const nodeWidth = 100;
+                const nodeHeight = 30;
+                
+                // Position nodes
+                nodes[0].x = sourceX;
+                nodes[0].y = 50;
+                nodes[1].x = sourceX;
+                nodes[1].y = 200;
+                
+                nodes[2].x = targetX;
+                nodes[2].y = 20;
+                nodes[3].x = targetX;
+                nodes[3].y = 70;
+                nodes[4].x = targetX;
+                nodes[4].y = 120;
+                nodes[5].x = targetX;
+                nodes[5].y = 170;
+                nodes[6].x = targetX;
+                nodes[6].y = 220;
+                
+                // Draw nodes
+                g.selectAll('.node')
+                    .data(nodes)
+                    .enter()
+                    .append('rect')
+                    .attr('class', 'node')
+                    .attr('x', d => d.x)
+                    .attr('y', d => d.y)
+                    .attr('width', nodeWidth)
+                    .attr('height', d => d.category === 'source' ? 80 : nodeHeight)
+                    .attr('fill', d => {
+                        if (d.category === 'source') {
+                            return '#1a365d';
+                        } else {
+                            const index = nodes.indexOf(d) - 2; // Adjust for targets
+                            const colors = [
+                                chartColors.blue[0],
+                                chartColors.blue[1],
+                                chartColors.blue[2],
+                                chartColors.blue[3],
+                                chartColors.accent
+                            ];
+                            return colors[index % colors.length];
+                        }
+                    })
+                    .attr('rx', 5)
+                    .attr('ry', 5);
+                
+                // Draw node labels
+                g.selectAll('.node-label')
+                    .data(nodes)
+                    .enter()
+                    .append('text')
+                    .attr('class', 'node-label')
+                    .attr('x', d => d.x + (nodeWidth / 2))
+                    .attr('y', d => d.category === 'source' ? d.y + 40 : d.y + 15)
+                    .attr('text-anchor', 'middle')
+                    .attr('dominant-baseline', 'middle')
+                    .attr('fill', '#ffffff')
+                    .text(d => d.name)
+                    .style('font-size', '12px');
+                
+                // Draw links
+                g.selectAll('.link')
+                    .data(links)
+                    .enter()
+                    .append('path')
+                    .attr('class', 'link')
+                    .attr('d', d => {
+                        const sourceNode = nodes[d.source];
+                        const targetNode = nodes[d.target];
+                        
+                        const sourceX = sourceNode.x + nodeWidth;
+                        const sourceY = sourceNode.y + (sourceNode.category === 'source' ? 40 : 15);
+                        
+                        const targetX = targetNode.x;
+                        const targetY = targetNode.y + 15;
+                        
+                        const midX = (sourceX + targetX) / 2;
+                        
+                        return `M${sourceX},${sourceY} C${midX},${sourceY} ${midX},${targetY} ${targetX},${targetY}`;
+                    })
+                    .attr('stroke', d => {
+                        const targetIndex = d.target - 2; // Adjust for targets
+                        const colors = [
+                            chartColors.blue[0],
+                            chartColors.blue[1],
+                            chartColors.blue[2],
+                            chartColors.blue[3],
+                            chartColors.accent
+                        ];
+                        return colors[targetIndex % colors.length];
+                    })
+                    .attr('stroke-width', d => Math.max(1, d.value / 5))
+                    .attr('fill', 'none');
+                
+                // Add value labels to links
+                g.selectAll('.link-label')
+                    .data(links)
+                    .enter()
+                    .append('text')
+                    .attr('class', 'link-label')
+                    .attr('x', d => {
+                        const sourceNode = nodes[d.source];
+                        const targetNode = nodes[d.target];
+                        return (sourceNode.x + nodeWidth + targetNode.x) / 2;
+                    })
+                    .attr('y', d => {
+                        const sourceNode = nodes[d.source];
+                        const targetNode = nodes[d.target];
+                        const sourceY = sourceNode.y + (sourceNode.category === 'source' ? 40 : 15);
+                        const targetY = targetNode.y + 15;
+                        return (sourceY + targetY) / 2;
+                    })
+                    .attr('text-anchor', 'middle')
+                    .attr('dominant-baseline', 'middle')
+                    .attr('fill', '#4a5568')
+                    .text(d => `${d.value}%`)
+                    .style('font-size', '10px')
+                    .style('font-weight', 'bold');
+            }
+            
+            // Create sankey diagram on load
+            createSankeyDiagram();
+            
+            // Deficit Chart
+            const deficitCtx = document.getElementById('deficitChart').getContext('2d');
+            const deficitChart = new Chart(deficitCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2022', '2023', '2024 (Projected)', '2025 (Target)'],
+                    datasets: [{
+                        label: 'Budget Deficit (% of GDP)',
+                        data: [5.6, 5.8, 4.3, 3.8],
+                        borderColor: '#e53e3e',
+                        backgroundColor: 'rgba(229, 62, 62, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Deficit: ${context.parsed.y}% of GDP`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            reverse: true,
+                            beginAtZero: false,
+                            min: 3,
+                            max: 7,
+                            title: {
+                                display: true,
+                                text: '% of GDP'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Economic Impact Chart
+            const economicImpactCtx = document.getElementById('economicImpactChart').getContext('2d');
+            const economicImpactChart = new Chart(economicImpactCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Inflation', 'GDP Growth'],
+                    datasets: [
+                        {
+                            label: 'Finance Ministry (Low)',
+                            data: [2.0, 4.0],
+                            backgroundColor: chartColors.blue[0],
+                            stack: 'Stack 0'
+                        },
+                        {
+                            label: 'Finance Ministry (High)',
+                            data: [1.5, 1.0],
+                            backgroundColor: chartColors.blue[2],
+                            stack: 'Stack 0'
+                        },
+                        {
+                            label: 'Independent Analysis (Low)',
+                            data: [2.5, 4.1],
+                            backgroundColor: chartColors.accent,
+                            stack: 'Stack 1'
+                        },
+                        {
+                            label: 'Independent Analysis (High)',
+                            data: [1.2, 0.5],
+                            backgroundColor: 'rgba(246, 173, 85, 0.5)',
+                            stack: 'Stack 1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let total = 0;
+                                    if (context.datasetIndex % 2 === 0) {
+                                        total = context.raw;
+                                    } else {
+                                        total = context.dataset.data[context.dataIndex] + context.chart.data.datasets[context.datasetIndex - 1].data[context.dataIndex];
+                                    }
+                                    
+                                    if (context.datasetIndex === 0 || context.datasetIndex === 2) {
+                                        return `Minimum: ${total}%`;
+                                    } else {
+                                        return `Maximum: ${total}%`;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: true
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true,
+                            max: 6,
+                            title: {
+                                display: true,
+                                text: 'Percentage (%)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Policy Roadmap Chart
+            const policyRoadmapCtx = document.getElementById('policyRoadmapChart').getContext('2d');
+            const policyRoadmapChart = new Chart(policyRoadmapCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Phase 1 (Jun 2024)', 'Phase 2 (Late 2024)', 'Phase 3 (2025)', 'Phase 4 (2025-2026)'],
+                    datasets: [{
+                        label: 'Implementation Progress',
+                        data: [100, 0, 0, 0],
+                        borderColor: chartColors.blue[2],
+                        backgroundColor: 'rgba(66, 153, 225, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 10,
+                        pointBackgroundColor: [
+                            chartColors.green,
+                            chartColors.yellow,
+                            chartColors.blue[1],
+                            chartColors.blue[0]
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const initiatives = [
+                                        'Diesel Subsidy Reform - COMPLETED',
+                                        'RON95 Petrol Subsidy Reform - PLANNED',
+                                        'Comprehensive Subsidy Rationalization - PLANNED',
+                                        'Sustainable Energy Transition - PLANNED'
+                                    ];
+                                    return initiatives[context.dataIndex];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            display: false
+                        }
+                    }
+                }
+            });
+            
+            // Public Feedback Chart
+            const publicFeedbackCtx = document.getElementById('publicFeedbackChart').getContext('2d');
+            const publicFeedbackChart = new Chart(publicFeedbackCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Supportive', 'Neutral', 'Concerned', 'Opposed'],
+                    datasets: [{
+                        data: [35, 30, 25, 10],
+                        backgroundColor: [
+                            chartColors.green,
+                            chartColors.blue[2],
+                            chartColors.yellow,
+                            chartColors.red
+                        ],
+                        borderColor: ['#fff', '#fff', '#fff', '#fff'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '60%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.parsed}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Benefits Radar Chart
+            const benefitsRadarCtx = document.getElementById('benefitsRadarChart').getContext('2d');
+            const benefitsRadarChart = new Chart(benefitsRadarCtx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Fiscal Sustainability',
+                        'Social Services Enhancement',
+                        'Infrastructure Development',
+                        'Environmental Benefits',
+                        'Economic Resilience'
+                    ],
+                    datasets: [{
+                        label: 'Projected Benefits',
+                        data: [85, 75, 70, 60, 80],
+                        backgroundColor: 'rgba(66, 153, 225, 0.2)',
+                        borderColor: chartColors.blue[2],
+                        pointBackgroundColor: chartColors.blue[2],
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: chartColors.blue[2]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    elements: {
+                        line: {
+                            borderWidth: 3
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const descriptions = [
+                                        'Reduction in fiscal deficit from 5.8% to 3.8% of GDP',
+                                        'Improved healthcare, education, and social support',
+                                        'Critical infrastructure projects funded',
+                                        'Reduced fuel consumption and carbon emissions',
+                                        'Lower vulnerability to global oil price volatility'
+                                    ];
+                                    return `${descriptions[context.dataIndex]} - Impact: ${context.raw}/100`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Market Response Chart
+            const marketResponseCtx = document.getElementById('marketResponseChart').getContext('2d');
+            const marketResponseChart = new Chart(marketResponseCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jun 9', 'Jun 10', 'Jun 11', 'Jun 12', 'Jun 13', 'Jun 14', 'Jun 15'],
+                    datasets: [{
+                        label: 'Daily Diesel Sales (Million Liters)',
+                        data: [28, 21, 19, 20, 21, 20, 21],
+                        borderColor: chartColors.blue[2],
+                        backgroundColor: 'rgba(66, 153, 225, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    elements: {
+                        point: {
+                            radius: 6,
+                            backgroundColor: function(context) {
+                                const index = context.dataIndex;
+                                return index === 0 ? chartColors.red : chartColors.blue[2];
+                            }
+                        }
+                    },
+                    plugins: {
+                        annotation: {
+                            annotations: {
+                                line1: {
+                                    type: 'line',
+                                    yMin: 28,
+                                    yMax: 28,
+                                    borderColor: 'rgb(229, 62, 62)',
+                                    borderWidth: 2,
+                                    borderDash: [5, 5],
+                                    label: {
+                                        content: 'Pre-Reform Level',
+                                        enabled: true,
+                                        position: 'top'
+                                    }
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.raw} million liters`;
+                                },
+                                afterLabel: function(context) {
+                                    if (context.dataIndex === 0) {
+                                        return 'Pre-reform sales level';
+                                    } else if (context.dataIndex === 1) {
+                                        return 'First day after reform: -25% decrease';
+                                    }
+                                    return '';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 15,
+                            max: 30,
+                            title: {
+                                display: true,
+                                text: 'Million Liters'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Initialize scroll animation observers
+            const chapterContents = document.querySelectorAll('.chapter-content');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            chapterContents.forEach(content => {
+                observer.observe(content);
+            });
+            
+            // Initialize number counters
+            const counterElements = document.querySelectorAll('.number-counter');
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const element = entry.target;
+                        const target = parseFloat(element.getAttribute('data-target'));
+                        const duration = 2000;
+                        let startTime = null;
+                        
+                        function animateCounter(timestamp) {
+                            if (!startTime) startTime = timestamp;
+                            const progress = timestamp - startTime;
+                            const percentage = Math.min(progress / duration, 1);
+                            const value = percentage * target;
+                            
+                            if (target >= 100) {
+                                element.textContent = Math.floor(value).toLocaleString();
+                            } else {
+                                element.textContent = value.toFixed(1);
+                            }
+                            
+                            if (percentage < 1) {
+                                requestAnimationFrame(animateCounter);
+                            }
+                        }
+                        
+                        requestAnimationFrame(animateCounter);
+                        counterObserver.unobserve(element);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            counterElements.forEach(counter => {
+                counterObserver.observe(counter);
+            });
+            
+            // Navigation dots functionality
+            const navDots = document.querySelectorAll('.nav-dot');
+            const chapters = document.querySelectorAll('.chapter');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                
+                chapters.forEach(chapter => {
+                    const chapterTop = chapter.offsetTop;
+                    const chapterHeight = chapter.clientHeight;
+                    if (pageYOffset >= (chapterTop - chapterHeight / 3)) {
+                        current = chapter.getAttribute('id');
+                    }
+                });
+                
+                navDots.forEach(dot => {
+                    dot.classList.remove('active');
+                    if (dot.getAttribute('data-target') === current) {
+                        dot.classList.add('active');
+                    }
+                });
+            });
+            
+            // Handle chart modal zoom functionality
+            const modal = document.getElementById('chartModal');
+            const modalClose = document.querySelector('.chart-modal-close');
+            const modalTitle = document.getElementById('modalChartTitle');
+            const modalChartContainer = document.getElementById('modalChartContainer');
+            
+            // Add click event to all zoom buttons
+            document.querySelectorAll('.zoom-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const chartId = this.getAttribute('data-chart');
+                    const chartCanvas = document.getElementById(chartId);
+                    const chartTitle = chartCanvas.closest('.chart-container').previousElementSibling?.textContent || 'Chart Details';
+                    
+                    modalTitle.textContent = chartTitle;
+                    
+                    // Create a new canvas for the modal
+                    modalChartContainer.innerHTML = '';
+                    const newCanvas = document.createElement('canvas');
+                    modalChartContainer.appendChild(newCanvas);
+                    
+                    // Special handling for sankey diagram
+                    if (chartId === 'sankey-chart') {
+                        modal.style.display = 'block';
+                        setTimeout(() => {
+                            createSankeyDiagram();
+                        }, 100);
+                        return;
+                    }
+                    
+                    // Get the chart instance and recreate it in the modal
+                    const originalChart = Chart.getChart(chartId);
+                    if (originalChart) {
+                        new Chart(newCanvas, {
+                            type: originalChart.config.type,
+                            data: JSON.parse(JSON.stringify(originalChart.data)),
+                            options: JSON.parse(JSON.stringify(originalChart.options))
+                        });
+                    }
+                    
+                    modal.style.display = 'block';
+                });
+            });
+            
+            // Close modal functionality
+            modalClose.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            // Dashboard button functionality
+            document.getElementById('viewDashboardBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Navigating to the Data Dashboard page would happen here');
+            });
+            
+            // Handle window resize for sankey diagram
+            window.addEventListener('resize', function() {
+                if (document.getElementById('sankey-chart')) {
+                    createSankeyDiagram();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot | MyPolicyLens</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .chat-container {
+            height: calc(100vh - 300px);
+            min-height: 500px;
+        }
+        .messages-container {
+            height: calc(100% - 60px);
+            overflow-y: auto;
+        }
+        .user-message {
+            background-color: #e9f5ff;
+            border-radius: 18px 18px 0 18px;
+            align-self: flex-end;
+        }
+        .bot-message {
+            background-color: #f1f1f1;
+            border-radius: 18px 18px 18px 0;
+            align-self: flex-start;
+        }
+        .category-container {
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #1E3A8A transparent;
+        }
+        .category-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        .category-container::-webkit-scrollbar-thumb {
+            background-color: #1E3A8A;
+            border-radius: 3px;
+        }
+        .category-container::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+        .prompt-btn {
+            min-width: max-content;
+            transition: all 0.2s;
+        }
+        .prompt-btn:hover {
+            transform: translateY(-2px);
+        }
+        .category-title {
+            position: sticky;
+            left: 0;
+            background-color: white;
+            z-index: 10;
+        }
+        @media print {
+            .chat-container {
+                height: auto;
+            }
+            .messages-container {
+                height: auto;
+                overflow: visible;
+            }
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center">
+                <span class="text-2xl font-bold"><span class="text-orange-500">MY</span><span class="text-blue-700">PolicyLens</span></span>
+            </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#" class="text-gray-600 hover:text-blue-700">HOME</a>
+                <a href="#" class="text-gray-600 hover:text-blue-700">POLICY</a>
+                <a href="#" class="text-gray-600 hover:text-blue-700">FAQ</a>
+                <a href="#" class="text-blue-700 font-semibold border-b-2 border-blue-700 pb-1">AI CHATBOT</a>
+            </nav>
+            <div class="flex items-center">
+                <div class="relative">
+                    <select class="bg-transparent pr-8 pl-2 py-1 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                        <option>English</option>
+                        <option>Bahasa Malaysia</option>
+                        <option>中文</option>
+                        <option>தமிழ்</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4 py-2">
+        <nav class="text-sm">
+            <ol class="list-none p-0 inline-flex">
+                <li class="flex items-center">
+                    <a href="#" class="text-gray-500 hover:text-blue-700">Home</a>
+                    <span class="mx-2 text-gray-400">&gt;</span>
+                </li>
+                <li class="text-blue-700">AI Chatbot</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-6 flex-grow">
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">AI Chatbot</h1>
+            <p class="text-gray-600 mb-8">
+                Our AI chatbot is designed to help you understand how Malaysia's diesel subsidy policies affect your personal situation. 
+                Whether you're a student, young professional, or just curious about policy impacts, our chatbot can provide clear, 
+                accessible explanations tailored to your needs.
+            </p>
+
+            <!-- Chatbot Interface -->
+            <div class="chat-container border border-gray-200 rounded-lg flex flex-col">
+                <!-- Messages Area -->
+                <div class="messages-container p-4 flex flex-col space-y-4">
+                    <!-- Bot Welcome Message -->
+                    <div class="bot-message p-4 max-w-3xl">
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-blue-700 flex items-center justify-center text-white mr-3">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">PolicyBot</p>
+                                <div class="text-gray-700">
+                                    <p class="mb-2">👋 Hello! I'm PolicyBot, your guide to understanding Malaysia's diesel subsidy policy.</p>
+                                    <p class="mb-2">I can help you understand:</p>
+                                    <ul class="list-disc pl-5 mb-2">
+                                        <li>The details and objectives of the current diesel subsidy policy</li>
+                                        <li>How this policy might affect your personal finances</li>
+                                        <li>The broader economic impacts on prices and industries</li>
+                                        <li>Complex policy terminology in simple language</li>
+                                        <li>Data and visualizations related to the policy</li>
+                                    </ul>
+                                    <p>You can type your question below or use one of the predefined prompts to get started!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="p-4 border-t border-gray-200">
+                    <div class="flex items-center">
+                        <input type="text" placeholder="Type your question here..." class="flex-grow p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                        <button class="bg-blue-700 text-white px-4 py-3 rounded-r-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+                            <i class="fas fa-paper-plane"></i> Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Predefined Prompts Section -->
+            <div class="mt-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Quick Questions</h2>
+                <p class="text-gray-600 mb-6">
+                    Not sure what to ask? Try one of these predefined prompts to learn about specific aspects of Malaysia's diesel subsidy policy.
+                </p>
+
+                <!-- Category A: Policy Understanding -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-blue-700 mb-3 category-title">Policy Understanding</h3>
+                    <div class="category-container flex space-x-3 pb-2">
+                        <button class="prompt-btn px-4 py-2 bg-blue-50 text-blue-700 rounded-full border border-blue-200 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+                            What is Malaysia's current diesel subsidy policy?
+                        </button>
+                        <button class="prompt-btn px-4 py-2 bg-blue-50 text-blue-700 rounded-full border border-blue-200 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+                            Explain the rationale behind the policy
+                        </button>
+                        <button class="prompt-btn px-4 py-2 bg-blue-50 text-blue-700 rounded-full border border-blue-200 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+                            What are the key objectives of the diesel subsidy?
+                        </button>
+                        <button class="prompt-btn px-4 py-2 bg-blue-50 text-blue-700 rounded-full border border-blue-200 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+                            When was this policy implemented?
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Category B: Personal Impact Assessment -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-green-700 mb-3 category-title">Personal Impact Assessment</h3>
+                    <div class="category-container flex space-x-3 pb-2">
+                        <button class="prompt-btn px-4 py-2 bg-green-50 text-green-700 rounded-full border border-green-200 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50">
+                            How does the diesel policy affect me as a student?
+                        </button>
+                        <button class="prompt-btn px-4 py-2 bg-green-50 text-green-700 rounded-full border border-green-200 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50">
+                            How does the policy impact young professionals?
+                        </button>
+                        <button class="prompt-btn px-4 py-2 bg-green-50 text-green-700 rounded-full border border-green-200 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50">
+                            Will this policy affect my transportation costs?
+                        </button>
+                        <button class="prompt-btn px-4 py-2 bg-green-50 text-green-700 rounded-full border border-green-200 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50">
+                            How can I adjust my budget for these policy changes?
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Category C: Economic Effects -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-purple-700 mb-3 category-title">Economic Effects</h3>
+                    <div class="category-container flex space-x-3 pb-2">
+                        <button class="prompt-btn px-4 py-2 bg-purple-50 text-purple-700 rounded-full border border-purple-200 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
+                            How does this policy affect consumer prices?
+                        </button>
+                        <button class="prompt-btn px-4 py-2 bg-purple-50 text-purple-700 rounded-full border border-purple-200 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
+                            Explain the impact on the manufacturing sector
+                        </button>
+                        <button class="prompt-btn px-4 py-2 bg-purple-50 text-purple-700 rounded-full border border-purple-200 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
+                            What regional price differences exist due to this policy?
+                        </button>
+                        <button class="prompt-btn px-4 py-2 bg-purple-50 text-purple-700 rounded-full border border-purple-200 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
+                            How does this policy affect essential goods prices?
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Category D: Policy Terminology -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-red-700 mb-3 category-title">Policy Terminology</h3>
+                    <div class="category-container flex space-x-3 pb-2">
+                        <button class="prompt-btn px-4 py-2 bg-red-50 text-red-700 rounded-full border border-red-200 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50">
+                            Explain targeted subsidy mechanism
+                        </button>
+                        <button class="prompt-btn px-4 py-2 bg-red-50 text-red-700 rounded-full border border-red-200 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50">
+                            What is the Consumer Price Index?
+                        </button>
+                        <button class="prompt-btn px-4 py-2 bg-red-50 text-red-700 rounded-full border border-red-200 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50">
+                            Explain the connection between diesel prices and inflation
+                        </button>
+                        <button class="prompt-btn px-4 py-2 bg-red-50 text-red-700 rounded-full border border-red-200 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50">
+                            Define float pricing system
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Category E: Data & Visualization -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-yellow-700 mb-3 category-title">Data & Visualization</h3>
+                    <div class="category-container flex space-x-3 pb-2">
+                        <button class="prompt-btn px-4 py-2 bg-yellow-50 text-yellow-700 rounded-full border border-yellow-200 hover:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50">
+                            Show me the latest data on diesel prices
+                        </button>
+                        <button class="prompt-btn px-4 py-2 bg-yellow-50 text-yellow-700 rounded-full border border-yellow-200 hover:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50">
+                            Compare price data before and after policy implementation
+                        </button>
+                        <button class="prompt-btn px-4 py-2 bg-yellow-50 text-yellow-700 rounded-full border border-yellow-200 hover:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50">
+                            Show manufacturing output trends
+                        </button>
+                        <button class="prompt-btn px-4 py-2 bg-yellow-50 text-yellow-700 rounded-full border border-yellow-200 hover:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50">
+                            Display regional price impact map
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="mt-8 mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800 mb-3">About This Chatbot</h2>
+                <p class="text-gray-600 mb-3">
+                    This AI chatbot is designed to make Malaysia's complex diesel subsidy policy more transparent and understandable 
+                    for young adults aged 18-30, particularly students and early-career professionals.
+                </p>
+                <p class="text-gray-600">
+                    The chatbot provides personalized information to help you understand how these policies affect your 
+                    day-to-day life and future financial planning. All information is based on official government data and policies.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <a href="#" class="flex items-center">
+                        <span class="text-xl font-bold"><span class="text-orange-500">MY</span><span class="text-white">PolicyLens</span></span>
+                    </a>
+                    <p class="text-sm mt-2">© 2025 MyPolicyLens. All rights reserved.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-2">Quick Links</h3>
+                    <ul class="text-sm">
+                        <li class="mb-1"><a href="#" class="hover:text-white">About us</a></li>
+                        <li class="mb-1"><a href="#" class="hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Basic Chat Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const messagesContainer = document.querySelector('.messages-container');
+            const inputField = document.querySelector('input[type="text"]');
+            const sendButton = document.querySelector('button');
+            const promptButtons = document.querySelectorAll('.prompt-btn');
+
+            // Function to add a new message to the chat
+            function addMessage(text, isUser = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = isUser ? 'user-message p-4 max-w-3xl self-end' : 'bot-message p-4 max-w-3xl';
+                
+                let messageContent = '';
+                if (isUser) {
+                    messageContent = `
+                        <div class="flex items-start flex-row-reverse">
+                            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white ml-3">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold text-gray-800">You</p>
+                                <div class="text-gray-700">${text}</div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    messageContent = `
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-blue-700 flex items-center justify-center text-white mr-3">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">PolicyBot</p>
+                                <div class="text-gray-700">${text}</div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                messageDiv.innerHTML = messageContent;
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+
+            // Function to handle sending a message
+            function sendMessage() {
+                const text = inputField.value.trim();
+                if (text) {
+                    addMessage(text, true);
+                    inputField.value = '';
+                    
+                    // Simulate typing indicator
+                    setTimeout(() => {
+                        processMessage(text);
+                    }, 1000);
+                }
+            }
+
+            // Very simple response generation function
+            function processMessage(text) {
+                let response = "I'm here to help with questions about Malaysia's diesel subsidy policy. Could you please ask a more specific question about the policy or how it affects you?";
+                
+                // Basic keyword matching - in a real system, this would be more sophisticated
+                const textLower = text.toLowerCase();
+                
+                if (textLower.includes('current diesel subsidy') || textLower.includes('what is the policy')) {
+                    response = "Malaysia's current diesel subsidy policy aims to reduce the impact of global oil price fluctuations on consumers while ensuring fiscal sustainability. The policy involves targeted subsidies for specific sectors and individuals rather than a blanket subsidy for all diesel consumers.";
+                } else if (textLower.includes('rationale') || textLower.includes('why implement')) {
+                    response = "The rationale behind Malaysia's diesel subsidy policy is to balance several objectives: protecting vulnerable consumers from price volatility, reducing government fiscal burden, encouraging efficient fuel consumption, and meeting environmental commitments.";
+                } else if (textLower.includes('objective') || textLower.includes('goal')) {
+                    response = "The key objectives of Malaysia's diesel subsidy policy include:<ul class='list-disc pl-5 mb-2'><li>Reducing government fiscal burden from blanket subsidies</li><li>Ensuring diesel remains affordable for eligible sectors</li><li>Promoting more efficient fuel consumption</li><li>Targeting assistance to those who need it most</li><li>Supporting economic stability while transitioning to market pricing</li></ul>";
+                } else if (textLower.includes('student') || textLower.includes('study')) {
+                    response = "As a student, the diesel subsidy policy might affect you indirectly through:<ul class='list-disc pl-5 mb-2'><li>Public transportation costs, which may fluctuate based on diesel prices</li><li>Cost of goods and services on campus, as transportation costs influence pricing</li><li>If you drive a diesel vehicle, you might face changing fuel prices depending on your eligibility status</li></ul>";
+                } else if (textLower.includes('manufacturing') || textLower.includes('factory')) {
+                    response = "The diesel subsidy policy has significant impacts on Malaysia's manufacturing sector:<ul class='list-disc pl-5 mb-2'><li>Production costs for manufacturers vary based on their diesel consumption and eligibility for subsidies</li><li>Transport-intensive industries face changing logistics costs</li><li>Export competitiveness may be affected by changes in input costs</li><li>Some manufacturing subsectors show greater sensitivity to diesel price changes than others</li></ul>";
+                }
+                
+                addMessage(response);
+            }
+
+            // Event listeners
+            sendButton.addEventListener('click', sendMessage);
+            inputField.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            // Handle predefined prompt buttons
+            promptButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const promptText = this.textContent.trim();
+                    addMessage(promptText, true);
+                    
+                    // Simulate typing indicator
+                    setTimeout(() => {
+                        processMessage(promptText);
+                    }, 1000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

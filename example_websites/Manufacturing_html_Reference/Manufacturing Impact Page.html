@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policy Impact on Manufacturing | MyPolicyLens</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .banner {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1512187849-463fdb898f21?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+        }
+        .card {
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .nav-button {
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            transform: translateY(-2px);
+        }
+        .chart-container {
+            position: relative;
+            height: 350px;
+            width: 100%;
+        }
+        .info-icon {
+            color: #3B82F6;
+            cursor: pointer;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            background-color: #374151;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            width: 220px;
+            font-size: 0.8rem;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        .highlight-box {
+            border-left: 4px solid #3B82F6;
+            background-color: #EFF6FF;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #E5E7EB;
+        }
+        th {
+            background-color: #F3F4F6;
+        }
+        tr:nth-child(even) {
+            background-color: #F9FAFB;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="#" class="text-blue-600 font-bold text-xl">MyPolicyLens</a>
+                <div class="mx-4 h-6 border-l border-gray-300"></div>
+                <span class="text-gray-500 text-sm">Making Policies Transparent & Understandable for Everyone</span>
+            </div>
+            <div>
+                <button class="text-gray-600 hover:text-blue-600">
+                    <i class="fas fa-globe mr-1"></i>
+                    English
+                </button>
+            </div>
+        </div>
+        <nav class="container mx-auto px-4 py-2">
+            <ul class="flex space-x-6 text-sm">
+                <li><a href="#" class="text-gray-600 hover:text-blue-600">Home</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-blue-600">About</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-blue-600">Policies</a></li>
+                <li><a href="#" class="text-blue-600 font-medium">Diesel Subsidy</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-blue-600">FAQ</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-blue-600">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Banner -->
+    <section class="banner flex items-center justify-center">
+        <div class="text-center text-white">
+            <h1 class="text-4xl font-bold mb-4">Policy Impact on Manufacturing</h1>
+            <p class="text-xl">Understanding how diesel subsidy policy affects Malaysia's manufacturing sector</p>
+        </div>
+    </section>
+
+    <!-- Navigation Buttons -->
+    <div class="container mx-auto px-4 -mt-6 flex justify-center space-x-4 mb-8">
+        <a href="#overview" class="nav-button bg-blue-600 text-white px-4 py-2 rounded-md shadow-lg flex items-center">
+            <i class="fas fa-chart-line mr-2"></i>
+            Overall Trends
+        </a>
+        <a href="#sectors" class="nav-button bg-green-600 text-white px-4 py-2 rounded-md shadow-lg flex items-center">
+            <i class="fas fa-industry mr-2"></i>
+            Sector Impact
+        </a>
+        <a href="#comparison" class="nav-button bg-purple-600 text-white px-4 py-2 rounded-md shadow-lg flex items-center">
+            <i class="fas fa-exchange-alt mr-2"></i>
+            Export vs. Domestic
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Introduction -->
+        <section class="mb-12">
+            <div class="bg-white p-6 card">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">What is Industrial Production Index (IPI)?</h2>
+                <p class="text-gray-700 mb-4">
+                    The Industrial Production Index (IPI) measures the real output of the three main industrial sectors in Malaysia: 
+                    mining, manufacturing, and electricity. It serves as a key indicator of industrial activity and economic performance.
+                </p>
+                <p class="text-gray-700 mb-4">
+                    For this analysis, we focus on how Malaysia's diesel subsidy policy affects the manufacturing sector, 
+                    which contributes approximately 23% to the country's GDP and employs over 2.2 million workers.
+                </p>
+                <div class="highlight-box p-4 mt-4">
+                    <h3 class="font-bold text-gray-800">Understanding Diesel's Role in Manufacturing</h3>
+                    <p class="text-gray-700">
+                        Diesel fuel plays a crucial role in manufacturing through:
+                    </p>
+                    <ul class="list-disc ml-6 mt-2 text-gray-700">
+                        <li>Powering generators for electricity in factories</li>
+                        <li>Fueling transportation of raw materials and finished products</li>
+                        <li>Operating heavy machinery and equipment</li>
+                        <li>Serving as a feedstock for certain chemical manufacturing processes</li>
+                    </ul>
+                    <p class="text-gray-700 mt-2">
+                        Changes in diesel subsidy policies directly impact manufacturing production costs, affecting competitiveness and output.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Overall Manufacturing Performance Trend Analysis -->
+        <section id="overview" class="mb-12">
+            <div class="bg-white p-6 card">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-2xl font-bold text-gray-800">Overall Manufacturing Performance Trend</h2>
+                    <div class="tooltip relative">
+                        <i class="fas fa-info-circle info-icon"></i>
+                        <span class="tooltip-text">This chart shows the manufacturing index trends before and after key diesel subsidy policy changes.</span>
+                    </div>
+                </div>
+                
+                <p class="text-gray-700 mb-6">
+                    The chart below shows Malaysia's manufacturing performance from 2023 to early 2025, 
+                    highlighting the periods before and after major diesel subsidy policy implementations. 
+                    The absolute index values (2015=100) illustrate the sector's overall performance trajectory.
+                </p>
+                
+                <div class="chart-container mb-6">
+                    <canvas id="overallTrendChart"></canvas>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="font-semibold text-gray-800 mb-2">Key Observations:</h3>
+                    <ul class="list-disc ml-6 text-gray-700">
+                        <li class="mb-2">
+                            <span class="font-medium">Initial Impact Period (Jun-Aug 2023):</span> 
+                            Following the first phase of subsidy rationalization, manufacturing production 
+                            experienced a 2.1% decline as industries adjusted to higher fuel costs.
+                        </li>
+                        <li class="mb-2">
+                            <span class="font-medium">Adaptation Period (Sep-Dec 2023):</span> 
+                            Manufacturing activity stabilized as businesses implemented cost control measures 
+                            and passed some costs to consumers.
+                        </li>
+                        <li class="mb-2">
+                            <span class="font-medium">Second Policy Adjustment (Jan 2024):</span> 
+                            The targeted subsidy implementation caused temporary volatility but less 
+                            severe than the initial impact.
+                        </li>
+                        <li>
+                            <span class="font-medium">Recent Trends (Q4 2024-Q1 2025):</span> 
+                            Manufacturing has shown resilience with growth resuming despite higher fuel costs, 
+                            suggesting successful adaptation to the new policy environment.
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="text-sm text-gray-500 mt-4">
+                    Source: Department of Statistics Malaysia, Industrial Production Index (IPI) Data, Feb 2025
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Analysis on Fuel-Sensitive Manufacturing Sectors -->
+        <section id="sectors" class="mb-12">
+            <div class="bg-white p-6 card">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-2xl font-bold text-gray-800">Impact on Fuel-Sensitive Manufacturing Sectors</h2>
+                    <div class="tooltip relative">
+                        <i class="fas fa-info-circle info-icon"></i>
+                        <span class="tooltip-text">Month-on-month growth rates show immediate reactions to policy changes across different manufacturing sectors.</span>
+                    </div>
+                </div>
+                
+                <p class="text-gray-700 mb-6">
+                    Not all manufacturing sectors respond equally to diesel subsidy changes. 
+                    This section examines the month-on-month growth rates for six key fuel-sensitive sectors 
+                    during critical policy implementation periods, revealing which industries are most affected.
+                </p>
+                
+                <div class="chart-container mb-6">
+                    <canvas id="sectorImpactChart"></canvas>
+                </div>
+                
+                <h3 class="font-semibold text-gray-800 mb-3">Sector Sensitivity Analysis</h3>
+                
+                <div class="overflow-x-auto mb-6">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Manufacturing Sector</th>
+                                <th>Average MoM Change<br>After Policy</th>
+                                <th>Sensitivity Level</th>
+                                <th>Key Factors</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Food Products</td>
+                                <td>-1.2%</td>
+                                <td>High</td>
+                                <td>Transport-intensive distribution networks, cold chain requirements</td>
+                            </tr>
+                            <tr>
+                                <td>Chemicals & Chemical Products</td>
+                                <td>-1.8%</td>
+                                <td>Very High</td>
+                                <td>Uses petroleum derivatives as raw materials, energy-intensive processes</td>
+                            </tr>
+                            <tr>
+                                <td>Rubber & Plastics</td>
+                                <td>-1.5%</td>
+                                <td>High</td>
+                                <td>Petroleum-based raw materials, high energy consumption</td>
+                            </tr>
+                            <tr>
+                                <td>Basic Metals</td>
+                                <td>-2.1%</td>
+                                <td>Very High</td>
+                                <td>Extremely energy-intensive production processes</td>
+                            </tr>
+                            <tr>
+                                <td>Motor Vehicles</td>
+                                <td>-0.9%</td>
+                                <td>Moderate</td>
+                                <td>Complex supply chains, assembly operations</td>
+                            </tr>
+                            <tr>
+                                <td>Other Transport Equipment</td>
+                                <td>-1.1%</td>
+                                <td>Moderate</td>
+                                <td>Large components, specialized transport needs</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="highlight-box p-4 mb-6">
+                    <h3 class="font-semibold text-gray-800 mb-2">Why These Sectors Are More Affected</h3>
+                    <p class="text-gray-700">
+                        The sectors most impacted by diesel subsidy policy changes share common characteristics:
+                    </p>
+                    <ul class="list-disc ml-6 mt-2 text-gray-700">
+                        <li><strong>Energy Intensity:</strong> Basic metals and chemical manufacturing require substantial energy inputs</li>
+                        <li><strong>Transport Dependencies:</strong> Food products rely heavily on transportation networks</li>
+                        <li><strong>Petroleum-Based Inputs:</strong> Chemicals and rubber/plastics use petroleum derivatives as raw materials</li>
+                        <li><strong>Limited Short-term Alternatives:</strong> These sectors have fewer immediate options to adapt their energy sources</li>
+                    </ul>
+                </div>
+                
+                <div class="text-sm text-gray-500 mt-4">
+                    Source: Department of Statistics Malaysia, IPI by Division (2 digit) Data, Feb 2025
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Between Export-Oriented and Domestic-Oriented Manufacturing -->
+        <section id="comparison" class="mb-12">
+            <div class="bg-white p-6 card">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-2xl font-bold text-gray-800">Export vs. Domestic-Oriented Manufacturing</h2>
+                    <div class="tooltip relative">
+                        <i class="fas fa-info-circle info-icon"></i>
+                        <span class="tooltip-text">This comparison shows how export and domestic-oriented sectors respond differently to diesel subsidy changes.</span>
+                    </div>
+                </div>
+                
+                <p class="text-gray-700 mb-6">
+                    Malaysia's manufacturing sector can be broadly divided into export-oriented industries 
+                    (which produce mainly for international markets) and domestic-oriented industries 
+                    (which serve the local market). Each responds differently to diesel subsidy policy changes.
+                </p>
+                
+                <div class="chart-container mb-6">
+                    <canvas id="exportDomesticChart"></canvas>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-blue-800 mb-2">Export-Oriented Manufacturing</h3>
+                        <p class="text-gray-700 mb-3">
+                            Export-oriented sectors showed greater volatility following diesel subsidy changes:
+                        </p>
+                        <ul class="list-disc ml-6 text-gray-700">
+                            <li>Average MoM growth variation: ±1.7%</li>
+                            <li>Most affected: Electronics, electrical equipment, rubber products</li>
+                            <li>Recovery period: 4-5 months to return to pre-policy trend</li>
+                            <li>Higher sensitivity due to international competitiveness constraints</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-green-800 mb-2">Domestic-Oriented Manufacturing</h3>
+                        <p class="text-gray-700 mb-3">
+                            Domestic-oriented sectors showed more stability but sustained impact:
+                        </p>
+                        <ul class="list-disc ml-6 text-gray-700">
+                            <li>Average MoM growth variation: ±0.9%</li>
+                            <li>Most affected: Food products, construction materials, furniture</li>
+                            <li>Recovery period: 2-3 months but with lower final growth rates</li>
+                            <li>Ability to pass costs to domestic consumers provided some buffer</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="highlight-box p-4 mb-6">
+                    <h3 class="font-semibold text-gray-800 mb-2">Economic Implications</h3>
+                    <p class="text-gray-700 mb-2">
+                        The different responses between export and domestic-oriented manufacturing have important implications:
+                    </p>
+                    <ul class="list-disc ml-6 text-gray-700">
+                        <li>
+                            <strong>International Competitiveness:</strong> Export sectors face greater challenges as they cannot easily pass increased costs to international buyers in competitive markets
+                        </li>
+                        <li>
+                            <strong>Consumer Prices:</strong> Domestic manufacturing sectors can partially pass costs to local consumers, contributing to inflationary pressure
+                        </li>
+                        <li>
+                            <strong>Employment Effects:</strong> Export sectors typically employ more workers, so their volatility can have larger employment impacts
+                        </li>
+                        <li>
+                            <strong>Policy Considerations:</strong> Targeted support mechanisms may be needed for export sectors to maintain international competitiveness
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="text-sm text-gray-500 mt-4">
+                    Source: Department of Statistics Malaysia, IPI for Export-Oriented Divisions and IPI for Domestic-Oriented Divisions Data, Feb 2025
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Takeaways -->
+        <section class="mb-12">
+            <div class="bg-white p-6 card">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Key Takeaways</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-start mb-3">
+                            <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-industry text-blue-600"></i>
+                            </div>
+                            <h3 class="font-semibold text-gray-800">Sectoral Differences</h3>
+                        </div>
+                        <p class="text-gray-700">
+                            Energy-intensive and transport-dependent sectors like basic metals and chemicals experience the most significant impact from diesel subsidy changes, while less energy-intensive sectors show greater resilience.
+                        </p>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-start mb-3">
+                            <div class="bg-green-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-sync-alt text-green-600"></i>
+                            </div>
+                            <h3 class="font-semibold text-gray-800">Adaptation Period</h3>
+                        </div>
+                        <p class="text-gray-700">
+                            Manufacturing sectors typically require 3-5 months to adapt to new fuel price levels, with initial negative impacts followed by gradual recovery as businesses implement cost-saving measures and pricing adjustments.
+                        </p>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-start mb-3">
+                            <div class="bg-purple-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-globe text-purple-600"></i>
+                            </div>
+                            <h3 class="font-semibold text-gray-800">Export Vulnerability</h3>
+                        </div>
+                        <p class="text-gray-700">
+                            Export-oriented manufacturing shows greater sensitivity to subsidy changes due to international competitive pressures limiting their ability to pass increased costs to customers, potentially affecting Malaysia's trade balance.
+                        </p>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-start mb-3">
+                            <div class="bg-yellow-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-hand-holding-usd text-yellow-600"></i>
+                            </div>
+                            <h3 class="font-semibold text-gray-800">Consumer Impact</h3>
+                        </div>
+                        <p class="text-gray-700">
+                            Higher production costs in domestic-oriented manufacturing sectors eventually translate to increased consumer prices for everyday goods, creating a secondary effect of the diesel subsidy policy on household expenses.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Related Insights -->
+        <section class="mb-12">
+            <div class="bg-white p-6 card">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Related Insights</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <a href="#" class="block group">
+                        <div class="border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 group-hover:shadow-lg">
+                            <div class="h-40 bg-gray-300 flex items-center justify-center">
+                                <i class="fas fa-chart-pie text-5xl text-gray-500"></i>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">Consumer Price Impact</h3>
+                                <p class="text-gray-600 mt-2 text-sm">
+                                    Explore how diesel subsidy policy changes affect consumer prices across different categories and regions.
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="block group">
+                        <div class="border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 group-hover:shadow-lg">
+                            <div class="h-40 bg-gray-300 flex items-center justify-center">
+                                <i class="fas fa-truck text-5xl text-gray-500"></i>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">Transportation Sector Analysis</h3>
+                                <p class="text-gray-600 mt-2 text-sm">
+                                    Understand the direct impact of diesel subsidy changes on the transportation and logistics industry.
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="block group">
+                        <div class="border border-gray-200 rounded-lg overflow-hidden transition-all duration-300 group-hover:shadow-lg">
+                            <div class="h-40 bg-gray-300 flex items-center justify-center">
+                                <i class="fas fa-hand-holding-heart text-5xl text-gray-500"></i>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">Social Impact Assessment</h3>
+                                <p class="text-gray-600 mt-2 text-sm">
+                                    Examine how diesel subsidy policy changes affect different socioeconomic groups across Malaysia.
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Links -->
+        <section>
+            <div class="bg-gray-800 p-6 card text-white">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-link mr-3 text-blue-400"></i>
+                    <h2 class="text-xl font-bold">Quick Links</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <a href="#" class="block bg-gray-700 p-3 rounded-md hover:bg-gray-600 transition-colors duration-300">
+                        <div class="flex items-center">
+                            <i class="fas fa-file-alt mr-2 text-blue-400"></i>
+                            <span>Full Diesel Subsidy Policy Brief</span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="block bg-gray-700 p-3 rounded-md hover:bg-gray-600 transition-colors duration-300">
+                        <div class="flex items-center">
+                            <i class="fas fa-database mr-2 text-blue-400"></i>
+                            <span>Download Raw IPI Data</span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="block bg-gray-700 p-3 rounded-md hover:bg-gray-600 transition-colors duration-300">
+                        <div class="flex items-center">
+                            <i class="fas fa-question-circle mr-2 text-blue-400"></i>
+                            <span>Frequently Asked Questions</span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="block bg-gray-700 p-3 rounded-md hover:bg-gray-600 transition-colors duration-300">
+                        <div class="flex items-center">
+                            <i class="fas fa-chart-line mr-2 text-blue-400"></i>
+                            <span>Economic Outlook Report</span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="block bg-gray-700 p-3 rounded-md hover:bg-gray-600 transition-colors duration-300">
+                        <div class="flex items-center">
+                            <i class="fas fa-newspaper mr-2 text-blue-400"></i>
+                            <span>Latest Policy News</span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="block bg-gray-700 p-3 rounded-md hover:bg-gray-600 transition-colors duration-300">
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope mr-2 text-blue-400"></i>
+                            <span>Contact Policy Experts</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                <div class="mb-4 md:mb-0">
+                    <img src="https://via.placeholder.com/150x50" alt="MyPolicyLens Logo" class="h-8">
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-500 hover:text-blue-600"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-blue-600"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-blue-600"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-blue-600"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 pt-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-3">About</h3>
+                        <ul class="text-gray-600 space-y-2">
+                            <li><a href="#" class="hover:text-blue-600">Our Mission</a></li>
+                            <li><a href="#" class="hover:text-blue-600">The Team</a></li>
+                            <li><a href="#" class="hover:text-blue-600">Partners</a></li>
+                            <li><a href="#" class="hover:text-blue-600">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-3">Policies</h3>
+                        <ul class="text-gray-600 space-y-2">
+                            <li><a href="#" class="hover:text-blue-600">Diesel Subsidy</a></li>
+                            <li><a href="#" class="hover:text-blue-600">Housing Policies</a></li>
+                            <li><a href="#" class="hover:text-blue-600">Healthcare Reforms</a></li>
+                            <li><a href="#" class="hover:text-blue-600">Education Initiatives</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-3">Resources</h3>
+                        <ul class="text-gray-600 space-y-2">
+                            <li><a href="#" class="hover:text-blue-600">Data Sources</a></li>
+                            <li><a href="#" class="hover:text-blue-600">Methodology</a></li>
+                            <li><a href="#" class="hover:text-blue-600">Research Papers</a></li>
+                            <li><a href="#" class="hover:text-blue-600">Policy Glossary</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-3">Support</h3>
+                        <ul class="text-gray-600 space-y-2">
+                            <li><a href="#" class="hover:text-blue-600">FAQ</a></li>
+                            <li><a href="#" class="hover:text-blue-600">Contact Us</a></li>
+                            <li><a href="#" class="hover:text-blue-600">Feedback</a></li>
+                            <li><a href="#" class="hover:text-blue-600">Report an Issue</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-200 pt-6 text-center text-gray-600 text-sm">
+                    <p>© 2025 MyPolicyLens. All rights reserved. Data sourced from Department of Statistics Malaysia.</p>
+                    <p class="mt-2">
+                        <a href="#" class="hover:text-blue-600">Privacy Policy</a> • 
+                        <a href="#" class="hover:text-blue-600">Terms of Service</a> • 
+                        <a href="#" class="hover:text-blue-600">Data Usage Policy</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Chart.js Configuration
+        document.addEventListener('DOMContentLoaded', function() {
+            // Overall Manufacturing Performance Trend Chart
+            const overallCtx = document.getElementById('overallTrendChart').getContext('2d');
+            const overallChart = new Chart(overallCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan 2023', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 
+                             'Jan 2024', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+                             'Jan 2025', 'Feb'],
+                    datasets: [
+                        {
+                            label: 'Manufacturing Index',
+                            data: [105.2, 106.8, 107.1, 106.9, 107.5, 107.8, 105.7, 104.2, 103.8, 104.1, 104.8, 105.5,
+                                  105.7, 106.2, 106.8, 107.1, 106.9, 105.8, 104.9, 104.5, 105.2, 106.1, 106.8, 107.2,
+                                  107.5, 108.1],
+                            borderColor: 'rgb(59, 130, 246)',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Seasonally Adjusted Index',
+                            data: [105.5, 106.5, 106.9, 107.0, 107.3, 107.5, 106.0, 104.7, 104.1, 104.5, 105.0, 105.8,
+                                  106.0, 106.4, 106.7, 107.2, 106.7, 105.5, 105.2, 105.0, 105.6, 106.4, 107.0, 107.5,
+                                  107.8, 108.3],
+                            borderColor: 'rgb(16, 185, 129)',
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        annotation: {
+                            annotations: {
+                                line1: {
+                                    type: 'line',
+                                    mode: 'vertical',
+                                    scaleID: 'x',
+                                    value: 'Jun 2023',
+                                    borderColor: 'rgba(255, 99, 132, 0.7)',
+                                    borderWidth: 2,
+                                    label: {
+                                        content: 'Initial Subsidy Reduction',
+                                        enabled: true,
+                                        position: 'top'
+                                    }
+                                },
+                                line2: {
+                                    type: 'line',
+                                    mode: 'vertical',
+                                    scaleID: 'x',
+                                    value: 'Jan 2024',
+                                    borderColor: 'rgba(255, 99, 132, 0.7)',
+                                    borderWidth: 2,
+                                    label: {
+                                        content: 'Targeted Subsidy Implementation',
+                                        enabled: true,
+                                        position: 'top'
+                                    }
+                                }
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        },
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                boxWidth: 6
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                autoSkip: true,
+                                maxRotation: 0,
+                                maxTicksLimit: 12
+                            }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            min: 100,
+                            max: 110,
+                            title: {
+                                display: true,
+                                text: 'Index (2015=100)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Sector Impact Chart
+            const sectorCtx = document.getElementById('sectorImpactChart').getContext('2d');
+            const sectorChart = new Chart(sectorCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jun 2023', 'Jul 2023', 'Aug 2023', 'Jan 2024', 'Feb 2024', 'Mar 2024'],
+                    datasets: [
+                        {
+                            label: 'Food Products',
+                            data: [-0.8, -1.5, -1.2, -1.4, -0.9, -0.5],
+                            backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                        },
+                        {
+                            label: 'Chemicals & Chemical Products',
+                            data: [-1.6, -2.1, -1.8, -2.0, -1.6, -1.1],
+                            backgroundColor: 'rgba(16, 185, 129, 0.7)',
+                        },
+                        {
+                            label: 'Rubber & Plastics',
+                            data: [-1.3, -1.9, -1.6, -1.7, -1.3, -0.8],
+                            backgroundColor: 'rgba(245, 158, 11, 0.7)',
+                        },
+                        {
+                            label: 'Basic Metals',
+                            data: [-1.9, -2.5, -2.3, -2.2, -1.8, -1.5],
+                            backgroundColor: 'rgba(239, 68, 68, 0.7)',
+                        },
+                        {
+                            label: 'Motor Vehicles',
+                            data: [-0.5, -1.2, -1.0, -1.1, -0.8, -0.4],
+                            backgroundColor: 'rgba(139, 92, 246, 0.7)',
+                        },
+                        {
+                            label: 'Other Transport Equipment',
+                            data: [-0.7, -1.4, -1.3, -1.2, -0.9, -0.6],
+                            backgroundColor: 'rgba(236, 72, 153, 0.7)',
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        },
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                boxWidth: 6
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Month-on-Month Growth Rate (%)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Export vs Domestic Manufacturing Chart
+            const exportDomesticCtx = document.getElementById('exportDomesticChart').getContext('2d');
+            const exportDomesticChart = new Chart(exportDomesticCtx, {
+                type: 'line',
+                data: {
+                    labels: ['May 2023', 'Jun 2023', 'Jul 2023', 'Aug 2023', 'Sep 2023', 'Oct 2023', 'Nov 2023', 'Dec 2023', 
+                             'Jan 2024', 'Feb 2024', 'Mar 2024', 'Apr 2024', 'May 2024'],
+                    datasets: [
+                        {
+                            label: 'Export-Oriented Manufacturing',
+                            data: [0.4, -1.2, -1.9, -1.8, -1.1, -0.5, 0.2, 0.6, -1.7, -2.0, -1.2, -0.3, 0.5],
+                            borderColor: 'rgb(59, 130, 246)',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            borderWidth: 2,
+                            fill: true
+                        },
+                        {
+                            label: 'Domestic-Oriented Manufacturing',
+                            data: [0.3, -0.7, -1.1, -0.9, -0.6, -0.2, 0.1, 0.3, -0.9, -1.1, -0.7, -0.4, 0.2],
+                            borderColor: 'rgb(16, 185, 129)',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            borderWidth: 2,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        annotation: {
+                            annotations: {
+                                line1: {
+                                    type: 'line',
+                                    mode: 'vertical',
+                                    scaleID: 'x',
+                                    value: 'Jun 2023',
+                                    borderColor: 'rgba(255, 99, 132, 0.7)',
+                                    borderWidth: 2,
+                                    label: {
+                                        content: 'Initial Subsidy Reduction',
+                                        enabled: true,
+                                        position: 'top'
+                                    }
+                                },
+                                line2: {
+                                    type: 'line',
+                                    mode: 'vertical',
+                                    scaleID: 'x',
+                                    value: 'Jan 2024',
+                                    borderColor: 'rgba(255, 99, 132, 0.7)',
+                                    borderWidth: 2,
+                                    label: {
+                                        content: 'Targeted Subsidy Implementation',
+                                        enabled: true,
+                                        position: 'top'
+                                    }
+                                }
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        },
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                boxWidth: 6
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                autoSkip: true,
+                                maxRotation: 0,
+                                maxTicksLimit: 8
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Month-on-Month Growth Rate (%)'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

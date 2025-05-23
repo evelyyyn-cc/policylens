@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manufacturing Data Dashboard | MyPolicyLens</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.1/build/global/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.1.0/dist/chartjs-adapter-luxon.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-button {
+            background-color: #f0f0f0;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .tab-button.active {
+            background-color: #007bff;
+            color: white;
+        }
+        .nav-button {
+            background-color: #003366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            width: 100%;
+            cursor: pointer;
+        }
+        .nav-button.active {
+            background-color: #0055a4;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .data-table th {
+            background-color: #f2f2f2;
+            position: sticky;
+            top: 0;
+        }
+        .data-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .data-table tr:hover {
+            background-color: #f1f1f1;
+        }
+        .positive-change {
+            color: green;
+        }
+        .negative-change {
+            color: red;
+        }
+        .banner {
+            background-image: url('https://example.com/banner-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-color: #1a1a1a;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .filter-section {
+            background-color: #f5f5f5;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin-bottom: 20px;
+        }
+        @media print {
+            .tab-button {
+                background-color: white !important;
+                color: black !important;
+            }
+            .tab-button.active {
+                font-weight: bold;
+                text-decoration: underline;
+            }
+            .tab-content {
+                display: block !important;
+                page-break-before: always;
+            }
+            .chart-container {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="#" class="font-bold text-xl">
+                    <span class="text-yellow-500">MY</span><span class="text-blue-900">PolicyLens</span>
+                </a>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#" class="text-blue-900 hover:text-blue-700">HOME</a>
+                <a href="#" class="text-blue-900 hover:text-blue-700">POLICY</a>
+                <a href="#" class="text-blue-900 hover:text-blue-700">FAQ</a>
+                <a href="#" class="text-blue-900 hover:text-blue-700">AI CHATBOT</a>
+            </nav>
+            <div class="relative">
+                <button class="flex items-center text-blue-900">
+                    English
+                    <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="bg-gray-100 py-2">
+        <div class="container mx-auto px-4">
+            <div class="text-sm">
+                <a href="#" class="text-blue-500 hover:text-blue-700">Home</a> &gt;
+                <a href="#" class="text-blue-500 hover:text-blue-700">Policies</a> &gt;
+                <a href="#" class="text-blue-500 hover:text-blue-700">The Diesel Dilemma</a> &gt;
+                <a href="#" class="text-blue-500 hover:text-blue-700">Manufacturing Impact</a> &gt;
+                <span class="text-gray-700">Manufacturing Data Dashboard</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        <h1 class="text-4xl font-bold text-center">Manufacturing Data Dashboard</h1>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="container mx-auto px-4 py-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+            <button class="nav-button">
+                <i class="fas fa-gas-pump mr-2"></i> Fuel Data Dashboard
+            </button>
+        </div>
+        <div>
+            <button class="nav-button">
+                <i class="fas fa-chart-line mr-2"></i> Consumer Price Impact
+            </button>
+        </div>
+        <div>
+            <button class="nav-button active">
+                <i class="fas fa-industry mr-2"></i> Manufacturing Data Dashboard
+            </button>
+        </div>
+    </div>
+
+    <!-- Dashboard Tabs -->
+    <div class="container mx-auto px-4 py-2">
+        <div class="border-b border-gray-200">
+            <div class="flex">
+                <button class="tab-button active" data-tab="tab1">Manufacturing IPI</button>
+                <button class="tab-button" data-tab="tab2">Manufacturing Divisions</button>
+                <button class="tab-button" data-tab="tab3">Export vs Domestic</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="container mx-auto px-4 py-4">
+        <!-- Manufacturing IPI Tab -->
+        <div id="tab1" class="tab-content active">
+            <div class="filter-section">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Time Period</label>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1 bg-blue-500 text-white rounded text-sm" id="period-ytd">YTD</button>
+                            <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded text-sm" id="period-1y">1 Year</button>
+                            <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded text-sm" id="period-2y">2 Years</button>
+                            <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded text-sm" id="period-all">All</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Series Type</label>
+                        <select id="series-type-ipi" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <option value="abs">Absolute Values</option>
+                            <option value="growth_yoy">Year-on-Year Growth</option>
+                            <option value="growth_mom">Month-on-Month Growth</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Index Type</label>
+                        <div class="flex space-x-4">
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" class="form-checkbox" id="show-raw" checked>
+                                <span class="ml-2">Raw Index</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" class="form-checkbox" id="show-sa" checked>
+                                <span class="ml-2">Seasonally Adjusted</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Date Range</label>
+                    <div class="relative pt-1">
+                        <input type="range" id="date-range-slider" min="0" max="100" value="100" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                    <div class="flex justify-between text-xs text-gray-500 mt-1">
+                        <span id="date-range-min">Jan 2023</span>
+                        <span id="date-range-max">Feb 2025</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="ipiChart"></canvas>
+            </div>
+            
+            <h3 class="text-xl font-semibold mb-2">Manufacturing IPI Data Table</h3>
+            <div class="overflow-x-auto">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Raw Index</th>
+                            <th>Seasonally Adjusted Index</th>
+                            <th>YoY Change (%)</th>
+                            <th>MoM Change (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ipi-table-body">
+                        <!-- Sample data - will be populated with JS -->
+                        <tr>
+                            <td>Feb 2025</td>
+                            <td>135.7</td>
+                            <td>136.2</td>
+                            <td class="positive-change">+4.2%</td>
+                            <td class="positive-change">+0.8%</td>
+                        </tr>
+                        <tr>
+                            <td>Jan 2025</td>
+                            <td>134.6</td>
+                            <td>135.1</td>
+                            <td class="positive-change">+3.9%</td>
+                            <td class="negative-change">-0.3%</td>
+                        </tr>
+                        <!-- More rows would be populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="text-xs text-gray-600 mt-4">
+                <p><strong>Data Source:</strong> Department of Statistics Malaysia, Industrial Production Index (IPI) Data as of Feb 2025</p>
+                <p><strong>URL:</strong> https://data.gov.my/data-catalogue/industrial_production_index</p>
+                <p><strong>Methodology:</strong> The Industrial Production Index measures the real output of the manufacturing, mining and electricity sectors. Index base year: 2015 = 100.</p>
+            </div>
+        </div>
+        
+        <!-- Manufacturing Divisions Tab -->
+        <div id="tab2" class="tab-content">
+            <div class="filter-section">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Time Period</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-xs text-gray-500">Month</label>
+                                <select id="division-month" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="1">January</option>
+                                    <option value="2" selected>February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500">Year</label>
+                                <select id="division-year" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025" selected>2025</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Series Type</label>
+                        <select id="series-type-division" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <option value="abs">Absolute Values</option>
+                            <option value="growth_yoy">Year-on-Year Growth</option>
+                            <option value="growth_mom">Month-on-Month Growth</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Display Options</label>
+                        <select id="division-display" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <option value="top10">Top 10 Divisions</option>
+                            <option value="custom">Custom Selection</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="custom-division-selection" class="mt-3 hidden">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Select Divisions</label>
+                    <select id="division-selector" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" multiple>
+                        <option value="10">10 - Manufacture of food products</option>
+                        <option value="11">11 - Manufacture of beverages</option>
+                        <option value="12">12 - Manufacture of tobacco products</option>
+                        <option value="13">13 - Manufacture of textiles</option>
+                        <option value="14">14 - Manufacture of wearing apparel</option>
+                        <option value="15">15 - Manufacture of leather and related products</option>
+                        <option value="16">16 - Manufacture of wood products</option>
+                        <option value="17">17 - Manufacture of paper and paper products</option>
+                        <option value="18">18 - Printing and reproduction of recorded media</option>
+                        <option value="19">19 - Manufacture of coke and refined petroleum products</option>
+                        <option value="20">20 - Manufacture of chemicals and chemical products</option>
+                        <option value="21">21 - Manufacture of pharmaceutical products</option>
+                        <option value="22">22 - Manufacture of rubber and plastics products</option>
+                        <option value="23">23 - Manufacture of other non-metallic mineral products</option>
+                        <option value="24">24 - Manufacture of basic metals</option>
+                        <option value="25">25 - Manufacture of fabricated metal products</option>
+                        <option value="26">26 - Manufacture of computer, electronic and optical products</option>
+                        <option value="27">27 - Manufacture of electrical equipment</option>
+                        <option value="28">28 - Manufacture of machinery and equipment n.e.c.</option>
+                        <option value="29">29 - Manufacture of motor vehicles, trailers and semi-trailers</option>
+                        <option value="30">30 - Manufacture of other transport equipment</option>
+                        <option value="31">31 - Manufacture of furniture</option>
+                        <option value="32">32 - Other manufacturing</option>
+                        <option value="33">33 - Repair and installation of machinery and equipment</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="divisionsChart"></canvas>
+            </div>
+            
+            <h3 class="text-xl font-semibold mb-2">Manufacturing Divisions Data Table</h3>
+            <div class="overflow-x-auto">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Division</th>
+                            <th>Division Name</th>
+                            <th>Index Value</th>
+                            <th>YoY Change (%)</th>
+                            <th>MoM Change (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="divisions-table-body">
+                        <!-- Sample data - will be populated with JS -->
+                        <tr>
+                            <td>26</td>
+                            <td>Manufacture of computer, electronic and optical products</td>
+                            <td>175.3</td>
+                            <td class="positive-change">+7.2%</td>
+                            <td class="positive-change">+1.5%</td>
+                        </tr>
+                        <tr>
+                            <td>20</td>
+                            <td>Manufacture of chemicals and chemical products</td>
+                            <td>152.8</td>
+                            <td class="positive-change">+5.3%</td>
+                            <td class="negative-change">-0.7%</td>
+                        </tr>
+                        <!-- More rows would be populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="text-xs text-gray-600 mt-4">
+                <p><strong>Data Source:</strong> Department of Statistics Malaysia, IPI by Division (2 digit) Data as of Feb 2025</p>
+                <p><strong>URL:</strong> https://data.gov.my/data-catalogue/ipi_by_division</p>
+                <p><strong>Methodology:</strong> The data shows real output of manufacturing sectors by MSIC division (2 digit). Index base year: 2015 = 100.</p>
+            </div>
+        </div>
+        
+        <!-- Export vs Domestic Tab -->
+        <div id="tab3" class="tab-content">
+            <div class="filter-section">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Time Period</label>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1 bg-blue-500 text-white rounded text-sm" id="export-period-ytd">YTD</button>
+                            <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded text-sm" id="export-period-1y">1 Year</button>
+                            <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded text-sm" id="export-period-2y">2 Years</button>
+                            <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded text-sm" id="export-period-all">All</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Series Type</label>
+                        <select id="series-type-export" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <option value="abs">Absolute Values</option>
+                            <option value="growth_yoy">Year-on-Year Growth</option>
+                            <option value="growth_mom">Month-on-Month Growth</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Display Options</label>
+                        <select id="export-display" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <option value="overall">Overall Performance</option>
+                            <option value="divisions">By Division</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="export-division-selection" class="mt-3 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Export Divisions</label>
+                            <select id="export-division-selector" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                <option value="overall">Overall Export-Oriented</option>
+                                <option value="26">26 - Computer, electronic and optical products</option>
+                                <option value="20">20 - Chemicals and chemical products</option>
+                                <option value="22">22 - Rubber and plastics products</option>
+                                <!-- Other export-oriented divisions would be populated dynamically -->
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Domestic Divisions</label>
+                            <select id="domestic-division-selector" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                <option value="overall">Overall Domestic-Oriented</option>
+                                <option value="10">10 - Food products</option>
+                                <option value="11">11 - Beverages</option>
+                                <option value="23">23 - Other non-metallic mineral products</option>
+                                <!-- Other domestic-oriented divisions would be populated dynamically -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="exportDomesticChart"></canvas>
+            </div>
+            
+            <h3 class="text-xl font-semibold mb-2">Export vs Domestic Manufacturing Data Table</h3>
+            <div class="overflow-x-auto">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Export-Oriented Index</th>
+                            <th>Domestic-Oriented Index</th>
+                            <th>Difference</th>
+                            <th>Ratio (Export/Domestic)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="export-domestic-table-body">
+                        <!-- Sample data - will be populated with JS -->
+                        <tr>
+                            <td>Feb 2025</td>
+                            <td>148.3</td>
+                            <td>129.5</td>
+                            <td>+18.8</td>
+                            <td>1.14</td>
+                        </tr>
+                        <tr>
+                            <td>Jan 2025</td>
+                            <td>147.1</td>
+                            <td>128.9</td>
+                            <td>+18.2</td>
+                            <td>1.14</td>
+                        </tr>
+                        <!-- More rows would be populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="text-xs text-gray-600 mt-4">
+                <p><strong>Data Sources:</strong></p>
+                <p>- Department of Statistics Malaysia, IPI for Export-Oriented Divisions (2 digit) Data as of Feb 2025</p>
+                <p>- Department of Statistics Malaysia, IPI for Domestic-Oriented Divisions (2 digit) Data as of Feb 2025</p>
+                <p><strong>URL:</strong> https://data.gov.my/data-catalogue/ipi_export_domestic</p>
+                <p><strong>Methodology:</strong> The data shows performance of manufacturing sectors critical for Malaysia's export performance and domestic economic performance. Index base year: 2015 = 100.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="text-xl font-bold">
+                        <span class="text-yellow-500">MY</span><span class="text-white">PolicyLens</span>
+                    </a>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">About us</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab Switching
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Hide all tabs
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                
+                // Deactivate all buttons
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Activate clicked button and corresponding tab
+                button.classList.add('active');
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Sample Manufacturing IPI Data (Simulated)
+        const manufacturingIPIData = [
+            { date: '2025-02-01', index: 135.7, index_sa: 136.2, yoy: 4.2, mom: 0.8 },
+            { date: '2025-01-01', index: 134.6, index_sa: 135.1, yoy: 3.9, mom: -0.3 },
+            { date: '2024-12-01', index: 135.0, index_sa: 134.5, yoy: 4.5, mom: 1.1 },
+            { date: '2024-11-01', index: 133.5, index_sa: 134.2, yoy: 3.6, mom: 0.5 },
+            { date: '2024-10-01', index: 132.8, index_sa: 133.5, yoy: 3.2, mom: 0.2 },
+            { date: '2024-09-01', index: 132.5, index_sa: 133.0, yoy: 3.0, mom: 0.6 },
+            { date: '2024-08-01', index: 131.7, index_sa: 132.2, yoy: 2.8, mom: 0.4 },
+            { date: '2024-07-01', index: 131.2, index_sa: 131.9, yoy: 2.5, mom: 0.3 },
+            { date: '2024-06-01', index: 130.8, index_sa: 131.5, yoy: 2.3, mom: 0.4 },
+            { date: '2024-05-01', index: 130.3, index_sa: 131.0, yoy: 2.0, mom: 0.3 },
+            { date: '2024-04-01', index: 129.9, index_sa: 130.4, yoy: 2.2, mom: 0.5 },
+            { date: '2024-03-01', index: 129.3, index_sa: 129.8, yoy: 2.5, mom: 0.6 },
+            { date: '2024-02-01', index: 128.6, index_sa: 129.1, yoy: 2.8, mom: 0.5 },
+            { date: '2024-01-01', index: 127.9, index_sa: 128.5, yoy: 2.9, mom: 0.3 },
+            { date: '2023-12-01', index: 127.5, index_sa: 128.0, yoy: 3.2, mom: 0.4 },
+            { date: '2023-11-01', index: 126.9, index_sa: 127.5, yoy: 3.0, mom: 0.2 },
+            { date: '2023-10-01', index: 126.6, index_sa: 127.1, yoy: 2.8, mom: 0.3 },
+            { date: '2023-09-01', index: 126.2, index_sa: 126.8, yoy: 2.5, mom: 0.2 },
+            { date: '2023-08-01', index: 125.9, index_sa: 126.4, yoy: 2.3, mom: 0.2 },
+            { date: '2023-07-01', index: 125.6, index_sa: 126.1, yoy: 2.0, mom: 0.1 },
+            { date: '2023-06-01', index: 125.5, index_sa: 125.9, yoy: 1.8, mom: 0.3 },
+            { date: '2023-05-01', index: 125.1, index_sa: 125.6, yoy: 1.6, mom: 0.2 },
+            { date: '2023-04-01', index: 124.8, index_sa: 125.3, yoy: 1.5, mom: 0.2 },
+            { date: '2023-03-01', index: 124.5, index_sa: 125.0, yoy: 1.3, mom: 0.1 },
+            { date: '2023-02-01', index: 124.4, index_sa: 124.8, yoy: 1.0, mom: 0.2 },
+            { date: '2023-01-01', index: 124.1, index_sa: 124.6, yoy: 0.8, mom: 0.1 }
+        ];
+        
+        // Sample Manufacturing Divisions Data (Simulated)
+        const manufacturingDivisionsData = [
+            { division: '26', name: 'Manufacture of computer, electronic and optical products', index: 175.3, yoy: 7.2, mom: 1.5 },
+            { division: '20', name: 'Manufacture of chemicals and chemical products', index: 152.8, yoy: 5.3, mom: -0.7 },
+            { division: '22', name: 'Manufacture of rubber and plastics products', index: 148.5, yoy: 4.8, mom: 0.9 },
+            { division: '27', name: 'Manufacture of electrical equipment', index: 144.2, yoy: 4.5, mom: 0.6 },
+            { division: '29', name: 'Manufacture of motor vehicles, trailers and semi-trailers', index: 140.8, yoy: 4.0, mom: 0.4 },
+            { division: '10', name: 'Manufacture of food products', index: 138.5, yoy: 3.2, mom: 0.3 },
+            { division: '24', name: 'Manufacture of basic metals', index: 135.7, yoy: 2.8, mom: -0.2 },
+            { division: '25', name: 'Manufacture of fabricated metal products', index: 132.4, yoy: 2.5, mom: 0.3 },
+            { division: '30', name: 'Manufacture of other transport equipment', index: 130.6, yoy: 2.2, mom: 0.1 },
+            { division: '31', name: 'Manufacture of furniture', index: 128.9, yoy: 1.9, mom: 0.2 },
+            { division: '28', name: 'Manufacture of machinery and equipment n.e.c.', index: 127.3, yoy: 1.7, mom: 0.1 },
+            { division: '23', name: 'Manufacture of other non-metallic mineral products', index: 125.8, yoy: 1.5, mom: -0.1 },
+            { division: '17', name: 'Manufacture of paper and paper products', index: 124.5, yoy: 1.3, mom: 0.2 },
+            { division: '11', name: 'Manufacture of beverages', index: 123.2, yoy: 1.1, mom: 0.1 },
+            { division: '19', name: 'Manufacture of coke and refined petroleum products', index: 122.4, yoy: 0.9, mom: -0.3 }
+        ];
+        
+        // Sample Export vs Domestic Data (Simulated)
+        const exportDomesticData = [
+            { date: '2025-02-01', export: 148.3, domestic: 129.5, difference: 18.8, ratio: 1.14 },
+            { date: '2025-01-01', export: 147.1, domestic: 128.9, difference: 18.2, ratio: 1.14 },
+            { date: '2024-12-01', export: 146.8, domestic: 128.3, difference: 18.5, ratio: 1.14 },
+            { date: '2024-11-01', export: 145.5, domestic: 127.8, difference: 17.7, ratio: 1.14 },
+            { date: '2024-10-01', export: 144.9, domestic: 127.1, difference: 17.8, ratio: 1.14 },
+            { date: '2024-09-01', export: 144.2, domestic: 126.7, difference: 17.5, ratio: 1.14 },
+            { date: '2024-08-01', export: 143.6, domestic: 126.2, difference: 17.4, ratio: 1.14 },
+            { date: '2024-07-01', export: 143.0, domestic: 125.8, difference: 17.2, ratio: 1.14 },
+            { date: '2024-06-01', export: 142.5, domestic: 125.3, difference: 17.2, ratio: 1.14 },
+            { date: '2024-05-01', export: 141.8, domestic: 124.9, difference: 16.9, ratio: 1.14 },
+            { date: '2024-04-01', export: 141.2, domestic: 124.5, difference: 16.7, ratio: 1.13 },
+            { date: '2024-03-01', export: 140.5, domestic: 124.0, difference: 16.5, ratio: 1.13 },
+            { date: '2024-02-01', export: 139.8, domestic: 123.6, difference: 16.2, ratio: 1.13 },
+            { date: '2024-01-01', export: 139.1, domestic: 123.1, difference: 16.0, ratio: 1.13 },
+            { date: '2023-12-01', export: 138.5, domestic: 122.5, difference: 16.0, ratio: 1.13 },
+            { date: '2023-11-01', export: 137.8, domestic: 122.0, difference: 15.8, ratio: 1.13 },
+            { date: '2023-10-01', export: 137.2, domestic: 121.5, difference: 15.7, ratio: 1.13 },
+            { date: '2023-09-01', export: 136.6, domestic: 121.0, difference: 15.6, ratio: 1.13 },
+            { date: '2023-08-01', export: 136.0, domestic: 120.5, difference: 15.5, ratio: 1.13 },
+            { date: '2023-07-01', export: 135.4, domestic: 120.1, difference: 15.3, ratio: 1.13 },
+            { date: '2023-06-01', export: 134.8, domestic: 119.7, difference: 15.1, ratio: 1.13 },
+            { date: '2023-05-01', export: 134.2, domestic: 119.3, difference: 14.9, ratio: 1.12 },
+            { date: '2023-04-01', export: 133.7, domestic: 118.9, difference: 14.8, ratio: 1.12 },
+            { date: '2023-03-01', export: 133.2, domestic: 118.5, difference: 14.7, ratio: 1.12 },
+            { date: '2023-02-01', export: 132.7, domestic: 118.1, difference: 14.6, ratio: 1.12 },
+            { date: '2023-01-01', export: 132.2, domestic: 117.7, difference: 14.5, ratio: 1.12 }
+        ];
+        
+        // Initialize Manufacturing IPI Chart
+        const ipiCtx = document.getElementById('ipiChart').getContext('2d');
+        const ipiChart = new Chart(ipiCtx, {
+            type: 'line',
+            data: {
+                datasets: [
+                    {
+                        label: 'Manufacturing (Raw Index)',
+                        data: manufacturingIPIData.map(item => ({x: item.date, y: item.index})),
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Manufacturing (Seasonally Adjusted)',
+                        data: manufacturingIPIData.map(item => ({x: item.date, y: item.index_sa})),
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'month',
+                            displayFormats: {
+                                month: 'MMM yyyy'
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        beginAtZero: false,
+                        title: {
+                            display: true,
+                            text: 'Index (2015=100)'
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += context.parsed.y.toFixed(1);
+                                return label;
+                            }
+                        }
+                    },
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Manufacturing Industrial Production Index (IPI)'
+                    }
+                }
+            }
+        });
+        
+        // Initialize Manufacturing Divisions Chart
+        const divisionsCtx = document.getElementById('divisionsChart').getContext('2d');
+        const divisionsChart = new Chart(divisionsCtx, {
+            type: 'bar',
+            data: {
+                labels: manufacturingDivisionsData.slice(0, 10).map(item => `Division ${item.division}`),
+                datasets: [{
+                    label: 'Index Value (2015=100)',
+                    data: manufacturingDivisionsData.slice(0, 10).map(item => item.index),
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        title: {
+                            display: true,
+                            text: 'Index (2015=100)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Manufacturing Division'
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const index = tooltipItems[0].dataIndex;
+                                return manufacturingDivisionsData[index].name;
+                            },
+                            label: function(context) {
+                                const index = context.dataIndex;
+                                let label = 'Index: ' + context.parsed.y.toFixed(1);
+                                return label;
+                            },
+                            afterLabel: function(context) {
+                                const index = context.dataIndex;
+                                const division = manufacturingDivisionsData[index];
+                                return [
+                                    'YoY Change: ' + (division.yoy >= 0 ? '+' : '') + division.yoy.toFixed(1) + '%',
+                                    'MoM Change: ' + (division.mom >= 0 ? '+' : '') + division.mom.toFixed(1) + '%'
+                                ];
+                            }
+                        }
+                    },
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Top 10 Manufacturing Divisions by Index Value (Feb 2025)'
+                    }
+                }
+            }
+        });
+        
+        // Initialize Export vs Domestic Chart
+        const exportDomesticCtx = document.getElementById('exportDomesticChart').getContext('2d');
+        const exportDomesticChart = new Chart(exportDomesticCtx, {
+            type: 'line',
+            data: {
+                datasets: [
+                    {
+                        label: 'Export-Oriented Manufacturing',
+                        data: exportDomesticData.map(item => ({x: item.date, y: item.export})),
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Domestic-Oriented Manufacturing',
+                        data: exportDomesticData.map(item => ({x: item.date, y: item.domestic})),
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'month',
+                            displayFormats: {
+                                month: 'MMM yyyy'
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        beginAtZero: false,
+                        title: {
+                            display: true,
+                            text: 'Index (2015=100)'
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += context.parsed.y.toFixed(1);
+                                return label;
+                            },
+                            afterLabel: function(context) {
+                                const date = context.parsed.x;
+                                const dateString = new Date(date).toISOString().substring(0, 10);
+                                const dataPoint = exportDomesticData.find(item => item.date === dateString);
+                                if (dataPoint) {
+                                    return 'Difference: ' + dataPoint.difference.toFixed(1) + ' | Ratio: ' + dataPoint.ratio.toFixed(2);
+                                }
+                                return '';
+                            }
+                        }
+                    },
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Export-Oriented vs Domestic-Oriented Manufacturing Sectors'
+                    }
+                }
+            }
+        });
+        
+        // Populate IPI Data Table
+        function populateIPITable() {
+            const tableBody = document.getElementById('ipi-table-body');
+            tableBody.innerHTML = '';
+            
+            manufacturingIPIData.forEach(item => {
+                const row = document.createElement('tr');
+                
+                // Format date
+                const date = new Date(item.date);
+                const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+                
+                row.innerHTML = `
+                    <td>${formattedDate}</td>
+                    <td>${item.index.toFixed(1)}</td>
+                    <td>${item.index_sa.toFixed(1)}</td>
+                    <td class="${item.yoy >= 0 ? 'positive-change' : 'negative-change'}">${item.yoy >= 0 ? '+' : ''}${item.yoy.toFixed(1)}%</td>
+                    <td class="${item.mom >= 0 ? 'positive-change' : 'negative-change'}">${item.mom >= 0 ? '+' : ''}${item.mom.toFixed(1)}%</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // Populate Divisions Table
+        function populateDivisionsTable() {
+            const tableBody = document.getElementById('divisions-table-body');
+            tableBody.innerHTML = '';
+            
+            manufacturingDivisionsData.slice(0, 10).forEach(item => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${item.division}</td>
+                    <td>${item.name}</td>
+                    <td>${item.index.toFixed(1)}</td>
+                    <td class="${item.yoy >= 0 ? 'positive-change' : 'negative-change'}">${item.yoy >= 0 ? '+' : ''}${item.yoy.toFixed(1)}%</td>
+                    <td class="${item.mom >= 0 ? 'positive-change' : 'negative-change'}">${item.mom >= 0 ? '+' : ''}${item.mom.toFixed(1)}%</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // Populate Export vs Domestic Table
+        function populateExportDomesticTable() {
+            const tableBody = document.getElementById('export-domestic-table-body');
+            tableBody.innerHTML = '';
+            
+            exportDomesticData.forEach(item => {
+                const row = document.createElement('tr');
+                
+                // Format date
+                const date = new Date(item.date);
+                const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+                
+                row.innerHTML = `
+                    <td>${formattedDate}</td>
+                    <td>${item.export.toFixed(1)}</td>
+                    <td>${item.domestic.toFixed(1)}</td>
+                    <td>${item.difference >= 0 ? '+' : ''}${item.difference.toFixed(1)}</td>
+                    <td>${item.ratio.toFixed(2)}</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // Initialize tables on page load
+        populateIPITable();
+        populateDivisionsTable();
+        populateExportDomesticTable();
+        
+        // Toggle visibility of custom division selection
+        document.getElementById('division-display').addEventListener('change', function() {
+            const customSelection = document.getElementById('custom-division-selection');
+            if (this.value === 'custom') {
+                customSelection.classList.remove('hidden');
+            } else {
+                customSelection.classList.add('hidden');
+            }
+        });
+        
+        // Toggle visibility of export division selection
+        document.getElementById('export-display').addEventListener('change', function() {
+            const exportSelection = document.getElementById('export-division-selection');
+            if (this.value === 'divisions') {
+                exportSelection.classList.remove('hidden');
+            } else {
+                exportSelection.classList.add('hidden');
+            }
+        });
+        
+        // Update IPI chart based on series type selection
+        document.getElementById('series-type-ipi').addEventListener('change', function() {
+            const seriesType = this.value;
+            let dataField, yAxisLabel;
+            
+            switch(seriesType) {
+                case 'abs':
+                    dataField = 'index';
+                    yAxisLabel = 'Index (2015=100)';
+                    ipiChart.data.datasets[0].data = manufacturingIPIData.map(item => ({x: item.date, y: item.index}));
+                    ipiChart.data.datasets[1].data = manufacturingIPIData.map(item => ({x: item.date, y: item.index_sa}));
+                    ipiChart.data.datasets[0].label = 'Manufacturing (Raw Index)';
+                    ipiChart.data.datasets[1].label = 'Manufacturing (Seasonally Adjusted)';
+                    break;
+                case 'growth_yoy':
+                    dataField = 'yoy';
+                    yAxisLabel = 'Year-on-Year Growth (%)';
+                    ipiChart.data.datasets[0].data = manufacturingIPIData.map(item => ({x: item.date, y: item.yoy}));
+                    ipiChart.data.datasets[1].hidden = true;
+                    ipiChart.data.datasets[0].label = 'Manufacturing (YoY Growth)';
+                    break;
+                case 'growth_mom':
+                    dataField = 'mom';
+                    yAxisLabel = 'Month-on-Month Growth (%)';
+                    ipiChart.data.datasets[0].data = manufacturingIPIData.map(item => ({x: item.date, y: item.mom}));
+                    ipiChart.data.datasets[1].hidden = true;
+                    ipiChart.data.datasets[0].label = 'Manufacturing (MoM Growth)';
+                    break;
+            }
+            
+            ipiChart.options.scales.y.title.text = yAxisLabel;
+            ipiChart.update();
+        });
+        
+        // Show/hide raw and seasonally adjusted data
+        document.getElementById('show-raw').addEventListener('change', function() {
+            ipiChart.data.datasets[0].hidden = !this.checked;
+            ipiChart.update();
+        });
+        
+        document.getElementById('show-sa').addEventListener('change', function() {
+            ipiChart.data.datasets[1].hidden = !this.checked;
+            ipiChart.update();
+        });
+        
+        // Time period selection for IPI tab
+        document.querySelectorAll('#period-ytd, #period-1y, #period-2y, #period-all').forEach(button => {
+            button.addEventListener('click', function() {
+                // Reset all buttons
+                document.querySelectorAll('#period-ytd, #period-1y, #period-2y, #period-all').forEach(btn => {
+                    btn.classList.remove('bg-blue-500', 'text-white');
+                    btn.classList.add('bg-gray-200', 'text-gray-700');
+                });
+                
+                // Activate clicked button
+                this.classList.remove('bg-gray-200', 'text-gray-700');
+                this.classList.add('bg-blue-500', 'text-white');
+                
+                // Filter data based on selected period
+                const now = new Date('2025-02-01');
+                let startDate;
+                
+                switch(this.id) {
+                    case 'period-ytd':
+                        startDate = new Date(now.getFullYear(), 0, 1);
+                        break;
+                    case 'period-1y':
+                        startDate = new Date(now);
+                        startDate.setFullYear(startDate.getFullYear() - 1);
+                        break;
+                    case 'period-2y':
+                        startDate = new Date(now);
+                        startDate.setFullYear(startDate.getFullYear() - 2);
+                        break;
+                    case 'period-all':
+                        startDate = new Date('2023-01-01'); // earliest date in our sample data
+                        break;
+                }
+                
+                // Update chart min time
+                ipiChart.options.scales.x.min = startDate.toISOString();
+                ipiChart.update();
+            });
+        });
+        
+        // Time period selection for Export vs Domestic tab
+        document.querySelectorAll('#export-period-ytd, #export-period-1y, #export-period-2y, #export-period-all').forEach(button => {
+            button.addEventListener('click', function() {
+                // Reset all buttons
+                document.querySelectorAll('#export-period-ytd, #export-period-1y, #export-period-2y, #export-period-all').forEach(btn => {
+                    btn.classList.remove('bg-blue-500', 'text-white');
+                    btn.classList.add('bg-gray-200', 'text-gray-700');
+                });
+                
+                // Activate clicked button
+                this.classList.remove('bg-gray-200', 'text-gray-700');
+                this.classList.add('bg-blue-500', 'text-white');
+                
+                // Filter data based on selected period
+                const now = new Date('2025-02-01');
+                let startDate;
+                
+                switch(this.id) {
+                    case 'export-period-ytd':
+                        startDate = new Date(now.getFullYear(), 0, 1);
+                        break;
+                    case 'export-period-1y':
+                        startDate = new Date(now);
+                        startDate.setFullYear(startDate.getFullYear() - 1);
+                        break;
+                    case 'export-period-2y':
+                        startDate = new Date(now);
+                        startDate.setFullYear(startDate.getFullYear() - 2);
+                        break;
+                    case 'export-period-all':
+                        startDate = new Date('2023-01-01'); // earliest date in our sample data
+                        break;
+                }
+                
+                // Update chart min time
+                exportDomesticChart.options.scales.x.min = startDate.toISOString();
+                exportDomesticChart.update();
+            });
+        });
+    </script>
+</body>
+</html>
