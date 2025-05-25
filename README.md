@@ -1,4 +1,4 @@
-# policylens
+# MyPolicylens
 
 ## To run website on local machine:
 1. cd to 'FullStack\policylens" folder
